@@ -1,0 +1,14 @@
+in 
+in
+mul
+push 4
+in
+in
+sub
+out
+hlt
+
+10
+10
+-2
+5
