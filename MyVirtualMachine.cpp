@@ -2,7 +2,6 @@
 
 int main()
 {
-    readInput();
     readByteCode();
     return 0;
 }

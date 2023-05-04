@@ -1,6 +1,6 @@
 #pragma once
 
-#include "InCommand.cpp"
+#define hlt_str "hlt"
 
 #define in_str "in"
 #define out_str "out"
@@ -11,6 +11,6 @@
 #define mul_str "mul"
 #define div_str "div"
 
-InCommand in_command;
+const int CommandBreakCode = -1;
 
 
