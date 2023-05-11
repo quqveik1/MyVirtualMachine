@@ -17,6 +17,8 @@
 
 void readByteCode()
 {
+    std::locale::global(std::locale("ru_RU.UTF-8"));
+    std::cout.imbue(std::locale());
     std::ifstream file("..\\kvm.bc");
 
     std::string_view fullText;
@@ -25,7 +27,8 @@ void readByteCode()
 
     stringstream << file.rdbuf();
 
-    fullText = stringstream.str();
+    std::string fullTextString = stringstream.str();
+    fullText = fullTextString;
 
     readAndExecuteCommands(fullText);
 
@@ -37,35 +40,56 @@ void readAndExecuteCommands(std::string_view& text)
     int start = 0;
     std::string_view textCommand;
 
+    int callCode = CommandReadErrorCode;
+    int lastLine = 0;
+
     for (int i = 0; ; i++)
     {
         if (start <= i)
         {
-            if (i == text.size())
+            if (i > text.size())
             {
-                textCommand = text.substr(start, i - start);
-                executeCommand(textCommand);
-                return;
+                lastLine++;
+                textCommand = {};
+                callCode = CommandEndFileErrorCode;
+                break;
             }
-            else if (text[i] == '\n')
+            if (i == text.size() || text[i] == '\n')
             {
+                lastLine++;
                 textCommand = text.substr(start, i - start);
                 start = i + 1;
 
-                int callRes = executeCommand(textCommand);
-                if(callRes == CommandBreakCode)
+                callCode = executeCommand(textCommand);
+                if(callCode != WellCode)
                 {
-                    return;
+                    break;
                 }
             }
         }
+    }
+
+    endProgramWithCode(callCode, lastLine - 1, textCommand);
+}
+
+void endProgramWithCode(int code, int lastLine, std::string_view& lastStr)
+{
+    if(code == CommandBreakCode)
+    {
+        std::cout << "Программа завершилась удачно\n";
+    }
+    else
+    {
+        std::cerr << "Программа неудачно завершилась с кодом: " << code << std::endl;
+        std::cerr << "Программа возникла в строке [" << lastLine << "]: " << std::endl;
+        std::cerr << "\"" << lastStr << "\"" << std::endl;
     }
 }
 
 int executeCommand(std::string_view& command)
 {
-    std::string_view commandName;
-    std::string_view commandData;
+    std::string_view commandName{};
+    std::string_view commandData{};
 
     splitCommand(command, commandName, commandData);
 
@@ -76,18 +100,45 @@ int executeCommand(std::string_view& command)
 
 int callCommandByName(std::string_view& commandName, std::string_view& commandData)
 {
-    int res = CommandBreakCode;
+    int res = CommandReadErrorCode;
     if(commandName == in_str)
     {
         res = in_command(AppRuntimeData, commandData);
     }
+
     else if(commandName == out_str)
     {
         res = out_command(AppRuntimeData, commandData);
     }
+
+    else if(commandName == push_str)
+    {
+        res = push_command(AppRuntimeData, commandData);
+    }
+
     else if(commandName == hlt_str)
     {
         res = hlt_command(AppRuntimeData, commandData);
+    }
+
+    else if(commandName == add_str)
+    {
+        res = add_command(AppRuntimeData, commandData);
+    }
+
+    else if(commandName == sub_str)
+    {
+        res = sub_command(AppRuntimeData, commandData);
+    }
+
+    else if(commandName == mul_str)
+    {
+        res = mul_command(AppRuntimeData, commandData);
+    }
+
+    else if(commandName == div_str)
+    {
+        res = div_command(AppRuntimeData, commandData);
     }
 
     return res;
@@ -97,7 +148,10 @@ void splitCommand(std::string_view& fullCommand, std::string_view& commandName, 
 {
     int spacePos = findFirstSpacePos(fullCommand);
     commandName = fullCommand.substr(0, spacePos);
-    commandData = fullCommand.substr(spacePos + 1);
+    if(spacePos >= 0)
+    {
+        commandData = fullCommand.substr(spacePos + 1);
+    }
 }
 
 int findFirstSpacePos(std::string_view& fullCommand)

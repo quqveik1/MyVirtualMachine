@@ -8,13 +8,13 @@
 
 class RuntimeData
 {
-    std::queue<std::string> input;
-    std::queue<int> appData;
+    std::stack<std::string> input;
+    std::stack<int> appData;
 
 public:
-    std::queue<std::string> &getInput();
+    std::stack<std::string> &getInput();
 
-    std::queue<int> &getAppData();
+    std::stack<int> &getAppData();
 };
 
 RuntimeData AppRuntimeData;

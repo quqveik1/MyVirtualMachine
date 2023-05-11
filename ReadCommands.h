@@ -9,3 +9,5 @@ int executeCommand(std::string_view& command);
 int findFirstSpacePos(std::string_view& fullCommand);
 void splitCommand(std::string_view& fullCommand, std::string_view& commandName, std::string_view& commandData);
 int callCommandByName(std::string_view& commandName, std::string_view& commandData);
+
+void endProgramWithCode(int code, int lastLine, std::string_view& lastStr);

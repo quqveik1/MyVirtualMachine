@@ -11,6 +11,8 @@
 #define mul_str "mul"
 #define div_str "div"
 
+const int WellCode = 0;
 const int CommandBreakCode = -1;
 
-
+const int CommandReadErrorCode = -2;
+const int CommandEndFileErrorCode = -3;

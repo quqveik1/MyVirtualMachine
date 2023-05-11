@@ -1,3 +1,11 @@
-in
-in
+push 10
+push 10
+mul
+push 4
+push -2
+push 5
+mul
+mul
+sub
+out
 hlt

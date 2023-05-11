@@ -4,12 +4,12 @@
 #pragma once
 #include "RuntimeData.h"
 
-std::queue<std::string> &RuntimeData::getInput()
+std::stack<std::string> &RuntimeData::getInput()
 {
     return input;
 }
 
-std::queue<int> &RuntimeData::getAppData()
+std::stack<int> &RuntimeData::getAppData()
 {
     return appData;
 }
