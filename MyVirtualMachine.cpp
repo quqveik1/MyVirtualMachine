@@ -1,7 +1,7 @@
 ﻿#include "ReadCommands.cpp"
 
-int main()
+int main(int argc, char** argv)
 {
-    readByteCode();
+    readByteCode(L"");
     return 0;
 }

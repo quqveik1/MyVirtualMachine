@@ -1,15 +1,15 @@
 #pragma once
 
-#define hlt_str "hlt"
+#define hlt_str L"hlt"
 
-#define in_str "in"
-#define out_str "out"
-#define push_str "push"
+#define in_str L"in"
+#define out_str L"out"
+#define push_str L"push"
 
-#define add_str "add"
-#define sub_str "sub"
-#define mul_str "mul"
-#define div_str "div"
+#define add_str L"add"
+#define sub_str L"sub"
+#define mul_str L"mul"
+#define div_str L"div"
 
 const int WellCode = 0;
 const int CommandBreakCode = -1;

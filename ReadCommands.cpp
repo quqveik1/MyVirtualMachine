@@ -4,10 +4,9 @@
 #pragma once
 
 #include <iostream>
-#include <fstream>
-#include <cstring>
 #include <string>
-#include <sstream>
+
+#include "..\StringSort\WStringFnc.cpp"
 
 #include "ReadCommands.h"
 #include "VMConstants.h"
@@ -15,64 +14,41 @@
 #include "CommandConstants.h"
 #include "Commands.cpp"
 
-void readByteCode()
+void readByteCode(std::wstring path)
 {
     std::locale::global(std::locale("ru_RU.UTF-8"));
     std::cout.imbue(std::locale());
-    std::ifstream file("..\\kvm.bc");
 
-    std::string_view fullText;
-
-    std::stringstream stringstream;
-
-    stringstream << file.rdbuf();
-
-    std::string fullTextString = stringstream.str();
-    fullText = fullTextString;
+    std::wstring_view fullText;
+    readText(L"..\\kvm.bc", &fullText);
 
     readAndExecuteCommands(fullText);
-
-    file.close();
 }
 
-void readAndExecuteCommands(std::string_view& text)
+void readAndExecuteCommands(std::wstring_view& text)
 {
-    int start = 0;
-    std::string_view textCommand;
-
     int callCode = CommandReadErrorCode;
     int lastLine = 0;
 
-    for (int i = 0; ; i++)
-    {
-        if (start <= i)
-        {
-            if (i > text.size())
-            {
-                lastLine++;
-                textCommand = {};
-                callCode = CommandEndFileErrorCode;
-                break;
-            }
-            if (i == text.size() || text[i] == '\n')
-            {
-                lastLine++;
-                textCommand = text.substr(start, i - start);
-                start = i + 1;
+    int stramount = findEOLsN_(text) + 1;
+    std::wstring_view* textLines = new std::wstring_view[stramount]{};
+    fromOneCharToStrings(text, textLines);
 
-                callCode = executeCommand(textCommand);
-                if(callCode != WellCode)
-                {
-                    break;
-                }
-            }
+    for(int i = 0; i < stramount; i++)
+    {
+        lastLine++;
+
+        callCode = executeCommand(textLines[i]);
+        if(callCode != WellCode)
+        {
+            break;
         }
     }
 
-    endProgramWithCode(callCode, lastLine - 1, textCommand);
+    endProgramWithCode(callCode, lastLine - 1, textLines[lastLine - 1]);
 }
 
-void endProgramWithCode(int code, int lastLine, std::string_view& lastStr)
+void endProgramWithCode(int code, int lastLine, std::wstring_view& lastStr)
 {
     if(code == CommandBreakCode)
     {
@@ -82,14 +58,14 @@ void endProgramWithCode(int code, int lastLine, std::string_view& lastStr)
     {
         std::cerr << "Программа неудачно завершилась с кодом: " << code << std::endl;
         std::cerr << "Программа возникла в строке [" << lastLine << "]: " << std::endl;
-        std::cerr << "\"" << lastStr << "\"" << std::endl;
+        std::wcerr << L"\"" << lastStr << L"\"" << std::endl;
     }
 }
 
-int executeCommand(std::string_view& command)
+int executeCommand(std::wstring_view& command)
 {
-    std::string_view commandName{};
-    std::string_view commandData{};
+    std::wstring_view commandName{};
+    std::wstring_view commandData{};
 
     splitCommand(command, commandName, commandData);
 
@@ -98,7 +74,7 @@ int executeCommand(std::string_view& command)
     return callRes;
 }
 
-int callCommandByName(std::string_view& commandName, std::string_view& commandData)
+int callCommandByName(std::wstring_view& commandName, std::wstring_view& commandData)
 {
     int res = CommandReadErrorCode;
     if(commandName == in_str)
@@ -144,7 +120,7 @@ int callCommandByName(std::string_view& commandName, std::string_view& commandDa
     return res;
 }
 
-void splitCommand(std::string_view& fullCommand, std::string_view& commandName, std::string_view& commandData)
+void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName, std::wstring_view& commandData)
 {
     int spacePos = findFirstSpacePos(fullCommand);
     commandName = fullCommand.substr(0, spacePos);
@@ -154,7 +130,7 @@ void splitCommand(std::string_view& fullCommand, std::string_view& commandName, 
     }
 }
 
-int findFirstSpacePos(std::string_view& fullCommand)
+int findFirstSpacePos(std::wstring_view& fullCommand)
 {
     for(int i = 0; i < fullCommand.size(); i++)
     {
