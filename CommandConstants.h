@@ -11,6 +11,23 @@
 #define mul_str L"mul"
 #define div_str L"div"
 
+//------------------------------------------------------------------
+
+#define commandError_num -1
+
+#define hlt_num 1
+
+#define in_num   2
+#define out_num  3
+#define push_num 4
+
+#define add_num 5
+#define sub_num 6
+#define mul_num 7
+#define div_num 8
+
+
+
 const int WellCode = 0;
 const int CommandBreakCode = -1;
 
