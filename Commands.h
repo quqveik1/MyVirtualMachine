@@ -5,15 +5,13 @@
 
 #include "RuntimeData.h"
 
-#define RuntimeAppData RuntimeData
+int in_command(RuntimeData& appData, std::wstring_view& commandData);
+int out_command(RuntimeData& appData, std::wstring_view& commandData);
+int push_command(RuntimeData& appData, std::wstring_view& commandData);
 
-int in_command(RuntimeAppData& appData, std::wstring_view& commandData);
-int out_command(RuntimeAppData& appData, std::wstring_view& commandData);
-int push_command(RuntimeAppData& appData, std::wstring_view& commandData);
+int hlt_command(RuntimeData& appData, std::wstring_view& commandData);
 
-int hlt_command(RuntimeAppData& appData, std::wstring_view& commandData);
-
-int add_command(RuntimeAppData& appData, std::wstring_view& commandData);
-int sub_command(RuntimeAppData& appData, std::wstring_view& commandData);
-int mul_command(RuntimeAppData& appData, std::wstring_view& commandData);
-int div_command(RuntimeAppData& appData, std::wstring_view& commandData);
+int add_command(RuntimeData& appData, std::wstring_view& commandData);
+int sub_command(RuntimeData& appData, std::wstring_view& commandData);
+int mul_command(RuntimeData& appData, std::wstring_view& commandData);
+int div_command(RuntimeData& appData, std::wstring_view& commandData);

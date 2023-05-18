@@ -4,11 +4,6 @@
 #pragma once
 #include "RuntimeData.h"
 
-std::stack<std::string> &RuntimeData::getInput()
-{
-    return input;
-}
-
 std::stack<int> &RuntimeData::getAppData()
 {
     return appData;

@@ -7,7 +7,7 @@
 #include "StackFunc.cpp"
 #include "CommandConstants.h"
 
-int in_command(RuntimeAppData& appData, std::wstring_view & commandData)
+int in_command(RuntimeData& appData, std::wstring_view & commandData)
 {
     int num = 0;
     std::cin >> num;
@@ -16,7 +16,7 @@ int in_command(RuntimeAppData& appData, std::wstring_view & commandData)
     return 0;
 }
 
-int out_command(RuntimeAppData& appData, std::wstring_view& commandData)
+int out_command(RuntimeData& appData, std::wstring_view& commandData)
 {
     int num = peek(appData.getAppData());
     std::cout << num << std::endl;
@@ -24,7 +24,7 @@ int out_command(RuntimeAppData& appData, std::wstring_view& commandData)
     return 0;
 }
 
-int push_command(RuntimeAppData& appData, std::wstring_view& commandData)
+int push_command(RuntimeData& appData, std::wstring_view& commandData)
 {
     int num = 0;
     num = _wtoi(commandData.data());
@@ -33,12 +33,12 @@ int push_command(RuntimeAppData& appData, std::wstring_view& commandData)
     return 0;
 }
 
-int hlt_command(RuntimeAppData& appData, std::wstring_view& commandData)
+int hlt_command(RuntimeData& appData, std::wstring_view& commandData)
 {
     return CommandBreakCode;
 }
 
-int add_command(RuntimeAppData& appData, std::wstring_view& commandData)
+int add_command(RuntimeData& appData, std::wstring_view& commandData)
 {
     int a = 0, b = 0;
 
@@ -52,7 +52,7 @@ int add_command(RuntimeAppData& appData, std::wstring_view& commandData)
     return 0;
 }
 
-int sub_command(RuntimeAppData& appData, std::wstring_view& commandData)
+int sub_command(RuntimeData& appData, std::wstring_view& commandData)
 {
 
     int a = 0, b = 0;
@@ -67,7 +67,7 @@ int sub_command(RuntimeAppData& appData, std::wstring_view& commandData)
     return 0;
 }
 
-int mul_command(RuntimeAppData& appData, std::wstring_view& commandData)
+int mul_command(RuntimeData& appData, std::wstring_view& commandData)
 {
     int a = 0, b = 0;
 
@@ -81,7 +81,7 @@ int mul_command(RuntimeAppData& appData, std::wstring_view& commandData)
     return 0;
 }
 
-int div_command(RuntimeAppData& appData, std::wstring_view& commandData)
+int div_command(RuntimeData& appData, std::wstring_view& commandData)
 {
     int a = 0, b = 0;
 

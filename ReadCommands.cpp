@@ -1,6 +1,4 @@
-//
-// Created by Kurlic on 04.05.2023.
-//
+
 #pragma once
 
 #include <iostream>
@@ -16,13 +14,15 @@
 
 void readByteCode(std::wstring path)
 {
-    std::locale::global(std::locale("ru_RU.UTF-8"));
+    setlocale(LC_ALL, "ru_RU.UTF-8");
     std::cout.imbue(std::locale());
 
     std::wstring_view fullText;
-    readText(L"..\\kvm.bc", &fullText);
+    readText(path, &fullText);
 
     readAndExecuteCommands(fullText);
+
+    delete fullText.data();
 }
 
 void readAndExecuteCommands(std::wstring_view& text)
@@ -30,9 +30,8 @@ void readAndExecuteCommands(std::wstring_view& text)
     int callCode = CommandReadErrorCode;
     int lastLine = 0;
 
-    int stramount = findEOLsN_(text) + 1;
-    std::wstring_view* textLines = new std::wstring_view[stramount]{};
-    fromOneCharToStrings(text, textLines);
+    std::wstring_view* textLines = NULL;
+    int stramount = separateTextByLinesToArr(text, &textLines);
 
     for(int i = 0; i < stramount; i++)
     {
@@ -56,9 +55,9 @@ void endProgramWithCode(int code, int lastLine, std::wstring_view& lastStr)
     }
     else
     {
-        std::cerr << "Программа неудачно завершилась с кодом: " << code << std::endl;
-        std::cerr << "Программа возникла в строке [" << lastLine << "]: " << std::endl;
-        std::wcerr << L"\"" << lastStr << L"\"" << std::endl;
+        std::cout << "Программа неудачно завершилась с кодом: " << code << std::endl;
+        std::cout << "Программа возникла в строке [" << lastLine << "]: " << std::endl;
+        std::wcout << L"\"" << lastStr << L"\"" << std::endl;
     }
 }
 
@@ -77,46 +76,48 @@ int executeCommand(std::wstring_view& command)
 int callCommandByName(std::wstring_view& commandName, std::wstring_view& commandData)
 {
     int res = CommandReadErrorCode;
-    if(commandName == in_str)
+
+    if(_wcsnicmp(commandName.data(), in_str, commandName.size()) == 0)
     {
         res = in_command(AppRuntimeData, commandData);
     }
 
-    else if(commandName == out_str)
+    else if(_wcsnicmp(commandName.data(), out_str, commandName.size()) == 0)
     {
         res = out_command(AppRuntimeData, commandData);
     }
 
-    else if(commandName == push_str)
+    else if(_wcsnicmp(commandName.data(), push_str, commandName.size()) == 0)
     {
         res = push_command(AppRuntimeData, commandData);
     }
 
-    else if(commandName == hlt_str)
+    else if(_wcsnicmp(commandName.data(), hlt_str, commandName.size()) == 0)
     {
         res = hlt_command(AppRuntimeData, commandData);
     }
 
-    else if(commandName == add_str)
+    else if(_wcsnicmp(commandName.data(), add_str, commandName.size()) == 0)
     {
         res = add_command(AppRuntimeData, commandData);
     }
 
-    else if(commandName == sub_str)
+    else if(_wcsnicmp(commandName.data(), sub_str, commandName.size()) == 0)
     {
         res = sub_command(AppRuntimeData, commandData);
     }
 
-    else if(commandName == mul_str)
+    else if(_wcsnicmp(commandName.data(), mul_str, commandName.size()) == 0)
     {
         res = mul_command(AppRuntimeData, commandData);
     }
 
-    else if(commandName == div_str)
+    else if(_wcsnicmp(commandName.data(), div_str, commandName.size()) == 0)
     {
         res = div_command(AppRuntimeData, commandData);
     }
 
+    //длина команды * количество команд * количество команд в файле * позиция команды в списке из которого мы выбираем
     return res;
 }
 
@@ -132,7 +133,7 @@ void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName
 
 int findFirstSpacePos(std::wstring_view& fullCommand)
 {
-    for(int i = 0; i < fullCommand.size(); i++)
+    for(int i = 0; i < (int)fullCommand.size(); i++)
     {
         if (fullCommand[i] == ' ')
         {
@@ -141,27 +142,3 @@ int findFirstSpacePos(std::wstring_view& fullCommand)
     }
     return -1;
 }
-
-void readInput()
-{
-    std::ifstream file("..\\runtimeData.txt");
-
-    bool isFileOpen = file.is_open();
-
-    std::string line;
-    for(;;)
-    {
-        if(std::getline(file, line))
-        {
-            AppRuntimeData.getInput().push(line);
-            std::cout << line << std::endl;
-        }
-        else
-        {
-            break;
-        }
-    }
-
-    file.close();
-}
-

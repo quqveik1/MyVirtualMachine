@@ -8,12 +8,9 @@
 
 class RuntimeData
 {
-    std::stack<std::string> input;
     std::stack<int> appData;
 
 public:
-    std::stack<std::string> &getInput();
-
     std::stack<int> &getAppData();
 };
 
