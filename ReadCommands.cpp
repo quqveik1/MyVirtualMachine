@@ -15,7 +15,6 @@
 void readByteCode(std::wstring path)
 {
     setlocale(LC_ALL, "ru_RU.UTF-8");
-    std::cout.imbue(std::locale());
 
     std::wstring_view fullText;
     readText(path, &fullText);
@@ -77,42 +76,42 @@ int callCommandByName(std::wstring_view& commandName, std::wstring_view& command
 {
     int res = CommandReadErrorCode;
 
-    if(_wcsnicmp(commandName.data(), in_str, commandName.size()) == 0)
+    if(_wcsnicmp(commandName.data(), in_strnum, commandName.size()) == 0)
     {
         res = in_command(AppRuntimeData, commandData);
     }
 
-    else if(_wcsnicmp(commandName.data(), out_str, commandName.size()) == 0)
+    else if(_wcsnicmp(commandName.data(), out_strnum, commandName.size()) == 0)
     {
         res = out_command(AppRuntimeData, commandData);
     }
 
-    else if(_wcsnicmp(commandName.data(), push_str, commandName.size()) == 0)
+    else if(_wcsnicmp(commandName.data(), push_strnum, commandName.size()) == 0)
     {
         res = push_command(AppRuntimeData, commandData);
     }
 
-    else if(_wcsnicmp(commandName.data(), hlt_str, commandName.size()) == 0)
+    else if(_wcsnicmp(commandName.data(), hlt_strnum, commandName.size()) == 0)
     {
         res = hlt_command(AppRuntimeData, commandData);
     }
 
-    else if(_wcsnicmp(commandName.data(), add_str, commandName.size()) == 0)
+    else if(_wcsnicmp(commandName.data(), add_strnum, commandName.size()) == 0)
     {
         res = add_command(AppRuntimeData, commandData);
     }
 
-    else if(_wcsnicmp(commandName.data(), sub_str, commandName.size()) == 0)
+    else if(_wcsnicmp(commandName.data(), sub_strnum, commandName.size()) == 0)
     {
         res = sub_command(AppRuntimeData, commandData);
     }
 
-    else if(_wcsnicmp(commandName.data(), mul_str, commandName.size()) == 0)
+    else if(_wcsnicmp(commandName.data(), mul_strnum, commandName.size()) == 0)
     {
         res = mul_command(AppRuntimeData, commandData);
     }
 
-    else if(_wcsnicmp(commandName.data(), div_str, commandName.size()) == 0)
+    else if(_wcsnicmp(commandName.data(), div_strnum, commandName.size()) == 0)
     {
         res = div_command(AppRuntimeData, commandData);
     }

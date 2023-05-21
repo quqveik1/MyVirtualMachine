@@ -25,8 +25,21 @@
 #define sub_num 6
 #define mul_num 7
 #define div_num 8
+                      
+//------------------------------------------------------------------
 
+#define commandError_strnum L"-1"
 
+#define hlt_strnum L"1"
+
+#define in_strnum   L"2"
+#define out_strnum  L"3"
+#define push_strnum L"4"
+
+#define add_strnum L"5"
+#define sub_strnum L"6"
+#define mul_strnum L"7"
+#define div_strnum L"8"
 
 const int WellCode = 0;
 const int CommandBreakCode = -1;
