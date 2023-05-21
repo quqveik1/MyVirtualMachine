@@ -1,5 +1,6 @@
 
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <string>
@@ -14,19 +15,56 @@
 #include <charconv>
 
 COMMANDTYPE commandsArr[cCommands + 1]{};
+int commandDataSizeArr[cCommands + 1]{};
 
-void readByteCode(std::wstring path)
+void readByteCode(std::string path)
 {
     initCommandsArr();
 
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    std::wstring_view fullText;
-    readText(path, &fullText);
+    //std::wstring_view fullText;
+    //readText(path, &fullText);
+    
+    FILE* file = fopen(path.c_str(), "r");
 
-    readAndExecuteCommands(fullText);
+    long size = fileSize(file);
 
-    delete fullText.data();
+    DataStack dataStack;
+    dataStack.size = size;
+    dataStack.arr = new char[size];
+    
+
+    fread(dataStack.arr, sizeof(char), size, file);
+
+    fclose(file);
+    
+
+
+    readAndExecuteCommands(dataStack);
+}
+
+long fileSize(FILE* File)
+{
+    struct stat buff = {};
+    buff.st_size = -1;
+
+    fstat(_fileno(File), &buff);
+
+    return buff.st_size;
+
+}
+
+void initSizeArr()
+{
+    commandDataSizeArr[in_num] = 0;
+    commandDataSizeArr[out_num] = 0;
+    commandDataSizeArr[push_num] = (int)sizeof(int);
+    commandDataSizeArr[hlt_num] = 0;
+    commandDataSizeArr[add_num] = 0;
+    commandDataSizeArr[sub_num] = 0;
+    commandDataSizeArr[mul_num] = 0;
+    commandDataSizeArr[div_num] = 0;
 }
 
 void initCommandsArr()
@@ -41,26 +79,25 @@ void initCommandsArr()
     commandsArr[div_num] = div_command;
 }
 
-void readAndExecuteCommands(std::wstring_view& text)
+void readAndExecuteCommands(DataStack& data)
 {
     int callCode = CommandReadErrorCode;
     int lastLine = 0;
 
-    std::wstring_view* textLines = NULL;
-    int stramount = separateTextByLinesToArr(text, &textLines);
+    //int stramount = separateTextByLinesToArr(text, &textLines);
 
-    for(int i = 0; i < stramount; i++)
+    for(int i = 0; ; i++)
     {
         lastLine++;
 
-        callCode = executeCommand(textLines[i]);
+        callCode = executeCommand(data);
         if(callCode != WellCode)
         {
             break;
         }
     }
 
-    endProgramWithCode(callCode, lastLine - 1, textLines[lastLine - 1]);
+    endProgramWithCode(callCode, lastLine - 1);
 }
 
 int readIntCommands(int* commandsArr, std::wstring path)
@@ -68,7 +105,7 @@ int readIntCommands(int* commandsArr, std::wstring path)
     return 0;
 }
 
-void endProgramWithCode(int code, int lastLine, std::wstring_view& lastStr)
+void endProgramWithCode(int code, int lastLine)
 {
     if(code == CommandBreakCode)
     {
@@ -77,36 +114,25 @@ void endProgramWithCode(int code, int lastLine, std::wstring_view& lastStr)
     else
     {
         std::cout << "Программа неудачно завершилась с кодом: " << code << std::endl;
-        std::cout << "Программа возникла в строке [" << lastLine << "]: " << std::endl;
-        std::wcout << L"\"" << lastStr << L"\"" << std::endl;
+        //std::cout << "Программа возникла в строке [" << lastLine << "]: " << std::endl;
+        //std::wcout << L"\"" << lastStr << L"\"" << std::endl;
     }
 }
 
-int executeCommand(std::wstring_view& command)
+int executeCommand(DataStack& data)
 {
-    std::wstring_view commandName{};
-    std::wstring_view commandData{};
-
-    splitCommand(command, commandName, commandData);
-
-    int callRes = callCommandByName(commandName, commandData);
-
-    return callRes;
-}
-
-int callCommandByName(std::wstring_view& commandName, std::wstring_view& commandData)
-{
-    int res = CommandReadErrorCode;
-    int commandNum = std::stoi(std::wstring(commandName));
-
+    int commandNum = *(int*)data.peek(sizeof(int));
     if (commandNum >= 0)
     {
-        res = commandsArr[commandNum](AppRuntimeData, commandData);
+        char* commandData = data.peek(commandDataSizeArr[commandNum]);
+
+        int callRes = commandsArr[commandNum](AppRuntimeData, commandData);
+        return callRes;
     }
 
-    //длина команды * количество команд * количество команд в файле * позиция команды в списке из которого мы выбираем
-    return res;
+    return CommandReadErrorCode;
 }
+
 
 void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName, std::wstring_view& commandData)
 {

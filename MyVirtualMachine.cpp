@@ -2,6 +2,6 @@
 
 int main(int argc, char** argv)
 {
-    readByteCode(L"kvm.bcn");
+    readByteCode("kvm.bcn");
     return 0;
 }

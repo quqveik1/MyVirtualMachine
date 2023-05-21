@@ -10,27 +10,37 @@ void convertToNum(std::wstring path)
 
     int cLines = separateTextByLinesToArr(fullText, &lines);
 
-    std::wstring* newLines = new std::wstring[cLines]{};
+    std::wstring_view* dataLines = new std::wstring_view[cLines]{};
     int* commandNums = new int[cLines]{};
 
-    interpretText(lines, newLines, commandNums, cLines);
+    std::vector<int> intByteArr(cLines);
 
-    save2Files(lines, newLines, commandNums, cLines, path);
+    interpretText(lines, dataLines, commandNums, cLines);
+
+    save2Files(lines, dataLines, commandNums, cLines, path);
 
     delete fullText.data();
 }
 
-void save2Files(std::wstring_view* oldLines, std::wstring* newLines, int* commandNums, int cLines, std::wstring path)
+void save2Files(std::wstring_view* oldLines, std::wstring_view* dataLines, int* commandNums, int cLines, std::wstring path)
 {
-    std::wstring intSavePath = path + L'c';
-    std::ofstream file(intSavePath);
-
-    saveText(newLines, cLines, file, false);
+    std::wstring savePath = path + L'c';
+    std::ofstream file(savePath, std::ios::binary);
+    
+    for (int i = 0; i < cLines; i++)
+    {
+        file.write((char*)&commandNums[i], sizeof(int));
+        if (!dataLines[i].empty())
+        {
+            int nums = _wtoi(dataLines[i].data());
+            file.write((char*)&nums, sizeof(int));
+        }
+    }
 
     file.close();
 }
 
-void interpretText(std::wstring_view* oldLines, std::wstring* newLines, int* commandNums, int cLines)
+void interpretText(std::wstring_view* oldLines, std::wstring_view* dataLines, int* commandNums, int cLines)
 {
     for (int i = 0; i < cLines; i++)
     {
@@ -39,8 +49,8 @@ void interpretText(std::wstring_view* oldLines, std::wstring* newLines, int* com
         splitCommand(oldLines[i], commandName, commandData);
 
         int commandNum = getCommandNum(commandName);
-        writeOneLine(commandNum, commandData, newLines[i]);
         commandNums[i] = commandNum;
+        dataLines[i] = commandData;
     }
 }
 
@@ -49,6 +59,21 @@ int writeOneLine(int commandNum, std::wstring_view& commandData, std::wstring& l
     line = std::to_wstring(commandNum) + L" " + std::wstring(commandData);
     return 0;
 }
+
+/*
+push 10
+add
+push 10
+mul
+
+->
+
+5 10
+3
+5 10
+4
+
+*/
 
 int getCommandNum(std::wstring_view& commandName)
 {
