@@ -3,6 +3,7 @@
 //
 #pragma once
 
+void initCommandsArr();
 void readByteCode(std::wstring path);
 void readAndExecuteCommands(std::wstring_view& text);
 int executeCommand(std::wstring_view& command);

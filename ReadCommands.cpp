@@ -11,9 +11,14 @@
 #include "RuntimeData.cpp"
 #include "CommandConstants.h"
 #include "Commands.cpp"
+#include <charconv>
+
+COMMANDTYPE commandsArr[cCommands + 1]{};
 
 void readByteCode(std::wstring path)
 {
+    initCommandsArr();
+
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
     std::wstring_view fullText;
@@ -22,6 +27,18 @@ void readByteCode(std::wstring path)
     readAndExecuteCommands(fullText);
 
     delete fullText.data();
+}
+
+void initCommandsArr()
+{
+    commandsArr[in_num] = in_command;
+    commandsArr[out_num] = out_command;
+    commandsArr[push_num] = push_command;
+    commandsArr[hlt_num] = hlt_command;
+    commandsArr[add_num] = add_command;
+    commandsArr[sub_num] = sub_command;
+    commandsArr[mul_num] = mul_command;
+    commandsArr[div_num] = div_command;
 }
 
 void readAndExecuteCommands(std::wstring_view& text)
@@ -44,6 +61,11 @@ void readAndExecuteCommands(std::wstring_view& text)
     }
 
     endProgramWithCode(callCode, lastLine - 1, textLines[lastLine - 1]);
+}
+
+int readIntCommands(int* commandsArr, std::wstring path)
+{
+    return 0;
 }
 
 void endProgramWithCode(int code, int lastLine, std::wstring_view& lastStr)
@@ -75,45 +97,11 @@ int executeCommand(std::wstring_view& command)
 int callCommandByName(std::wstring_view& commandName, std::wstring_view& commandData)
 {
     int res = CommandReadErrorCode;
+    int commandNum = std::stoi(std::wstring(commandName));
 
-    if(_wcsnicmp(commandName.data(), in_strnum, commandName.size()) == 0)
+    if (commandNum >= 0)
     {
-        res = in_command(AppRuntimeData, commandData);
-    }
-
-    else if(_wcsnicmp(commandName.data(), out_strnum, commandName.size()) == 0)
-    {
-        res = out_command(AppRuntimeData, commandData);
-    }
-
-    else if(_wcsnicmp(commandName.data(), push_strnum, commandName.size()) == 0)
-    {
-        res = push_command(AppRuntimeData, commandData);
-    }
-
-    else if(_wcsnicmp(commandName.data(), hlt_strnum, commandName.size()) == 0)
-    {
-        res = hlt_command(AppRuntimeData, commandData);
-    }
-
-    else if(_wcsnicmp(commandName.data(), add_strnum, commandName.size()) == 0)
-    {
-        res = add_command(AppRuntimeData, commandData);
-    }
-
-    else if(_wcsnicmp(commandName.data(), sub_strnum, commandName.size()) == 0)
-    {
-        res = sub_command(AppRuntimeData, commandData);
-    }
-
-    else if(_wcsnicmp(commandName.data(), mul_strnum, commandName.size()) == 0)
-    {
-        res = mul_command(AppRuntimeData, commandData);
-    }
-
-    else if(_wcsnicmp(commandName.data(), div_strnum, commandName.size()) == 0)
-    {
-        res = div_command(AppRuntimeData, commandData);
+        res = commandsArr[commandNum](AppRuntimeData, commandData);
     }
 
     //длина команды * количество команд * количество команд в файле * позиция команды в списке из которого мы выбираем

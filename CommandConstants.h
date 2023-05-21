@@ -1,5 +1,7 @@
 #pragma once
 
+const int cCommands = 8;
+
 #define hlt_str L"hlt"
 
 #define in_str L"in"

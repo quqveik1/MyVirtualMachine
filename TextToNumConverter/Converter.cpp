@@ -11,27 +11,36 @@ void convertToNum(std::wstring path)
     int cLines = separateTextByLinesToArr(fullText, &lines);
 
     std::wstring* newLines = new std::wstring[cLines]{};
+    int* commandNums = new int[cLines]{};
 
-    interpretText(lines, newLines, cLines);
+    interpretText(lines, newLines, commandNums, cLines);
 
-    std::wstring savePath = path + L'n';
-    std::ofstream file(savePath);
-
-    saveText(newLines, cLines, file, false);
-    file.close();
+    save2Files(lines, newLines, commandNums, cLines, path);
 
     delete fullText.data();
 }
 
-void interpretText(std::wstring_view* oldLines, std::wstring* newLines, int cLines)
+void save2Files(std::wstring_view* oldLines, std::wstring* newLines, int* commandNums, int cLines, std::wstring path)
+{
+    std::wstring intSavePath = path + L'c';
+    std::ofstream file(intSavePath);
+
+    saveText(newLines, cLines, file, false);
+
+    file.close();
+}
+
+void interpretText(std::wstring_view* oldLines, std::wstring* newLines, int* commandNums, int cLines)
 {
     for (int i = 0; i < cLines; i++)
     {
         std::wstring_view commandName{};
         std::wstring_view commandData{};
         splitCommand(oldLines[i], commandName, commandData);
+
         int commandNum = getCommandNum(commandName);
         writeOneLine(commandNum, commandData, newLines[i]);
+        commandNums[i] = commandNum;
     }
 }
 
