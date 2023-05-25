@@ -20,6 +20,7 @@ int commandDataSizeArr[cCommands + 1]{};
 void readByteCode(std::string path)
 {
     initCommandsArr();
+    initSizeArr();
 
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
@@ -31,11 +32,10 @@ void readByteCode(std::string path)
     long size = fileSize(file);
 
     DataStack dataStack;
-    dataStack.size = size;
-    dataStack.arr = new char[size];
-    
+    dataStack.setSize(size);
+    dataStack.setArr(new char[size]);
 
-    fread(dataStack.arr, sizeof(char), size, file);
+    fread(dataStack.get(0), sizeof(char), size, file);
 
     fclose(file);
     
@@ -84,8 +84,6 @@ void readAndExecuteCommands(DataStack& data)
     int callCode = CommandReadErrorCode;
     int lastLine = 0;
 
-    //int stramount = separateTextByLinesToArr(text, &textLines);
-
     for(int i = 0; ; i++)
     {
         lastLine++;
@@ -122,7 +120,7 @@ void endProgramWithCode(int code, int lastLine)
 int executeCommand(DataStack& data)
 {
     int commandNum = *(int*)data.peek(sizeof(int));
-    if (commandNum >= 0)
+    if (isCommandNumValid(commandNum))
     {
         char* commandData = data.peek(commandDataSizeArr[commandNum]);
 

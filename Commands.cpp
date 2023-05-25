@@ -26,7 +26,7 @@ int out_command(RuntimeData& appData, char* commandData)
 
 int push_command(RuntimeData& appData, char* commandData)
 {
-    int num = 0;
+    int num = *(int*)commandData;
     appData.getAppData().push(num);
 
     return 0;

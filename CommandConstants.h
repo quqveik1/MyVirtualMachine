@@ -27,6 +27,17 @@ const int cCommands = 8;
 #define sub_num 6
 #define mul_num 7
 #define div_num 8
+
+//------------------------------------------------------------------
+
+bool isCommandNumValid(int num)
+{
+    if (0 <= num && num <= cCommands)
+    {
+        return true;
+    }
+    return false;
+}
                       
 //------------------------------------------------------------------
 

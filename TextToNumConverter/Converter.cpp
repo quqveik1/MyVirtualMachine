@@ -40,7 +40,7 @@ void save2Files(std::wstring_view* oldLines, std::wstring_view* dataLines, int* 
     file.close();
 }
 
-void interpretText(std::wstring_view* oldLines, std::wstring_view* dataLines, int* commandNums, int cLines)
+void interpretText(std::wstring_view* oldLines, char* dataLines, int* commandNums, int cLines)
 {
     for (int i = 0; i < cLines; i++)
     {
@@ -50,7 +50,7 @@ void interpretText(std::wstring_view* oldLines, std::wstring_view* dataLines, in
 
         int commandNum = getCommandNum(commandName);
         commandNums[i] = commandNum;
-        dataLines[i] = commandData;
+        //dataLines[i] = commandData;
     }
 }
 
