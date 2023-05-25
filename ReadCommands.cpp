@@ -38,8 +38,6 @@ void readByteCode(std::string path)
 
     fclose(file);
     
-
-
     readAndExecuteCommands(dataStack);
 }
 
@@ -51,7 +49,6 @@ long fileSize(FILE* File)
     fstat(_fileno(File), &buff);
 
     return buff.st_size;
-
 }
 
 void readAndExecuteCommands(DataStack& data)

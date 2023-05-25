@@ -4,6 +4,8 @@
 
 void convertToNum(std::wstring path)
 {
+    setlocale(LC_ALL, "russian");
+
     initCompileArr();
     initSizeArr();
 
@@ -14,16 +16,23 @@ void convertToNum(std::wstring path)
 
     int cLines = separateTextByLinesToArr(fullText, &lines);
 
+    std::vector<int> dataArr(cLines * 2, 0);
+
     char** dataLines = new char*[cLines]{};
     int* commandNums = new int[cLines]{};
 
-    interpretText(lines, dataLines, commandNums, cLines);
+    int runRes = interpretText(lines, dataLines, commandNums, cLines);
 
-    save2Files(lines, dataLines, commandNums, cLines, path);
+    if (runRes != WellCode)
+    {
+        std::wcout << L"Ошибка перевода в байтовый вид, код: " << runRes << L"\n";
+    }
+    else
+    {
+        save2Files(lines, dataLines, commandNums, cLines, path);
+    }
 
-    clearMem(dataLines, commandNums, cLines);
-
-    delete fullText.data();
+    clearMem(fullText, dataLines, commandNums, cLines); 
 }
 
 void save2Files(std::wstring_view* oldLines, char** dataLines, int* commandNums, int cLines, std::wstring path)
@@ -43,8 +52,10 @@ void save2Files(std::wstring_view* oldLines, char** dataLines, int* commandNums,
     file.close();
 }
 
-void clearMem(char** dataLines, int* commandNums, int cLines)
+void clearMem(std::wstring_view& fullText, char** dataLines, int* commandNums, int cLines)
 {
+    delete fullText.data();
+
     for (int i = 0; i < cLines; i++)
     {
         delete dataLines[i];
@@ -68,6 +79,8 @@ int interpretText(std::wstring_view* oldLines, char** dataLines, int* commandNum
 
         if (!isCommandNumValid(commandNum))
         {
+            std::wcout << L"Ошибка в распозновании команды в строке (" << i << L") [" << commandName << L"]\n";
+            std::wcout << L"\"" << oldLines[i] << "\"\n";
             return CommandReadErrorCode;
         }
 
@@ -79,12 +92,6 @@ int interpretText(std::wstring_view* oldLines, char** dataLines, int* commandNum
         }
     }
     return WellCode;
-}
-
-int writeOneLine(int commandNum, std::wstring_view& commandData, std::wstring& line)
-{
-    line = std::to_wstring(commandNum) + L" " + std::wstring(commandData);
-    return 0;
 }
 
 /*
