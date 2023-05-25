@@ -54,6 +54,8 @@ bool isCommandNumValid(int num)
 #define mul_strnum L"7"
 #define div_strnum L"8"
 
+//------------------------------------------------------------------
+
 const int WellCode = 0;
 const int CommandBreakCode = -1;
 

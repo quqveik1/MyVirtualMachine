@@ -13,9 +13,8 @@
 #include "CommandConstants.h"
 #include "Commands.cpp"
 #include <charconv>
+#include "FncArrs.cpp"
 
-COMMANDTYPE commandsArr[cCommands + 1]{};
-int commandDataSizeArr[cCommands + 1]{};
 
 void readByteCode(std::string path)
 {
@@ -53,30 +52,6 @@ long fileSize(FILE* File)
 
     return buff.st_size;
 
-}
-
-void initSizeArr()
-{
-    commandDataSizeArr[in_num] = 0;
-    commandDataSizeArr[out_num] = 0;
-    commandDataSizeArr[push_num] = (int)sizeof(int);
-    commandDataSizeArr[hlt_num] = 0;
-    commandDataSizeArr[add_num] = 0;
-    commandDataSizeArr[sub_num] = 0;
-    commandDataSizeArr[mul_num] = 0;
-    commandDataSizeArr[div_num] = 0;
-}
-
-void initCommandsArr()
-{
-    commandsArr[in_num] = in_command;
-    commandsArr[out_num] = out_command;
-    commandsArr[push_num] = push_command;
-    commandsArr[hlt_num] = hlt_command;
-    commandsArr[add_num] = add_command;
-    commandsArr[sub_num] = sub_command;
-    commandsArr[mul_num] = mul_command;
-    commandsArr[div_num] = div_command;
 }
 
 void readAndExecuteCommands(DataStack& data)

@@ -52,8 +52,6 @@ public:
 
 };
 
-void initCommandsArr();
-void initSizeArr();
 void readByteCode(std::string path);
 long fileSize(FILE* File);
 void readAndExecuteCommands(DataStack& data);

@@ -1,8 +1,12 @@
 #pragma once
 #include "Converter.h"
+#include "../CompileCommands.cpp"
 
 void convertToNum(std::wstring path)
 {
+    initCompileArr();
+    initSizeArr();
+
     std::wstring_view fullText{};
     readText(path, &fullText);
 
@@ -10,19 +14,19 @@ void convertToNum(std::wstring path)
 
     int cLines = separateTextByLinesToArr(fullText, &lines);
 
-    std::wstring_view* dataLines = new std::wstring_view[cLines]{};
+    char** dataLines = new char*[cLines]{};
     int* commandNums = new int[cLines]{};
-
-    std::vector<int> intByteArr(cLines);
 
     interpretText(lines, dataLines, commandNums, cLines);
 
     save2Files(lines, dataLines, commandNums, cLines, path);
 
+    clearMem(dataLines, commandNums, cLines);
+
     delete fullText.data();
 }
 
-void save2Files(std::wstring_view* oldLines, std::wstring_view* dataLines, int* commandNums, int cLines, std::wstring path)
+void save2Files(std::wstring_view* oldLines, char** dataLines, int* commandNums, int cLines, std::wstring path)
 {
     std::wstring savePath = path + L'c';
     std::ofstream file(savePath, std::ios::binary);
@@ -30,17 +34,28 @@ void save2Files(std::wstring_view* oldLines, std::wstring_view* dataLines, int* 
     for (int i = 0; i < cLines; i++)
     {
         file.write((char*)&commandNums[i], sizeof(int));
-        if (!dataLines[i].empty())
+        if (dataLines[i])
         {
-            int nums = _wtoi(dataLines[i].data());
-            file.write((char*)&nums, sizeof(int));
+            file.write(dataLines[i], commandDataSizeArr[commandNums[i]]);
         }
     }
 
     file.close();
 }
 
-void interpretText(std::wstring_view* oldLines, char* dataLines, int* commandNums, int cLines)
+void clearMem(char** dataLines, int* commandNums, int cLines)
+{
+    for (int i = 0; i < cLines; i++)
+    {
+        delete dataLines[i];
+    }
+
+    delete[] dataLines;
+
+    delete[] commandNums;
+}
+
+int interpretText(std::wstring_view* oldLines, char** dataLines, int* commandNums, int cLines)
 {
     for (int i = 0; i < cLines; i++)
     {
@@ -50,8 +65,20 @@ void interpretText(std::wstring_view* oldLines, char* dataLines, int* commandNum
 
         int commandNum = getCommandNum(commandName);
         commandNums[i] = commandNum;
-        //dataLines[i] = commandData;
+
+        if (!isCommandNumValid(commandNum))
+        {
+            return CommandReadErrorCode;
+        }
+
+        COMMANDCOMPILETYPE fnc = commandsCompileArr[commandNum];
+
+        if (fnc != NULL)
+        {
+            dataLines[i] = fnc(commandData);
+        }
     }
+    return WellCode;
 }
 
 int writeOneLine(int commandNum, std::wstring_view& commandData, std::wstring& line)
