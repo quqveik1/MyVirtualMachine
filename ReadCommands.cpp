@@ -12,8 +12,8 @@
 #include "RuntimeData.cpp"
 #include "CommandConstants.h"
 #include "Commands.cpp"
-#include <charconv>
 #include "FncArrs.cpp"
+#include "FileHeader.cpp"
 
 
 void readByteCode(std::string path)
@@ -23,22 +23,40 @@ void readByteCode(std::string path)
 
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    //std::wstring_view fullText;
-    //readText(path, &fullText);
-    
+    DataStack dataStack;
+
+    int readRes = compiledFileWork(path, dataStack);
+
+    if (readRes == WellCode)
+    {
+        readAndExecuteCommands(dataStack);
+    }
+}
+
+int compiledFileWork(std::string& path, DataStack& dataStack)
+{
     FILE* file = fopen(path.c_str(), "r");
+
+    FileHeader fileHeader{};
+
+    fread(&fileHeader, sizeof(FileHeader), 1, file);
+
+    bool valRes = fileHeader.validate();
+
+    if (!valRes)
+    {
+        std::cout << "Ошибка чтения заголовка файла\n";
+        return FileHeaderReadErrorCode;
+    }
 
     long size = fileSize(file);
 
-    DataStack dataStack;
     dataStack.setSize(size);
     dataStack.setArr(new char[size]);
 
-    fread(dataStack.get(0), sizeof(char), size, file);
+    fread(dataStack.getArr(), sizeof(char), size, file);
 
     fclose(file);
-    
-    readAndExecuteCommands(dataStack);
 }
 
 long fileSize(FILE* File)

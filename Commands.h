@@ -20,3 +20,5 @@ int mul_command(RuntimeData& appData, char* commandData);
 int div_command(RuntimeData& appData, char* commandData);
 
 using COMMANDTYPE = int (*)(RuntimeData& appData, char* commandData);
+
+const int COMMANDSVERSION = 1;

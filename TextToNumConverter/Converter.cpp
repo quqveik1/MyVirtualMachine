@@ -1,6 +1,7 @@
 #pragma once
 #include "Converter.h"
 #include "../CompileCommands.cpp"
+#include "../FileHeader.h"
 
 void convertToNum(std::wstring path)
 {
@@ -16,12 +17,13 @@ void convertToNum(std::wstring path)
 
     int cLines = separateTextByLinesToArr(fullText, &lines);
 
-    std::vector<int> dataArr(cLines * 2, 0);
+    std::vector<int> dataArr;
+    dataArr.reserve(cLines);
 
     char** dataLines = new char*[cLines]{};
     int* commandNums = new int[cLines]{};
 
-    int runRes = interpretText(lines, dataLines, commandNums, cLines);
+    int runRes = interpretText(lines, dataArr, cLines);
 
     if (runRes != WellCode)
     {
@@ -29,44 +31,36 @@ void convertToNum(std::wstring path)
     }
     else
     {
-        save2Files(lines, dataLines, commandNums, cLines, path);
+        save2Files(lines, dataArr, cLines, path);
     }
 
-    clearMem(fullText, dataLines, commandNums, cLines); 
+    clearMem(fullText, lines, dataArr, cLines);
 }
 
-void save2Files(std::wstring_view* oldLines, char** dataLines, int* commandNums, int cLines, std::wstring path)
+void save2Files(std::wstring_view* oldLines, std::vector<int>& dataArr, int cLines, std::wstring path)
 {
     std::wstring savePath = path + L'c';
     std::ofstream file(savePath, std::ios::binary);
-    
-    for (int i = 0; i < cLines; i++)
-    {
-        file.write((char*)&commandNums[i], sizeof(int));
-        if (dataLines[i])
-        {
-            file.write(dataLines[i], commandDataSizeArr[commandNums[i]]);
-        }
-    }
+
+    FileHeader fileHeader;
+
+    file.write((char*)&fileHeader, sizeof(FileHeader));
+
+    size_t writeSize = sizeof(int) * dataArr.size();
+
+    file.write((char*)&dataArr[0], writeSize);
 
     file.close();
 }
 
-void clearMem(std::wstring_view& fullText, char** dataLines, int* commandNums, int cLines)
+void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines, std::vector<int>& dataArr, int cLines)
 {
-    delete fullText.data();
+    delete[] oldLines;
 
-    for (int i = 0; i < cLines; i++)
-    {
-        delete dataLines[i];
-    }
-
-    delete[] dataLines;
-
-    delete[] commandNums;
+    delete[] fullText.data();
 }
 
-int interpretText(std::wstring_view* oldLines, char** dataLines, int* commandNums, int cLines)
+int interpretText(std::wstring_view* oldLines, std::vector<int>& dataArr, int cLines)
 {
     for (int i = 0; i < cLines; i++)
     {
@@ -75,7 +69,7 @@ int interpretText(std::wstring_view* oldLines, char** dataLines, int* commandNum
         splitCommand(oldLines[i], commandName, commandData);
 
         int commandNum = getCommandNum(commandName);
-        commandNums[i] = commandNum;
+        dataArr.push_back(commandNum);
 
         if (!isCommandNumValid(commandNum))
         {
@@ -88,7 +82,7 @@ int interpretText(std::wstring_view* oldLines, char** dataLines, int* commandNum
 
         if (fnc != NULL)
         {
-            dataLines[i] = fnc(commandData);
+            dataArr.push_back(*(int*)fnc(commandData));
         }
     }
     return WellCode;

@@ -54,6 +54,7 @@ public:
 
 void readByteCode(std::string path);
 long fileSize(FILE* File);
+int compiledFileWork(std::string& path, DataStack& dataStack);
 void readAndExecuteCommands(DataStack& data);
 int executeCommand(DataStack& data);
 int findFirstSpacePos(std::wstring_view& fullCommand);

@@ -61,3 +61,5 @@ const int CommandBreakCode = -1;
 
 const int CommandReadErrorCode = -2;
 const int CommandEndFileErrorCode = -3;
+
+const int FileHeaderReadErrorCode = -4;
