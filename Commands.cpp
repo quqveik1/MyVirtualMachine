@@ -7,89 +7,89 @@
 #include "StackFunc.cpp"
 #include "CommandConstants.h"
 
-int in_command(RuntimeData& appData, char* commandData)
+int in_command(Processor& processor)
 {
     int num = 0;
     std::cin >> num;
-    appData.getAppData().push(num);
+    processor.getRuntimeData().getAppData().push(num);
 
     return 0;
 }
 
-int out_command(RuntimeData& appData, char* commandData)
+int out_command(Processor& processor)
 {
-    int num = peek(appData.getAppData());
+    int num = peek(processor.getRuntimeData().getAppData());
     std::cout << num << std::endl;
 
     return 0;
 }
 
-int push_command(RuntimeData& appData, char* commandData)
+int push_command(Processor& processor)
 {
-    int num = *(int*)commandData;
-    appData.getAppData().push(num);
+    int num = *processor.getCommandData().peek<int>();
+    processor.getRuntimeData().getAppData().push(num);
 
     return 0;
 }
 
-int hlt_command(RuntimeData& appData, char* commandData)
+int hlt_command(Processor& processor)
 {
     return CommandBreakCode;
 }
 
-int add_command(RuntimeData& appData, char* commandData)
+int add_command(Processor& processor)
 {
     int a = 0, b = 0;
 
-    a = peek(appData.getAppData());
-    b = peek(appData.getAppData());
+    a = peek(processor.getRuntimeData().getAppData());
+    b = peek(processor.getRuntimeData().getAppData());
 
     a = a + b;
 
-    appData.getAppData().push(a);
+    processor.getRuntimeData().getAppData().push(a);
 
     return 0;
 }
 
-int sub_command(RuntimeData& appData, char* commandData)
+int sub_command(Processor& processor)
 {
 
     int a = 0, b = 0;
 
-    a = peek(appData.getAppData());
-    b = peek(appData.getAppData());
+    a = peek(processor.getRuntimeData().getAppData());
+    b = peek(processor.getRuntimeData().getAppData());
 
     a = b - a;
 
-    appData.getAppData().push(a);
+    processor.getRuntimeData().getAppData().push(a);
 
     return 0;
 }
 
-int mul_command(RuntimeData& appData, char* commandData)
+int mul_command(Processor& processor)
 {
     int a = 0, b = 0;
 
-    a = peek(appData.getAppData());
-    b = peek(appData.getAppData());
+    a = peek(processor.getRuntimeData().getAppData());
+    b = peek(processor.getRuntimeData().getAppData());
 
     a = a * b;
 
-    appData.getAppData().push(a);
+    processor.getRuntimeData().getAppData().push(a);
 
     return 0;
 }
 
-int div_command(RuntimeData& appData, char* commandData)
+int div_command(Processor& processor)
 {
     int a = 0, b = 0;
 
-    a = peek(appData.getAppData());
-    b = peek(appData.getAppData());
+    a = peek(processor.getRuntimeData().getAppData());
+    b = peek(processor.getRuntimeData().getAppData());
 
     a = b / a;
 
-    appData.getAppData().push(a);
+    processor.getRuntimeData().getAppData().push(a);
 
     return 0;
 }

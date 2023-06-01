@@ -23,17 +23,21 @@ void readByteCode(std::string path)
 
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    DataStack dataStack;
+    Processor processor;
 
-    int readRes = compiledFileWork(path, dataStack);
+    int readRes = compiledFileWork(path, processor);
 
     if (readRes == WellCode)
     {
-        readAndExecuteCommands(dataStack);
+        readAndExecuteCommands(processor);
+    }
+    else
+    {
+        std::cout << "Проблема исполнения скомпилированного байткода: " << readRes << std::endl;
     }
 }
 
-int compiledFileWork(std::string& path, DataStack& dataStack)
+int compiledFileWork(std::string& path, Processor& processor)
 {
     FILE* file = fopen(path.c_str(), "r");
 
@@ -51,12 +55,16 @@ int compiledFileWork(std::string& path, DataStack& dataStack)
 
     long size = fileSize(file);
 
+    DataStack& dataStack = processor.getCommandData();
+
     dataStack.setSize(size);
     dataStack.setArr(new char[size]);
 
     fread(dataStack.getArr(), sizeof(char), size, file);
 
     fclose(file);
+
+    return WellCode;
 }
 
 long fileSize(FILE* File)
@@ -69,7 +77,7 @@ long fileSize(FILE* File)
     return buff.st_size;
 }
 
-void readAndExecuteCommands(DataStack& data)
+void readAndExecuteCommands(Processor& data)
 {
     int callCode = CommandReadErrorCode;
     int lastLine = 0;
@@ -135,14 +143,13 @@ pop ax
 //число на 1 больше
 */
 
-int executeCommand(DataStack& data)
+int executeCommand(Processor& processor)
 {
-    int commandNum = *(int*)data.peek(sizeof(int));
+    int commandNum = *processor.getCommandData().peek<int>();
     if (isCommandNumValid(commandNum))
     {
-        char* commandData = data.peek(commandDataSizeArr[commandNum]);
 
-        int callRes = commandsArr[commandNum](AppRuntimeData, commandData);
+        int callRes = commandsArr[commandNum](processor);
         return callRes;
     }
 

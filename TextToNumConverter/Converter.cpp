@@ -27,7 +27,7 @@ void convertToNum(std::wstring path)
 
     if (runRes != WellCode)
     {
-        std::wcout << L"Ошибка перевода в байтовый вид, код: " << runRes << L"\n";
+        std::cout << "Ошибка перевода в байтовый вид, код: " << runRes << "\n";
     }
     else
     {
@@ -35,6 +35,8 @@ void convertToNum(std::wstring path)
     }
 
     clearMem(fullText, lines, dataArr, cLines);
+
+    std::cout << "Компиляция завершилась успешно\n";
 }
 
 void save2Files(std::wstring_view* oldLines, std::vector<int>& dataArr, int cLines, std::wstring path)

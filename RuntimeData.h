@@ -14,5 +14,3 @@ public:
     std::stack<int> &getAppData();
 };
 
-RuntimeData AppRuntimeData;
-

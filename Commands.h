@@ -7,18 +7,19 @@
 
 #include "RuntimeData.h"
 #include "CommandConstants.h"
+#include "Processor.h"
 
-int in_command(RuntimeData& appData, char* commandData);
-int out_command(RuntimeData& appData, char* commandData);
-int push_command(RuntimeData& appData, char* commandData);
+int in_command(Processor& processor);
+int out_command(Processor& processor);
+int push_command(Processor& processor);
 
-int hlt_command(RuntimeData& appData, char* commandData);
+int hlt_command(Processor& processor);
 
-int add_command(RuntimeData& appData, char* commandData);
-int sub_command(RuntimeData& appData, char* commandData);
-int mul_command(RuntimeData& appData, char* commandData);
-int div_command(RuntimeData& appData, char* commandData);
+int add_command(Processor& processor);
+int sub_command(Processor& processor);
+int mul_command(Processor& processor);
+int div_command(Processor& processor);
 
-using COMMANDTYPE = int (*)(RuntimeData& appData, char* commandData);
+using COMMANDTYPE = int (*)(Processor& processor);
 
 const int COMMANDSVERSION = 1;
