@@ -107,6 +107,34 @@ void endProgramWithCode(int code, int lastLine)
     }
 }
 
+/*
+push 15    //команда для чисел
+pop ax   
+
+// после компиляции
+
+4 15
+9 1
+
+//число ax = 15
+
+//конец
+
+push ax
+push 1
+add
+pop ax
+
+// после компиляции
+
+10 1
+4 1
+5
+9 1
+
+//число на 1 больше
+*/
+
 int executeCommand(DataStack& data)
 {
     int commandNum = *(int*)data.peek(sizeof(int));
