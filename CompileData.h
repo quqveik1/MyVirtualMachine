@@ -12,5 +12,7 @@ public:
 
     void put(const char* obj, int _size);
     template<typename T>
-    void put(T* obj);
+    void put(T* obj);  
+    template<typename T>
+    void put(T& obj);
 };

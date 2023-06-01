@@ -19,14 +19,14 @@ void initSizeArr()
 
 void initCompileArr()
 {
-    commandsCompileArr[in_num] = 0;
-    commandsCompileArr[out_num] = 0;
+    commandsCompileArr[in_num] = default_compile;
+    commandsCompileArr[out_num] = default_compile;
     commandsCompileArr[push_num] = push_compile;
-    commandsCompileArr[hlt_num] = 0;
-    commandsCompileArr[add_num] = 0;
-    commandsCompileArr[sub_num] = 0;
-    commandsCompileArr[mul_num] = 0;
-    commandsCompileArr[div_num] = 0;
+    commandsCompileArr[hlt_num] = default_compile;
+    commandsCompileArr[add_num] = default_compile;
+    commandsCompileArr[sub_num] = default_compile;
+    commandsCompileArr[mul_num] = default_compile;
+    commandsCompileArr[div_num] = default_compile;
 }
 
 void initCommandsArr()

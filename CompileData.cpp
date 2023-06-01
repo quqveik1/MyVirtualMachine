@@ -18,3 +18,10 @@ void CompileData::put(T* obj)
     int _size = sizeof(T);
     put((const char*)obj, _size);
 }
+
+template<typename T>
+void CompileData::put(T& obj)
+{
+    int _size = sizeof(T);
+    put((const char*)(&obj), _size);
+}

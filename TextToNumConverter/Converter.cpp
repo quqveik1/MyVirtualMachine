@@ -89,17 +89,11 @@ int interpretText(std::wstring_view* oldLines, CompileData& dataArr, int cLines)
             return CommandReadErrorCode;
         }
 
-        int writeNum = codeToNumberRepresentation(commandNum, 0, 0);
-
-        dataArr.put(&commandNum);
-
         COMMANDCOMPILETYPE fnc = commandsCompileArr[commandNum];
 
         if (fnc != NULL)
         {
-            char* _binaryData = NULL;
-            int _dataSize = fnc(commandData, &_binaryData);
-            dataArr.put(_binaryData, _dataSize);
+            int res = fnc(dataArr, commandNum, commandData);
         }
     }
     return WellCode;
