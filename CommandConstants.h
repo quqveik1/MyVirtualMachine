@@ -1,32 +1,38 @@
 #pragma once
 
-const int cCommands = 8;
+const int cCommands = 10;
 
-#define hlt_str L"hlt"
+const std::wstring hlt_str = L"hlt";
 
-#define in_str L"in"
-#define out_str L"out"
-#define push_str L"push"
+const std::wstring in_str = L"in";
+const std::wstring out_str = L"out";
+const std::wstring push_str = L"push";
 
-#define add_str L"add"
-#define sub_str L"sub"
-#define mul_str L"mul"
-#define div_str L"div"
+const std::wstring add_str = L"add";
+const std::wstring sub_str = L"sub";
+const std::wstring mul_str = L"mul";
+const std::wstring div_str = L"div";
+
+const std::wstring pushReg_str = L"push";
+const std::wstring popReg_str = L"pop";
 
 //------------------------------------------------------------------
 
-#define commandError_num -1
+const int commandError_num = -1;
 
-#define hlt_num 1
+const int hlt_num = 1;
 
-#define in_num   2
-#define out_num  3
-#define push_num 4
+const int in_num = 2;
+const int out_num = 3;
+const int push_num = 4;
 
-#define add_num 5
-#define sub_num 6
-#define mul_num 7
-#define div_num 8
+const int add_num = 5;
+const int sub_num = 6;
+const int mul_num = 7;
+const int div_num = 8;
+
+const int pushReg_num = 9;
+const int popReg_num = 10;
 
 //------------------------------------------------------------------
 
@@ -39,21 +45,6 @@ bool isCommandNumValid(int num)
     return false;
 }
                       
-//------------------------------------------------------------------
-
-#define commandError_strnum L"-1"
-
-#define hlt_strnum L"1"
-
-#define in_strnum   L"2"
-#define out_strnum  L"3"
-#define push_strnum L"4"
-
-#define add_strnum L"5"
-#define sub_strnum L"6"
-#define mul_strnum L"7"
-#define div_strnum L"8"
-
 //------------------------------------------------------------------
 
 const int WellCode = 0;

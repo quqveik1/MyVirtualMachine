@@ -5,14 +5,15 @@
 #include "CompileCommands.h"
 
 
-char* push_compile(std::wstring_view& data)
+int push_compile(std::wstring_view& data, char** binaryData)
 {
     if (!data.empty())
     {
         int* number = new int{};
         *number = _wtoi(data.data());
+        *binaryData = (char*)number;
 
-        return (char*)number;
+        return sizeof(int);
     }
 
     throw std::exception("data.empty()");

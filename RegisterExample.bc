@@ -1,0 +1,3 @@
+push 15
+pop ax
+hlt

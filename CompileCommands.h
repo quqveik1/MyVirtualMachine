@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
 
-using COMMANDCOMPILETYPE = char* (*)(std::wstring_view& data);
+using COMMANDCOMPILETYPE = int (*)(std::wstring_view& data, char** binaryData);
 
-char* push_compile(std::wstring_view& data);
+int push_compile(std::wstring_view& data, char** binaryData);

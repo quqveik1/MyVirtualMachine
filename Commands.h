@@ -22,4 +22,4 @@ int div_command(Processor& processor);
 
 using COMMANDTYPE = int (*)(Processor& processor);
 
-const int COMMANDSVERSION = 1;
+const int COMMANDSVERSION = 2;

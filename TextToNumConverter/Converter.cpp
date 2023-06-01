@@ -2,6 +2,8 @@
 #include "Converter.h"
 #include "../CompileCommands.cpp"
 #include "../FileHeader.h"
+#include "../CompileData.cpp"
+#include "../ByteConverter.cpp"
 
 void convertToNum(std::wstring path)
 {
@@ -17,8 +19,8 @@ void convertToNum(std::wstring path)
 
     int cLines = separateTextByLinesToArr(fullText, &lines);
 
-    std::vector<int> dataArr;
-    dataArr.reserve(cLines);
+    CompileData dataArr;
+    dataArr.getData().reserve(cLines);
 
     char** dataLines = new char*[cLines]{};
     int* commandNums = new int[cLines]{};
@@ -39,7 +41,15 @@ void convertToNum(std::wstring path)
     std::cout << "Компиляция завершилась успешно\n";
 }
 
-void save2Files(std::wstring_view* oldLines, std::vector<int>& dataArr, int cLines, std::wstring path)
+//Формат номера команд:
+//8765 4321
+//00ri ####
+//0001 0004
+//Новый синтаксис(складывает)
+//push ax+10
+//push 10+ax
+
+void save2Files(std::wstring_view* oldLines, CompileData& dataArr, int cLines, std::wstring path)
 {
     std::wstring savePath = path + L'c';
     std::ofstream file(savePath, std::ios::binary);
@@ -48,21 +58,21 @@ void save2Files(std::wstring_view* oldLines, std::vector<int>& dataArr, int cLin
 
     file.write((char*)&fileHeader, sizeof(FileHeader));
 
-    size_t writeSize = sizeof(int) * dataArr.size();
+    size_t writeSize = sizeof(char) * dataArr.getData().size();
 
-    file.write((char*)&dataArr[0], writeSize);
+    file.write(&(dataArr.getData())[0], writeSize);
 
     file.close();
 }
 
-void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines, std::vector<int>& dataArr, int cLines)
+void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines, CompileData& dataArr, int cLines)
 {
     delete[] oldLines;
 
     delete[] fullText.data();
 }
 
-int interpretText(std::wstring_view* oldLines, std::vector<int>& dataArr, int cLines)
+int interpretText(std::wstring_view* oldLines, CompileData& dataArr, int cLines)
 {
     for (int i = 0; i < cLines; i++)
     {
@@ -71,7 +81,6 @@ int interpretText(std::wstring_view* oldLines, std::vector<int>& dataArr, int cL
         splitCommand(oldLines[i], commandName, commandData);
 
         int commandNum = getCommandNum(commandName);
-        dataArr.push_back(commandNum);
 
         if (!isCommandNumValid(commandNum))
         {
@@ -80,11 +89,17 @@ int interpretText(std::wstring_view* oldLines, std::vector<int>& dataArr, int cL
             return CommandReadErrorCode;
         }
 
+        int writeNum = codeToNumberRepresentation(commandNum, 0, 0);
+
+        dataArr.put(&commandNum);
+
         COMMANDCOMPILETYPE fnc = commandsCompileArr[commandNum];
 
         if (fnc != NULL)
         {
-            dataArr.push_back(*(int*)fnc(commandData));
+            char* _binaryData = NULL;
+            int _dataSize = fnc(commandData, &_binaryData);
+            dataArr.put(_binaryData, _dataSize);
         }
     }
     return WellCode;
@@ -108,42 +123,42 @@ mul
 int getCommandNum(std::wstring_view& commandName)
 {
     int res = commandError_num;
-    if (_wcsnicmp(commandName.data(), in_str, commandName.size()) == 0)
+    if (_wcsnicmp(commandName.data(), in_str.c_str(), commandName.size()) == 0)
     {
         res = in_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), out_str, commandName.size()) == 0)
+    else if (_wcsnicmp(commandName.data(), out_str.c_str(), commandName.size()) == 0)
     {
         res = out_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), push_str, commandName.size()) == 0)
+    else if (_wcsnicmp(commandName.data(), push_str.c_str(), commandName.size()) == 0)
     {
         res = push_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), hlt_str, commandName.size()) == 0)
+    else if (_wcsnicmp(commandName.data(), hlt_str.c_str(), commandName.size()) == 0)
     {
         res = hlt_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), add_str, commandName.size()) == 0)
+    else if (_wcsnicmp(commandName.data(), add_str.c_str(), commandName.size()) == 0)
     {
         res = add_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), sub_str, commandName.size()) == 0)
+    else if (_wcsnicmp(commandName.data(), sub_str.c_str(), commandName.size()) == 0)
     {
         res = sub_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), mul_str, commandName.size()) == 0)
+    else if (_wcsnicmp(commandName.data(), mul_str.c_str(), commandName.size()) == 0)
     {
         res = mul_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), div_str, commandName.size()) == 0)
+    else if (_wcsnicmp(commandName.data(), div_str.c_str(), commandName.size()) == 0)
     {
         res = div_num;
     }
