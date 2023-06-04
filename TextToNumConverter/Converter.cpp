@@ -1,9 +1,15 @@
 #pragma once
+
+#include <locale>
+
 #include "Converter.h"
 #include "../CompileCommands.cpp"
 #include "../FileHeader.h"
 #include "../CompileData.cpp"
 #include "../ByteConverter.cpp"
+#include "../FncArrs.cpp"
+#include "WStringFnc.cpp"
+#include "..\ReadCommands.cpp"
 
 void convertToNum(std::wstring path)
 {

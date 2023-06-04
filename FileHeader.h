@@ -11,10 +11,7 @@ struct FileHeader
 
     FileHeader()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            sign[i] = ORIGINALSIGN[i];
-        }
+        memcpy(sign, ORIGINALSIGN, 4);
     }
 
     bool validate();

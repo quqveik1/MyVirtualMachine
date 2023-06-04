@@ -2,7 +2,7 @@
 
 #include "RegisterCompile.h"
 
-int getNumFromStr(std::wstring_view& str)
+int getRegisterNumFromStr(std::wstring_view& str)
 {
     if (str == ax_string)
     {

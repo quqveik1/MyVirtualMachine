@@ -2,12 +2,6 @@
 //
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <iostream>
-#include <string>
-
-#include "../../StringSort/WStringFnc.cpp"
-#include "../ReadCommands.cpp"
-
 #include "Converter.cpp"
 
 int main()

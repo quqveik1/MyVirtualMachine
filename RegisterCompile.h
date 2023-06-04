@@ -13,4 +13,4 @@ const int bx_numeric = 1;
 const int cx_numeric = 2;
 const int dx_numeric = 3;
 
-int getNumFromStr(std::wstring_view& str);
+int getRegisterNumFromStr(std::wstring_view& str);

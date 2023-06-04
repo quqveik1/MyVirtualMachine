@@ -19,7 +19,7 @@ bool isDigitStr(T& str)
 {
     for (wchar_t c : str)
     {
-        if (!iswdigit(c))
+        if (!iswdigit(c) && c != L'-')
         {
             return false;
         }

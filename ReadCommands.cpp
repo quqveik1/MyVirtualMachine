@@ -146,11 +146,13 @@ pop ax
 
 int executeCommand(Processor& processor)
 {
-    int commandNum = *processor.getCommandData().peek<int>();
+    int codedCommandNum = *processor.getCommandData().peek<int>();
+
+    int commandNum = decodeNumberRepresentation(codedCommandNum, NULL, NULL);
+
     if (isCommandNumValid(commandNum))
     {
-
-        int callRes = commandsArr[commandNum](processor);
+        int callRes = commandsArr[commandNum](processor, codedCommandNum);
         return callRes;
     }
 
