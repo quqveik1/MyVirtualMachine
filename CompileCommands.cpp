@@ -3,6 +3,7 @@
 #include "CompileCommands.h"
 
 #include <exception>
+#include <iostream>
 
 #include "ByteConverter.cpp"
 #include "CompileData.cpp"
@@ -80,4 +81,25 @@ int push_compile(CompileData& compileData, int commandNum, std::wstring_view& da
 
     throw std::exception("data.empty()");
     return CommandWriteDataCode;
+}
+
+int pop_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
+{
+    default_compile(compileData, commandNum, data);
+
+    int regNum = 0;
+
+    try
+    {
+        regNum = getRegisterNumFromStr(data);
+    }
+    catch(std::exception e)
+    {
+        std::cout << e.what() << std::endl;
+        return CommandReadErrorCode;
+    }
+
+    compileData.put(regNum);
+
+    return WellCode;
 }

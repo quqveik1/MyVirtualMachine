@@ -1,6 +1,6 @@
 #pragma once
 
-const int cCommands = 10;
+const int cCommands = 9;
 
 const std::wstring hlt_str = L"hlt";
 
@@ -13,8 +13,7 @@ const std::wstring sub_str = L"sub";
 const std::wstring mul_str = L"mul";
 const std::wstring div_str = L"div";
 
-const std::wstring pushReg_str = L"push";
-const std::wstring popReg_str = L"pop";
+const std::wstring pop_str = L"pop";
 
 //------------------------------------------------------------------
 
@@ -31,8 +30,7 @@ const int sub_num = 6;
 const int mul_num = 7;
 const int div_num = 8;
 
-const int pushReg_num = 9;
-const int popReg_num = 10;
+const int pop_num = 9;
 
 //------------------------------------------------------------------
 

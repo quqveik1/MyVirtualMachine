@@ -162,6 +162,11 @@ int getCommandNum(std::wstring_view& commandName)
     {
         res = div_num;
     }
+      
+    else if (_wcsnicmp(commandName.data(), pop_str.c_str(), commandName.size()) == 0)
+    {
+        res = pop_num;
+    }
 
     return res;
 }

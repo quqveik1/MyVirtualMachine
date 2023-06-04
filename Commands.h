@@ -20,6 +20,8 @@ int sub_command(Processor& processor, int codedCommandNum);
 int mul_command(Processor& processor, int codedCommandNum);
 int div_command(Processor& processor, int codedCommandNum);
 
+int pop_command(Processor& processor, int codedCommandNum);
+
 using COMMANDTYPE = int (*)(Processor& processor, int codedCommandNum);
 
 const int COMMANDSVERSION = 2;

@@ -27,6 +27,7 @@ void initCompileArr()
     commandsCompileArr[sub_num] = default_compile;
     commandsCompileArr[mul_num] = default_compile;
     commandsCompileArr[div_num] = default_compile;
+    commandsCompileArr[pop_num] = pop_compile;
 }
 
 void initCommandsArr()
@@ -39,4 +40,5 @@ void initCommandsArr()
     commandsArr[sub_num] = sub_command;
     commandsArr[mul_num] = mul_command;
     commandsArr[div_num] = div_command;
+    commandsArr[pop_num] = pop_command;
 }

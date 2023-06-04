@@ -1,11 +1,11 @@
-push 10
-push 10
-mul
-push 4
-push -2
-push 5
-mul
-mul
-sub
+push ax
+push 15
+add
+pop ax
+push ax
+push 2
+add
+pop ax
+push ax
 out
 hlt

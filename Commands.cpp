@@ -9,6 +9,7 @@
 #include "StackFunc.cpp"
 #include "CommandConstants.h"
 #include "ByteConverter.cpp"
+#include "Register.cpp"
 
 int in_command(Processor& processor, int codedCommandNum)
 {
@@ -16,7 +17,7 @@ int in_command(Processor& processor, int codedCommandNum)
     std::cin >> num;
     processor.getRuntimeData().getAppData().push(num);
 
-    return 0;
+    return WellCode;
 }
 
 int out_command(Processor& processor, int codedCommandNum)
@@ -24,7 +25,7 @@ int out_command(Processor& processor, int codedCommandNum)
     int num = peek(processor.getRuntimeData().getAppData());
     std::cout << num << std::endl;
 
-    return 0;
+    return WellCode;
 }
 
 int push_command(Processor& processor, int codedCommandNum)
@@ -34,10 +35,19 @@ int push_command(Processor& processor, int codedCommandNum)
 
     decodeNumberRepresentation(codedCommandNum, &hasConst, &hasRegister);
 
-    int num = *processor.getCommandData().peek<int>();
-    processor.getRuntimeData().getAppData().push(num);
+    if(hasConst)
+    {
+        int constNum = *processor.getCommandData().peek<int>();
+        processor.getRuntimeData().getAppData().push(constNum);
+    }
 
-    return 0;
+    if(hasRegister)
+    {
+        int regNum = *processor.getCommandData().peek<int>();
+        processor.getRuntimeData().getAppData().push(processor.getAppRegister().getReg(regNum));
+    }
+
+    return WellCode;
 }
 
 int hlt_command(Processor& processor, int codedCommandNum)
@@ -56,7 +66,7 @@ int add_command(Processor& processor, int codedCommandNum)
 
     processor.getRuntimeData().getAppData().push(a);
 
-    return 0;
+    return WellCode;
 }
 
 int sub_command(Processor& processor, int codedCommandNum)
@@ -71,7 +81,7 @@ int sub_command(Processor& processor, int codedCommandNum)
 
     processor.getRuntimeData().getAppData().push(a);
 
-    return 0;
+    return WellCode;
 }
 
 int mul_command(Processor& processor, int codedCommandNum)
@@ -85,7 +95,7 @@ int mul_command(Processor& processor, int codedCommandNum)
 
     processor.getRuntimeData().getAppData().push(a);
 
-    return 0;
+    return WellCode;
 }
 
 int div_command(Processor& processor, int codedCommandNum)
@@ -99,9 +109,18 @@ int div_command(Processor& processor, int codedCommandNum)
 
     processor.getRuntimeData().getAppData().push(a);
 
-    return 0;
+    return WellCode;
 }
 
 
+int pop_command(Processor& processor, int codedCommandNum)
+{
+    int* regNum = processor.getCommandData().peek<int>();
 
+    int data = peek(processor.getRuntimeData().getAppData());
+
+    processor.getAppRegister().setReg(*regNum, data);
+
+    return WellCode;
+}
 
