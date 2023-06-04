@@ -1,4 +1,4 @@
 #include <stack>
 
 template <typename T>
-T peek(std::stack<T>& s);
+T _peek(std::stack<T>& s);

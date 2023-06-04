@@ -22,7 +22,7 @@ int in_command(Processor& processor, int codedCommandNum)
 
 int out_command(Processor& processor, int codedCommandNum)
 {
-    int num = peek(processor.getRuntimeData().getAppData());
+    int num = processor.getRuntimeData().peek();
     std::cout << num << std::endl;
 
     return WellCode;
@@ -30,24 +30,43 @@ int out_command(Processor& processor, int codedCommandNum)
 
 int push_command(Processor& processor, int codedCommandNum)
 {
+    bool hasRamCall = false;
+
+    decodeNumberRepresentation(codedCommandNum, NULL, NULL, &hasRamCall);
+
+    evalExpression(processor, codedCommandNum);
+
+    if(hasRamCall)
+    {
+        int ramPos = processor.getRuntimeData().peek();
+
+        int ramData = processor.getAppRAM()[ramPos];
+
+        processor.getRuntimeData().push(ramData);
+    }
+
+    return WellCode;
+}
+
+int evalExpression(Processor& processor, int codedCommandNum)
+{
     bool hasRegister = false;
     bool hasConst = false;
 
     decodeNumberRepresentation(codedCommandNum, &hasConst, &hasRegister);
-
-    if(hasConst)
+    if (hasConst)
     {
         int constNum = *processor.getCommandData().peek<int>();
         processor.getRuntimeData().getAppData().push(constNum);
     }
 
-    if(hasRegister)
+    if (hasRegister)
     {
         int regNum = *processor.getCommandData().peek<int>();
         processor.getRuntimeData().getAppData().push(processor.getAppRegister().getReg(regNum));
     }
 
-    if(hasConst && hasRegister)
+    if (hasConst && hasRegister)
     {
         add_command(processor, innerCall_num);
     }
@@ -64,8 +83,8 @@ int add_command(Processor& processor, int codedCommandNum)
 {
     int a = 0, b = 0;
 
-    a = peek(processor.getRuntimeData().getAppData());
-    b = peek(processor.getRuntimeData().getAppData());
+    a = processor.getRuntimeData().peek();
+    b = processor.getRuntimeData().peek();
 
     a = a + b;
 
@@ -79,8 +98,8 @@ int sub_command(Processor& processor, int codedCommandNum)
 
     int a = 0, b = 0;
 
-    a = peek(processor.getRuntimeData().getAppData());
-    b = peek(processor.getRuntimeData().getAppData());
+    a = processor.getRuntimeData().peek();
+    b = processor.getRuntimeData().peek();
 
     a = b - a;
 
@@ -93,8 +112,8 @@ int mul_command(Processor& processor, int codedCommandNum)
 {
     int a = 0, b = 0;
 
-    a = peek(processor.getRuntimeData().getAppData());
-    b = peek(processor.getRuntimeData().getAppData());
+    a = processor.getRuntimeData().peek();
+    b = processor.getRuntimeData().peek();
 
     a = a * b;
 
@@ -107,8 +126,8 @@ int div_command(Processor& processor, int codedCommandNum)
 {
     int a = 0, b = 0;
 
-    a = peek(processor.getRuntimeData().getAppData());
-    b = peek(processor.getRuntimeData().getAppData());
+    a = processor.getRuntimeData().peek();
+    b = processor.getRuntimeData().peek();
 
     a = b / a;
 
@@ -120,9 +139,21 @@ int div_command(Processor& processor, int codedCommandNum)
 
 int pop_command(Processor& processor, int codedCommandNum)
 {
+    bool hasRamCall = false;
+
+    decodeNumberRepresentation(codedCommandNum, NULL, NULL, &hasRamCall);
+
+    if(hasRamCall)
+    {
+        evalExpression(processor, codedCommandNum);
+        int ramPos = processor.getRuntimeData().peek();
+        processor.getAppRAM()[ramPos] = processor.getRuntimeData().peek();
+        return WellCode;
+    }
+
     int* regNum = processor.getCommandData().peek<int>();
 
-    int data = peek(processor.getRuntimeData().getAppData());
+    int data = processor.getRuntimeData().peek();
 
     processor.getAppRegister().setReg(*regNum, data);
 

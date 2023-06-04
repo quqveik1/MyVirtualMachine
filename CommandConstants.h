@@ -17,8 +17,6 @@ const std::wstring pop_str = L"pop";
 
 //------------------------------------------------------------------
 
-const int commandError_num = -1;
-
 const int innerCall_num = 0;
 
 const int hlt_num = 1;
@@ -38,7 +36,7 @@ const int pop_num = 9;
 
 bool isCommandNumValid(int num)
 {
-    if (0 <= num && num <= cCommands)
+    if (0 < num && num <= cCommands)
     {
         return true;
     }
@@ -55,3 +53,4 @@ const int CommandEndFileErrorCode = -3;
 
 const int FileHeaderReadErrorCode = -4;   
 const int CommandWriteDataCode = -5;
+const int CommandRecognizeError = -1;

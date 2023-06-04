@@ -49,11 +49,16 @@ void convertToNum(std::wstring path)
 
 //Формат номера команд:
 //8765 4321
-//00ri ####
-//0001 0004
+//0mri ####
+//0001 1001
 //Новый синтаксис(складывает)
 //push ax+10
 //push 10+ax
+
+/*
+push [25]
+pop [ax]
+*/
 
 void save2Files(std::wstring_view* oldLines, CompileData& dataArr, int cLines, std::wstring path)
 {
@@ -122,7 +127,7 @@ mul
 
 int getCommandNum(std::wstring_view& commandName)
 {
-    int res = commandError_num;
+    int res = CommandRecognizeError;
     if (_wcsnicmp(commandName.data(), in_str.c_str(), commandName.size()) == 0)
     {
         res = in_num;

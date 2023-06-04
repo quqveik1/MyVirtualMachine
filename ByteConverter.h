@@ -1,7 +1,4 @@
 #pragma once
 
-int codeToNumberRepresentation(int num, bool hasConstant, bool hasRegister);
-int decodeNumberRepresentation(int codeNum, bool* hasConstant, bool* hasRegister);
-
-int codeToDataRepr(int data, bool isRegister);
-int decodeDataRepr(int data, bool* isRegister);
+int codeToNumberRepresentation(int num, bool hasConstant = false, bool hasRegister = false, bool isRamCall = false);
+int decodeNumberRepresentation(int codeNum, bool* hasConstant = NULL, bool* hasRegister = NULL, bool* isRamCall = NULL);

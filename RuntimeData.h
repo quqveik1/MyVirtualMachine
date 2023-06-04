@@ -3,8 +3,9 @@
 //
 #pragma once
 
-#include <queue>
 #include <stack>
+
+#include "StackFunc.h"
 
 class RuntimeData
 {
@@ -12,5 +13,10 @@ class RuntimeData
 
 public:
     std::stack<int> &getAppData();
+
+    int peek();
+
+    template<typename T>
+    void push(const T& obj);
 };
 

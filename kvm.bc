@@ -1,11 +1,8 @@
-push ax+10
+push 10
 pop ax
-push bx+5
-pop bx
-push ax
-push bx
-add
+push 5
 out
-pop cx
+pop [ax+3]
+push [ax+3]
 out
 hlt
