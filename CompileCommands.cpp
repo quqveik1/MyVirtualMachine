@@ -56,7 +56,7 @@ int push_compile(CompileData& compileData, int commandNum, std::wstring_view& da
 
             secondInt = convertArgToInt(secondArg, &isConstant, &isReg);
 
-            needToSwapArgs = isReg;
+            needToSwapArgs = isConstant;
         }
 
         firstInt = convertArgToInt(firstArg, &isConstant, &isReg);

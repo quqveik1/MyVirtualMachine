@@ -19,6 +19,8 @@ const std::wstring pop_str = L"pop";
 
 const int commandError_num = -1;
 
+const int innerCall_num = 0;
+
 const int hlt_num = 1;
 
 const int in_num = 2;

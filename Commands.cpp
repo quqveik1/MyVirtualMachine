@@ -47,6 +47,11 @@ int push_command(Processor& processor, int codedCommandNum)
         processor.getRuntimeData().getAppData().push(processor.getAppRegister().getReg(regNum));
     }
 
+    if(hasConst && hasRegister)
+    {
+        add_command(processor, innerCall_num);
+    }
+
     return WellCode;
 }
 
