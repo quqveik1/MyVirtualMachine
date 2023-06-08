@@ -9,13 +9,13 @@
 #include "../ByteConverter.cpp"
 #include "../FncArrs.cpp"
 #include "WStringFnc.cpp"
+#include "../CommandConstants.cpp"
 
 void convertToNum(std::wstring path)
 {
     setlocale(LC_ALL, "russian");
 
     initCompileArr();
-    initSizeArr();
 
     std::wstring_view fullText{};
     readText(path, &fullText);
@@ -50,6 +50,21 @@ void convertToNum(std::wstring path)
 //Новый синтаксис(складывает)
 //push ax+10
 //push 10+ax
+
+/*
+    индекс в массиве машинного кода
+jmp 5
+
+jamp above вызывается если первое число больше второго
+push 7
+push 5
+ja 5
+jae 5
+jb 
+jbe 
+je 
+jne 
+*/
 
 /*
 push [25]
@@ -121,56 +136,7 @@ mul
 
 */
 
-int getCommandNum(std::wstring_view& commandName)
-{
-    int res = CommandRecognizeError;
-    if (_wcsnicmp(commandName.data(), in_str.c_str(), commandName.size()) == 0)
-    {
-        res = in_num;
-    }
 
-    else if (_wcsnicmp(commandName.data(), out_str.c_str(), commandName.size()) == 0)
-    {
-        res = out_num;
-    }
-
-    else if (_wcsnicmp(commandName.data(), push_str.c_str(), commandName.size()) == 0)
-    {
-        res = push_num;
-    }
-
-    else if (_wcsnicmp(commandName.data(), hlt_str.c_str(), commandName.size()) == 0)
-    {
-        res = hlt_num;
-    }
-
-    else if (_wcsnicmp(commandName.data(), add_str.c_str(), commandName.size()) == 0)
-    {
-        res = add_num;
-    }
-
-    else if (_wcsnicmp(commandName.data(), sub_str.c_str(), commandName.size()) == 0)
-    {
-        res = sub_num;
-    }
-
-    else if (_wcsnicmp(commandName.data(), mul_str.c_str(), commandName.size()) == 0)
-    {
-        res = mul_num;
-    }
-
-    else if (_wcsnicmp(commandName.data(), div_str.c_str(), commandName.size()) == 0)
-    {
-        res = div_num;
-    }
-      
-    else if (_wcsnicmp(commandName.data(), pop_str.c_str(), commandName.size()) == 0)
-    {
-        res = pop_num;
-    }
-
-    return res;
-}
 
 void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName, std::wstring_view& commandData)
 {

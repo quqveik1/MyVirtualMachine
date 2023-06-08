@@ -14,13 +14,13 @@
 #include "Commands.cpp"
 #include "FncArrs.cpp"
 #include "FileHeader.cpp"
+#include "CommandConstants.cpp"
 
 
 
 void readByteCode(std::string path)
 {
     initCommandsArr();
-    initSizeArr();
 
     setlocale(LC_ALL, "ru_RU.UTF-8");
 

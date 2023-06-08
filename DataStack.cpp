@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DataStack.h"
+#include "CommonCode.cpp"
 
 char* DataStack::peek(int _size)
 {
@@ -39,8 +40,18 @@ T* DataStack::peek()
 }
 
 template<typename T>
-T* get()
+T* DataStack::get()
 {
     int _size = sizeof(T);
     return (T*)get(_size);
+}
+
+bool DataStack::setCurrPos(int _pos)
+{
+    if(checkArrBound(getSize(), _pos))
+    {
+        currPos = _pos;
+        return true;
+    }
+    return false;
 }

@@ -4,12 +4,14 @@
 
 #include "StackFunc.h"
 
+#include <exception>
+
 template <typename T>
 T _peek(std::stack<T>& s)
 {
     if (s.empty())
     {
-        std::cout << "Попытка взять из пустого стека элемент\n";
+        throw std::exception( "Попытка взять из пустого стека элемент\n");
         return {};
     }
 

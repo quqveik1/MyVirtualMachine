@@ -1,6 +1,6 @@
 #pragma once
 
-const int cCommands = 9;
+const int cCommands = 11;
 
 const std::wstring hlt_str = L"hlt";
 
@@ -14,6 +14,9 @@ const std::wstring mul_str = L"mul";
 const std::wstring div_str = L"div";
 
 const std::wstring pop_str = L"pop";
+
+const std::wstring jmp_str = L"jmp";
+const std::wstring ja_str = L"ja";
 
 //------------------------------------------------------------------
 
@@ -32,16 +35,14 @@ const int div_num = 8;
 
 const int pop_num = 9;
 
+const int jmp_num = 10;
+const int ja_num = 11;
+
 //------------------------------------------------------------------
 
-bool isCommandNumValid(int num)
-{
-    if (0 < num && num <= cCommands)
-    {
-        return true;
-    }
-    return false;
-}
+
+int getCommandNum(std::wstring_view& commandName);
+bool isCommandNumValid(int num);
                       
 //------------------------------------------------------------------
 
@@ -53,4 +54,7 @@ const int CommandEndFileErrorCode = -3;
 
 const int FileHeaderReadErrorCode = -4;   
 const int CommandWriteDataCode = -5;
-const int CommandRecognizeError = -1;
+const int CommandRecognizeError = -6;
+
+const int MachineCodeOutOfBound = -7;
+const int EmptyStackGetError = -8;

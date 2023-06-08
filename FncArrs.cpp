@@ -4,19 +4,6 @@
 
 #include "TextToNumConverter/CompileCommands.cpp"
 
-
-void initSizeArr()
-{
-    commandDataSizeArr[in_num] = 0;
-    commandDataSizeArr[out_num] = 0;
-    commandDataSizeArr[push_num] = (int)sizeof(int);
-    commandDataSizeArr[hlt_num] = 0;
-    commandDataSizeArr[add_num] = 0;
-    commandDataSizeArr[sub_num] = 0;
-    commandDataSizeArr[mul_num] = 0;
-    commandDataSizeArr[div_num] = 0;
-}  
-
 void initCompileArr()
 {
     commandsCompileArr[in_num] = default_compile;
@@ -28,6 +15,8 @@ void initCompileArr()
     commandsCompileArr[mul_num] = default_compile;
     commandsCompileArr[div_num] = default_compile;
     commandsCompileArr[pop_num] = pop_compile;
+    commandsCompileArr[jmp_num] = jmp_compile;
+    commandsCompileArr[ja_num] = jmp_compile;
 }
 
 void initCommandsArr()
@@ -41,4 +30,6 @@ void initCommandsArr()
     commandsArr[mul_num] = mul_command;
     commandsArr[div_num] = div_command;
     commandsArr[pop_num] = pop_command;
+    commandsArr[jmp_num] = jmp_command;
+    commandsArr[ja_num] = ja_command;
 }

@@ -12,3 +12,4 @@ bool editDataForBrackets(std::wstring_view& data);
 int saveSmallExpr(CompileData& compileData, int commandNum, std::wstring_view& data);
 int push_compile(CompileData& compileData, int commandNum, std::wstring_view& data);
 int pop_compile(CompileData& compileData, int commandNum, std::wstring_view& data);
+int jmp_compile(CompileData& compileData, int commandNum, std::wstring_view& data);

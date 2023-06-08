@@ -14,12 +14,12 @@ public:
     template<typename T>
     T* peek(); 
     template<typename T>
-    T** get();
+    T* get();
 
     int getSize() { return size; }
     int getCurrPos() { return currPos; }
     void setSize(int _size) { size = _size; }
-    void setCurrPos(int _pos) { currPos = _pos; }
+    bool setCurrPos(int _pos);
     void setArr(char* _arr) { arr = _arr; }
     char* getArr() { return arr; }
 

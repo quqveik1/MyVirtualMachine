@@ -9,7 +9,7 @@
 #include "CommandConstants.h"
 #include "Processor.h"
 
-const int COMMANDSVERSION = 3;
+const int COMMANDSVERSION = 4;
 using COMMANDTYPE = int (*)(Processor& processor, int codedCommandNum);
 
 int in_command(Processor& processor, int codedCommandNum);
@@ -26,3 +26,6 @@ int mul_command(Processor& processor, int codedCommandNum);
 int div_command(Processor& processor, int codedCommandNum);
 
 int pop_command(Processor& processor, int codedCommandNum);
+
+int jmp_command(Processor& processor, int codedCommandNum);
+int ja_command(Processor& processor, int codedCommandNum);

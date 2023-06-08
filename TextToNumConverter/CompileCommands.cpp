@@ -127,3 +127,12 @@ int pop_compile(CompileData& compileData, int commandNum, std::wstring_view& dat
 {
     return saveSmallExpr(compileData, commandNum, data);
 }
+
+int jmp_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
+{
+    default_compile(compileData, commandNum, data);
+    int machineCodePos = stoi((std::wstring)data);
+    compileData.put(machineCodePos);
+
+    return WellCode;
+}

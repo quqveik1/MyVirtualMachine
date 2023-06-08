@@ -163,3 +163,38 @@ int pop_command(Processor& processor, int codedCommandNum)
     return WellCode;
 }
 
+int jmp_command(Processor& processor, int codedCommandNum)
+{
+    int jmpPos = *processor.getCommandData().peek<int>();
+
+    bool res = processor.getCommandData().setCurrPos(jmpPos);
+
+    if(!res)
+    {
+        throw std::exception("Попытка перепрыгнуть на несуществующюю позицию");
+        return MachineCodeOutOfBound;
+    }
+
+    return WellCode;
+}
+
+int ja_command(Processor& processor, int codedCommandNum)
+{
+    int b = 0, a = 0;
+    try
+    {
+        b = processor.getRuntimeData().peek();
+        a = processor.getRuntimeData().peek();
+    }
+    catch (...)
+    {
+        return EmptyStackGetError;
+    }
+
+    if(a > b)
+    {
+        return jmp_command(processor, innerCall_num);
+    }
+
+    return WellCode;
+}

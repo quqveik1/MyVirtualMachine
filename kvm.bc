@@ -5,4 +5,8 @@ out
 pop [ax+3]
 push [ax+3]
 out
+pop [ax+3]
+push 7
+push 5
+ja 40
 hlt
