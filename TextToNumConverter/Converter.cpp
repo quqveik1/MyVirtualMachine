@@ -3,13 +3,12 @@
 #include <locale>
 
 #include "Converter.h"
-#include "../CompileCommands.cpp"
+#include "CompileCommands.cpp"
 #include "../FileHeader.h"
-#include "../CompileData.cpp"
+#include "CompileData.cpp"
 #include "../ByteConverter.cpp"
 #include "../FncArrs.cpp"
 #include "WStringFnc.cpp"
-#include "..\ReadCommands.cpp"
 
 void convertToNum(std::wstring path)
 {
@@ -28,9 +27,6 @@ void convertToNum(std::wstring path)
     CompileData dataArr;
     dataArr.getData().reserve(cLines);
 
-    char** dataLines = new char*[cLines]{};
-    int* commandNums = new int[cLines]{};
-
     int runRes = interpretText(lines, dataArr, cLines);
 
     if (runRes != WellCode)
@@ -42,7 +38,7 @@ void convertToNum(std::wstring path)
         save2Files(lines, dataArr, cLines, path);
     }
 
-    clearMem(fullText, lines, dataArr, cLines);
+    clearMem(fullText, lines);
 
     std::cout << "Компиляция завершилась успешно\n";
 }
@@ -76,11 +72,11 @@ void save2Files(std::wstring_view* oldLines, CompileData& dataArr, int cLines, s
     file.close();
 }
 
-void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines, CompileData& dataArr, int cLines)
+void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines)
 {
-    delete[] oldLines;
+    if(oldLines)         delete[] oldLines;
 
-    delete[] fullText.data();
+    if (fullText.data()) delete[] fullText.data();
 }
 
 int interpretText(std::wstring_view* oldLines, CompileData& dataArr, int cLines)
@@ -174,4 +170,26 @@ int getCommandNum(std::wstring_view& commandName)
     }
 
     return res;
+}
+
+void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName, std::wstring_view& commandData)
+{
+    int spacePos = findFirstSpacePos(fullCommand);
+    commandName = fullCommand.substr(0, spacePos);
+    if (spacePos >= 0)
+    {
+        commandData = fullCommand.substr((size_t)spacePos + 1);
+    }
+}
+
+int findFirstSpacePos(std::wstring_view& fullCommand)
+{
+    for (int i = 0; i < (int)fullCommand.size(); i++)
+    {
+        if (fullCommand[i] == ' ')
+        {
+            return i;
+        }
+    }
+    return -1;
 }

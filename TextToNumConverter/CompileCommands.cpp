@@ -5,11 +5,11 @@
 #include <exception>
 #include <iostream>
 
-#include "ByteConverter.cpp"
+#include "../ByteConverter.cpp"
 #include "CompileData.cpp"
-#include "CommonCode.cpp"
-#include "RegisterCompile.cpp"
-#include "CommandConstants.h"
+#include "../CommonCode.cpp"
+#include "../RegisterCompile.cpp"
+#include "../CommandConstants.h"
 
 int default_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
 {

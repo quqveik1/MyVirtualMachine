@@ -34,7 +34,7 @@ void readByteCode(std::string path)
     }
     else
     {
-        std::cout << "Проблема исполнения скомпилированного байткода: " << readRes << std::endl;
+        std::cout << "Проблема запуска скомпилированного байткода: " << readRes << std::endl;
     }
 }
 
@@ -97,11 +97,6 @@ void readAndExecuteCommands(Processor& data)
     endProgramWithCode(callCode, lastLine - 1);
 }
 
-int readIntCommands(int* commandsArr, std::wstring path)
-{
-    return 0;
-}
-
 void endProgramWithCode(int code, int lastLine)
 {
     if(code == CommandBreakCode)
@@ -157,27 +152,4 @@ int executeCommand(Processor& processor)
     }
 
     return CommandReadErrorCode;
-}
-
-
-void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName, std::wstring_view& commandData)
-{
-    int spacePos = findFirstSpacePos(fullCommand);
-    commandName = fullCommand.substr(0, spacePos);
-    if(spacePos >= 0)
-    {
-        commandData = fullCommand.substr((size_t)spacePos + 1);
-    }
-}
-
-int findFirstSpacePos(std::wstring_view& fullCommand)
-{
-    for(int i = 0; i < (int)fullCommand.size(); i++)
-    {
-        if (fullCommand[i] == ' ')
-        {
-            return i;
-        }
-    }
-    return -1;
 }

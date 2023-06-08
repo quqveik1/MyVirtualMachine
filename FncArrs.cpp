@@ -2,7 +2,7 @@
 
 #include "FncArrs.h"
 
-#include "CompileCommands.cpp"
+#include "TextToNumConverter/CompileCommands.cpp"
 
 
 void initSizeArr()

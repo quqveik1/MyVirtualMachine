@@ -1,6 +1,6 @@
 #pragma once
 #include "Commands.cpp"
-#include "CompileCommands.h"
+#include "TextToNumConverter/CompileCommands.h"
 
 COMMANDTYPE commandsArr[cCommands + 1]{};
 int commandDataSizeArr[cCommands + 1]{};
