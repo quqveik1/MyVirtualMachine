@@ -15,6 +15,7 @@ public:
     std::stack<int> &getAppData();
 
     int peek();
+    int get();
 
     template<typename T>
     void push(const T& obj);

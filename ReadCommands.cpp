@@ -111,7 +111,7 @@ void endProgramWithCode(int code, int lastLine)
     else
     {
         std::cout << "Программа неудачно завершилась с кодом: " << code << std::endl;
-        //std::cout << "Программа возникла в строке [" << lastLine << "]: " << std::endl;
+        std::cout << "Программа возникла в строке [" << lastLine << "]: " << std::endl;
         //std::wcout << L"\"" << lastStr << L"\"" << std::endl;
     }
 }
@@ -166,7 +166,7 @@ void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName
     commandName = fullCommand.substr(0, spacePos);
     if(spacePos >= 0)
     {
-        commandData = fullCommand.substr(spacePos + 1);
+        commandData = fullCommand.substr((size_t)spacePos + 1);
     }
 }
 

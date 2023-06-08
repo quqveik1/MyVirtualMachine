@@ -15,6 +15,16 @@ int RuntimeData::peek()
     return _peek(getAppData());
 }
 
+int RuntimeData::get()
+{
+    if (getAppData().empty())
+    {
+        std::cout << "Попытка взять из пустого стека элемент\n";
+        return {};
+    }
+    return getAppData().top();
+}
+
 template<typename T>
 void RuntimeData::push(const T& obj)
 {

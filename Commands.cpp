@@ -22,7 +22,7 @@ int in_command(Processor& processor, int codedCommandNum)
 
 int out_command(Processor& processor, int codedCommandNum)
 {
-    int num = processor.getRuntimeData().peek();
+    int num = processor.getRuntimeData().get();
     std::cout << num << std::endl;
 
     return WellCode;
@@ -147,7 +147,10 @@ int pop_command(Processor& processor, int codedCommandNum)
     {
         evalExpression(processor, codedCommandNum);
         int ramPos = processor.getRuntimeData().peek();
-        processor.getAppRAM()[ramPos] = processor.getRuntimeData().peek();
+        int& ramData = processor.getAppRAM()[ramPos];
+
+        ramData = processor.getRuntimeData().peek();
+
         return WellCode;
     }
 

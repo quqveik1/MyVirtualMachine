@@ -9,6 +9,7 @@ T _peek(std::stack<T>& s)
 {
     if (s.empty())
     {
+        std::cout << "Попытка взять из пустого стека элемент\n";
         return {};
     }
 

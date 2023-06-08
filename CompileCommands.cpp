@@ -51,7 +51,7 @@ int saveSmallExpr(CompileData& compileData, int commandNum, std::wstring_view& d
 
         firstInt = convertArgToInt(firstArg, &isConstant, &isReg);
 
-        int writeNum = codeToNumberRepresentation(commandNum, isConstant, isReg);
+        int writeNum = codeToNumberRepresentation(commandNum, isConstant, isReg, isRamCall);
         compileData.put(writeNum);
 
         if (needToSwapArgs)
