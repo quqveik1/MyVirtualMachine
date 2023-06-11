@@ -8,13 +8,18 @@ void initCompileArr()
 {
     commandsCompileArr[in_num] = default_compile;
     commandsCompileArr[out_num] = default_compile;
+
     commandsCompileArr[push_num] = push_compile;
+
     commandsCompileArr[hlt_num] = default_compile;
+
     commandsCompileArr[add_num] = default_compile;
     commandsCompileArr[sub_num] = default_compile;
     commandsCompileArr[mul_num] = default_compile;
     commandsCompileArr[div_num] = default_compile;
+
     commandsCompileArr[pop_num] = pop_compile;
+
     commandsCompileArr[jmp_num] = jmp_compile;
     commandsCompileArr[ja_num] = jmp_compile;
     commandsCompileArr[jae_num] = jmp_compile;
@@ -22,6 +27,8 @@ void initCompileArr()
     commandsCompileArr[jbe_num] = jmp_compile;
     commandsCompileArr[je_num] = jmp_compile;
     commandsCompileArr[jne_num] = jmp_compile;
+
+    commandsCompileArr[sqrt_num] = default_compile;
 }
 
 void initCommandsArr()
@@ -42,4 +49,5 @@ void initCommandsArr()
     commandsArr[jbe_num] = jbe_command;
     commandsArr[je_num] = je_command;
     commandsArr[jne_num] = jne_command;
+    commandsArr[sqrt_num] = sqrt_command;
 }

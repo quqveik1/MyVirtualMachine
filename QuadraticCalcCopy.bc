@@ -8,4 +8,11 @@ pop ax
 push bx
 push bx
 mul
-out
+push 4
+push ax
+mul 
+push cx
+mul
+sub
+
+hlt

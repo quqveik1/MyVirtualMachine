@@ -25,8 +25,7 @@ int RuntimeData::get()
     return getAppData().top();
 }
 
-template<typename T>
-void RuntimeData::push(const T& obj)
+void RuntimeData::push(int obj)
 {
     return getAppData().push(obj);
 }

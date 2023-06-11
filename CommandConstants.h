@@ -2,9 +2,9 @@
 
 #include <string>
 
-const int COMMANDSVERSION = 5;
+const int COMMANDSVERSION = 6;
 
-const int cCommands = 16;
+const int cCommands = 17;
 
 const std::wstring hlt_str = L"hlt";
 
@@ -26,6 +26,9 @@ const std::wstring jb_str = L"jb";
 const std::wstring jbe_str = L"jbe";
 const std::wstring je_str = L"je";
 const std::wstring jne_str = L"jne";
+
+const std::wstring sqrt_str = L"sqrt";
+
 
 //------------------------------------------------------------------
 
@@ -51,6 +54,8 @@ const int jb_num = 13;
 const int jbe_num = 14;
 const int je_num = 15;
 const int jne_num = 16;
+
+const int sqrt_num = 17;
 
 //------------------------------------------------------------------
 

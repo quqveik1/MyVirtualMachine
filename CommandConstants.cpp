@@ -5,6 +5,7 @@
 int getCommandNum(std::wstring_view& commandName)
 {
     int res = CommandRecognizeError;
+    if (commandName.size() == 0) return res;
     if (_wcsnicmp(commandName.data(), in_str.c_str(), commandName.size()) == 0)
     {
         res = in_num;
@@ -83,6 +84,11 @@ int getCommandNum(std::wstring_view& commandName)
     else if (_wcsnicmp(commandName.data(), jne_str.c_str(), commandName.size()) == 0)
     {
         res = jne_num;
+    }
+
+    else if (_wcsnicmp(commandName.data(), sqrt_str.c_str(), commandName.size()) == 0)
+    {
+        res = sqrt_num;
     }
 
     return res;

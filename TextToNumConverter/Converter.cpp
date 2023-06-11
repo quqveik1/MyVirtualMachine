@@ -107,37 +107,41 @@ int interpretText(std::wstring_view* oldLines, CompileData& dataArr, std::wstrin
 {
     for (int i = 0; i < cLines; i++)
     {
-        addLineToListing(listingFile[i], oldLines[i], dataArr);
+        addLineToListing(listingFile[i], oldLines[i], dataArr, i);
 
         std::wstring_view commandName{};
         std::wstring_view commandData{};
         splitCommand(oldLines[i], commandName, commandData);
 
-        int commandNum = getCommandNum(commandName);
-
-        if (!isCommandNumValid(commandNum))
+        if (commandName.size() > 0)
         {
-            std::wcout << L"Ошибка в распозновании команды в строке (" << i << L") [" << commandName << L"]\n";
-            std::wcout << L"\"" << oldLines[i] << "\"\n";
-            return CommandReadErrorCode;
-        }
 
-        COMMANDCOMPILETYPE fnc = commandsCompileArr[commandNum];
+            int commandNum = getCommandNum(commandName);
 
-        if (fnc != NULL)
-        {
-            int res = fnc(dataArr, commandNum, commandData);
+            if (!isCommandNumValid(commandNum))
+            {
+                std::wcout << L"Ошибка в распозновании команды в строке (" << i << L") [" << commandName << L"]\n";
+                std::wcout << L"\"" << oldLines[i] << "\"\n";
+                return CommandReadErrorCode;
+            }
+
+            COMMANDCOMPILETYPE fnc = commandsCompileArr[commandNum];
+
+            if (fnc != NULL)
+            {
+                int res = fnc(dataArr, commandNum, commandData);
+            }
         }
     }
     return WellCode;
 }
 
-void addLineToListing(std::wstring& listingFile, std::wstring_view& oldFile, CompileData& data)
+void addLineToListing(std::wstring& listingFile, std::wstring_view& oldFile, CompileData& data, int lineNumber)
 {
     int memStart = data.getCurrPos();
 
-    wchar_t buffer[6]{};
-    swprintf(buffer, 6, L"%05d", memStart);
+    wchar_t buffer[10]{};
+    swprintf(buffer, 10, L"%03d: %05d", lineNumber, memStart);
 
     listingFile += buffer;
     listingFile += L" | ";

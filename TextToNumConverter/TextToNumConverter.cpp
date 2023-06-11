@@ -6,5 +6,5 @@
 
 int main()
 {
-    convertToNum(L"../kvm.bc");
+    convertToNum(L"../QuadraticCalc.bc");
 }

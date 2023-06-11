@@ -5,6 +5,7 @@
 #include "Commands.h"
 
 #include <iostream>
+#include <cmath>
 
 #include "StackFunc.cpp"
 #include "CommandConstants.h"
@@ -276,4 +277,15 @@ int jne_command(Processor& processor, int codedCommandNum)
     bool expressionRes = a != b;
 
     return commonJmpFnc(processor, expressionRes);
+}
+
+int sqrt_command(Processor& processor, int codedCommandNum)
+{
+    int a = processor.getRuntimeData().peek();
+
+    double res = sqrt(a);
+
+    processor.getRuntimeData().push((int)res);
+
+    return WellCode;
 }

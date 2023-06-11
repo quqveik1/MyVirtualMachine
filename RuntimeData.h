@@ -16,8 +16,6 @@ public:
 
     int peek();
     int get();
-
-    template<typename T>
-    void push(const T& obj);
+    void push(int obj);
 };
 
