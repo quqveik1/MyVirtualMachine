@@ -15,4 +15,6 @@ public:
     void put(T* obj);  
     template<typename T>
     void put(T& obj);
+
+    int getCurrPos() { return currPos; }
 };

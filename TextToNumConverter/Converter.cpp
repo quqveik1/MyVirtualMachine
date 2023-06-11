@@ -1,6 +1,7 @@
 #pragma once
 
 #include <locale>
+#include <cstdio>
 
 #include "Converter.h"
 #include "CompileCommands.cpp"
@@ -27,7 +28,9 @@ void convertToNum(std::wstring path)
     CompileData dataArr;
     dataArr.getData().reserve(cLines);
 
-    int runRes = interpretText(lines, dataArr, cLines);
+    std::wstring* listingFile = new std::wstring[cLines]{};
+
+    int runRes = interpretText(lines, dataArr, listingFile, cLines);
 
     if (runRes != WellCode)
     {
@@ -35,10 +38,10 @@ void convertToNum(std::wstring path)
     }
     else
     {
-        save2Files(lines, dataArr, cLines, path);
+        save2Files(lines, dataArr, listingFile, cLines, path);
     }
 
-    clearMem(fullText, lines);
+    clearMem(fullText, lines, listingFile);
 
     std::cout << "Компиляция завершилась успешно\n";
 }
@@ -71,7 +74,7 @@ push [25]
 pop [ax]
 */
 
-void save2Files(std::wstring_view* oldLines, CompileData& dataArr, int cLines, std::wstring path)
+void save2Files(std::wstring_view* oldLines, CompileData& dataArr, std::wstring* listringFile, int cLines, std::wstring path)
 {
     std::wstring savePath = path + L'c';
     std::ofstream file(savePath, std::ios::binary);
@@ -85,19 +88,27 @@ void save2Files(std::wstring_view* oldLines, CompileData& dataArr, int cLines, s
     file.write(&(dataArr.getData())[0], writeSize);
 
     file.close();
+
+    std::wstring listingPath = path + L'a';
+    std::ofstream listing(listingPath);
+    saveText(listringFile, cLines, listing, false);
 }
 
-void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines)
+void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines, std::wstring* listingFile)
 {
     if(oldLines)         delete[] oldLines;
 
     if (fullText.data()) delete[] fullText.data();
+
+    if (listingFile) delete[] listingFile;
 }
 
-int interpretText(std::wstring_view* oldLines, CompileData& dataArr, int cLines)
+int interpretText(std::wstring_view* oldLines, CompileData& dataArr, std::wstring* listingFile, int cLines)
 {
     for (int i = 0; i < cLines; i++)
     {
+        addLineToListing(listingFile[i], oldLines[i], dataArr);
+
         std::wstring_view commandName{};
         std::wstring_view commandData{};
         splitCommand(oldLines[i], commandName, commandData);
@@ -121,6 +132,18 @@ int interpretText(std::wstring_view* oldLines, CompileData& dataArr, int cLines)
     return WellCode;
 }
 
+void addLineToListing(std::wstring& listingFile, std::wstring_view& oldFile, CompileData& data)
+{
+    int memStart = data.getCurrPos();
+
+    wchar_t buffer[6]{};
+    swprintf(buffer, 6, L"%05d", memStart);
+
+    listingFile += buffer;
+    listingFile += L" | ";
+    listingFile += oldFile;
+}
+
 /*
 push 10
 add
@@ -135,8 +158,6 @@ mul
 4
 
 */
-
-
 
 void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName, std::wstring_view& commandData)
 {
