@@ -16,6 +16,11 @@ public:
     template<typename T>
     T* get();
 
+
+    bool moveCursor(int _delta);
+    template<typename T>
+    bool moveCursor();
+
     int getSize() { return size; }
     int getCurrPos() { return currPos; }
     void setSize(int _size) { size = _size; }

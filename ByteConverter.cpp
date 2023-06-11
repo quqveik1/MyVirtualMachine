@@ -2,9 +2,9 @@
 
 #include "ByteConverter.h"
 
-const int constBitMove = 4;
-const int regBitMove = 5;
-const int ramBitMove = 6;
+const int constBitMove = 8;
+const int regBitMove = 9;
+const int ramBitMove = 10;
 
 int codeToNumberRepresentation(int num, bool hasConstant/*= false*/, bool hasRegister/*= false*/, bool isRamCall/*= false*/)
 {

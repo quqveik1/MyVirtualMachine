@@ -17,6 +17,11 @@ void initCompileArr()
     commandsCompileArr[pop_num] = pop_compile;
     commandsCompileArr[jmp_num] = jmp_compile;
     commandsCompileArr[ja_num] = jmp_compile;
+    commandsCompileArr[jae_num] = jmp_compile;
+    commandsCompileArr[jb_num] = jmp_compile;
+    commandsCompileArr[jbe_num] = jmp_compile;
+    commandsCompileArr[je_num] = jmp_compile;
+    commandsCompileArr[jne_num] = jmp_compile;
 }
 
 void initCommandsArr()
@@ -32,4 +37,9 @@ void initCommandsArr()
     commandsArr[pop_num] = pop_command;
     commandsArr[jmp_num] = jmp_command;
     commandsArr[ja_num] = ja_command;
+    commandsArr[jae_num] = jae_command;
+    commandsArr[jb_num] = jb_command;
+    commandsArr[jbe_num] = jbe_command;
+    commandsArr[je_num] = je_command;
+    commandsArr[jne_num] = jne_command;
 }

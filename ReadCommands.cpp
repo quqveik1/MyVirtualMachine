@@ -147,8 +147,12 @@ int executeCommand(Processor& processor)
 
     if (isCommandNumValid(commandNum))
     {
-        int callRes = commandsArr[commandNum](processor, codedCommandNum);
-        return callRes;
+        COMMANDTYPE fnc = commandsArr[commandNum];
+        if (fnc)
+        {
+            int callRes = fnc(processor, codedCommandNum);
+            return callRes;
+        }
     }
 
     return CommandReadErrorCode;

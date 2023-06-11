@@ -55,3 +55,18 @@ bool DataStack::setCurrPos(int _pos)
     }
     return false;
 }
+
+bool DataStack::moveCursor(int _delta)
+{
+    if(_delta == 0)
+    {
+        std::cout << "Нулевой сдвиг moveCursor\n";
+    }
+    return setCurrPos(getCurrPos() + _delta);
+}
+
+template<typename T>
+bool DataStack::moveCursor()
+{
+    return moveCursor(sizeof(T));
+}

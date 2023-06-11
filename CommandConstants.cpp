@@ -58,6 +58,31 @@ int getCommandNum(std::wstring_view& commandName)
     else if (_wcsnicmp(commandName.data(), ja_str.c_str(), commandName.size()) == 0)
     {
         res = ja_num;
+    }    
+
+    else if (_wcsnicmp(commandName.data(), jae_str.c_str(), commandName.size()) == 0)
+    {
+        res = jae_num;
+    }    
+
+    else if (_wcsnicmp(commandName.data(), jb_str.c_str(), commandName.size()) == 0)
+    {
+        res = jb_num;
+    }    
+
+    else if (_wcsnicmp(commandName.data(), jbe_str.c_str(), commandName.size()) == 0)
+    {
+        res = jbe_num;
+    }    
+
+    else if (_wcsnicmp(commandName.data(), je_str.c_str(), commandName.size()) == 0)
+    {
+        res = je_num;
+    }    
+
+    else if (_wcsnicmp(commandName.data(), jne_str.c_str(), commandName.size()) == 0)
+    {
+        res = jne_num;
     }
 
     return res;

@@ -163,38 +163,117 @@ int pop_command(Processor& processor, int codedCommandNum)
     return WellCode;
 }
 
-int jmp_command(Processor& processor, int codedCommandNum)
+int commonJmpFnc(Processor& processor, bool needToJump)
 {
     int jmpPos = *processor.getCommandData().peek<int>();
 
-    bool res = processor.getCommandData().setCurrPos(jmpPos);
-
-    if(!res)
+    if (needToJump)
     {
-        throw std::exception("Попытка перепрыгнуть на несуществующюю позицию");
-        return MachineCodeOutOfBound;
+        bool res = processor.getCommandData().setCurrPos(jmpPos);
+
+        if (!res)
+        {
+            throw std::exception("Попытка перепрыгнуть на несуществующюю позицию");
+            return MachineCodeOutOfBound;
+        }
     }
 
+    return WellCode;
+}
+
+int jmp_command(Processor& processor, int codedCommandNum)
+{
+    return commonJmpFnc(processor, true);
+}
+
+int get2ElementsFromStack(int* a, int* b, Processor& processor)
+{
+    try
+    {
+        *b = processor.getRuntimeData().peek();
+        *a = processor.getRuntimeData().peek();
+    }
+    catch (...)
+    {
+        return EmptyStackGetError;
+    }
     return WellCode;
 }
 
 int ja_command(Processor& processor, int codedCommandNum)
 {
     int b = 0, a = 0;
-    try
-    {
-        b = processor.getRuntimeData().peek();
-        a = processor.getRuntimeData().peek();
-    }
-    catch (...)
-    {
-        return EmptyStackGetError;
-    }
 
-    if(a > b)
-    {
-        return jmp_command(processor, innerCall_num);
-    }
+    int res = get2ElementsFromStack(&a, &b, processor);
 
-    return WellCode;
+    if (res != WellCode) return res;
+
+    bool expressionRes = a > b;
+
+    return commonJmpFnc(processor, expressionRes);
+}
+
+int jae_command(Processor& processor, int codedCommandNum)
+{
+    int b = 0, a = 0;
+
+    int res = get2ElementsFromStack(&a, &b, processor);
+
+    if (res != WellCode) return res;
+
+    bool expressionRes = a >= b;
+
+    return commonJmpFnc(processor, expressionRes);
+}
+
+int jb_command(Processor& processor, int codedCommandNum)
+{
+    int b = 0, a = 0;
+
+    int res = get2ElementsFromStack(&a, &b, processor);
+
+    if (res != WellCode) return res;
+
+    bool expressionRes = a < b;
+
+    return commonJmpFnc(processor, expressionRes);
+}
+
+int jbe_command(Processor& processor, int codedCommandNum)
+{
+    int b = 0, a = 0;
+
+    int res = get2ElementsFromStack(&a, &b, processor);
+
+    if (res != WellCode) return res;
+
+    bool expressionRes = a <= b;
+
+    return commonJmpFnc(processor, expressionRes);
+}
+
+int je_command(Processor& processor, int codedCommandNum)
+{
+    int b = 0, a = 0;
+
+    int res = get2ElementsFromStack(&a, &b, processor);
+
+    if (res != WellCode) return res;
+
+    bool expressionRes = a == b;
+
+    return commonJmpFnc(processor, expressionRes);
+}
+
+int jne_command(Processor& processor, int codedCommandNum)
+{
+    int b = 0, a = 0;
+
+    int res = get2ElementsFromStack(&a, &b, processor);
+
+    if (res != WellCode) return res;
+
+    bool expressionRes = a != b;
+
+    return commonJmpFnc(processor, expressionRes);
 }

@@ -9,7 +9,6 @@
 #include "CommandConstants.h"
 #include "Processor.h"
 
-const int COMMANDSVERSION = 4;
 using COMMANDTYPE = int (*)(Processor& processor, int codedCommandNum);
 
 int in_command(Processor& processor, int codedCommandNum);
@@ -27,5 +26,12 @@ int div_command(Processor& processor, int codedCommandNum);
 
 int pop_command(Processor& processor, int codedCommandNum);
 
+int commonJmpFnc(Processor& processor, bool needToJump);
 int jmp_command(Processor& processor, int codedCommandNum);
+int get2ElementsFromStack(int* a, int* b, Processor& processor);
 int ja_command(Processor& processor, int codedCommandNum);
+int jae_command(Processor& processor, int codedCommandNum);
+int jb_command(Processor& processor, int codedCommandNum);
+int jbe_command(Processor& processor, int codedCommandNum);
+int je_command(Processor& processor, int codedCommandNum);
+int jne_command(Processor& processor, int codedCommandNum);

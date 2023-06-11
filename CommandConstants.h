@@ -1,6 +1,10 @@
 #pragma once
 
-const int cCommands = 11;
+#include <string>
+
+const int COMMANDSVERSION = 5;
+
+const int cCommands = 16;
 
 const std::wstring hlt_str = L"hlt";
 
@@ -17,6 +21,11 @@ const std::wstring pop_str = L"pop";
 
 const std::wstring jmp_str = L"jmp";
 const std::wstring ja_str = L"ja";
+const std::wstring jae_str = L"jae_str";
+const std::wstring jb_str = L"jb";
+const std::wstring jbe_str = L"jbe";
+const std::wstring je_str = L"je";
+const std::wstring jne_str = L"jne";
 
 //------------------------------------------------------------------
 
@@ -37,9 +46,13 @@ const int pop_num = 9;
 
 const int jmp_num = 10;
 const int ja_num = 11;
+const int jae_num = 12;
+const int jb_num = 13;
+const int jbe_num = 14;
+const int je_num = 15;
+const int jne_num = 16;
 
 //------------------------------------------------------------------
-
 
 int getCommandNum(std::wstring_view& commandName);
 bool isCommandNumValid(int num);
