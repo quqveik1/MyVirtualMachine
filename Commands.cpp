@@ -11,12 +11,14 @@
 #include "CommandConstants.h"
 #include "ByteConverter.cpp"
 #include "Register.cpp"
+#include "FloatConvert.cpp"
 
 int in_command(Processor& processor, int codedCommandNum)
 {
-    int num = 0;
+    float num = 0;
     std::cin >> num;
-    processor.getRuntimeData().getAppData().push(num);
+    int pnum = convNum(num);
+    processor.getRuntimeData().getAppData().push(pnum);
 
     return WellCode;
 }
@@ -24,7 +26,7 @@ int in_command(Processor& processor, int codedCommandNum)
 int out_command(Processor& processor, int codedCommandNum)
 {
     int num = processor.getRuntimeData().get();
-    std::cout << num << std::endl;
+    std::cout << deConvNum<float>(num) << std::endl;
 
     return WellCode;
 }
@@ -39,7 +41,7 @@ int push_command(Processor& processor, int codedCommandNum)
 
     if(hasRamCall)
     {
-        int ramPos = processor.getRuntimeData().peek();
+        int ramPos = deConvNum<int>(processor.getRuntimeData().peek());
 
         int ramData = processor.getAppRAM()[ramPos];
 
@@ -64,7 +66,7 @@ int evalExpression(Processor& processor, int codedCommandNum)
     if (hasRegister)
     {
         int regNum = *processor.getCommandData().peek<int>();
-        processor.getRuntimeData().getAppData().push(processor.getAppRegister().getReg(regNum));
+        processor.getRuntimeData().getAppData().push(processor.getAppRegister().getReg(deConvNum<int>(regNum)));
     }
 
     if (hasConst && hasRegister)
@@ -75,6 +77,18 @@ int evalExpression(Processor& processor, int codedCommandNum)
     return WellCode;
 }
 
+template <typename T>
+void get2Arg(T& a, T& b, Processor& processor)
+{
+    int a1 = 0, b1 = 0;
+
+    a1 = processor.getRuntimeData().peek();
+    b1 = processor.getRuntimeData().peek();
+
+    a = deConvNum<T>(a1);
+    b = deConvNum<T>(b1);
+}
+
 int hlt_command(Processor& processor, int codedCommandNum)
 {
     return CommandBreakCode;
@@ -82,14 +96,13 @@ int hlt_command(Processor& processor, int codedCommandNum)
 
 int add_command(Processor& processor, int codedCommandNum)
 {
-    int a = 0, b = 0;
+    float a = 0, b = 0;
 
-    a = processor.getRuntimeData().peek();
-    b = processor.getRuntimeData().peek();
+    get2Arg(a, b, processor);
 
     a = a + b;
 
-    processor.getRuntimeData().getAppData().push(a);
+    processor.getRuntimeData().getAppData().push(convNum(a));
 
     return WellCode;
 }
@@ -97,42 +110,39 @@ int add_command(Processor& processor, int codedCommandNum)
 int sub_command(Processor& processor, int codedCommandNum)
 {
 
-    int a = 0, b = 0;
+    float a = 0, b = 0;
 
-    a = processor.getRuntimeData().peek();
-    b = processor.getRuntimeData().peek();
+    get2Arg(a, b, processor);
 
     a = b - a;
 
-    processor.getRuntimeData().getAppData().push(a);
+    processor.getRuntimeData().getAppData().push(convNum(a));
 
     return WellCode;
 }
 
 int mul_command(Processor& processor, int codedCommandNum)
 {
-    int a = 0, b = 0;
+    float a = 0, b = 0;
 
-    a = processor.getRuntimeData().peek();
-    b = processor.getRuntimeData().peek();
+    get2Arg(a, b, processor);
 
     a = a * b;
 
-    processor.getRuntimeData().getAppData().push(a);
+    processor.getRuntimeData().getAppData().push(convNum(a));
 
     return WellCode;
 }
 
 int div_command(Processor& processor, int codedCommandNum)
 {
-    int a = 0, b = 0;
+    float a = 0, b = 0;
 
-    a = processor.getRuntimeData().peek();
-    b = processor.getRuntimeData().peek();
+    get2Arg(a, b, processor);
 
     a = b / a;
 
-    processor.getRuntimeData().getAppData().push(a);
+    processor.getRuntimeData().getAppData().push(convNum(a));
 
     return WellCode;
 }
@@ -147,7 +157,7 @@ int pop_command(Processor& processor, int codedCommandNum)
     if(hasRamCall)
     {
         evalExpression(processor, codedCommandNum);
-        int ramPos = processor.getRuntimeData().peek();
+        int ramPos = deConvNum<int>(processor.getRuntimeData().peek());
         int& ramData = processor.getAppRAM()[ramPos];
 
         ramData = processor.getRuntimeData().peek();
@@ -155,18 +165,18 @@ int pop_command(Processor& processor, int codedCommandNum)
         return WellCode;
     }
 
-    int* regNum = processor.getCommandData().peek<int>();
+    int regNum = deConvNum<int>(*processor.getCommandData().peek<int>());
 
-    int data = processor.getRuntimeData().peek();
+    float data = deConvNum<float>(processor.getRuntimeData().peek());
 
-    processor.getAppRegister().setReg(*regNum, data);
+    processor.getAppRegister().setReg(regNum, convNum(data));
 
     return WellCode;
 }
 
 int commonJmpFnc(Processor& processor, bool needToJump)
 {
-    int jmpPos = *processor.getCommandData().peek<int>();
+    int jmpPos = deConvNum<int>(*processor.getCommandData().peek<int>());
 
     if (needToJump)
     {
@@ -203,11 +213,9 @@ int get2ElementsFromStack(int* a, int* b, Processor& processor)
 
 int ja_command(Processor& processor, int codedCommandNum)
 {
-    int b = 0, a = 0;
+    float b = 0, a = 0;
 
-    int res = get2ElementsFromStack(&a, &b, processor);
-
-    if (res != WellCode) return res;
+    get2Arg(b, a, processor);
 
     bool expressionRes = a > b;
 
@@ -216,11 +224,9 @@ int ja_command(Processor& processor, int codedCommandNum)
 
 int jae_command(Processor& processor, int codedCommandNum)
 {
-    int b = 0, a = 0;
+    float b = 0, a = 0;
 
-    int res = get2ElementsFromStack(&a, &b, processor);
-
-    if (res != WellCode) return res;
+    get2Arg(b, a, processor);
 
     bool expressionRes = a >= b;
 
@@ -229,11 +235,9 @@ int jae_command(Processor& processor, int codedCommandNum)
 
 int jb_command(Processor& processor, int codedCommandNum)
 {
-    int b = 0, a = 0;
+    float b = 0, a = 0;
 
-    int res = get2ElementsFromStack(&a, &b, processor);
-
-    if (res != WellCode) return res;
+    get2Arg(b, a, processor);
 
     bool expressionRes = a < b;
 
@@ -242,11 +246,9 @@ int jb_command(Processor& processor, int codedCommandNum)
 
 int jbe_command(Processor& processor, int codedCommandNum)
 {
-    int b = 0, a = 0;
+    float b = 0, a = 0;
 
-    int res = get2ElementsFromStack(&a, &b, processor);
-
-    if (res != WellCode) return res;
+    get2Arg(b, a, processor);
 
     bool expressionRes = a <= b;
 
@@ -255,11 +257,9 @@ int jbe_command(Processor& processor, int codedCommandNum)
 
 int je_command(Processor& processor, int codedCommandNum)
 {
-    int b = 0, a = 0;
+    float b = 0, a = 0;
 
-    int res = get2ElementsFromStack(&a, &b, processor);
-
-    if (res != WellCode) return res;
+    get2Arg(b, a, processor);
 
     bool expressionRes = a == b;
 
@@ -268,11 +268,9 @@ int je_command(Processor& processor, int codedCommandNum)
 
 int jne_command(Processor& processor, int codedCommandNum)
 {
-    int b = 0, a = 0;
+    float b = 0, a = 0;
 
-    int res = get2ElementsFromStack(&a, &b, processor);
-
-    if (res != WellCode) return res;
+    get2Arg(b, a, processor);
 
     bool expressionRes = a != b;
 
@@ -281,11 +279,11 @@ int jne_command(Processor& processor, int codedCommandNum)
 
 int sqrt_command(Processor& processor, int codedCommandNum)
 {
-    int a = processor.getRuntimeData().peek();
+    float a = deConvNum<float>(processor.getRuntimeData().peek());
 
     double res = sqrt(a);
 
-    processor.getRuntimeData().push((int)res);
+    processor.getRuntimeData().push(convNum(res));
 
     return WellCode;
 }

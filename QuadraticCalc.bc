@@ -3,5 +3,12 @@ sqrt
 push 5
 mul
 out
+pop ax
+push 3
+pop [2]
+push ax+10
+push [2]
+sub
+out
 
 hlt

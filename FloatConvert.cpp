@@ -5,5 +5,11 @@
 template <typename T>
 int convNum(const T& num)
 {
-    return (T)num * Convert10Power;
+    return (int)(num * (T)Convert10Power);
+}
+
+template <typename T>
+T deConvNum(int num)
+{
+    return ((T)num) / Convert10Power;
 }

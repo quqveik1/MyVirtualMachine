@@ -10,6 +10,7 @@
 #include "../CommonCode.cpp"
 #include "../RegisterCompile.cpp"
 #include "../CommandConstants.h"
+#include "../FloatConvert.cpp"
 
 int default_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
 {
@@ -29,7 +30,7 @@ int saveSmallExpr(CompileData& compileData, int commandNum, std::wstring_view& d
     if (!data.empty())
     {
         std::wstring_view firstArg{}, secondArg{};
-        int               firstInt{}, secondInt{};
+        double               first{}, second{};
         bool needToSwapArgs = false;
 
         bool isConstant = false;
@@ -44,26 +45,28 @@ int saveSmallExpr(CompileData& compileData, int commandNum, std::wstring_view& d
             firstArg = data.substr(0, plusPos);
             secondArg = data.substr(plusPos + 1);
 
-            secondInt = convertArgToInt(secondArg, &isConstant, &isReg);
+            second = convertArg(secondArg, &isConstant, &isReg);
 
             needToSwapArgs = isConstant;
         }
 
-        firstInt = convertArgToInt(firstArg, &isConstant, &isReg);
+        first = convertArg(firstArg, &isConstant, &isReg);
 
         int writeNum = codeToNumberRepresentation(commandNum, isConstant, isReg, isRamCall);
         compileData.put(writeNum);
 
         if (needToSwapArgs)
         {
-            std::swap(firstInt, secondInt);
+            std::swap(first, second);
         }
 
-        compileData.put(firstInt);
+        int _f = convNum(first);
+        compileData.put(_f);
 
         if (plusPos >= 0)
         {
-            compileData.put(secondInt);
+            int _s = convNum(second);
+            compileData.put(_s);
         }
 
         return WellCode;
@@ -89,18 +92,18 @@ bool editDataForBrackets(std::wstring_view& data)
     return false;
 }
 
-int convertArgToInt(std::wstring_view& arg, bool* number, bool* reg)
+double convertArg(std::wstring_view& arg, bool* number, bool* reg)
 {
     if (isDigitStr(arg))
     {
         *number = true;
-        int number = std::stoi((std::wstring)arg);
+        double number = std::stod((std::wstring)arg);
         return number;
     }
     else
     {
         *reg = true;
-        int number = getRegisterNumFromStr(arg);
+        double number = getRegisterNumFromStr(arg);
         return number;
     }
 }
@@ -132,7 +135,8 @@ int jmp_compile(CompileData& compileData, int commandNum, std::wstring_view& dat
 {
     default_compile(compileData, commandNum, data);
     int machineCodePos = stoi((std::wstring)data);
-    compileData.put(machineCodePos);
+    int conv = convNum(machineCodePos);
+    compileData.put(conv);
 
     return WellCode;
 }
