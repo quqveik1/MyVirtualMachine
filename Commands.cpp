@@ -31,13 +31,11 @@ int out_command(Processor& processor, int codedCommandNum)
     return WellCode;
 }
 
-int push_command(Processor& processor, int codedCommandNum)
+int callRam(Processor& processor, int codedNum)
 {
     bool hasRamCall = false;
 
-    decodeNumberRepresentation(codedCommandNum, NULL, NULL, &hasRamCall);
-
-    evalExpression(processor, codedCommandNum);
+    decodeNumberRepresentation(codedNum, NULL, NULL, &hasRamCall);
 
     if(hasRamCall)
     {
@@ -47,6 +45,23 @@ int push_command(Processor& processor, int codedCommandNum)
 
         processor.getRuntimeData().push(ramData);
     }
+    return WellCode;
+}
+
+int evalRamExpression(Processor& processor, int codedNum)
+{
+    evalExpression(processor, codedNum);
+
+    callRam(processor, codedNum);
+
+    return WellCode;
+}
+
+int push_command(Processor& processor, int codedCommandNum)
+{
+    
+
+    evalRamExpression(processor, codedCommandNum);
 
     return WellCode;
 }
@@ -174,9 +189,10 @@ int pop_command(Processor& processor, int codedCommandNum)
     return WellCode;
 }
 
-int commonJmpFnc(Processor& processor, bool needToJump)
+int commonJmpFnc(Processor& processor, bool needToJump, int codedNum)
 {
-    int jmpPos = deConvNum<int>(*processor.getCommandData().peek<int>());
+    evalRamExpression(processor, codedNum);
+    int jmpPos = deConvNum<int>(processor.getRuntimeData().peek());
 
     if (needToJump)
     {
@@ -194,7 +210,7 @@ int commonJmpFnc(Processor& processor, bool needToJump)
 
 int jmp_command(Processor& processor, int codedCommandNum)
 {
-    return commonJmpFnc(processor, true);
+    return commonJmpFnc(processor, true, codedCommandNum);
 }
 
 int get2ElementsFromStack(int* a, int* b, Processor& processor)
@@ -219,7 +235,7 @@ int ja_command(Processor& processor, int codedCommandNum)
 
     bool expressionRes = a > b;
 
-    return commonJmpFnc(processor, expressionRes);
+    return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
 int jae_command(Processor& processor, int codedCommandNum)
@@ -230,7 +246,7 @@ int jae_command(Processor& processor, int codedCommandNum)
 
     bool expressionRes = a >= b;
 
-    return commonJmpFnc(processor, expressionRes);
+    return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
 int jb_command(Processor& processor, int codedCommandNum)
@@ -241,7 +257,7 @@ int jb_command(Processor& processor, int codedCommandNum)
 
     bool expressionRes = a < b;
 
-    return commonJmpFnc(processor, expressionRes);
+    return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
 int jbe_command(Processor& processor, int codedCommandNum)
@@ -252,7 +268,7 @@ int jbe_command(Processor& processor, int codedCommandNum)
 
     bool expressionRes = a <= b;
 
-    return commonJmpFnc(processor, expressionRes);
+    return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
 int je_command(Processor& processor, int codedCommandNum)
@@ -263,7 +279,7 @@ int je_command(Processor& processor, int codedCommandNum)
 
     bool expressionRes = a == b;
 
-    return commonJmpFnc(processor, expressionRes);
+    return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
 int jne_command(Processor& processor, int codedCommandNum)
@@ -274,7 +290,7 @@ int jne_command(Processor& processor, int codedCommandNum)
 
     bool expressionRes = a != b;
 
-    return commonJmpFnc(processor, expressionRes);
+    return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
 int sqrt_command(Processor& processor, int codedCommandNum)

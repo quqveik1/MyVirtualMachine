@@ -140,8 +140,8 @@ void addLineToListing(std::wstring& listingFile, std::wstring_view& oldFile, Com
 {
     int memStart = data.getCurrPos();
 
-    wchar_t buffer[10]{};
-    swprintf(buffer, 10, L"%03d: %05d", lineNumber, memStart);
+    wchar_t buffer[15]{};
+    swprintf(buffer, 15, L"%03d: %05d", lineNumber, memStart);
 
     listingFile += buffer;
     listingFile += L" | ";

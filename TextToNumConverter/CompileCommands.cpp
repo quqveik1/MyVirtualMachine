@@ -133,10 +133,5 @@ int pop_compile(CompileData& compileData, int commandNum, std::wstring_view& dat
 
 int jmp_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
 {
-    default_compile(compileData, commandNum, data);
-    int machineCodePos = stoi((std::wstring)data);
-    int conv = convNum(machineCodePos);
-    compileData.put(conv);
-
-    return WellCode;
+    return saveSmallExpr(compileData, commandNum, data);
 }

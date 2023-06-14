@@ -26,7 +26,7 @@ int div_command(Processor& processor, int codedCommandNum);
 
 int pop_command(Processor& processor, int codedCommandNum);
 
-int commonJmpFnc(Processor& processor, bool needToJump);
+int commonJmpFnc(Processor& processor, bool needToJump, int codedNum);
 int jmp_command(Processor& processor, int codedCommandNum);
 int get2ElementsFromStack(float* a, float* b, Processor& processor);
 int ja_command(Processor& processor, int codedCommandNum);

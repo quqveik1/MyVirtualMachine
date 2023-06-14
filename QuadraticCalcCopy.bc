@@ -14,5 +14,7 @@ mul
 push cx
 mul
 sub
+sqrt
+out
 
 hlt
