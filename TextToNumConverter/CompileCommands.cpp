@@ -25,7 +25,7 @@ int push_compile(CompileData& compileData, int commandNum, std::wstring_view& da
     return saveSmallExpr(compileData, commandNum, data);
 }
 
-int saveSmallExpr(CompileData& compileData, int commandNum, std::wstring_view& data)
+int saveSmallExpr(CompileData& compileData, int commandNum, std::wstring_view& data, int base/* = 10*/)
 {
     if (!data.empty())
     {

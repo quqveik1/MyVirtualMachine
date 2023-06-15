@@ -74,6 +74,16 @@ push [25]
 pop [ax]
 */
 
+/*
+out адрес буквы
+
+db abc
+<=>
+'a'
+'b'
+'c'
+*/
+
 void save2Files(std::wstring_view* oldLines, CompileData& dataArr, std::wstring* listringFile, int cLines, std::wstring path)
 {
     std::wstring savePath = path + L'c';
@@ -107,7 +117,8 @@ int interpretText(std::wstring_view* oldLines, CompileData& dataArr, std::wstrin
 {
     for (int i = 0; i < cLines; i++)
     {
-        addLineToListing(listingFile[i], oldLines[i], dataArr, i);
+        int bytePosBefore = dataArr.getCurrPos();
+        int bytePosAfter = bytePosBefore;
 
         std::wstring_view commandName{};
         std::wstring_view commandData{};
@@ -132,19 +143,43 @@ int interpretText(std::wstring_view* oldLines, CompileData& dataArr, std::wstrin
                 int res = fnc(dataArr, commandNum, commandData);
             }
         }
+
+        bytePosAfter = dataArr.getCurrPos();
+
+        addLineToListing(listingFile[i], oldLines[i], dataArr, i, bytePosBefore, bytePosAfter);
+
     }
     return WellCode;
 }
 
-void addLineToListing(std::wstring& listingFile, std::wstring_view& oldFile, CompileData& data, int lineNumber)
+void addLineToListing(std::wstring& listingFile, std::wstring_view& oldFile, CompileData& data, int lineNumber, int bytePosBefore, int bytePosAfter)
 {
-    int memStart = data.getCurrPos();
-
     wchar_t buffer[15]{};
-    swprintf(buffer, 15, L"%03d: %05d", lineNumber, memStart);
+    swprintf(buffer, 15, L"%03d: %05x", lineNumber, bytePosBefore);
 
     listingFile += buffer;
     listingFile += L" | ";
+
+    int commandLen = bytePosAfter - bytePosBefore;
+
+    for (int i = 0; i < 10; i++)
+    {
+        wchar_t hexBuff[5]{};
+
+        if(i < commandLen)
+        {
+            byte printByte1 = data.getData()[bytePosBefore + i];
+            swprintf(hexBuff, 5, L"%02x ", printByte1);
+            listingFile += hexBuff;
+        }
+        else
+        {
+            listingFile += L"   ";
+        }
+    }
+
+    listingFile += L" | ";
+
     listingFile += oldFile;
 }
 

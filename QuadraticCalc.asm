@@ -1,4 +1,4 @@
-push 412
+push 19c
 pop [0]
 
 in
@@ -10,7 +10,7 @@ pop ax
 
 push ax
 push 0
-jne 120
+jne 78
 
 push 0
 push cx
