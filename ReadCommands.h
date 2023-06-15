@@ -13,4 +13,4 @@ int compiledFileWork(std::string& path, Processor& processor);
 void readAndExecuteCommands(Processor& processor);
 int executeCommand(Processor& processor);
 
-void endProgramWithCode(int code, int lastLine);
+void endProgramWithCode(int code, Processor& data, std::queue<int>& calledByteCodes);

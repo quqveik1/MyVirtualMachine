@@ -14,6 +14,8 @@ class RuntimeData
 public:
     std::stack<int> &getAppData();
 
+    bool isEmpty() { return getAppData().empty(); };
+
     int peek();
     int get();
     void push(int obj);

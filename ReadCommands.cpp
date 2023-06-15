@@ -1,9 +1,9 @@
-
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <string>
+#include <queue>
 
 #include "..\StringSort\WStringFnc.cpp"
 
@@ -15,7 +15,6 @@
 #include "FncArrs.cpp"
 #include "FileHeader.cpp"
 #include "CommandConstants.cpp"
-
 
 
 void readByteCode(std::string path)
@@ -81,11 +80,12 @@ long fileSize(FILE* File)
 void readAndExecuteCommands(Processor& data)
 {
     int callCode = CommandReadErrorCode;
-    int lastLine = 0;
+
+    std::queue<int> calledByteCodes;
 
     for(int i = 0; ; i++)
     {
-        lastLine++;
+        calledByteCodes.push(data.getCommandData().getCurrPos());
 
         callCode = executeCommand(data);
         if(callCode != WellCode)
@@ -94,10 +94,10 @@ void readAndExecuteCommands(Processor& data)
         }
     }
 
-    endProgramWithCode(callCode, lastLine - 1);
+    endProgramWithCode(callCode, data, calledByteCodes);
 }
 
-void endProgramWithCode(int code, int lastLine)
+void endProgramWithCode(int code, Processor& data, std::queue<int>& calledByteCodes)
 {
     if(code == CommandBreakCode)
     {
@@ -106,8 +106,27 @@ void endProgramWithCode(int code, int lastLine)
     else
     {
         std::cout << "Программа неудачно завершилась с кодом: " << code << std::endl;
-        std::cout << "Программа возникла в строке [" << lastLine << "]: " << std::endl;
-        //std::wcout << L"\"" << lastStr << L"\"" << std::endl;
+        if(!calledByteCodes.empty())
+        {
+            std::cout << "Байт коды вызываемых комманд: \n";
+            for(int i = 0; !calledByteCodes.empty(); i++)
+            {
+                std::cout << i << ": [" << calledByteCodes.front() << "]\n";
+                calledByteCodes.pop();
+            }
+        }
+        if(data.getRuntimeData().isEmpty())
+        {
+            std::cout << "Стек пуст\n";
+        }
+        else
+        {
+            std::cout << "Данные в стеке:\n";
+            for(int i = 0; data.getRuntimeData().isEmpty(); i++)
+            {
+                std::cout << i << ": [" << data.getRuntimeData().peek() << "]\n";
+            }
+        }
     }
 }
 
