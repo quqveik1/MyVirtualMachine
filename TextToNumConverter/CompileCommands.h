@@ -6,7 +6,8 @@ using COMMANDCOMPILETYPE = int (*)(CompileData& compileData, int commandNum, std
 
 int default_compile(CompileData& compileData, int commandNum, std::wstring_view& data);
 
-double convertArg(std::wstring_view& arg, bool* constant, bool* reg);
+bool isRegister(std::wstring_view& arg);
+double convertArg(std::wstring_view& arg, bool* number, bool* reg, int base = 10);
 void findBrackets(std::wstring_view& data, int& startPos, int& endPos);
 bool editDataForBrackets(std::wstring_view& data);
 int saveSmallExpr(CompileData& compileData, int commandNum, std::wstring_view& data, int base = 10);

@@ -1,6 +1,3 @@
-push 19c
-pop [0]
-
 in
 in
 in
@@ -10,7 +7,7 @@ pop ax
 
 push ax
 push 0
-jne 78
+jne 64
 
 push 0
 push cx
@@ -20,7 +17,7 @@ div
 
 out
 
-jmp [0]
+hlt
 
 push bx
 push bx
@@ -35,7 +32,7 @@ pop dx
 
 push dx
 push 0
-jb [0]
+jb 188
 
 push dx
 sqrt
@@ -69,7 +66,7 @@ push [3]
 out
 push dx
 push 0
-je [0]
+je 188
 push [4]
 out
 

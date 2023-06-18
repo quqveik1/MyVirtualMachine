@@ -11,6 +11,7 @@
 #include "../FncArrs.cpp"
 #include "WStringFnc.cpp"
 #include "../CommandConstants.cpp"
+#include "../ExtensionConverter.cpp"
 
 void convertToNum(std::wstring path)
 {
@@ -86,8 +87,10 @@ db abc
 
 void save2Files(std::wstring_view* oldLines, CompileData& dataArr, std::wstring* listringFile, int cLines, std::wstring path)
 {
-    std::wstring savePath = path + L'c';
-    std::ofstream file(savePath, std::ios::binary);
+    std::wstring saveBinPath = path;
+    changeExtension(saveBinPath, L"bin");
+
+    std::ofstream file(saveBinPath, std::ios::binary);
 
     FileHeader fileHeader;
 
@@ -99,7 +102,9 @@ void save2Files(std::wstring_view* oldLines, CompileData& dataArr, std::wstring*
 
     file.close();
 
-    std::wstring listingPath = path + L'a';
+    std::wstring listingPath = path;
+    changeExtension(listingPath, L"lst");
+
     std::ofstream listing(listingPath);
     saveText(listringFile, cLines, listing, false);
 }

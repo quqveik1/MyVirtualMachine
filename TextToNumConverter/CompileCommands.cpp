@@ -45,12 +45,12 @@ int saveSmallExpr(CompileData& compileData, int commandNum, std::wstring_view& d
             firstArg = data.substr(0, plusPos);
             secondArg = data.substr(plusPos + 1);
 
-            second = convertArg(secondArg, &isConstant, &isReg);
+            second = convertArg(secondArg, &isConstant, &isReg, base);
 
             needToSwapArgs = isConstant;
         }
 
-        first = convertArg(firstArg, &isConstant, &isReg);
+        first = convertArg(firstArg, &isConstant, &isReg, base);
 
         int writeNum = codeToNumberRepresentation(commandNum, isConstant, isReg, isRamCall);
         compileData.put(writeNum);
@@ -92,12 +92,32 @@ bool editDataForBrackets(std::wstring_view& data)
     return false;
 }
 
-double convertArg(std::wstring_view& arg, bool* number, bool* reg)
+bool isRegister(std::wstring_view& arg)
 {
-    if (isDigitStr(arg))
+    size_t xpos = arg.find(L'x');
+
+    if(xpos != std::wstring_view::npos)
     {
-        *number = true;
-        double number = std::stod((std::wstring)arg);
+        return true;
+    }
+
+    return false;
+}
+
+double convertArg(std::wstring_view& arg, bool* isNumber, bool* reg, int base/* = 10*/)
+{
+    if (!isRegister(arg))
+    {
+        *isNumber = true;
+        double number = 0;
+        if(base != 10)
+        {
+            number = std::stoi((std::wstring)arg, nullptr, base);
+        }
+        else
+        {
+            number = std::stod((std::wstring)arg);
+        }
         return number;
     }
     else
@@ -133,5 +153,5 @@ int pop_compile(CompileData& compileData, int commandNum, std::wstring_view& dat
 
 int jmp_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
 {
-    return saveSmallExpr(compileData, commandNum, data);
+    return saveSmallExpr(compileData, commandNum, data, 16);
 }
