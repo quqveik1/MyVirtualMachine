@@ -31,7 +31,6 @@ const std::wstring sqrt_str = L"sqrt";
 
 const std::wstring db_str = L"db";
 
-
 //------------------------------------------------------------------
 
 const int innerCall_num = 0;
@@ -59,6 +58,8 @@ const int jne_num = 16;
 
 const int sqrt_num = 17;
 
+const int db_num = 18;
+
 //------------------------------------------------------------------
 
 int getCommandNum(std::wstring_view& commandName, size_t commandSize = std::wstring_view::npos);
@@ -78,3 +79,5 @@ const int CommandRecognizeError = -6;
 
 const int MachineCodeOutOfBound = -7;
 const int EmptyStackGetError = -8;
+
+const int NoQuoteDBError = -9;

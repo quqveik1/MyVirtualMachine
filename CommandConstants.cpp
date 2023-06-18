@@ -97,6 +97,11 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
         res = sqrt_num;
     }
 
+    else if (_wcsnicmp(commandName.data(), db_str.c_str(), commandSize) == 0)
+    {
+        res = db_num;
+    }
+
     return res;
 }
 

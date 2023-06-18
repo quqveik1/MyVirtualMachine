@@ -19,6 +19,16 @@ int default_compile(CompileData& compileData, int commandNum, std::wstring_view&
     return WellCode;
 }
 
+int out_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
+{
+    if(data.empty())
+    {
+        return default_compile(compileData, commandNum, data);
+    }
+
+    return saveSmallExpr(compileData, commandNum, data, 16);
+}
+
 //data type: const+arg
 int push_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
 {
@@ -154,4 +164,43 @@ int pop_compile(CompileData& compileData, int commandNum, std::wstring_view& dat
 int jmp_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
 {
     return saveSmallExpr(compileData, commandNum, data, 16);
+}
+
+int db_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
+{
+    size_t firstQuotePos = data.find(L'"');
+
+    if(firstQuotePos == std::wstring_view::npos)
+    {
+        return NoQuoteDBError;
+    }
+
+    size_t secondQuotePos = data.rfind(L'"');
+
+    if(firstQuotePos == secondQuotePos)
+    {
+        return NoQuoteDBError;
+    }
+
+    int writeStrLen = (int)(secondQuotePos - firstQuotePos) * sizeof(wchar_t);
+
+    const size_t buffSize = 10;
+    wchar_t buff[buffSize]{};
+
+    int jmpPos = writeStrLen + compileData.getCurrPos() + sizeof(int) * 2;
+
+    swprintf_s(buff, buffSize, L"%x", jmpPos);
+
+    std::wstring_view jmpView = buff;
+    jmp_compile(compileData, jmp_num, jmpView);
+
+    for(size_t i = firstQuotePos + 1; i < secondQuotePos; i++)
+    {
+        compileData.put(data[i]);
+    }
+
+    const wchar_t nullSymbol = 0;
+    compileData.put(nullSymbol);
+
+    return WellCode;
 }

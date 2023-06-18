@@ -25,8 +25,29 @@ int in_command(Processor& processor, int codedCommandNum)
 
 int out_command(Processor& processor, int codedCommandNum)
 {
-    int num = processor.getRuntimeData().get();
-    std::cout << deConvNum<float>(num) << std::endl;
+    bool hasConst = false;
+    decodeNumberRepresentation(codedCommandNum, &hasConst);
+
+    if (!hasConst)
+    {
+        int num = processor.getRuntimeData().get();
+        std::cout << deConvNum<float>(num) << std::endl;
+
+        return WellCode;
+    }
+
+    int beforeJmp = processor.getCommandData().getCurrPos() + sizeof(int);
+
+    commonJmpFnc(processor, true, codedCommandNum);
+
+    wchar_t* str = processor.getCommandData().peek<wchar_t>();
+
+    for(int i = 0; str[i]; i++)
+    {
+        std::wcout << str[i];
+    }
+
+    processor.getCommandData().setCurrPos(beforeJmp);
 
     return WellCode;
 }
@@ -59,8 +80,6 @@ int evalRamExpression(Processor& processor, int codedNum)
 
 int push_command(Processor& processor, int codedCommandNum)
 {
-    
-
     evalRamExpression(processor, codedCommandNum);
 
     return WellCode;

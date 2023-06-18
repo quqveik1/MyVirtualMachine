@@ -12,7 +12,9 @@ void addLineToListing(std::wstring& listingFile, std::wstring_view& oldFile, Com
 
     int commandLen = bytePosAfter - bytePosBefore;
 
-    for (int i = 0; i < ByteDataPrintLen; i++)
+    int printLen = max(ByteDataPrintLen, commandLen);
+
+    for (int i = 0; i < printLen; i++)
     {
         wchar_t hexBuff[4]{};
 

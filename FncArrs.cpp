@@ -7,7 +7,7 @@
 void initCompileArr()
 {
     commandsCompileArr[in_num] = default_compile;
-    commandsCompileArr[out_num] = default_compile;
+    commandsCompileArr[out_num] = out_compile;
 
     commandsCompileArr[push_num] = push_compile;
 
@@ -29,6 +29,8 @@ void initCompileArr()
     commandsCompileArr[jne_num] = jmp_compile;
 
     commandsCompileArr[sqrt_num] = default_compile;
+
+    commandsCompileArr[db_num] = db_compile;
 }
 
 void initCommandsArr()

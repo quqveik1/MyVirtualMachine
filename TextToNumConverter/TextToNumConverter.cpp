@@ -6,5 +6,5 @@
 
 int main()
 {
-    convertToNum(L"../QuadraticCalc.asm");
+    convertToNum(L"../dbExample.asm");
 }
