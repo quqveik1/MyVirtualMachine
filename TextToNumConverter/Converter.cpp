@@ -12,6 +12,7 @@
 #include "WStringFnc.cpp"
 #include "../CommandConstants.cpp"
 #include "../ExtensionConverter.cpp"
+#include "FileListing.cpp"
 
 void convertToNum(std::wstring path)
 {
@@ -157,36 +158,7 @@ int interpretText(std::wstring_view* oldLines, CompileData& dataArr, std::wstrin
     return WellCode;
 }
 
-void addLineToListing(std::wstring& listingFile, std::wstring_view& oldFile, CompileData& data, int lineNumber, int bytePosBefore, int bytePosAfter)
-{
-    wchar_t buffer[15]{};
-    swprintf(buffer, 15, L"%03d: %05x", lineNumber, bytePosBefore);
 
-    listingFile += buffer;
-    listingFile += L" | ";
-
-    int commandLen = bytePosAfter - bytePosBefore;
-
-    for (int i = 0; i < 10; i++)
-    {
-        wchar_t hexBuff[5]{};
-
-        if(i < commandLen)
-        {
-            byte printByte1 = data.getData()[bytePosBefore + i];
-            swprintf(hexBuff, 5, L"%02x ", printByte1);
-            listingFile += hexBuff;
-        }
-        else
-        {
-            listingFile += L"   ";
-        }
-    }
-
-    listingFile += L" | ";
-
-    listingFile += oldFile;
-}
 
 /*
 push 10
@@ -205,19 +177,70 @@ mul
 
 void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName, std::wstring_view& commandData)
 {
-    int spacePos = findFirstSpacePos(fullCommand);
-    commandName = fullCommand.substr(0, spacePos);
+    int commandStart = findFirstNotEmptySymPos(fullCommand);
+    int spacePos = findFirstSpacePosAfterCommand(fullCommand);
+
     if (spacePos >= 0)
     {
-        commandData = fullCommand.substr((size_t)spacePos + 1);
+        if (commandStart >= 0) commandName = fullCommand.substr(commandStart, spacePos - commandStart);
+
+        int dataPos = findFirstNotEmptySymPos(fullCommand, spacePos + 1);
+
+        if(dataPos >= 0)
+        {
+            commandData = fullCommand.substr(dataPos);
+        }
+    }
+    else
+    {
+        if(commandStart >= 0) commandName = fullCommand.substr(commandStart);
     }
 }
 
-int findFirstSpacePos(std::wstring_view& fullCommand)
+void splitCommand(std::wstring_view& fullCommand, int& commandStartPos, int& commandNameLastSym, int& dataFirstSymbol)
 {
+    commandStartPos = findFirstNotEmptySymPos(fullCommand);
+    int spacePos = findFirstSpacePosAfterCommand(fullCommand);
+
+    commandNameLastSym = spacePos - 1;
+
+    if (spacePos >= 0)
+    {
+        int dataPos = findFirstNotEmptySymPos(fullCommand, spacePos + 1);
+
+        dataFirstSymbol = dataPos;
+        return;
+    }
+
+    dataFirstSymbol = -1;
+}
+
+int findFirstNotEmptySymPos(std::wstring_view& fullCommand, int startPos/* = 0*/)
+{
+    for(int i = startPos; i < (int)fullCommand.size(); i++)
+    {
+        if(fullCommand[i] != L' ')
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int findFirstSpacePosAfterCommand(std::wstring_view& fullCommand)
+{
+    bool wasAlNumC = false;
     for (int i = 0; i < (int)fullCommand.size(); i++)
     {
-        if (fullCommand[i] == ' ')
+
+        if(!wasAlNumC && iswalnum(fullCommand[i]))
+        {
+            wasAlNumC = true;
+            continue;
+        }
+
+        if (fullCommand[i] == L' ' && wasAlNumC)
         {
             return i;
         }

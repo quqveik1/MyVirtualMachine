@@ -7,11 +7,15 @@ pop ax
 
 push ax
 push 0
-jne 64
+jne 00080
 
 push 0
 push cx
 sub
+push bx
+push 0
+jne 0006c
+hlt
 push bx
 div
 
@@ -32,7 +36,7 @@ pop dx
 
 push dx
 push 0
-jb 188
+jb 001a4
 
 push dx
 sqrt
@@ -66,7 +70,7 @@ push [3]
 out
 push dx
 push 0
-je 188
+je 001a4
 push [4]
 out
 

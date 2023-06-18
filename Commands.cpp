@@ -124,7 +124,6 @@ int add_command(Processor& processor, int codedCommandNum)
 
 int sub_command(Processor& processor, int codedCommandNum)
 {
-
     float a = 0, b = 0;
 
     get2Arg(a, b, processor);

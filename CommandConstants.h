@@ -2,9 +2,9 @@
 
 #include <string>
 
-const int COMMANDSVERSION = 6;
+const int COMMANDSVERSION = 7;
 
-const int cCommands = 17;
+const int cCommands = 18;
 
 const std::wstring hlt_str = L"hlt";
 
@@ -28,6 +28,8 @@ const std::wstring je_str = L"je";
 const std::wstring jne_str = L"jne";
 
 const std::wstring sqrt_str = L"sqrt";
+
+const std::wstring db_str = L"db";
 
 
 //------------------------------------------------------------------
@@ -59,7 +61,7 @@ const int sqrt_num = 17;
 
 //------------------------------------------------------------------
 
-int getCommandNum(std::wstring_view& commandName);
+int getCommandNum(std::wstring_view& commandName, size_t commandSize = std::wstring_view::npos);
 bool isCommandNumValid(int num);
                       
 //------------------------------------------------------------------
