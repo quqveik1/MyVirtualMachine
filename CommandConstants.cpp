@@ -2,6 +2,8 @@
 
 #include "CommandConstants.h"
 
+#include "StringViewExtension.cpp"
+
 int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::wstring_view::npos*/)
 {
     int res = CommandRecognizeError;
@@ -12,92 +14,92 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
     }
 
     if (commandSize == 0) return res;
-    if (_wcsnicmp(commandName.data(), in_str.c_str(), commandSize) == 0)
+    if (svcmp(commandName, in_str) == 0)
     {
         res = in_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), out_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, out_str) == 0)
     {
         res = out_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), push_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, push_str) == 0)
     {
         res = push_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), hlt_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, hlt_str) == 0)
     {
         res = hlt_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), add_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, add_str) == 0)
     {
         res = add_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), sub_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, sub_str) == 0)
     {
         res = sub_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), mul_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, mul_str) == 0)
     {
         res = mul_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), div_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, div_str) == 0)
     {
         res = div_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), pop_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, pop_str) == 0)
     {
         res = pop_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), jmp_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, jmp_str) == 0)
     {
         res = jmp_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), ja_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, ja_str) == 0)
     {
         res = ja_num;
-    }    
+    }
 
-    else if (_wcsnicmp(commandName.data(), jae_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, jae_str) == 0)
     {
         res = jae_num;
-    }    
+    }
 
-    else if (_wcsnicmp(commandName.data(), jb_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, jb_str) == 0)
     {
         res = jb_num;
-    }    
+    }
 
-    else if (_wcsnicmp(commandName.data(), jbe_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, jbe_str) == 0)
     {
         res = jbe_num;
-    }    
+    }
 
-    else if (_wcsnicmp(commandName.data(), je_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, je_str) == 0)
     {
         res = je_num;
-    }    
+    }
 
-    else if (_wcsnicmp(commandName.data(), jne_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, jne_str) == 0)
     {
         res = jne_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), sqrt_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, sqrt_str) == 0)
     {
         res = sqrt_num;
     }
 
-    else if (_wcsnicmp(commandName.data(), db_str.c_str(), commandSize) == 0)
+    else if (svcmp(commandName, db_str) == 0)
     {
         res = db_num;
     }

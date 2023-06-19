@@ -11,6 +11,7 @@
 #include "../RegisterCompile.cpp"
 #include "../CommandConstants.h"
 #include "../FloatConvert.cpp"
+#include "../StringViewExtension.cpp"
 
 int default_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
 {
@@ -122,7 +123,7 @@ double convertArg(std::wstring_view& arg, bool* isNumber, bool* reg, int base/* 
         double number = 0;
         if(base != 10)
         {
-            number = std::stoi((std::wstring)arg, nullptr, base);
+            number = strToNum(arg, base);
         }
         else
         {
