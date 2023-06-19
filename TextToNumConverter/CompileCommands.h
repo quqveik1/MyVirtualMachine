@@ -19,4 +19,5 @@ int pop_compile(CompileData& compileData, int commandNum, std::wstring_view& dat
 
 int jmp_compile(CompileData& compileData, int commandNum, std::wstring_view& data);
 
+size_t cDeletedSymAfterCompilation(const std::wstring_view& str);
 int db_compile(CompileData& compileData, int commandNum, std::wstring_view& data);

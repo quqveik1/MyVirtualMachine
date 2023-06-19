@@ -81,3 +81,4 @@ const int MachineCodeOutOfBound = -7;
 const int EmptyStackGetError = -8;
 
 const int NoQuoteDBError = -9;
+const int CommandDataReadError = -10;

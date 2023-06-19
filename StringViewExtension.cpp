@@ -26,7 +26,7 @@ int svcmp(const T1& str1, const T2& str2)
     {
         if(str1[i] != str2[i])
         {
-            int res = (int)i;
+            int res = (int)(i + 1);
             return res;
         }
     }

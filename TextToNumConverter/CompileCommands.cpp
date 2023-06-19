@@ -4,6 +4,7 @@
 
 #include <exception>
 #include <iostream>
+#include <map>
 
 #include "../ByteConverter.cpp"
 #include "CompileData.cpp"
@@ -127,7 +128,7 @@ double convertArg(std::wstring_view& arg, bool* isNumber, bool* reg, int base/* 
         }
         else
         {
-            number = std::stod((std::wstring)arg);
+            number = strToFloat<double>(arg);
         }
         return number;
     }
@@ -167,6 +168,12 @@ int jmp_compile(CompileData& compileData, int commandNum, std::wstring_view& dat
     return saveSmallExpr(compileData, commandNum, data, 16);
 }
 
+const std::map<wchar_t, wchar_t> specialChars = {
+                                                {L'n', L'\n'},
+                                                {L'r', L'\r'},
+                                                {L't', L'\t'},
+                                                {L'\\', L'\\'}};
+
 int db_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
 {
     size_t firstQuotePos = data.find(L'"');
@@ -183,7 +190,9 @@ int db_compile(CompileData& compileData, int commandNum, std::wstring_view& data
         return NoQuoteDBError;
     }
 
-    int writeStrLen = (int)(secondQuotePos - firstQuotePos) * sizeof(wchar_t);
+    size_t cDelSymb = cDeletedSymAfterCompilation(data);
+
+    int writeStrLen = (int)(secondQuotePos - firstQuotePos - cDelSymb) * sizeof(wchar_t);
 
     const size_t buffSize = 10;
     wchar_t buff[buffSize]{};
@@ -197,6 +206,26 @@ int db_compile(CompileData& compileData, int commandNum, std::wstring_view& data
 
     for(size_t i = firstQuotePos + 1; i < secondQuotePos; i++)
     {
+        if(data[i] == L'\\')
+        {
+            if (i + 1 < secondQuotePos)
+            {
+                auto it = specialChars.find(data[i + 1]);
+
+                if (it != specialChars.end()) 
+                {
+                    compileData.put(it->second);
+                    i++;
+                    continue;
+                }
+                else
+                {
+                    throw std::exception("unknown symbol after \\");
+                    return CommandDataReadError;
+                }
+            }
+        }
+
         compileData.put(data[i]);
     }
 
@@ -204,4 +233,19 @@ int db_compile(CompileData& compileData, int commandNum, std::wstring_view& data
     compileData.put(nullSymbol);
 
     return WellCode;
+}
+
+size_t cDeletedSymAfterCompilation(const std::wstring_view& str)
+{
+    size_t ans = 0;
+    for(size_t i = 0; i < str.size(); i++)
+    {
+        if(str[i] == L'\\')
+        {
+            i++;
+            ans++;
+        }
+    }
+
+    return ans;
 }
