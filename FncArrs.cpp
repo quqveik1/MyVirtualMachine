@@ -53,3 +53,9 @@ void initCommandsArr()
     commandsArr[jne_num] = jne_command;
     commandsArr[sqrt_num] = sqrt_command;
 }
+
+
+void initCommandsListingArr()
+{
+        
+}

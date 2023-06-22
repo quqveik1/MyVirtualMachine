@@ -204,15 +204,20 @@ int db_compile(CompileData& compileData, int commandNum, std::wstring_view& data
     std::wstring_view jmpView = buff;
     jmp_compile(compileData, jmp_num, jmpView);
 
-    for(size_t i = firstQuotePos + 1; i < secondQuotePos; i++)
+    return writeStrInData(compileData, data, firstQuotePos, secondQuotePos);
+}
+
+int writeStrInData(CompileData& compileData, std::wstring_view& data, size_t firstQuotePos, size_t secondQuotePos)
+{
+    for (size_t i = firstQuotePos + 1; i < secondQuotePos; i++)
     {
-        if(data[i] == L'\\')
+        if (data[i] == L'\\')
         {
             if (i + 1 < secondQuotePos)
             {
                 auto it = specialChars.find(data[i + 1]);
 
-                if (it != specialChars.end()) 
+                if (it != specialChars.end())
                 {
                     compileData.put(it->second);
                     i++;

@@ -5,9 +5,9 @@
 #include "CompileData.h"
 #include "FileListing.h"
 
-void save2Files(std::wstring_view* oldLines, CompileData& dataArr, std::wstring* listringFile, int cLines, std::wstring path);
-void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines, std::wstring* listingFile);
-int interpretText(std::wstring_view* oldLines, CompileData& dataArr, std::wstring* listingFile, int cLines);
+void save2Files(std::wstring_view* oldLines, CompileData& dataArr, FileListing& fileListing, int cLines, std::wstring path);
+void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines);
+int interpretText(std::wstring_view* oldLines, CompileData& dataArr, int cLines, FileListing& fileListing);
 void convertToNum(std::wstring path);
 void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName, std::wstring_view& commandData);
 void splitCommand(std::wstring_view& fullCommand, int& commandStartPos, int& commandNameLastSym, int& dataFirstSymbol);
