@@ -20,6 +20,7 @@ void convertToNum(std::wstring path)
     setlocale(LC_ALL, "russian");
 
     initCompileArr();
+    initCommandsListingArr();
 
     std::wstring_view fullText{};
     readText(path, &fullText);
@@ -107,8 +108,7 @@ void save2Files(std::wstring_view* oldLines, CompileData& dataArr, FileListing& 
     std::wstring listingPath = path;
     changeExtension(listingPath, L"lst");
 
-    std::ofstream listing(listingPath);
-    saveText(fileListing.getFileListing(), cLines, listing, false);
+    fileListing.saveInFile(listingPath);
 }
 
 void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines)
@@ -131,7 +131,7 @@ int interpretText(std::wstring_view* oldLines, CompileData& dataArr, int cLines,
         std::wstring_view commandData{};
         splitCommand(oldLines[i], commandName, commandData);
 
-        fileListing.setOriginalCodeLine(i);
+        fileListing.setActiveOriginalCodeLineNum(i);
 
         if (commandName.size() > 0)
         {
@@ -159,7 +159,7 @@ int interpretText(std::wstring_view* oldLines, CompileData& dataArr, int cLines,
 
         if(fnc == NULL)
         {
-            addDefaultLineToListing(fileListing, bytePosBefore, bytePosAfter);
+            default_listing(fileListing, bytePosBefore, bytePosAfter);
         }
         else
         {

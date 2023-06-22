@@ -190,20 +190,6 @@ int db_compile(CompileData& compileData, int commandNum, std::wstring_view& data
         return NoQuoteDBError;
     }
 
-    size_t cDelSymb = cDeletedSymAfterCompilation(data);
-
-    int writeStrLen = (int)(secondQuotePos - firstQuotePos - cDelSymb) * sizeof(wchar_t);
-
-    const size_t buffSize = 10;
-    wchar_t buff[buffSize]{};
-
-    int jmpPos = writeStrLen + compileData.getCurrPos() + sizeof(int) * 2;
-
-    swprintf_s(buff, buffSize, L"%x", jmpPos);
-
-    std::wstring_view jmpView = buff;
-    jmp_compile(compileData, jmp_num, jmpView);
-
     return writeStrInData(compileData, data, firstQuotePos, secondQuotePos);
 }
 

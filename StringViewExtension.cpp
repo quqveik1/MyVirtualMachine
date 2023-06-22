@@ -47,18 +47,14 @@ int strToNum(const TS& str, int radix/* = 10*/)
     {
         if (i < str.size())
         {
-            if (isdigit(str[i])) 
-            {
-                number = number * radix + charToDigit(str[i], radix);
-                ++i;
-            }
-            else if(isspace(str[i]))
+            if(isspace(str[i]))
             {
                 break;
             }
             else
             {
-                throw std::exception("character is not digit");
+                number = number * radix + charToDigit(str[i], radix);
+                i++;
             }
         }
         else
@@ -87,12 +83,17 @@ int charToDigit(_CHARACTER c, int radix/* = 10*/)
         {
             c = tolower(c);
         }
-        ans = c - 'a';
+        ans = (c - 'a') + 10;
     }
 
     if(ans >= radix)
     {
         throw std::exception("c > radix");
+    }
+
+    if (ans < 0)
+    {
+        throw std::runtime_error("c isn't num");
     }
 
     return ans;
@@ -188,7 +189,7 @@ void findNumStart(const TS& str, size_t& numberStart, bool& isNegative)
     {
         if (i < str.size())
         {
-            if (isdigit(str[i]))
+            if (!isspace(str[i]))
             {
                 break;
             }

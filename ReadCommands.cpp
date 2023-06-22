@@ -10,11 +10,12 @@
 #include "ReadCommands.h"
 #include "VMConstants.h"
 #include "RuntimeData.cpp"
-#include "CommandConstants.h"
+#include "CommandConstants.cpp"
 #include "Commands.cpp"
 #include "FncArrs.cpp"
 #include "FileHeader.cpp"
 #include "CommandConstants.cpp"
+#include "TextToNumConverter/FileListing.cpp"
 
 
 void readByteCode(std::string path)

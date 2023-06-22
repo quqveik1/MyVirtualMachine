@@ -1,7 +1,6 @@
 #pragma once
 
-const int FloatPrecise = 4;
-const int Convert10Power = 10000;
+const int Convert10Power = 65536;
 
 template <typename T>
 int convNum(const T& num);

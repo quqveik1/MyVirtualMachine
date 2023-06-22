@@ -1,5 +1,16 @@
+db "Данная программа решает квадратные уравнения в виде ax^2 + bx + c"
+db "\nВведите a: "
+db "\nВведите b: "
+db "\nВведите c: "
+db "\nУравнение не имеет решений\n"
+db "\nУравнение имеет одно решение: \n"
+db "\nУравнение имеет два решения: \n"
+out 8
+out 94
 in
+out 000b6
 in
+out 000d8
 in
 pop cx
 pop bx
@@ -7,18 +18,20 @@ pop ax
 
 push ax
 push 0
-jne 00080
+jne 00276
 
 push 0
 push cx
 sub
 push bx
 push 0
-jne 0006c
+jne 0025a
+out 000fa
 hlt
 push bx
 div
 
+out 0013c
 out
 
 hlt
@@ -36,7 +49,9 @@ pop dx
 
 push dx
 push 0
-jb 001a4
+ja 002d6
+
+out 000fa
 
 push dx
 sqrt
@@ -70,7 +85,7 @@ push [3]
 out
 push dx
 push 0
-je 001a4
+jne 003a2
 push [4]
 out
 

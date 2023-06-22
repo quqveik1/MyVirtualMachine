@@ -1,10 +1,11 @@
 #pragma once
 
 #include <string>
+#include <string_view>
 
 #include "CompileData.h"
 
-const int ByteDataPrintLen = 20;
+const int ByteDataPrintLen = 16;
 
 struct FileListing
 {
@@ -13,14 +14,14 @@ private:
     CompileData& compileData;
     std::wstring_view* originalFileLines;
 
-    int originalCodeLine;
+    int activeOriginalCodeLineNum;
 
 public:
 
     FileListing(CompileData& _data, std::wstring_view* _originalFileLines, int cLines) :
         compileData(_data),
         originalFileLines(_originalFileLines),
-        originalCodeLine(0)
+        activeOriginalCodeLineNum(0)
     {
         fileListing.reserve((int)cLines);
     }
@@ -29,13 +30,15 @@ public:
     CompileData& getCompileData() { return compileData; };
     std::wstring_view* getOriginalFileLines() { return originalFileLines; };
 
-    std::wstring_view& getOriginaFileLine() { return getOriginalFileLines()[originalCodeLine]; };
+    void setActiveOriginalCodeLineNum(int line) { activeOriginalCodeLineNum = line; }
+    int getActiveOriginalCodeLineNum() { return activeOriginalCodeLineNum; }
 
-    int getListingFileActiveStringIndex() { return (int)getFileListing().size() - 1; }
+    std::wstring_view& getActiveOriginaFileLine();
 
-    std::wstring& getActiveFileListingString() { return getFileListing()[getListingFileActiveStringIndex()]; };
+    int getListingFileActiveStringIndex();
+    std::wstring& getActiveFileListingString();
 
-    void setOriginalCodeLine(int line) { originalCodeLine = line; }
+    void addNewListingLine();
 
-    void addNewListingLine() { getFileListing().resize(getFileListing().size() + 1); };
+    void saveInFile(std::wstring path);
 };

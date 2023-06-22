@@ -3,6 +3,7 @@
 #include "FncArrs.h"
 
 #include "TextToNumConverter/CompileCommands.cpp"
+#include "TextToNumConverter/ListCommands.cpp"
 
 void initCompileArr()
 {
@@ -57,5 +58,5 @@ void initCommandsArr()
 
 void initCommandsListingArr()
 {
-        
+    //commandsListingArr[db_num] = db_listing;
 }

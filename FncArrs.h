@@ -1,7 +1,7 @@
 #pragma once
 #include "Commands.cpp"
 #include "TextToNumConverter/CompileCommands.h"
-#include "ListCommands.h"
+#include "TextToNumConverter/ListCommands.h"
 
 COMMANDTYPE commandsArr[cCommands + 1]{};
 COMMANDCOMPILETYPE commandsCompileArr[cCommands + 1]{};
