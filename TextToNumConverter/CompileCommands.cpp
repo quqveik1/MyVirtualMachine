@@ -28,6 +28,11 @@ int out_compile(CompileData& compileData, int commandNum, std::wstring_view& dat
         return default_compile(compileData, commandNum, data);
     }
 
+    if (isJmpWord(data))
+    {
+        return saveWordExpression(compileData, commandNum, data);
+    }
+
     return saveSmallExpr(compileData, commandNum, data, 16);
 }
 
@@ -184,14 +189,19 @@ int jmp_compile(CompileData& compileData, int commandNum, std::wstring_view& dat
 {
     if(isJmpWord(data))
     {
-        int codedCommandNum = codeToNumberRepresentation(commandNum, true);
-        compileData.put(codedCommandNum);
-
-        compileData.getWordSearch().writeOrWaitWord(data);
-        return WellCode;
+        return saveWordExpression(compileData, commandNum, data);
     }
 
     return saveSmallExpr(compileData, commandNum, data, 16);
+}
+
+int saveWordExpression(CompileData& compileData, int commandNum, std::wstring_view& data)
+{
+    int codedCommandNum = codeToNumberRepresentation(commandNum, true);
+    compileData.put(codedCommandNum);
+
+    compileData.getWordSearch().writeOrWaitWord(data);
+    return WellCode;
 }
 
 const std::map<wchar_t, wchar_t> specialChars = {

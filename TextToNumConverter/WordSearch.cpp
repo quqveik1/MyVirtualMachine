@@ -70,7 +70,7 @@ void WordSearch::writeOrWaitWord(std::wstring_view& word, int pos/* = -1*/)
     }
     compileData->put(wordPos);
 
-    waitingList[word].push(pos);
+    waitingList[word].push_back(pos);
 }
 
 void WordSearch::checkWaitingList(std::wstring_view& word, int pos)
@@ -83,9 +83,11 @@ void WordSearch::checkWaitingList(std::wstring_view& word, int pos)
 
     while (!it->second.empty())
     {
-        int insertPos = _peek(it->second);
         int convertedPos = convNum(pos);
+        int insertPos = it->second[it->second.size() - 1];
         compileData->change(convertedPos, insertPos);
+
+        it->second.pop_back();
     }
 
     waitingList.erase(it);

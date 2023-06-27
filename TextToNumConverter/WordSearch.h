@@ -2,7 +2,7 @@
 
 #include <map>
 #include <string_view>
-#include <stack>
+#include <vector>
 
 #include "CompileData.h"
 
@@ -13,7 +13,7 @@ struct WordSearch
 
 private:
     std::map<std::wstring_view, int> words;
-    std::map<std::wstring_view, std::stack<int>> waitingList;
+    std::map<std::wstring_view, std::vector<int>> waitingList;
 
     struct CompileData* compileData;
     
@@ -25,5 +25,24 @@ public:
 
 private:
     void checkWaitingList(std::wstring_view& word, int pos);
-
 };
+
+/*
+jmp a
+jmp b
+jmp a
+a:
+...
+b:
+..
+*/
+
+/*
+IR
+Pass 1
+buffer
+len
+textLine
+
+Pass 2
+*/

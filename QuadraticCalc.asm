@@ -1,16 +1,25 @@
+jmp programmStart
+intro:
 db "Данная программа решает квадратные уравнения в виде ax^2 + bx + c"
+inputA:
 db "\nВведите a: "
+inputB:
 db "\nВведите b: "
+inputC:
 db "\nВведите c: "
+noSolutions:
 db "\nУравнение не имеет решений\n"
+oneSolution:
 db "\nУравнение имеет одно решение: \n"
+twoSolutions:
 db "\nУравнение имеет два решения: \n"
-out 8
-out 94
+programmStart:
+out intro
+out inputA
 in
-out 000b6
+out inputB
 in
-out 000d8
+out inputC
 in
 pop cx
 pop bx
@@ -18,24 +27,27 @@ pop ax
 
 push ax
 push 0
-jne 00276
+jne quadratic
 
 push 0
 push cx
 sub
 push bx
 push 0
-jne 0025a
-out 000fa
+jne linear
+out noSolutions
 hlt
+
+linear:
 push bx
 div
 
-out 0013c
+out oneSolution
 out
 
 hlt
 
+quadratic:
 push bx
 push bx
 mul
@@ -49,10 +61,11 @@ pop dx
 
 push dx
 push 0
-ja 002d6
+jae positiveD
+out noSolutions
+hlt
 
-out 000fa
-
+positiveD:
 push dx
 sqrt
 
@@ -85,8 +98,9 @@ push [3]
 out
 push dx
 push 0
-jne 003a2
+jne endProgamm
 push [4]
 out
 
+endProgamm:
 hlt
