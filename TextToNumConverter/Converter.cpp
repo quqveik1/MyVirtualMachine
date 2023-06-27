@@ -135,27 +135,36 @@ int interpretText(std::wstring_view* oldLines, CompileData& dataArr, int cLines,
 
         if (commandName.size() > 0)
         {
-
             commandNum = getCommandNum(commandName);
 
-            if (!isCommandNumValid(commandNum))
+            if (isCommandNumValid(commandNum))
             {
-                std::wcout << L"Ошибка в распозновании команды в строке (" << i << L") [" << commandName << L"]\n";
-                std::wcout << L"\"" << oldLines[i] << "\"\n";
-                return CommandReadErrorCode;
+                COMMANDCOMPILETYPE fnc = commandsCompileArr[commandNum];
+
+                if (fnc != NULL)
+                {
+                    int res = fnc(dataArr, commandNum, commandData);
+                }
             }
-
-            COMMANDCOMPILETYPE fnc = commandsCompileArr[commandNum];
-
-            if (fnc != NULL)
+            else
             {
-                int res = fnc(dataArr, commandNum, commandData);
+                bool isWordLine = ifIsWordDoJob(oldLines[i], dataArr);
+                if (!isWordLine)
+                {
+                    std::wcout << L"Ошибка в распозновании команды в строке (" << i << L") [" << commandName << L"]\n";
+                    std::wcout << L"\"" << oldLines[i] << "\"\n";
+                    return CommandReadErrorCode;
+                }
             }
         }
 
         bytePosAfter = dataArr.getCurrPos();
 
-        COMMANDLISTINGTYPE fnc = commandsListingArr[commandNum];
+        COMMANDLISTINGTYPE fnc = NULL;
+        if (isCommandNumValid(commandNum))
+        {
+            fnc = commandsListingArr[commandNum];
+        }
 
         if(fnc == NULL)
         {
@@ -171,7 +180,32 @@ int interpretText(std::wstring_view* oldLines, CompileData& dataArr, int cLines,
     return WellCode;
 }
 
+bool ifIsWordDoJob(std::wstring_view& line, CompileData& data)
+{
+    std::wstring_view word;
+    bool res = isWord(line, word);
+    if (res)
+    {
+        data.getWordSearch().pushWord(word);
+    }
 
+    return res;
+}
+
+bool isWord(std::wstring_view& line, std::wstring_view& word)
+{
+    int wordStart = findFirstNotEmptySymPos(line);
+    if (wordStart < 0) return false;
+
+    int wordFinish = (int)line.rfind(L':');
+    if(wordFinish <= 0) return false;
+
+    word = line.substr(wordStart, wordFinish - wordStart);
+
+    bool res = isJmpWord(word);
+
+    return res;
+}
 
 /*
 push 10
@@ -198,10 +232,11 @@ void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName
         if (commandStart >= 0) commandName = fullCommand.substr(commandStart, spacePos - commandStart);
 
         int dataPos = findFirstNotEmptySymPos(fullCommand, spacePos + 1);
+        int lastCommandPos = findLastLineSymbol(fullCommand);
 
-        if(dataPos >= 0)
+        if(dataPos >= 0 && lastCommandPos >= 0)
         {
-            commandData = fullCommand.substr(dataPos);
+            commandData = fullCommand.substr(dataPos, lastCommandPos - dataPos + 1);
         }
     }
     else
@@ -258,5 +293,18 @@ int findFirstSpacePosAfterCommand(std::wstring_view& fullCommand)
             return i;
         }
     }
+    return -1;
+}
+
+int findLastLineSymbol(std::wstring_view& fullCommand)
+{
+    for(size_t i = fullCommand.size() - 1; i >= 0; i--)
+    {
+        if(!iswspace(fullCommand[i]))
+        {
+            return (int)i;
+        }
+    }
+
     return -1;
 }

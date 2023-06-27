@@ -17,6 +17,7 @@ int push_compile(CompileData& compileData, int commandNum, std::wstring_view& da
 
 int pop_compile(CompileData& compileData, int commandNum, std::wstring_view& data);
 
+bool isJmpWord(std::wstring_view& arg);
 int jmp_compile(CompileData& compileData, int commandNum, std::wstring_view& data);
 
 size_t cDeletedSymAfterCompilation(const std::wstring_view& str);

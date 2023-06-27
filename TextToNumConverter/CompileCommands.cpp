@@ -106,14 +106,31 @@ bool editDataForBrackets(std::wstring_view& data)
 
 bool isRegister(std::wstring_view& arg)
 {
-    size_t xpos = arg.find(L'x');
+    int num = getRegisterNumFromStr(arg);
 
-    if(xpos != std::wstring_view::npos)
+    return num >= 0;
+}
+
+bool isJmpWord(std::wstring_view& arg)
+{
+    bool isReg = isRegister(arg);
+
+    if (isReg) return false;
+
+    if (!iswalpha(arg[0]) && arg[0] != L'_')
     {
-        return true;
+        return false;
     }
 
-    return false;
+    for (wchar_t c : arg)
+    {
+        if (!iswalnum(c) && c != L'_')
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 double convertArg(std::wstring_view& arg, bool* isNumber, bool* reg, int base/* = 10*/)
@@ -165,6 +182,15 @@ int pop_compile(CompileData& compileData, int commandNum, std::wstring_view& dat
 
 int jmp_compile(CompileData& compileData, int commandNum, std::wstring_view& data)
 {
+    if(isJmpWord(data))
+    {
+        int codedCommandNum = codeToNumberRepresentation(commandNum, true);
+        compileData.put(codedCommandNum);
+
+        compileData.getWordSearch().writeOrWaitWord(data);
+        return WellCode;
+    }
+
     return saveSmallExpr(compileData, commandNum, data, 16);
 }
 

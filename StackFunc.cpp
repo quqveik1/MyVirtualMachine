@@ -1,6 +1,4 @@
-//
-// Created by Kurlic on 11.05.2023.
-//
+#pragma once
 
 #include "StackFunc.h"
 
@@ -11,7 +9,7 @@ T _peek(std::stack<T>& s)
 {
     if (s.empty())
     {
-        throw std::exception( "Попытка взять из пустого стека элемент\n");
+        throw std::runtime_error( "Попытка взять из пустого стека элемент\n");
         return {};
     }
 

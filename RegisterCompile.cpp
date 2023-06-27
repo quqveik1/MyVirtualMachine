@@ -21,7 +21,7 @@ int getRegisterNumFromStr(std::wstring_view& str)
         return dx_numeric;
     }
 
-    throw std::exception("Не найден регистр");
+    //throw std::exception("Не найден регистр");
 
     return -1;
 }
