@@ -14,6 +14,7 @@
 #include "../ExtensionConverter.cpp"
 #include "FileListing.cpp"
 #include  "ListCommands.cpp"
+#include "IR.cpp"
 
 void convertToNum(std::wstring path)
 {
@@ -29,12 +30,15 @@ void convertToNum(std::wstring path)
 
     int cLines = separateTextByLinesToArr(fullText, &lines);
 
+    IR ir;
+    ir.getCommands().reserve(cLines);
+
     CompileData dataArr;
     dataArr.getData().reserve(cLines);
 
     FileListing fileListing(dataArr, lines, cLines);
 
-    int runRes = interpretText(lines, dataArr, cLines, fileListing);
+    int runRes = interpretTextToIR(lines, dataArr, cLines, fileListing);
 
     if (runRes != WellCode)
     {
