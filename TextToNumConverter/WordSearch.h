@@ -4,18 +4,18 @@
 #include <string_view>
 #include <vector>
 
-#include "CompileData.h"
+#include "BinCompileData.h"
 
 struct WordSearch
 {
-    WordSearch(struct CompileData* _compileData);
+    WordSearch(struct BinCompileData* _compileData);
     ~WordSearch();
 
 private:
     std::map<std::wstring_view, int> words;
     std::map<std::wstring_view, std::vector<int>> waitingList;
 
-    struct CompileData* compileData;
+    struct BinCompileData* binCompileData;
     
 public:
     int getWordPos(std::wstring_view& word);

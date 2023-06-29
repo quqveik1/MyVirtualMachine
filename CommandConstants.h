@@ -2,7 +2,7 @@
 
 #include <string>
 
-const int COMMANDSVERSION = 7;
+const int COMMANDSVERSION = 8;
 
 const int cCommands = 18;
 

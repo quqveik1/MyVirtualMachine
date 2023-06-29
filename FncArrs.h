@@ -1,12 +1,9 @@
 #pragma once
 #include "Commands.cpp"
-#include "TextToNumConverter/CompileCommands.h"
-#include "TextToNumConverter/ListCommands.h"
+#include "TextToNumConverter/Compile1Commands.h"
 
 COMMANDTYPE commandsArr[cCommands + 1]{};
-COMMANDCOMPILETYPE commandsCompileArr[cCommands + 1]{};
-COMMANDLISTINGTYPE commandsListingArr[cCommands + 1]{};
+COMMAND1COMPILETYPE commands1CompileArr[cCommands + 1]{};
 
 void initCompileArr();
 void initCommandsArr();
-void initCommandsListingArr();

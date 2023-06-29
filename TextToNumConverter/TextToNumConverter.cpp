@@ -6,5 +6,5 @@
 
 int main()
 {
-    convertToNum(L"../dbExample.asm");
+    convertToNum(L"../irExample.asm");
 }

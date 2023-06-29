@@ -1,16 +1,8 @@
 #pragma once
 
-#include "CompileData.h"
+#include "BufferObj.h"
 
-#include "WordSearch.cpp"
-
-CompileData::CompileData() :
-    wordSearch(this)
-{
-    
-}
-
-void CompileData::put(const char* obj, int _size)
+void BufferObj::put(const char* obj, int _size)
 {
     size_t newSize = getData().size() + _size;
     getData().resize(newSize);
@@ -20,27 +12,27 @@ void CompileData::put(const char* obj, int _size)
     currPos += _size;
 }
 
-void CompileData::change(const char* obj, int _size, int pos)
+void BufferObj::change(const char* obj, int _size, int pos)
 {
     memcpy(&getData()[pos], obj, _size);
 }
 
 template<typename T>
-void CompileData::put(T* obj)
+void BufferObj::put(T* obj)
 {
     int _size = sizeof(T);
     put((const char*)obj, _size);
 }
 
 template<typename T>
-void CompileData::put(T& obj)
+void BufferObj::put(T& obj)
 {
     int _size = sizeof(T);
     put((const char*)(&obj), _size);
 }
 
 template<typename T>
-void CompileData::change(T& obj, int pos)
+void BufferObj::change(T& obj, int pos)
 {
     int _size = sizeof(T);
     change((const char*)(&obj), _size, pos);

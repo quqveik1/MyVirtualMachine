@@ -1,24 +1,18 @@
 #pragma once
 
-#include <vector>
 
-#include "WordSearch.h"
-
-struct CompileData
+struct BufferObj
 {
-    CompileData();
-
-private:
+protected:
     int currPos = 0;
     std::vector<char> data;
-    WordSearch wordSearch;
 
 public:
     std::vector<char>& getData() { return data; };
 
     void put(const char* obj, int _size);
     template<typename T>
-    void put(T* obj);  
+    void put(T* obj);
     template<typename T>
     void put(T& obj);
 
@@ -28,5 +22,4 @@ public:
 
     int getCurrPos() { return currPos; }
 
-    WordSearch& getWordSearch() { return wordSearch; };
 };

@@ -1,10 +1,17 @@
 #pragma once
 
 #include <string_view>
+#include <vector>
 
-struct CommandIR
+#include "BufferObj.h"
+
+struct CommandIR : BufferObj
 {
-    char* buffer = NULL;
-    int bufferLen = 0;
-    std::wstring_view& line;
+    CommandIR();
+private:
+    std::wstring_view* line;
+
+public:
+    std::wstring_view* getLine() {return line;}
+    void setLine(std::wstring_view* newLine) {line = newLine;}
 };

@@ -2,14 +2,15 @@
 
 #include <string>    
 
-#include "CompileData.h"
+#include "BinCompileData.h"
 #include "FileListing.h"
+#include "IR.h"
 
-void save2Files(std::wstring_view* oldLines, CompileData& dataArr, FileListing& fileListing, int cLines, std::wstring path);
+void save2Files(std::wstring_view* oldLines, BinCompileData& dataArr, FileListing& fileListing, int cLines, std::wstring path);
 void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines);
-int interpretText(std::wstring_view* oldLines, CompileData& dataArr, int cLines, FileListing& fileListing);
+int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileListing);
 void convertToNum(std::wstring path);
-bool ifIsWordDoJob(std::wstring_view& line, CompileData& data);
+bool ifIsWordDoJob(std::wstring_view& line, BinCompileData& data);
 bool isWord(std::wstring_view& line, std::wstring_view& word);
 void splitCommand(std::wstring_view& fullCommand, std::wstring_view& commandName, std::wstring_view& commandData);
 void splitCommand(std::wstring_view& fullCommand, int& commandStartPos, int& commandNameLastSym, int& dataFirstSymbol);

@@ -6,8 +6,8 @@
 #include "../FloatConvert.cpp"
 
 
-WordSearch::WordSearch(CompileData* _compileData) :
-    compileData(_compileData)
+WordSearch::WordSearch(BinCompileData* _compileData) :
+    binCompileData(_compileData)
 {
     
 }
@@ -36,7 +36,7 @@ void WordSearch::pushWord(std::wstring_view& word, int pos/* = -1*/)
 {
     if (pos < 0)
     {
-        pos = compileData->getCurrPos();
+        pos = binCompileData->getCurrPos();
     }
 
 #ifdef _DEBUG
@@ -60,15 +60,15 @@ void WordSearch::writeOrWaitWord(std::wstring_view& word, int pos/* = -1*/)
     if(wordPos >= 0)
     {
         int convertedWordPos = convNum(wordPos);
-        compileData->put(convertedWordPos);
+        binCompileData->put(convertedWordPos);
         return;
     }
 
     if (pos < 0)
     {
-        pos = compileData->getCurrPos();
+        pos = binCompileData->getCurrPos();
     }
-    compileData->put(wordPos);
+    binCompileData->put(wordPos);
 
     waitingList[word].push_back(pos);
 }
@@ -85,7 +85,7 @@ void WordSearch::checkWaitingList(std::wstring_view& word, int pos)
     {
         int convertedPos = convNum(pos);
         int insertPos = it->second[it->second.size() - 1];
-        compileData->change(convertedPos, insertPos);
+        binCompileData->change(convertedPos, insertPos);
 
         it->second.pop_back();
     }

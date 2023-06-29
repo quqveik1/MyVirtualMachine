@@ -3,7 +3,8 @@
 #include <string>
 #include <string_view>
 
-#include "CompileData.h"
+#include "BinCompileData.h"
+#include "IR.h"
 
 const int ByteDataPrintLen = 16;
 
@@ -11,23 +12,29 @@ struct FileListing
 {
 private:
     std::vector<std::wstring> fileListing;
-    CompileData& compileData;
+    BinCompileData& bincompileData;
+    IR& ir;
     std::wstring_view* originalFileLines;
 
     int activeOriginalCodeLineNum;
 
 public:
 
-    FileListing(CompileData& _data, std::wstring_view* _originalFileLines, int cLines) :
-        compileData(_data),
+    FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir) :
+        bincompileData(_data),
         originalFileLines(_originalFileLines),
-        activeOriginalCodeLineNum(0)
+        activeOriginalCodeLineNum(0),
+        ir(_ir)
     {
-        fileListing.reserve((int)cLines);
+        fileListing.reserve((int)(cLines * 2 + 10));
+        addNewListingLine();
+        std::wstring& activeLine = getActiveFileListingString();
+        activeLine = L"File listing Pass #1: Code -> Intermediate Representation\n\n";
     }
 
     std::vector<std::wstring>& getFileListing() { return fileListing; };
-    CompileData& getCompileData() { return compileData; };
+    BinCompileData& getBinCompileData() { return bincompileData; };
+    IR& getIR() { return ir; };
     std::wstring_view* getOriginalFileLines() { return originalFileLines; };
 
     void setActiveOriginalCodeLineNum(int line) { activeOriginalCodeLineNum = line; }
@@ -41,4 +48,10 @@ public:
     void addNewListingLine();
 
     void saveInFile(std::wstring path);
+
+    int add1CompileCommand(CommandIR& commandIR);
+
+private:
+    bool printDataLine(std::vector<char>& buffer, size_t& cursorPos, size_t bytePosAfter);
+    int default_listing(std::vector<char>& data, size_t bytePosBefore, size_t bytePosAfter);
 };

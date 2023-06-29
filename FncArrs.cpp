@@ -2,36 +2,35 @@
 
 #include "FncArrs.h"
 
-#include "TextToNumConverter/CompileCommands.cpp"
-#include "TextToNumConverter/ListCommands.cpp"
+#include "TextToNumConverter/Compile1Commands.cpp"
 
 void initCompileArr()
 {
-    commandsCompileArr[in_num] = default_compile;
-    commandsCompileArr[out_num] = out_compile;
+    commands1CompileArr[in_num] = default_1compile;
+    commands1CompileArr[out_num] = out_1compile;
 
-    commandsCompileArr[push_num] = push_compile;
+    commands1CompileArr[push_num] = push_1compile;
 
-    commandsCompileArr[hlt_num] = default_compile;
+    commands1CompileArr[hlt_num] = default_1compile;
 
-    commandsCompileArr[add_num] = default_compile;
-    commandsCompileArr[sub_num] = default_compile;
-    commandsCompileArr[mul_num] = default_compile;
-    commandsCompileArr[div_num] = default_compile;
+    commands1CompileArr[add_num] = default_1compile;
+    commands1CompileArr[sub_num] = default_1compile;
+    commands1CompileArr[mul_num] = default_1compile;
+    commands1CompileArr[div_num] = default_1compile;
 
-    commandsCompileArr[pop_num] = pop_compile;
+    commands1CompileArr[pop_num] = pop_1compile;
 
-    commandsCompileArr[jmp_num] = jmp_compile;
-    commandsCompileArr[ja_num] = jmp_compile;
-    commandsCompileArr[jae_num] = jmp_compile;
-    commandsCompileArr[jb_num] = jmp_compile;
-    commandsCompileArr[jbe_num] = jmp_compile;
-    commandsCompileArr[je_num] = jmp_compile;
-    commandsCompileArr[jne_num] = jmp_compile;
+    commands1CompileArr[jmp_num] = jmp_1compile;
+    commands1CompileArr[ja_num] = jmp_1compile;
+    commands1CompileArr[jae_num] = jmp_1compile;
+    commands1CompileArr[jb_num] = jmp_1compile;
+    commands1CompileArr[jbe_num] = jmp_1compile;
+    commands1CompileArr[je_num] = jmp_1compile;
+    commands1CompileArr[jne_num] = jmp_1compile;
 
-    commandsCompileArr[sqrt_num] = default_compile;
+    commands1CompileArr[sqrt_num] = default_1compile;
 
-    commandsCompileArr[db_num] = db_compile;
+    commands1CompileArr[db_num] = db_1compile;
 }
 
 void initCommandsArr()
@@ -53,10 +52,4 @@ void initCommandsArr()
     commandsArr[je_num] = je_command;
     commandsArr[jne_num] = jne_command;
     commandsArr[sqrt_num] = sqrt_command;
-}
-
-
-void initCommandsListingArr()
-{
-    //commandsListingArr[db_num] = db_listing;
 }
