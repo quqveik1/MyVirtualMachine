@@ -4,7 +4,7 @@
 
 #include "TextToNumConverter/Compile1Commands.cpp"
 
-void initCompileArr()
+void init1CompileArr()
 {
     commands1CompileArr[in_num] = default_1compile;
     commands1CompileArr[out_num] = out_1compile;
@@ -31,6 +31,11 @@ void initCompileArr()
     commands1CompileArr[sqrt_num] = default_1compile;
 
     commands1CompileArr[db_num] = db_1compile;
+}
+
+void init2CompileArr()
+{
+    
 }
 
 void initCommandsArr()

@@ -14,12 +14,14 @@
 #include "../ExtensionConverter.cpp"
 #include "FileListing.cpp"
 #include "IR.cpp"
+#include "Compile2Commands.cpp"
 
 void convertToNum(std::wstring path)
 {
     setlocale(LC_ALL, "russian");
 
-    initCompileArr();
+    init1CompileArr();
+    init2CompileArr();
 
     std::wstring_view fullText{};
     readText(path, &fullText);
@@ -31,21 +33,25 @@ void convertToNum(std::wstring path)
     IR ir;
     ir.getCommands().reserve(cLines);
 
-    BinCompileData dataArr;
-    dataArr.getData().reserve(cLines);
+    BinCompileData binCompileData;
+    binCompileData.getData().reserve(cLines);
 
-    FileListing fileListing(dataArr, lines, cLines, ir);
+    FileListing fileListing(binCompileData, lines, cLines, ir);
 
     int runRes = createIR(lines, ir, cLines, fileListing);
 
     if (runRes != WellCode)
     {
-        std::cout << "Ошибка перевода в байтовый вид, код: " << runRes << "\n";
+        std::wcout << L"Ошибка перевода в байтовый вид, код: " << runRes << L"\n";
+        clearMem(fullText, lines);
+        return;
     }
-    else
-    {
-        save2Files(lines, dataArr, fileListing, cLines, path);
-    }
+
+    fileListing.end1Part();
+
+    int binRunRes = irToBin(ir, binCompileData);
+
+    save2Files(lines, binCompileData, fileListing, cLines, path);
 
     clearMem(fullText, lines);
 
@@ -103,7 +109,7 @@ void save2Files(std::wstring_view* oldLines, BinCompileData& dataArr, FileListin
 
     size_t writeSize = sizeof(char) * dataArr.getData().size();
 
-    //file.write(&(dataArr.getData())[0], writeSize);
+    file.write(&(dataArr.getData())[0], writeSize);
 
     file.close();
 
@@ -122,15 +128,39 @@ void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines)
 
 int irToBin(IR& ir, BinCompileData& compileData)
 {
-    return 0;
+
+    for(size_t i = 0; i < ir.getCommands().size(); i++)
+    {
+        int bytePosBefore = compileData.getCurrPos();
+        int bytePosAfter = bytePosBefore;
+
+        CommandIR& commandIR = ir.getCommand(i);
+        if (isCommandNumValid(commandIR.getCommandNum()))
+        {
+            COMMAND2COMPILETYPE fnc = commands2CompileArr[commandIR.getCommandNum()];
+
+            int res = WellCode;
+
+            if(fnc)
+            {
+                res = fnc(commandIR, ir, compileData);
+            }
+            else
+            {
+                res = default_2compile(commandIR, ir, compileData);
+            }
+        }
+
+
+    }
+
+    return WellCode;
 }
 
 int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileListing)
 {
     for (int i = 0; i < cLines; i++)
     {
-        //int bytePosBefore = dataArr.getCurrPos();
-        //int bytePosAfter = bytePosBefore;
 
         int commandNum = 0;
 
@@ -147,14 +177,26 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
         if (commandName.size() > 0)
         {
             commandNum = getCommandNum(commandName);
+            ir.getActiveCommand().setCommandNum(commandNum);
 
             if (isCommandNumValid(commandNum))
             {
                 COMMAND1COMPILETYPE fnc = commands1CompileArr[commandNum];
 
-                if (fnc != NULL)
+                int res = WellCode;
+
+                if (fnc)
                 {
-                    int res = fnc(ir.getActiveCommand(), commandNum, commandData);
+                    res = fnc(ir.getActiveCommand(), commandNum, commandData);
+                }
+                else
+                {
+                    res = default_1compile(ir.getActiveCommand(), commandNum, commandData);
+                }
+
+                if(res != WellCode)
+                {
+                    printError(res, i, oldLines[i]);
                 }
             }
             else
@@ -162,8 +204,7 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
                 //bool isWordLine = ifIsWordDoJob(oldLines[i], dataArr);
                 if (true)
                 {
-                    std::wcout << L"Ошибка в распозновании команды в строке (" << i << L") [" << commandName << L"]\n";
-                    std::wcout << L"\"" << oldLines[i] << "\"\n";
+                    printError(CommandReadErrorCode, i, oldLines[i]);
                     return CommandReadErrorCode;
                 }
             }
@@ -174,6 +215,12 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
 
     }
     return WellCode;
+}
+
+void printError(int errorCode, int lineNum, std::wstring_view& line)
+{
+    std::wcout << L"Ошибка ["<< errorCode <<L"] в распозновании команды в строке (" << lineNum << L")\n";
+    std::wcout << L"\"" << line << "\"\n";
 }
 
 bool ifIsWordDoJob(std::wstring_view& line, BinCompileData& data)

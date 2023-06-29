@@ -6,3 +6,8 @@ File listing Pass #1: Code -> Intermediate Representation
 002: 00000 | 05 00 00 00                                       | add
 003: 00000 | 03 00 00 00                                       | out
 004: 00000 | 01 00 00 00                                       | hlt
+
+
+File listing Pass #2: Intermediate Representation -> Machine Code
+
+

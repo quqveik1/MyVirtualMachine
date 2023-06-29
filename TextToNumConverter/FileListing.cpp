@@ -2,6 +2,30 @@
 
 #include "FileListing.h"
 
+FileListing::FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir) :
+    bincompileData(_data),
+    originalFileLines(_originalFileLines),
+    activeOriginalCodeLineNum(0),
+    ir(_ir)
+{
+    fileListing.reserve((int)(cLines*2 + 10));
+    initListing();
+}
+
+void FileListing::end1Part()
+{
+    addNewListingLine();
+    std::wstring& activeLine = getActiveFileListingString();
+    activeLine = L"\n\nFile listing Pass #2: Intermediate Representation -> Machine Code\n\n";
+}
+
+void FileListing::initListing()
+{
+    addNewListingLine();
+    std::wstring& activeLine = getActiveFileListingString();
+    activeLine = L"File listing Pass #1: Code -> Intermediate Representation\n\n";
+}
+
 int FileListing::getListingFileActiveStringIndex()
 {
     return (int)getFileListing().size() - 1;

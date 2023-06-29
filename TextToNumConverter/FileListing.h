@@ -20,17 +20,9 @@ private:
 
 public:
 
-    FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir) :
-        bincompileData(_data),
-        originalFileLines(_originalFileLines),
-        activeOriginalCodeLineNum(0),
-        ir(_ir)
-    {
-        fileListing.reserve((int)(cLines * 2 + 10));
-        addNewListingLine();
-        std::wstring& activeLine = getActiveFileListingString();
-        activeLine = L"File listing Pass #1: Code -> Intermediate Representation\n\n";
-    }
+    FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir);
+
+    void end1Part();
 
     std::vector<std::wstring>& getFileListing() { return fileListing; };
     BinCompileData& getBinCompileData() { return bincompileData; };
@@ -54,4 +46,5 @@ public:
 private:
     bool printDataLine(std::vector<char>& buffer, size_t& cursorPos, size_t bytePosAfter);
     int default_listing(std::vector<char>& data, size_t bytePosBefore, size_t bytePosAfter);
+    void initListing();
 };

@@ -2,6 +2,6 @@
 
 int main(int argc, char** argv)
 {
-    readByteCode("dbExample.bin");
+    readByteCode("irExample.bin");
     return 0;
 }
