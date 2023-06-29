@@ -49,7 +49,7 @@ void convertToNum(std::wstring path)
 
     fileListing.end1Part();
 
-    int binRunRes = irToBin(ir, binCompileData);
+    int binRunRes = irToBin(ir, binCompileData, fileListing);
 
     save2Files(lines, binCompileData, fileListing, cLines, path);
 
@@ -126,7 +126,7 @@ void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines)
     if (fullText.data()) delete[] fullText.data();
 }
 
-int irToBin(IR& ir, BinCompileData& compileData)
+int irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
 {
 
     for(size_t i = 0; i < ir.getCommands().size(); i++)
@@ -134,7 +134,7 @@ int irToBin(IR& ir, BinCompileData& compileData)
         int bytePosBefore = compileData.getCurrPos();
         int bytePosAfter = bytePosBefore;
 
-        CommandIR& commandIR = ir.getCommand(i);
+        CommandIR& commandIR = ir.getCommand((int)i);
         if (isCommandNumValid(commandIR.getCommandNum()))
         {
             COMMAND2COMPILETYPE fnc = commands2CompileArr[commandIR.getCommandNum()];
@@ -151,6 +151,10 @@ int irToBin(IR& ir, BinCompileData& compileData)
             }
         }
 
+        bytePosAfter = compileData.getCurrPos();
+
+        fileListing.add2CompileCommand(commandIR, bytePosBefore, bytePosAfter);
+        
 
     }
 
@@ -167,8 +171,6 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
         std::wstring_view commandName{};
         std::wstring_view commandData{};
         splitCommand(oldLines[i], commandName, commandData);
-
-        fileListing.setActiveOriginalCodeLineNum(i);
 
         ir.addNewCommand();
         ir.getActiveCommand().setLine(&oldLines[i]);

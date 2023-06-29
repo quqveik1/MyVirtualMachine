@@ -11,7 +11,7 @@ void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines);
 
 void printError(int errorCode, int lineNum, std::wstring_view& line);
 int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileListing);
-int irToBin(IR& ir, BinCompileData& compileData);
+int irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing);
 
 void convertToNum(std::wstring path);
 bool ifIsWordDoJob(std::wstring_view& line, BinCompileData& data);

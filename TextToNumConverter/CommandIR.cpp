@@ -10,3 +10,9 @@ CommandIR::CommandIR() :
 {
     
 }
+
+std::wstring CommandIR::toString()
+{
+    wchar_t buffer[7]{};
+    //swprintf_s(buffer, 7, L"")
+}

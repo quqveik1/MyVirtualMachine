@@ -18,4 +18,6 @@ public:
 
     int getCommandNum() const { return commandNum; }
     void setCommandNum(int newCommandNum) { commandNum = newCommandNum; }
+
+    std::wstring toString();
 };

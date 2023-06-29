@@ -9,7 +9,6 @@ struct IR
     IR();
 
 private:
-    int currPos = 0;
     std::vector<CommandIR> commands;
 
 public:

@@ -4,8 +4,6 @@
 
 FileListing::FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir) :
     bincompileData(_data),
-    originalFileLines(_originalFileLines),
-    activeOriginalCodeLineNum(0),
     ir(_ir)
 {
     fileListing.reserve((int)(cLines*2 + 10));
@@ -17,6 +15,8 @@ void FileListing::end1Part()
     addNewListingLine();
     std::wstring& activeLine = getActiveFileListingString();
     activeLine = L"\n\nFile listing Pass #2: Intermediate Representation -> Machine Code\n\n";
+
+    outputLineNum = 0;
 }
 
 void FileListing::initListing()
@@ -43,18 +43,23 @@ void FileListing::addNewListingLine()
 
 int FileListing::add1CompileCommand(CommandIR& commandIR)
 {
-    return default_listing(commandIR.getData(), 0, commandIR.getData().size());
+    return default_listing(commandIR.getData(), 0, commandIR.getData().size(), *commandIR.getLine());
+}
+
+int FileListing::add2CompileCommand(CommandIR& commandIR, int bytePosBefore, int bytePosAfter)
+{
+    return default_listing(getBinCompileData().getData(), bytePosBefore, bytePosAfter, *commandIR.getLine());
 }
 
 const bool needNewLine = true;
 const bool noNewLine = false;
 
-int FileListing::default_listing(std::vector<char>& data, size_t bytePosBefore, size_t bytePosAfter)
+int FileListing::default_listing(std::vector<char>& data, size_t bytePosBefore, size_t bytePosAfter, std::wstring_view& originalLine)
 {
     addNewListingLine();
 
     wchar_t buffer[15]{};
-    swprintf(buffer, 15, L"%03d: %05x", getActiveOriginalCodeLineNum(), (int)bytePosBefore);
+    swprintf(buffer, 15, L"%03d: %05x", getOutputLineNum(), (int)bytePosBefore);
 
     static const int beforeLineSize = (int)wcslen(buffer);
 
@@ -89,7 +94,7 @@ int FileListing::default_listing(std::vector<char>& data, size_t bytePosBefore, 
             listingFile += L"  | ";
         }
 
-        if (isFirstStr) listingFile += getActiveOriginaFileLine();
+        if (isFirstStr) listingFile += originalLine;
 
         isFirstStr = false;
 
@@ -99,6 +104,8 @@ int FileListing::default_listing(std::vector<char>& data, size_t bytePosBefore, 
             addNewListingLine();
         }
     }
+
+    outputLineNum++;
 
     return WellCode;
 }
@@ -127,11 +134,6 @@ bool FileListing::printDataLine(std::vector<char>& buffer, size_t& cursorPos, si
 
     return hasFreeSpace;
 }
-
-std::wstring_view& FileListing::getActiveOriginaFileLine()
-{
-    return getOriginalFileLines()[getActiveOriginalCodeLineNum()];
-};
 
 void FileListing::saveInFile(std::wstring path)
 {

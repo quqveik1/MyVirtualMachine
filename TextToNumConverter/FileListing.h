@@ -14,9 +14,8 @@ private:
     std::vector<std::wstring> fileListing;
     BinCompileData& bincompileData;
     IR& ir;
-    std::wstring_view* originalFileLines;
 
-    int activeOriginalCodeLineNum;
+    int outputLineNum = 0;
 
 public:
 
@@ -27,12 +26,8 @@ public:
     std::vector<std::wstring>& getFileListing() { return fileListing; };
     BinCompileData& getBinCompileData() { return bincompileData; };
     IR& getIR() { return ir; };
-    std::wstring_view* getOriginalFileLines() { return originalFileLines; };
 
-    void setActiveOriginalCodeLineNum(int line) { activeOriginalCodeLineNum = line; }
-    int getActiveOriginalCodeLineNum() { return activeOriginalCodeLineNum; }
-
-    std::wstring_view& getActiveOriginaFileLine();
+    int getOutputLineNum() { return outputLineNum; }
 
     int getListingFileActiveStringIndex();
     std::wstring& getActiveFileListingString();
@@ -42,9 +37,10 @@ public:
     void saveInFile(std::wstring path);
 
     int add1CompileCommand(CommandIR& commandIR);
+    int add2CompileCommand(CommandIR& commandIR, int bytePosBefore, int bytePosAfter);
 
 private:
     bool printDataLine(std::vector<char>& buffer, size_t& cursorPos, size_t bytePosAfter);
-    int default_listing(std::vector<char>& data, size_t bytePosBefore, size_t bytePosAfter);
+    int default_listing(std::vector<char>& data, size_t bytePosBefore, size_t bytePosAfter, std::wstring_view& originalLine);
     void initListing();
 };
