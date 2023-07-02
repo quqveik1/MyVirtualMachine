@@ -43,28 +43,49 @@ void FileListing::addNewListingLine()
 
 int FileListing::add1CompileCommand(CommandIR& commandIR)
 {
-    return default_listing(commandIR.getData(), 0, commandIR.getData().size(), *commandIR.getLine());
+    addNewListingLine();
+
+    wchar_t buffer[15]{};
+    swprintf(buffer, 15, L"%03d:", getOutputLineNum());
+
+    getActiveFileListingString() += buffer;
+
+    getActiveFileListingString() += L" | ";
+
+    getActiveFileListingString() += commandIR.toString();
+
+    static const int marginData = (int)getActiveFileListingString().size();
+
+    printByteData(commandIR.getData(), 0, commandIR.getData().size(), *commandIR.getLine(), marginData);
+
+    outputLineNum++;
+
+    return WellCode;
 }
 
-int FileListing::add2CompileCommand(CommandIR& commandIR, int bytePosBefore, int bytePosAfter)
-{
-    return default_listing(getBinCompileData().getData(), bytePosBefore, bytePosAfter, *commandIR.getLine());
-}
-
-const bool needNewLine = true;
-const bool noNewLine = false;
-
-int FileListing::default_listing(std::vector<char>& data, size_t bytePosBefore, size_t bytePosAfter, std::wstring_view& originalLine)
+int FileListing::add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, int bytePosBefore, int bytePosAfter)
 {
     addNewListingLine();
 
     wchar_t buffer[15]{};
     swprintf(buffer, 15, L"%03d: %05x", getOutputLineNum(), (int)bytePosBefore);
 
-    static const int beforeLineSize = (int)wcslen(buffer);
+    static const int marginData = (int)wcslen(buffer);
 
     getActiveFileListingString() += buffer;
 
+    printByteData(binCompileData.getData(), bytePosBefore, bytePosAfter, *commandIR.getLine(), marginData);
+
+    outputLineNum++;
+
+    return WellCode;
+}
+
+const bool needNewLine = true;
+const bool noNewLine = false;
+
+void FileListing::printByteData(std::vector<char>& data, size_t bytePosBefore, size_t bytePosAfter, std::wstring_view& originalLine, const int margin)
+{
     size_t cursorPos = bytePosBefore;
     bool isFirstStr = true;
 
@@ -74,7 +95,7 @@ int FileListing::default_listing(std::vector<char>& data, size_t bytePosBefore, 
 
         if (!isFirstStr)
         {
-            for (int i = 0; i < beforeLineSize; i++)
+            for (int i = 0; i < margin; i++)
             {
                 listingFile += L' ';
             }
@@ -104,10 +125,6 @@ int FileListing::default_listing(std::vector<char>& data, size_t bytePosBefore, 
             addNewListingLine();
         }
     }
-
-    outputLineNum++;
-
-    return WellCode;
 }
 
 bool FileListing::printDataLine(std::vector<char>& buffer, size_t& cursorPos, size_t bytePosAfter)

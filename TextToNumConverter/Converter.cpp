@@ -153,7 +153,7 @@ int irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
 
         bytePosAfter = compileData.getCurrPos();
 
-        fileListing.add2CompileCommand(commandIR, bytePosBefore, bytePosAfter);
+        fileListing.add2CompileCommand(commandIR, compileData, bytePosBefore, bytePosAfter);
         
 
     }

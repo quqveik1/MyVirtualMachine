@@ -10,6 +10,7 @@ struct CommandIR : BufferObj
     CommandIR();
 private:
     int commandNum = 0;
+    bool isFinal = true;
     std::wstring_view* line;
 
 public:

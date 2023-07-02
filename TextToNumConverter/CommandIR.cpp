@@ -13,6 +13,10 @@ CommandIR::CommandIR() :
 
 std::wstring CommandIR::toString()
 {
-    wchar_t buffer[7]{};
-    //swprintf_s(buffer, 7, L"")
+    wchar_t buffer[50]{};
+    swprintf_s(buffer, 50, L"commandNum: %04d, isFinal: %d", commandNum, isFinal);
+
+    std::wstring ans = buffer;
+
+    return ans;
 }

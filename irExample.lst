@@ -1,11 +1,11 @@
 File listing Pass #1: Code -> Intermediate Representation
 
 
-000: 00000 | 04 01 00 00 00 00 05 00                           | push 5
-001: 00000 | 04 01 00 00 00 00 07 00                           | push 7
-002: 00000 | 05 00 00 00                                       | add
-003: 00000 | 03 00 00 00                                       | out
-004: 00000 | 01 00 00 00                                       | hlt
+000: | commandNum: 0004, isFinal: 1 | 04 01 00 00 00 00 05 00                           | push 5
+001: | commandNum: 0004, isFinal: 1 | 04 01 00 00 00 00 07 00                           | push 7
+002: | commandNum: 0005, isFinal: 1 | 05 00 00 00                                       | add
+003: | commandNum: 0003, isFinal: 1 | 03 00 00 00                                       | out
+004: | commandNum: 0001, isFinal: 1 | 01 00 00 00                                       | hlt
 
 
 File listing Pass #2: Intermediate Representation -> Machine Code
