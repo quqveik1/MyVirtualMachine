@@ -8,7 +8,7 @@
 #include "../FileHeader.h"
 #include "BinCompileData.cpp"
 #include "../ByteConverter.cpp"
-#include "../FncArrs.cpp"
+#include "CompileArrs.cpp"
 #include "WStringFnc.cpp"
 #include "../CommandConstants.cpp"
 #include "../ExtensionConverter.cpp"
@@ -42,14 +42,22 @@ void convertToNum(std::wstring path)
 
     if (runRes != WellCode)
     {
-        std::wcout << L"Ошибка перевода в байтовый вид, код: " << runRes << L"\n";
+        std::wcout << L"Ошибка перевода в промежуточный вид, код: " << runRes << L"\n";
         clearMem(fullText, lines);
         return;
     }
 
     fileListing.end1Part();
+    std::wcout << L"Промежуточный слой создан\n";
 
     int binRunRes = irToBin(ir, binCompileData, fileListing);
+
+    if (binRunRes != WellCode)
+    {
+        std::wcout << L"Ошибка перевода в байтовый вид, код: " << binRunRes << L"\n";
+        clearMem(fullText, lines);
+        return;
+    }
 
     save2Files(lines, binCompileData, fileListing, cLines, path);
 
@@ -179,36 +187,45 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
         if (commandName.size() > 0)
         {
             commandNum = getCommandNum(commandName);
-            ir.getActiveCommand().setCommandNum(commandNum);
+            
+
+            COMMAND1COMPILETYPE fnc = nullptr;
 
             if (isCommandNumValid(commandNum))
             {
-                COMMAND1COMPILETYPE fnc = commands1CompileArr[commandNum];
-
-                int res = WellCode;
-
-                if (fnc)
-                {
-                    res = fnc(ir.getActiveCommand(), commandNum, commandData);
-                }
-                else
-                {
-                    res = default_1compile(ir.getActiveCommand(), commandNum, commandData);
-                }
-
-                if(res != WellCode)
-                {
-                    printError(res, i, oldLines[i]);
-                }
+                fnc = commands1CompileArr[commandNum];
             }
             else
             {
-                //bool isWordLine = ifIsWordDoJob(oldLines[i], dataArr);
-                if (true)
+                bool isWordLine = isWord(oldLines[i], &commandData);
+                if(isWordLine)
+                {
+                    fnc = commands1CompileArr[word_num];
+                    commandNum = word_num;
+                }
+                else
                 {
                     printError(CommandReadErrorCode, i, oldLines[i]);
                     return CommandReadErrorCode;
                 }
+            }
+
+            ir.getActiveCommand().setCommandNum(commandNum);
+
+            int res = WellCode;
+
+            if (fnc)
+            {
+                res = fnc(ir.getActiveCommand(), commandNum, commandData);
+            }
+            else
+            {
+                res = default_1compile(ir.getActiveCommand(), commandNum, commandData);
+            }
+
+            if (res != WellCode)
+            {
+                printError(res, i, oldLines[i]);
             }
         }
 
@@ -228,7 +245,7 @@ void printError(int errorCode, int lineNum, std::wstring_view& line)
 bool ifIsWordDoJob(std::wstring_view& line, BinCompileData& data)
 {
     std::wstring_view word;
-    bool res = isWord(line, word);
+    bool res = isWord(line, &word);
     if (res)
     {
         data.getWordSearch().pushWord(word);
@@ -237,7 +254,7 @@ bool ifIsWordDoJob(std::wstring_view& line, BinCompileData& data)
     return res;
 }
 
-bool isWord(std::wstring_view& line, std::wstring_view& word)
+bool isWord(std::wstring_view& line, std::wstring_view* word/*= nullptr*/)
 {
     int wordStart = findFirstNotEmptySymPos(line);
     if (wordStart < 0) return false;
@@ -245,9 +262,9 @@ bool isWord(std::wstring_view& line, std::wstring_view& word)
     int wordFinish = (int)line.rfind(L':');
     if(wordFinish <= 0) return false;
 
-    word = line.substr(wordStart, (size_t)(wordFinish - wordStart));
+    *word = line.substr(wordStart, (size_t)(wordFinish - wordStart));
 
-    bool res = isJmpWord(word);
+    bool res = isJmpWord(*word);
 
     return res;
 }

@@ -1,5 +1,6 @@
-push 5
-push 7
-add
-out
+jmp real_start
+hello:
+db "Hello!"
+real_start:
+out hello
 hlt

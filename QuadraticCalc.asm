@@ -98,7 +98,7 @@ push [3]
 out
 push dx
 push 0
-jne endProgamm
+je endProgamm
 push [4]
 out
 

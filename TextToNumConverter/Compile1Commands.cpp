@@ -201,6 +201,10 @@ int saveWordExpression(CommandIR& commandIR, int commandNum, std::wstring_view& 
     int codedCommandNum = codeToNumberRepresentation(commandNum, true);
     commandIR.put(codedCommandNum);
 
+    commandIR.putString(data);
+
+    commandIR.setHasWord(true);
+
     //commandIR.getWordSearch().writeOrWaitWord(data);
     return WellCode;
 }
@@ -276,4 +280,16 @@ size_t cDeletedSymAfterCompilation(const std::wstring_view& str)
     }
 
     return ans;
+}
+
+
+int word_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data)
+{
+    default_1compile(commandIR, commandNum, data);
+
+    commandIR.putString(data);
+
+    commandIR.setHasWord(true);
+
+    return WellCode;
 }

@@ -2,9 +2,9 @@
 
 #include <string>
 
-const int COMMANDSVERSION = 8;
+const int COMMANDSVERSION = 9;
 
-const int cCommands = 18;
+const int cCommands = 19;
 
 const std::wstring hlt_str = L"hlt";
 
@@ -21,7 +21,7 @@ const std::wstring pop_str = L"pop";
 
 const std::wstring jmp_str = L"jmp";
 const std::wstring ja_str = L"ja";
-const std::wstring jae_str = L"jae_str";
+const std::wstring jae_str = L"jae";
 const std::wstring jb_str = L"jb";
 const std::wstring jbe_str = L"jbe";
 const std::wstring je_str = L"je";
@@ -30,6 +30,8 @@ const std::wstring jne_str = L"jne";
 const std::wstring sqrt_str = L"sqrt";
 
 const std::wstring db_str = L"db";
+
+const std::wstring word_str = L"word";
 
 //------------------------------------------------------------------
 
@@ -59,6 +61,8 @@ const int jne_num = 16;
 const int sqrt_num = 17;
 
 const int db_num = 18;
+
+const int word_num = 19;
 
 //------------------------------------------------------------------
 

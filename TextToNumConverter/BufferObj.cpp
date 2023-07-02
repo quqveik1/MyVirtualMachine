@@ -32,6 +32,19 @@ void BufferObj::put(T& obj)
 }
 
 template<typename T>
+void BufferObj::putString(const T& str)
+{
+    for (size_t i = 0; i < str.size(); i++)
+    {
+        put(str[i]);
+    }
+
+    int symWidth = sizeof(T::value_type);
+    std::unique_ptr<char[]> terminateSym(new char[symWidth]{});
+    put(terminateSym.get(), symWidth);
+}
+
+template<typename T>
 void BufferObj::change(T& obj, int pos)
 {
     int _size = sizeof(T);

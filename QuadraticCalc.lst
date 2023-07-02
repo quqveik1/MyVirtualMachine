@@ -1,3 +1,160 @@
+File listing Pass #1: Code -> Intermediate Representation
+
+
+000: | commandNum: 0010; isFinal: 1; hasWord: 1; | 0a 01 00 00 70 00 72 00 6f 00 67 00 72 00 61 00 + | jmp programmStart
+                                                 | 6d 00 6d 00 53 00 74 00 61 00 72 00 74 00 00 00   | 
+001: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 69 00 6e 00 74 00 72 00 6f 00 00 00   | intro:
+002: | commandNum: 0018; isFinal: 1; hasWord: 0; | 14 04 30 04 3d 04 3d 04 30 04 4f 04 20 00 3f 04 + | db "Данная программа решает квадратные уравнения в виде ax^2 + bx + c"
+                                                 | 40 04 3e 04 33 04 40 04 30 04 3c 04 3c 04 30 04 + | 
+                                                 | 20 00 40 04 35 04 48 04 30 04 35 04 42 04 20 00 + | 
+                                                 | 3a 04 32 04 30 04 34 04 40 04 30 04 42 04 3d 04 + | 
+                                                 | 4b 04 35 04 20 00 43 04 40 04 30 04 32 04 3d 04 + | 
+                                                 | 35 04 3d 04 38 04 4f 04 20 00 32 04 20 00 32 04 + | 
+                                                 | 38 04 34 04 35 04 20 00 61 00 78 00 5e 00 32 00 + | 
+                                                 | 20 00 2b 00 20 00 62 00 78 00 20 00 2b 00 20 00 + | 
+                                                 | 63 00 00 00                                       | 
+003: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 69 00 6e 00 70 00 75 00 74 00 41 00 + | inputA:
+                                                 | 00 00                                             | 
+004: | commandNum: 0018; isFinal: 1; hasWord: 0; | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите a: "
+                                                 | 20 00 61 00 3a 00 20 00 00 00                     | 
+005: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 69 00 6e 00 70 00 75 00 74 00 42 00 + | inputB:
+                                                 | 00 00                                             | 
+006: | commandNum: 0018; isFinal: 1; hasWord: 0; | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите b: "
+                                                 | 20 00 62 00 3a 00 20 00 00 00                     | 
+007: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 69 00 6e 00 70 00 75 00 74 00 43 00 + | inputC:
+                                                 | 00 00                                             | 
+008: | commandNum: 0018; isFinal: 1; hasWord: 0; | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите c: "
+                                                 | 20 00 63 00 3a 00 20 00 00 00                     | 
+009: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 6e 00 6f 00 53 00 6f 00 6c 00 75 00 + | noSolutions:
+                                                 | 74 00 69 00 6f 00 6e 00 73 00 00 00               | 
+010: | commandNum: 0018; isFinal: 1; hasWord: 0; | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение не имеет решений\n"
+                                                 | 38 04 35 04 20 00 3d 04 35 04 20 00 38 04 3c 04 + | 
+                                                 | 35 04 35 04 42 04 20 00 40 04 35 04 48 04 35 04 + | 
+                                                 | 3d 04 38 04 39 04 0a 00 00 00                     | 
+011: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 6f 00 6e 00 65 00 53 00 6f 00 6c 00 + | oneSolution:
+                                                 | 75 00 74 00 69 00 6f 00 6e 00 00 00               | 
+012: | commandNum: 0018; isFinal: 1; hasWord: 0; | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет одно решение: \n"
+                                                 | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
+                                                 | 20 00 3e 04 34 04 3d 04 3e 04 20 00 40 04 35 04 + | 
+                                                 | 48 04 35 04 3d 04 38 04 35 04 3a 00 20 00 0a 00 + | 
+                                                 | 00 00                                             | 
+013: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 74 00 77 00 6f 00 53 00 6f 00 6c 00 + | twoSolutions:
+                                                 | 75 00 74 00 69 00 6f 00 6e 00 73 00 00 00         | 
+014: | commandNum: 0018; isFinal: 1; hasWord: 0; | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет два решения: \n"
+                                                 | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
+                                                 | 20 00 34 04 32 04 30 04 20 00 40 04 35 04 48 04 + | 
+                                                 | 35 04 3d 04 38 04 4f 04 3a 00 20 00 0a 00 00 00   | 
+015: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 70 00 72 00 6f 00 67 00 72 00 61 00 + | programmStart:
+                                                 | 6d 00 6d 00 53 00 74 00 61 00 72 00 74 00 00 00   | 
+016: | commandNum: 0003; isFinal: 1; hasWord: 1; | 03 01 00 00 69 00 6e 00 74 00 72 00 6f 00 00 00   | out intro
+017: | commandNum: 0003; isFinal: 1; hasWord: 1; | 03 01 00 00 69 00 6e 00 70 00 75 00 74 00 41 00 + | out inputA
+                                                 | 00 00                                             | 
+018: | commandNum: 0002; isFinal: 1; hasWord: 0; | 02 00 00 00                                       | in
+019: | commandNum: 0003; isFinal: 1; hasWord: 1; | 03 01 00 00 69 00 6e 00 70 00 75 00 74 00 42 00 + | out inputB
+                                                 | 00 00                                             | 
+020: | commandNum: 0002; isFinal: 1; hasWord: 0; | 02 00 00 00                                       | in
+021: | commandNum: 0003; isFinal: 1; hasWord: 1; | 03 01 00 00 69 00 6e 00 70 00 75 00 74 00 43 00 + | out inputC
+                                                 | 00 00                                             | 
+022: | commandNum: 0002; isFinal: 1; hasWord: 0; | 02 00 00 00                                       | in
+023: | commandNum: 0009; isFinal: 1; hasWord: 0; | 09 02 00 00 00 00 02 00                           | pop cx
+024: | commandNum: 0009; isFinal: 1; hasWord: 0; | 09 02 00 00 00 00 01 00                           | pop bx
+025: | commandNum: 0009; isFinal: 1; hasWord: 0; | 09 02 00 00 00 00 00 00                           | pop ax
+026: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+027: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 00 00                           | push ax
+028: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 01 00 00 00 00 00 00                           | push 0
+029: | commandNum: 0016; isFinal: 1; hasWord: 1; | 10 01 00 00 71 00 75 00 61 00 64 00 72 00 61 00 + | jne quadratic
+                                                 | 74 00 69 00 63 00 00 00                           | 
+030: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+031: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 01 00 00 00 00 00 00                           | push 0
+032: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 02 00                           | push cx
+033: | commandNum: 0006; isFinal: 1; hasWord: 0; | 06 00 00 00                                       | sub
+034: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 01 00                           | push bx
+035: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 01 00 00 00 00 00 00                           | push 0
+036: | commandNum: 0016; isFinal: 1; hasWord: 1; | 10 01 00 00 6c 00 69 00 6e 00 65 00 61 00 72 00 + | jne linear
+                                                 | 00 00                                             | 
+037: | commandNum: 0003; isFinal: 1; hasWord: 1; | 03 01 00 00 6e 00 6f 00 53 00 6f 00 6c 00 75 00 + | out noSolutions
+                                                 | 74 00 69 00 6f 00 6e 00 73 00 00 00               | 
+038: | commandNum: 0001; isFinal: 1; hasWord: 0; | 01 00 00 00                                       | hlt
+039: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+040: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 6c 00 69 00 6e 00 65 00 61 00 72 00 + | linear:
+                                                 | 00 00                                             | 
+041: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 01 00                           | push bx
+042: | commandNum: 0008; isFinal: 1; hasWord: 0; | 08 00 00 00                                       | div
+043: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+044: | commandNum: 0003; isFinal: 1; hasWord: 1; | 03 01 00 00 6f 00 6e 00 65 00 53 00 6f 00 6c 00 + | out oneSolution
+                                                 | 75 00 74 00 69 00 6f 00 6e 00 00 00               | 
+045: | commandNum: 0003; isFinal: 1; hasWord: 0; | 03 00 00 00                                       | out
+046: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+047: | commandNum: 0001; isFinal: 1; hasWord: 0; | 01 00 00 00                                       | hlt
+048: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+049: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 71 00 75 00 61 00 64 00 72 00 61 00 + | quadratic:
+                                                 | 74 00 69 00 63 00 00 00                           | 
+050: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 01 00                           | push bx
+051: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 01 00                           | push bx
+052: | commandNum: 0007; isFinal: 1; hasWord: 0; | 07 00 00 00                                       | mul
+053: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 01 00 00 00 00 04 00                           | push 4
+054: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 00 00                           | push ax
+055: | commandNum: 0007; isFinal: 1; hasWord: 0; | 07 00 00 00                                       | mul 
+056: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 02 00                           | push cx
+057: | commandNum: 0007; isFinal: 1; hasWord: 0; | 07 00 00 00                                       | mul
+058: | commandNum: 0006; isFinal: 1; hasWord: 0; | 06 00 00 00                                       | sub
+059: | commandNum: 0009; isFinal: 1; hasWord: 0; | 09 02 00 00 00 00 03 00                           | pop dx
+060: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+061: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 03 00                           | push dx
+062: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 01 00 00 00 00 00 00                           | push 0
+063: | commandNum: 0012; isFinal: 1; hasWord: 1; | 0c 01 00 00 70 00 6f 00 73 00 69 00 74 00 69 00 + | jae positiveD
+                                                 | 76 00 65 00 44 00 00 00                           | 
+064: | commandNum: 0003; isFinal: 1; hasWord: 1; | 03 01 00 00 6e 00 6f 00 53 00 6f 00 6c 00 75 00 + | out noSolutions
+                                                 | 74 00 69 00 6f 00 6e 00 73 00 00 00               | 
+065: | commandNum: 0001; isFinal: 1; hasWord: 0; | 01 00 00 00                                       | hlt
+066: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+067: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 70 00 6f 00 73 00 69 00 74 00 69 00 + | positiveD:
+                                                 | 76 00 65 00 44 00 00 00                           | 
+068: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 03 00                           | push dx
+069: | commandNum: 0017; isFinal: 1; hasWord: 0; | 11 00 00 00                                       | sqrt
+070: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+071: | commandNum: 0009; isFinal: 1; hasWord: 0; | 09 02 00 00 00 00 03 00                           | pop dx
+072: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+073: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 01 00 00 00 00 00 00                           | push 0
+074: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 01 00                           | push bx
+075: | commandNum: 0006; isFinal: 1; hasWord: 0; | 06 00 00 00                                       | sub
+076: | commandNum: 0009; isFinal: 1; hasWord: 0; | 09 05 00 00 00 00 01 00                           | pop [1]
+077: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 05 00 00 00 00 01 00                           | push [1]
+078: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+079: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 03 00                           | push dx
+080: | commandNum: 0005; isFinal: 1; hasWord: 0; | 05 00 00 00                                       | add
+081: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 01 00 00 00 00 02 00                           | push 2
+082: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 00 00                           | push ax
+083: | commandNum: 0007; isFinal: 1; hasWord: 0; | 07 00 00 00                                       | mul
+084: | commandNum: 0009; isFinal: 1; hasWord: 0; | 09 05 00 00 00 00 02 00                           | pop [2]
+085: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 05 00 00 00 00 02 00                           | push [2]
+086: | commandNum: 0008; isFinal: 1; hasWord: 0; | 08 00 00 00                                       | div
+087: | commandNum: 0009; isFinal: 1; hasWord: 0; | 09 05 00 00 00 00 03 00                           | pop [3]
+088: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+089: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 05 00 00 00 00 01 00                           | push [1]
+090: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 03 00                           | push dx
+091: | commandNum: 0006; isFinal: 1; hasWord: 0; | 06 00 00 00                                       | sub
+092: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 05 00 00 00 00 02 00                           | push [2]
+093: | commandNum: 0008; isFinal: 1; hasWord: 0; | 08 00 00 00                                       | div
+094: | commandNum: 0009; isFinal: 1; hasWord: 0; | 09 05 00 00 00 00 04 00                           | pop [4]
+095: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+096: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 05 00 00 00 00 03 00                           | push [3]
+097: | commandNum: 0003; isFinal: 1; hasWord: 0; | 03 00 00 00                                       | out
+098: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 02 00 00 00 00 03 00                           | push dx
+099: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 01 00 00 00 00 00 00                           | push 0
+100: | commandNum: 0015; isFinal: 1; hasWord: 1; | 0f 01 00 00 65 00 6e 00 64 00 50 00 72 00 6f 00 + | je endProgamm
+                                                 | 67 00 61 00 6d 00 6d 00 00 00                     | 
+101: | commandNum: 0004; isFinal: 1; hasWord: 0; | 04 05 00 00 00 00 04 00                           | push [4]
+102: | commandNum: 0003; isFinal: 1; hasWord: 0; | 03 00 00 00                                       | out
+103: | commandNum: 0000; isFinal: 1; hasWord: 0; |                                                   | 
+104: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 65 00 6e 00 64 00 50 00 72 00 6f 00 + | endProgamm:
+                                                 | 67 00 61 00 6d 00 6d 00 00 00                     | 
+105: | commandNum: 0001; isFinal: 1; hasWord: 0; | 01 00 00 00                                       | hlt
+
+
+File listing Pass #2: Intermediate Representation -> Machine Code
+
+
 000: 00000 | 0a 01 00 00 ff ff ff ff                           | jmp programmStart
 001: 00008 |                                                   | intro:
 002: 00008 | 14 04 30 04 3d 04 3d 04 30 04 4f 04 20 00 3f 04 + | db "Данная программа решает квадратные уравнения в виде ax^2 + bx + c"
@@ -82,7 +239,7 @@
 060: 00286 |                                                   | 
 061: 00286 | 04 02 00 00 00 00 03 00                           | push dx
 062: 0028e | 04 01 00 00 00 00 00 00                           | push 0
-063: 00296 | 0e 01 00 00 ff ff ff ff                           | jbe positiveD
+063: 00296 | 0c 01 00 00 ff ff ff ff                           | jae positiveD
 064: 0029e | 03 01 00 00 00 00 da 00                           | out noSolutions
 065: 002a6 | 01 00 00 00                                       | hlt
 066: 002aa |                                                   | 
@@ -119,7 +276,7 @@
 097: 0034e | 03 00 00 00                                       | out
 098: 00352 | 04 02 00 00 00 00 03 00                           | push dx
 099: 0035a | 04 01 00 00 00 00 00 00                           | push 0
-100: 00362 | 10 01 00 00 ff ff ff ff                           | jne endProgamm
+100: 00362 | 0f 01 00 00 ff ff ff ff                           | je endProgamm
 101: 0036a | 04 05 00 00 00 00 04 00                           | push [4]
 102: 00372 | 03 00 00 00                                       | out
 103: 00376 |                                                   | 

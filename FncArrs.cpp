@@ -2,42 +2,6 @@
 
 #include "FncArrs.h"
 
-#include "TextToNumConverter/Compile1Commands.cpp"
-
-void init1CompileArr()
-{
-    commands1CompileArr[in_num] = default_1compile;
-    commands1CompileArr[out_num] = out_1compile;
-
-    commands1CompileArr[push_num] = push_1compile;
-
-    commands1CompileArr[hlt_num] = default_1compile;
-
-    commands1CompileArr[add_num] = default_1compile;
-    commands1CompileArr[sub_num] = default_1compile;
-    commands1CompileArr[mul_num] = default_1compile;
-    commands1CompileArr[div_num] = default_1compile;
-
-    commands1CompileArr[pop_num] = pop_1compile;
-
-    commands1CompileArr[jmp_num] = jmp_1compile;
-    commands1CompileArr[ja_num] = jmp_1compile;
-    commands1CompileArr[jae_num] = jmp_1compile;
-    commands1CompileArr[jb_num] = jmp_1compile;
-    commands1CompileArr[jbe_num] = jmp_1compile;
-    commands1CompileArr[je_num] = jmp_1compile;
-    commands1CompileArr[jne_num] = jmp_1compile;
-
-    commands1CompileArr[sqrt_num] = default_1compile;
-
-    commands1CompileArr[db_num] = db_1compile;
-}
-
-void init2CompileArr()
-{
-    
-}
-
 void initCommandsArr()
 {
     commandsArr[in_num] = in_command;

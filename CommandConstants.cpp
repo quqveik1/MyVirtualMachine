@@ -104,6 +104,11 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
         res = db_num;
     }
 
+    else if (svcmp(commandName, word_str) == 0)
+    {
+        res = word_num;
+    }
+
     return res;
 }
 

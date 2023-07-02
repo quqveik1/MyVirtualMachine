@@ -16,6 +16,9 @@ public:
     template<typename T>
     void put(T& obj);
 
+    template<typename T>
+    void putString(const T& str);
+
     void change(const char* obj, int _size, int pos);
     template<typename T>
     void change(T& obj, int pos);

@@ -2,6 +2,6 @@
 
 int main(int argc, char** argv)
 {
-    readByteCode("irExample.bin");
+    readByteCode("QuadraticCalc.bin");
     return 0;
 }

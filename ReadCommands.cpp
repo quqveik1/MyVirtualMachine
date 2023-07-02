@@ -15,7 +15,6 @@
 #include "FncArrs.cpp"
 #include "FileHeader.cpp"
 #include "CommandConstants.cpp"
-#include "TextToNumConverter/FileListing.cpp"
 
 
 void readByteCode(std::string path)
@@ -83,9 +82,14 @@ void readAndExecuteCommands(Processor& data)
     int callCode = CommandReadErrorCode;
 
     std::queue<int> calledByteCodes;
+    const size_t queueSize = 10;
 
     for(int i = 0; ; i++)
     {
+        if(calledByteCodes.size() >= queueSize)
+        {
+            calledByteCodes.pop();
+        }
         calledByteCodes.push(data.getCommandData().getCurrPos());
 
         callCode = executeCommand(data);

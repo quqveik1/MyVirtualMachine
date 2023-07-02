@@ -27,3 +27,5 @@ int jmp_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data);
 size_t cDeletedSymAfterCompilation(const std::wstring_view& str);
 int writeStrInData(CommandIR& commandIR, std::wstring_view& data, size_t firstQuotePos, size_t secondQuotePos);
 int db_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data);
+
+int word_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data);

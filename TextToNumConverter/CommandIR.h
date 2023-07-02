@@ -11,6 +11,7 @@ struct CommandIR : BufferObj
 private:
     int commandNum = 0;
     bool isFinal = true;
+    bool hasWord = false;
     std::wstring_view* line;
 
 public:
@@ -20,5 +21,13 @@ public:
     int getCommandNum() const { return commandNum; }
     void setCommandNum(int newCommandNum) { commandNum = newCommandNum; }
 
+    bool getIsFinal() const { return isFinal; }
+    void setIsFinal(bool newIsFinal) { isFinal = newIsFinal; }
+
+    bool getHasWord() const { return hasWord; }
+    void setHasWord(bool newHasWord) { hasWord = newHasWord; }
+
     std::wstring toString();
+
+    char* getCommandData();
 };

@@ -30,7 +30,7 @@ int out_command(Processor& processor, int codedCommandNum)
 
     if (!hasConst)
     {
-        int num = processor.getRuntimeData().get();
+        int num = processor.getRuntimeData().peek();
         std::cout << deConvNum<float>(num) << std::endl;
 
         return WellCode;
