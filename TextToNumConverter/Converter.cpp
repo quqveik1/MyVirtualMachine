@@ -59,6 +59,10 @@ void convertToNum(std::wstring path)
         return;
     }
 
+    fileListing.end2Part();
+
+    int finalListing = addToListingFinalCode(ir, binCompileData, fileListing);
+
     save2Files(lines, binCompileData, fileListing, cLines, path);
 
     clearMem(fullText, lines);
@@ -134,13 +138,24 @@ void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines)
     if (fullText.data()) delete[] fullText.data();
 }
 
+int addToListingFinalCode(IR& ir, BinCompileData& compileData, FileListing& fileListing)
+{
+    for (size_t i = 0; i < ir.getCommands().size(); i++)
+    {
+        fileListing.add2CompileCommand(ir.getCommand((int)i), compileData, compileData.getBufferLineStart()[i], compileData.getBufferLineFinish()[i]);
+    }
+
+    return WellCode;
+}
+
 int irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
 {
 
     for(size_t i = 0; i < ir.getCommands().size(); i++)
     {
-        int bytePosBefore = compileData.getCurrPos();
-        int bytePosAfter = bytePosBefore;
+        size_t bytePosBefore = compileData.getCurrPos();
+        size_t bytePosAfter = bytePosBefore;
+        compileData.addNewLineStart(bytePosBefore);
 
         CommandIR& commandIR = ir.getCommand((int)i);
         if (isCommandNumValid(commandIR.getCommandNum()))
@@ -160,10 +175,9 @@ int irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
         }
 
         bytePosAfter = compileData.getCurrPos();
+        compileData.addNewLineFinish(bytePosAfter);
 
         fileListing.add2CompileCommand(commandIR, compileData, bytePosBefore, bytePosAfter);
-        
-
     }
 
     return WellCode;
@@ -230,8 +244,6 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
         }
 
         fileListing.add1CompileCommand(ir.getActiveCommand());
-
-
     }
     return WellCode;
 }

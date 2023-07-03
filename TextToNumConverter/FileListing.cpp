@@ -14,7 +14,16 @@ void FileListing::end1Part()
 {
     addNewListingLine();
     std::wstring& activeLine = getActiveFileListingString();
-    activeLine = L"\n\nFile listing Pass #2: Intermediate Representation -> Machine Code\n\n";
+    activeLine = L"\n\nFile listing Pass #2: Intermediate Representation -> Machine Code\n";
+
+    outputLineNum = 0;
+}
+
+void FileListing::end2Part()
+{
+    addNewListingLine();
+    std::wstring& activeLine = getActiveFileListingString();
+    activeLine = L"\n\nFile listing Pass #3: Final Machine Code\n";
 
     outputLineNum = 0;
 }
@@ -23,7 +32,7 @@ void FileListing::initListing()
 {
     addNewListingLine();
     std::wstring& activeLine = getActiveFileListingString();
-    activeLine = L"File listing Pass #1: Code -> Intermediate Representation\n\n";
+    activeLine = L"File listing Pass #1: Code -> Intermediate Representation\n";
 }
 
 int FileListing::getListingFileActiveStringIndex()
@@ -63,7 +72,7 @@ int FileListing::add1CompileCommand(CommandIR& commandIR)
     return WellCode;
 }
 
-int FileListing::add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, int bytePosBefore, int bytePosAfter)
+int FileListing::add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter)
 {
     addNewListingLine();
 

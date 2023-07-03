@@ -22,6 +22,7 @@ public:
     FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir);
 
     void end1Part();
+    void end2Part();
 
     std::vector<std::wstring>& getFileListing() { return fileListing; };
     BinCompileData& getBinCompileData() { return bincompileData; };
@@ -37,7 +38,7 @@ public:
     void saveInFile(std::wstring path);
 
     int add1CompileCommand(CommandIR& commandIR);
-    int add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, int bytePosBefore, int bytePosAfter);
+    int add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter);
 
 private:
     bool printDataLine(std::vector<char>& buffer, size_t& cursorPos, size_t bytePosAfter);
