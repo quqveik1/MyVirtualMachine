@@ -15,6 +15,7 @@
 #include "FileListing.cpp"
 #include "IR.cpp"
 #include "Compile2Commands.cpp"
+#include "../StackFunc.cpp"
 
 void convertToNum(std::wstring path)
 {
@@ -156,6 +157,8 @@ int irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
         size_t bytePosBefore = compileData.getCurrPos();
         size_t bytePosAfter = bytePosBefore;
         compileData.addNewLineStart(bytePosBefore);
+        compileData.setActiveLineNum(i);
+
 
         CommandIR& commandIR = ir.getCommand((int)i);
         if (isCommandNumValid(commandIR.getCommandNum()))
@@ -230,11 +233,11 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
 
             if (fnc)
             {
-                res = fnc(ir.getActiveCommand(), commandNum, commandData);
+                res = fnc(ir.getActiveCommand(), commandNum, commandData, ir);
             }
             else
             {
-                res = default_1compile(ir.getActiveCommand(), commandNum, commandData);
+                res = default_1compile(ir.getActiveCommand(), commandNum, commandData, ir);
             }
 
             if (res != WellCode)
@@ -260,7 +263,7 @@ bool ifIsWordDoJob(std::wstring_view& line, BinCompileData& data)
     bool res = isWord(line, &word);
     if (res)
     {
-        data.getWordSearch().pushWord(word);
+        //data.getLabelSearchBin().pushWord(word);
     }
 
     return res;

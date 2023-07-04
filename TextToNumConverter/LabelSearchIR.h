@@ -5,26 +5,27 @@
 #include <vector>
 
 #include "BinCompileData.h"
+#include "IR.h"
 
-struct WordSearch
+struct LabelSearchIR
 {
-    WordSearch(struct BinCompileData* _compileData);
-    ~WordSearch();
+    LabelSearchIR(struct IR* _ir);
+    ~LabelSearchIR();
 
 private:
     std::map<std::wstring_view, int> words;
-    std::map<std::wstring_view, std::vector<int>> waitingList;
+    std::map<std::wstring_view, std::vector<CommandIR*>> fixUpList;
 
-    struct BinCompileData* binCompileData;
+    struct IR* ir;
     
 public:
     int getWordPos(std::wstring_view& word);
     void pushWord(std::wstring_view& word, int pos = -1);
 
-    void writeOrWaitWord(std::wstring_view& word, int pos = -1);
+    void writeOrWaitLabel(std::wstring_view& word, CommandIR* commandIR);
 
 private:
-    void checkWaitingList(std::wstring_view& word, int pos);
+    void checkFixUpList(std::wstring_view& word, int pos);
 };
 
 /*

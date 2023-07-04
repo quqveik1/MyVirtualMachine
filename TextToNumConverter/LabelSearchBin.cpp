@@ -1,28 +1,24 @@
 #pragma once
 
-#include "WordSearch.h"
+#include "LabelSearchBin.h"
 
-#include "../StackFunc.cpp"
-#include "../FloatConvert.cpp"
-
-
-WordSearch::WordSearch(BinCompileData* _compileData) :
+LabelSearchBin::LabelSearchBin(struct BinCompileData* _compileData) :
     binCompileData(_compileData)
 {
-    
+
 }
 
-WordSearch::~WordSearch()
+LabelSearchBin::~LabelSearchBin()
 {
-    if(!waitingList.empty())
+    if (!fixUpList.empty())
     {
         std::cout << "Words waiting list is not empty\n";
     }
 }
 
-int WordSearch::getWordPos(std::wstring_view& word)
+int LabelSearchBin::getWordPos(int wordLine)
 {
-    auto it = words.find(word);
+    auto it = words.find(wordLine);
 
     if (it == words.end())
     {
@@ -32,7 +28,7 @@ int WordSearch::getWordPos(std::wstring_view& word)
     return it->second;
 }
 
-void WordSearch::pushWord(std::wstring_view& word, int pos/* = -1*/)
+void LabelSearchBin::pushWord(int wordLine, int pos/* = -1*/)
 {
     if (pos < 0)
     {
@@ -40,7 +36,7 @@ void WordSearch::pushWord(std::wstring_view& word, int pos/* = -1*/)
     }
 
 #ifdef _DEBUG
-    auto it = words.find(word);
+    auto it = words.find(wordLine);
 
     if (it != words.end())
     {
@@ -48,16 +44,16 @@ void WordSearch::pushWord(std::wstring_view& word, int pos/* = -1*/)
     }
 #endif
 
-    checkWaitingList(word, pos);
+    checkFixUpList(wordLine, pos);
 
-    words[word] = pos;
+    words[wordLine] = pos;
 }
 
 
-void WordSearch::writeOrWaitWord(std::wstring_view& word, int pos/* = -1*/)
+void LabelSearchBin::writeOrWaitLabel(int wordLine, int pos/* = -1*/)
 {
-    int wordPos = getWordPos(word);
-    if(wordPos >= 0)
+    int wordPos = getWordPos(wordLine);
+    if (wordPos >= 0)
     {
         int convertedWordPos = convNum(wordPos);
         binCompileData->put(convertedWordPos);
@@ -70,13 +66,13 @@ void WordSearch::writeOrWaitWord(std::wstring_view& word, int pos/* = -1*/)
     }
     binCompileData->put(wordPos);
 
-    waitingList[word].push_back(pos);
+    fixUpList[wordLine].push_back(pos);
 }
 
-void WordSearch::checkWaitingList(std::wstring_view& word, int pos)
+void LabelSearchBin::checkFixUpList(int wordLine, int pos)
 {
-    auto it = waitingList.find(word);
-    if(it == waitingList.end())
+    auto it = fixUpList.find(wordLine);
+    if (it == fixUpList.end())
     {
         return;
     }
@@ -90,5 +86,5 @@ void WordSearch::checkWaitingList(std::wstring_view& word, int pos)
         it->second.pop_back();
     }
 
-    waitingList.erase(it);
+    fixUpList.erase(it);
 }

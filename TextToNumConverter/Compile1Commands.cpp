@@ -15,30 +15,30 @@
 #include "../StringViewExtension.cpp"
 #include "CommandIR.cpp"
 
-int default_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data)
+int default_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     int writeNum = codeToNumberRepresentation(commandNum);
     commandIR.put(writeNum);
     return WellCode;
 }
 
-int out_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data)
+int out_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     if(data.empty())
     {
-        return default_1compile(commandIR, commandNum, data);
+        return default_1compile(commandIR, commandNum, data, ir);
     }
 
     if (isJmpWord(data))
     {
-        return saveWordExpression(commandIR, commandNum, data);
+        return saveWordExpression(commandIR, commandNum, data, ir);
     }
 
     return saveSmallExpr(commandIR, commandNum, data, 16);
 }
 
 //data type: const+arg
-int push_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data)
+int push_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     return saveSmallExpr(commandIR, commandNum, data);
 }
@@ -181,31 +181,27 @@ void findBrackets(std::wstring_view& data, int& startPos, int& endPos)
     endPos = -1;
 }
 
-int pop_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data)
+int pop_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     return saveSmallExpr(commandIR, commandNum, data);
 }
 
-int jmp_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data)
+int jmp_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     if(isJmpWord(data))
     {
-        return saveWordExpression(commandIR, commandNum, data);
+        return saveWordExpression(commandIR, commandNum, data, ir);
     }
 
     return saveSmallExpr(commandIR, commandNum, data, 16);
 }
 
-int saveWordExpression(CommandIR& commandIR, int commandNum, std::wstring_view& data)
+int saveWordExpression(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     int codedCommandNum = codeToNumberRepresentation(commandNum, true);
     commandIR.put(codedCommandNum);
 
-    commandIR.putString(data);
-
-    commandIR.setHasWord(true);
-
-    //commandIR.getWordSearch().writeOrWaitWord(data);
+    ir.getLabelSearchIR().writeOrWaitLabel(data, &commandIR);
     return WellCode;
 }
 
@@ -215,7 +211,7 @@ const std::map<wchar_t, wchar_t> specialChars = {
                                                 {L't', L'\t'},
                                                 {L'\\', L'\\'}};
 
-int db_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data)
+int db_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     size_t firstQuotePos = data.find(L'"');
 
@@ -283,13 +279,13 @@ size_t cDeletedSymAfterCompilation(const std::wstring_view& str)
 }
 
 
-int word_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data)
+int word_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
-    default_1compile(commandIR, commandNum, data);
+    //default_1compile(commandIR, commandNum, data, ir);
 
-    commandIR.putString(data);
+    commandIR.setLabelLinePos((int)ir.getActiveCommandNum());
 
-    commandIR.setHasWord(true);
+    ir.getLabelSearchIR().pushWord(data);
 
     return WellCode;
 }

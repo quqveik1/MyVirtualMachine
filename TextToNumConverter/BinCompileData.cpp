@@ -2,12 +2,12 @@
 
 #include "BinCompileData.h"
 
-#include "WordSearch.cpp"
+#include "LabelSearchBin.cpp"
 #include "BufferObj.cpp"
 
 BinCompileData::BinCompileData() :
     BufferObj(),
-    wordSearch(this)
+    labelSearchBin(this)
 {
     
 }

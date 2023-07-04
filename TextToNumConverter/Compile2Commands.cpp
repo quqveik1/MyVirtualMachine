@@ -22,15 +22,15 @@ int saveWordExpressionToBin(CommandIR& commandIR, IR& ir, BinCompileData& binCom
 {
     binCompileData.put(&commandIR.getData()[0], sizeof(int));
 
-    std::wstring_view word = (wchar_t*)commandIR.getCommandData();
-    binCompileData.getWordSearch().writeOrWaitWord(word);
+    //std::wstring_view word = (wchar_t*)commandIR.getCommandData();
+    binCompileData.getLabelSearchBin().writeOrWaitLabel(commandIR.getLabelLinePos());
 
     return WellCode;
 }
 
 int out_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
 {
-    if (commandIR.getHasWord())
+    if (commandIR.getHasLabel())
     {
         return saveWordExpressionToBin(commandIR, ir, binCompileData);
     }
@@ -42,7 +42,7 @@ int out_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
 
 int jmp_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
 {
-    if(commandIR.getHasWord())
+    if(commandIR.getHasLabel())
     {
         return saveWordExpressionToBin(commandIR, ir, binCompileData);
     }
@@ -55,9 +55,9 @@ int jmp_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
 
 int word_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
 {
-    std::wstring_view word = (wchar_t*)commandIR.getCommandData();
+    //std::wstring_view word = (wchar_t*)commandIR.getCommandData();
 
-    binCompileData.getWordSearch().pushWord(word);
+    binCompileData.getLabelSearchBin().pushWord(commandIR.getLabelLinePos());
 
     return WellCode;
 }

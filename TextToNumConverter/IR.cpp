@@ -3,8 +3,10 @@
 #include "IR.h"
 
 #include "CommandIR.cpp"
+#include "LabelSearchIR.cpp"
 
-IR::IR()
+IR::IR() :
+    labelSearchIR(this)
 {
 
 }

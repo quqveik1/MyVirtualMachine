@@ -1,20 +1,26 @@
 File listing Pass #1: Code -> Intermediate Representation
 
-
-000: | commandNum: 0010; isFinal: 1; hasWord: 1; | 0a 01 00 00 72 00 65 00 61 00 6c 00 5f 00 73 00 + | jmp real_start
-                                                 | 74 00 61 00 72 00 74 00 00 00                     | 
-001: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 68 00 65 00 6c 00 6c 00 6f 00 00 00   | hello:
+000: | commandNum: 0010; isFinal: 1; hasWord: 1; | 0a 01 00 00                                       | jmp real_start
+001: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00                                       | hello:
 002: | commandNum: 0018; isFinal: 1; hasWord: 0; | 48 00 65 00 6c 00 6c 00 6f 00 21 00 00 00         | db "Hello!"
-003: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00 72 00 65 00 61 00 6c 00 5f 00 73 00 + | real_start:
-                                                 | 74 00 61 00 72 00 74 00 00 00                     | 
-004: | commandNum: 0003; isFinal: 1; hasWord: 1; | 03 01 00 00 68 00 65 00 6c 00 6c 00 6f 00 00 00   | out hello
+003: | commandNum: 0019; isFinal: 1; hasWord: 1; | 13 00 00 00                                       | real_start:
+004: | commandNum: 0003; isFinal: 1; hasWord: 1; | 03 01 00 00                                       | out hello
 005: | commandNum: 0001; isFinal: 1; hasWord: 0; | 01 00 00 00                                       | hlt
 
 
 File listing Pass #2: Intermediate Representation -> Machine Code
 
-
 000: 00000 | 0a 01 00 00 ff ff ff ff                           | jmp real_start
+001: 00008 |                                                   | hello:
+002: 00008 | 48 00 65 00 6c 00 6c 00 6f 00 21 00 00 00         | db "Hello!"
+003: 00016 |                                                   | real_start:
+004: 00016 | 03 01 00 00 00 00 08 00                           | out hello
+005: 0001e | 01 00 00 00                                       | hlt
+
+
+File listing Pass #3: Final Machine Code
+
+000: 00000 | 0a 01 00 00 00 00 16 00                           | jmp real_start
 001: 00008 |                                                   | hello:
 002: 00008 | 48 00 65 00 6c 00 6c 00 6f 00 21 00 00 00         | db "Hello!"
 003: 00016 |                                                   | real_start:

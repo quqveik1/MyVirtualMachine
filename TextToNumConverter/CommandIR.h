@@ -11,7 +11,7 @@ struct CommandIR : BufferObj
 private:
     int commandNum = 0;
     bool isFinal = true;
-    bool hasWord = false;
+    int labelLinePos = -1;
     std::wstring_view* line;
 
 public:
@@ -24,8 +24,10 @@ public:
     bool getIsFinal() const { return isFinal; }
     void setIsFinal(bool newIsFinal) { isFinal = newIsFinal; }
 
-    bool getHasWord() const { return hasWord; }
-    void setHasWord(bool newHasWord) { hasWord = newHasWord; }
+    bool getHasLabel() const { return labelLinePos >= 0; }
+
+    int getLabelLinePos() const { return labelLinePos; }
+    void setLabelLinePos(int _labelLinePos) { labelLinePos = _labelLinePos; }
 
     std::wstring toString();
 

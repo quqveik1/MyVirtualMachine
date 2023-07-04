@@ -55,7 +55,7 @@ int FileListing::add1CompileCommand(CommandIR& commandIR)
     addNewListingLine();
 
     wchar_t buffer[15]{};
-    swprintf(buffer, 15, L"%03d:", getOutputLineNum());
+    swprintf(buffer, 15, L"%04d:", getOutputLineNum());
 
     getActiveFileListingString() += buffer;
 
