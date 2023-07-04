@@ -11,3 +11,8 @@ BinCompileData::BinCompileData() :
 {
     
 }
+
+int BinCompileData::finishWork()
+{
+    return labelSearchBin.checkLabelLinking();
+}

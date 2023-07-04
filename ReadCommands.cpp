@@ -15,6 +15,7 @@
 #include "FncArrs.cpp"
 #include "FileHeader.cpp"
 #include "CommandConstants.cpp"
+#include "Processor.cpp"
 
 
 void readByteCode(std::string path)

@@ -24,4 +24,6 @@ public:
 
     size_t getActiveLineNum() { return activeLineNum; };
     void setActiveLineNum(size_t i) {  activeLineNum = i; };
+
+    int finishWork();
 };

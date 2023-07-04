@@ -30,7 +30,9 @@ void init1CompileArr()
 
     commands1CompileArr[db_num] = db_1compile;
 
-    commands1CompileArr[word_num] = word_1compile;
+    commands1CompileArr[word_num] = word_1compile; 
+    
+    commands1CompileArr[call_num] = jmp_1compile;
 }
 
 void init2CompileArr()
@@ -46,4 +48,6 @@ void init2CompileArr()
     commands2CompileArr[jne_num] = jmp_2compile;
 
     commands2CompileArr[word_num] = word_2compile;
+
+    commands2CompileArr[call_num] = jmp_2compile;
 }

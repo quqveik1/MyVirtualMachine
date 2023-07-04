@@ -54,8 +54,8 @@ int FileListing::add1CompileCommand(CommandIR& commandIR)
 {
     addNewListingLine();
 
-    wchar_t buffer[15]{};
-    swprintf(buffer, 15, L"%04d:", getOutputLineNum());
+    wchar_t buffer[20]{};
+    swprintf(buffer, 20, L"%04d | #1", getOutputLineNum());
 
     getActiveFileListingString() += buffer;
 
@@ -74,10 +74,20 @@ int FileListing::add1CompileCommand(CommandIR& commandIR)
 
 int FileListing::add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter)
 {
+    return add2PartCommand(commandIR, binCompileData, bytePosBefore, bytePosAfter, 2);
+}
+
+int FileListing::add3CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter)
+{
+    return add2PartCommand(commandIR, binCompileData, bytePosBefore, bytePosAfter, 3);
+}
+
+int FileListing::add2PartCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter, int passNum)
+{
     addNewListingLine();
 
-    wchar_t buffer[15]{};
-    swprintf(buffer, 15, L"%03d: %05x", getOutputLineNum(), (int)bytePosBefore);
+    wchar_t buffer[20]{};
+    swprintf(buffer, 20, L"%03d | #%d | %05x", getOutputLineNum(), passNum, (int)bytePosBefore);
 
     static const int marginData = (int)wcslen(buffer);
 

@@ -6,18 +6,11 @@
 #include <stack>
 
 #include "StackFunc.h"
+#include "Stack.h"
 
-class RuntimeData
+struct RuntimeData : Stack
 {
-    std::stack<int> appData;
-
 public:
     std::stack<int> &getAppData();
-
-    bool isEmpty() { return getAppData().empty(); };
-
-    int peek();
-    int get();
-    void push(int obj);
 };
 

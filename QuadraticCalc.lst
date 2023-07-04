@@ -1,391 +1,391 @@
 File listing Pass #1: Code -> Intermediate Representation
 
-0000: | commandNum: 0010; isFinal: 1; labelLinePos: -001; | 0a 01 00 00                                       | jmp programmStart
-0001: | commandNum: 0019; isFinal: 1; labelLinePos: 0001; |                                                   | intro:
-0002: | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 14 04 30 04 3d 04 3d 04 30 04 4f 04 20 00 3f 04 + | db "Данная программа решает квадратные уравнения в виде ax^2 + bx + c"
-                                                          | 40 04 3e 04 33 04 40 04 30 04 3c 04 3c 04 30 04 + | 
-                                                          | 20 00 40 04 35 04 48 04 30 04 35 04 42 04 20 00 + | 
-                                                          | 3a 04 32 04 30 04 34 04 40 04 30 04 42 04 3d 04 + | 
-                                                          | 4b 04 35 04 20 00 43 04 40 04 30 04 32 04 3d 04 + | 
-                                                          | 35 04 3d 04 38 04 4f 04 20 00 32 04 20 00 32 04 + | 
-                                                          | 38 04 34 04 35 04 20 00 61 00 78 00 5e 00 32 00 + | 
-                                                          | 20 00 2b 00 20 00 62 00 78 00 20 00 2b 00 20 00 + | 
-                                                          | 63 00 00 00                                       | 
-0003: | commandNum: 0019; isFinal: 1; labelLinePos: 0003; |                                                   | inputA:
-0004: | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите a: "
-                                                          | 20 00 61 00 3a 00 20 00 00 00                     | 
-0005: | commandNum: 0019; isFinal: 1; labelLinePos: 0005; |                                                   | inputB:
-0006: | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите b: "
-                                                          | 20 00 62 00 3a 00 20 00 00 00                     | 
-0007: | commandNum: 0019; isFinal: 1; labelLinePos: 0007; |                                                   | inputC:
-0008: | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите c: "
-                                                          | 20 00 63 00 3a 00 20 00 00 00                     | 
-0009: | commandNum: 0019; isFinal: 1; labelLinePos: 0009; |                                                   | noSolutions:
-0010: | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение не имеет решений\n"
-                                                          | 38 04 35 04 20 00 3d 04 35 04 20 00 38 04 3c 04 + | 
-                                                          | 35 04 35 04 42 04 20 00 40 04 35 04 48 04 35 04 + | 
-                                                          | 3d 04 38 04 39 04 0a 00 00 00                     | 
-0011: | commandNum: 0019; isFinal: 1; labelLinePos: 0011; |                                                   | oneSolution:
-0012: | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет одно решение: \n"
-                                                          | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
-                                                          | 20 00 3e 04 34 04 3d 04 3e 04 20 00 40 04 35 04 + | 
-                                                          | 48 04 35 04 3d 04 38 04 35 04 3a 00 20 00 0a 00 + | 
-                                                          | 00 00                                             | 
-0013: | commandNum: 0019; isFinal: 1; labelLinePos: 0013; |                                                   | twoSolutions:
-0014: | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет два решения: \n"
-                                                          | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
-                                                          | 20 00 34 04 32 04 30 04 20 00 40 04 35 04 48 04 + | 
-                                                          | 35 04 3d 04 38 04 4f 04 3a 00 20 00 0a 00 00 00   | 
-0015: | commandNum: 0019; isFinal: 1; labelLinePos: 0015; |                                                   | programmStart:
-0016: | commandNum: 0003; isFinal: 1; labelLinePos: 0001; | 03 01 00 00                                       | out intro
-0017: | commandNum: 0003; isFinal: 1; labelLinePos: 0003; | 03 01 00 00                                       | out inputA
-0018: | commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
-0019: | commandNum: 0003; isFinal: 1; labelLinePos: 0005; | 03 01 00 00                                       | out inputB
-0020: | commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
-0021: | commandNum: 0003; isFinal: 1; labelLinePos: 0007; | 03 01 00 00                                       | out inputC
-0022: | commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
-0023: | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 02 00                           | pop cx
-0024: | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 01 00                           | pop bx
-0025: | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
-0026: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0027: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
-0028: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
-0029: | commandNum: 0016; isFinal: 1; labelLinePos: -001; | 10 01 00 00                                       | jne quadratic
-0030: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0031: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
-0032: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 02 00                           | push cx
-0033: | commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
-0034: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
-0035: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
-0036: | commandNum: 0016; isFinal: 1; labelLinePos: -001; | 10 01 00 00                                       | jne linear
-0037: | commandNum: 0003; isFinal: 1; labelLinePos: 0009; | 03 01 00 00                                       | out noSolutions
-0038: | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
-0039: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0040: | commandNum: 0019; isFinal: 1; labelLinePos: 0040; |                                                   | linear:
-0041: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
-0042: | commandNum: 0008; isFinal: 1; labelLinePos: -001; | 08 00 00 00                                       | div
-0043: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0044: | commandNum: 0003; isFinal: 1; labelLinePos: 0011; | 03 01 00 00                                       | out oneSolution
-0045: | commandNum: 0003; isFinal: 1; labelLinePos: -001; | 03 00 00 00                                       | out
-0046: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0047: | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
-0048: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0049: | commandNum: 0019; isFinal: 1; labelLinePos: 0049; |                                                   | quadratic:
-0050: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
-0051: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
-0052: | commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
-0053: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 04 00                           | push 4
-0054: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
-0055: | commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul 
-0056: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 02 00                           | push cx
-0057: | commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
-0058: | commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
-0059: | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 03 00                           | pop dx
-0060: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0061: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 03 00                           | push dx
-0062: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
-0063: | commandNum: 0012; isFinal: 1; labelLinePos: -001; | 0c 01 00 00                                       | jae positiveD
-0064: | commandNum: 0003; isFinal: 1; labelLinePos: 0009; | 03 01 00 00                                       | out noSolutions
-0065: | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
-0066: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0067: | commandNum: 0019; isFinal: 1; labelLinePos: 0067; |                                                   | positiveD:
-0068: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 03 00                           | push dx
-0069: | commandNum: 0017; isFinal: 1; labelLinePos: -001; | 11 00 00 00                                       | sqrt
-0070: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0071: | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 03 00                           | pop dx
-0072: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0073: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
-0074: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
-0075: | commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
-0076: | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 05 00 00 00 00 01 00                           | pop [1]
-0077: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 01 00                           | push [1]
-0078: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0079: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 03 00                           | push dx
-0080: | commandNum: 0005; isFinal: 1; labelLinePos: -001; | 05 00 00 00                                       | add
-0081: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 02 00                           | push 2
-0082: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
-0083: | commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
-0084: | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 05 00 00 00 00 02 00                           | pop [2]
-0085: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 02 00                           | push [2]
-0086: | commandNum: 0008; isFinal: 1; labelLinePos: -001; | 08 00 00 00                                       | div
-0087: | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 05 00 00 00 00 03 00                           | pop [3]
-0088: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0089: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 01 00                           | push [1]
-0090: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 03 00                           | push dx
-0091: | commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
-0092: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 02 00                           | push [2]
-0093: | commandNum: 0008; isFinal: 1; labelLinePos: -001; | 08 00 00 00                                       | div
-0094: | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 05 00 00 00 00 04 00                           | pop [4]
-0095: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0096: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 03 00                           | push [3]
-0097: | commandNum: 0003; isFinal: 1; labelLinePos: -001; | 03 00 00 00                                       | out
-0098: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 03 00                           | push dx
-0099: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
-0100: | commandNum: 0015; isFinal: 1; labelLinePos: -001; | 0f 01 00 00                                       | je endProgamm
-0101: | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 04 00                           | push [4]
-0102: | commandNum: 0003; isFinal: 1; labelLinePos: -001; | 03 00 00 00                                       | out
-0103: | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0104: | commandNum: 0019; isFinal: 1; labelLinePos: 0104; |                                                   | endProgamm:
-0105: | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+0000 | #1 | commandNum: 0010; isFinal: 1; labelLinePos: -001; | 0a 01 00 00                                       | jmp programmStart
+0001 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0001; |                                                   | intro:
+0002 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 14 04 30 04 3d 04 3d 04 30 04 4f 04 20 00 3f 04 + | db "Данная программа решает квадратные уравнения в виде ax^2 + bx + c"
+                                                              | 40 04 3e 04 33 04 40 04 30 04 3c 04 3c 04 30 04 + | 
+                                                              | 20 00 40 04 35 04 48 04 30 04 35 04 42 04 20 00 + | 
+                                                              | 3a 04 32 04 30 04 34 04 40 04 30 04 42 04 3d 04 + | 
+                                                              | 4b 04 35 04 20 00 43 04 40 04 30 04 32 04 3d 04 + | 
+                                                              | 35 04 3d 04 38 04 4f 04 20 00 32 04 20 00 32 04 + | 
+                                                              | 38 04 34 04 35 04 20 00 61 00 78 00 5e 00 32 00 + | 
+                                                              | 20 00 2b 00 20 00 62 00 78 00 20 00 2b 00 20 00 + | 
+                                                              | 63 00 00 00                                       | 
+0003 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0003; |                                                   | inputA:
+0004 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите a: "
+                                                              | 20 00 61 00 3a 00 20 00 00 00                     | 
+0005 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0005; |                                                   | inputB:
+0006 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите b: "
+                                                              | 20 00 62 00 3a 00 20 00 00 00                     | 
+0007 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0007; |                                                   | inputC:
+0008 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите c: "
+                                                              | 20 00 63 00 3a 00 20 00 00 00                     | 
+0009 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0009; |                                                   | noSolutions:
+0010 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение не имеет решений\n"
+                                                              | 38 04 35 04 20 00 3d 04 35 04 20 00 38 04 3c 04 + | 
+                                                              | 35 04 35 04 42 04 20 00 40 04 35 04 48 04 35 04 + | 
+                                                              | 3d 04 38 04 39 04 0a 00 00 00                     | 
+0011 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0011; |                                                   | oneSolution:
+0012 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет одно решение: \n"
+                                                              | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
+                                                              | 20 00 3e 04 34 04 3d 04 3e 04 20 00 40 04 35 04 + | 
+                                                              | 48 04 35 04 3d 04 38 04 35 04 3a 00 20 00 0a 00 + | 
+                                                              | 00 00                                             | 
+0013 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0013; |                                                   | twoSolutions:
+0014 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет два решения: \n"
+                                                              | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
+                                                              | 20 00 34 04 32 04 30 04 20 00 40 04 35 04 48 04 + | 
+                                                              | 35 04 3d 04 38 04 4f 04 3a 00 20 00 0a 00 00 00   | 
+0015 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0015; |                                                   | programmStart:
+0016 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0001; | 03 01 00 00                                       | out intro
+0017 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0003; | 03 01 00 00                                       | out inputA
+0018 | #1 | commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
+0019 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0005; | 03 01 00 00                                       | out inputB
+0020 | #1 | commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
+0021 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0007; | 03 01 00 00                                       | out inputC
+0022 | #1 | commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
+0023 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 02 00                           | pop cx
+0024 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 01 00                           | pop bx
+0025 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
+0026 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0027 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
+0028 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0029 | #1 | commandNum: 0016; isFinal: 1; labelLinePos: -001; | 10 01 00 00                                       | jne quadratic
+0030 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0031 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0032 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 02 00                           | push cx
+0033 | #1 | commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
+0034 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
+0035 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0036 | #1 | commandNum: 0016; isFinal: 1; labelLinePos: -001; | 10 01 00 00                                       | jne linear
+0037 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0009; | 03 01 00 00                                       | out noSolutions
+0038 | #1 | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+0039 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0040 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0040; |                                                   | linear:
+0041 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
+0042 | #1 | commandNum: 0008; isFinal: 1; labelLinePos: -001; | 08 00 00 00                                       | div
+0043 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0044 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0011; | 03 01 00 00                                       | out oneSolution
+0045 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: -001; | 03 00 00 00                                       | out
+0046 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0047 | #1 | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+0048 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0049 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0049; |                                                   | quadratic:
+0050 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
+0051 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
+0052 | #1 | commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
+0053 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 04 00                           | push 4
+0054 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
+0055 | #1 | commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul 
+0056 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 02 00                           | push cx
+0057 | #1 | commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
+0058 | #1 | commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
+0059 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 03 00                           | pop dx
+0060 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0061 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 03 00                           | push dx
+0062 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0063 | #1 | commandNum: 0012; isFinal: 1; labelLinePos: -001; | 0c 01 00 00                                       | jae positiveD
+0064 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0009; | 03 01 00 00                                       | out noSolutions
+0065 | #1 | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+0066 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0067 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0067; |                                                   | positiveD:
+0068 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 03 00                           | push dx
+0069 | #1 | commandNum: 0017; isFinal: 1; labelLinePos: -001; | 11 00 00 00                                       | sqrt
+0070 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0071 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 03 00                           | pop dx
+0072 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0073 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0074 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
+0075 | #1 | commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
+0076 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 05 00 00 00 00 01 00                           | pop [1]
+0077 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 01 00                           | push [1]
+0078 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0079 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 03 00                           | push dx
+0080 | #1 | commandNum: 0005; isFinal: 1; labelLinePos: -001; | 05 00 00 00                                       | add
+0081 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 02 00                           | push 2
+0082 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
+0083 | #1 | commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
+0084 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 05 00 00 00 00 02 00                           | pop [2]
+0085 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 02 00                           | push [2]
+0086 | #1 | commandNum: 0008; isFinal: 1; labelLinePos: -001; | 08 00 00 00                                       | div
+0087 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 05 00 00 00 00 03 00                           | pop [3]
+0088 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0089 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 01 00                           | push [1]
+0090 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 03 00                           | push dx
+0091 | #1 | commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
+0092 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 02 00                           | push [2]
+0093 | #1 | commandNum: 0008; isFinal: 1; labelLinePos: -001; | 08 00 00 00                                       | div
+0094 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 05 00 00 00 00 04 00                           | pop [4]
+0095 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0096 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 03 00                           | push [3]
+0097 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: -001; | 03 00 00 00                                       | out
+0098 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 03 00                           | push dx
+0099 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0100 | #1 | commandNum: 0015; isFinal: 1; labelLinePos: -001; | 0f 01 00 00                                       | je endProgamm
+0101 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 05 00 00 00 00 04 00                           | push [4]
+0102 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: -001; | 03 00 00 00                                       | out
+0103 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0104 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0104; |                                                   | endProgamm:
+0105 | #1 | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
 
 
 File listing Pass #2: Intermediate Representation -> Machine Code
 
-000: 00000 | 0a 01 00 00 ff ff ff ff                           | jmp programmStart
-001: 00008 |                                                   | intro:
-002: 00008 | 14 04 30 04 3d 04 3d 04 30 04 4f 04 20 00 3f 04 + | db "Данная программа решает квадратные уравнения в виде ax^2 + bx + c"
-           | 40 04 3e 04 33 04 40 04 30 04 3c 04 3c 04 30 04 + | 
-           | 20 00 40 04 35 04 48 04 30 04 35 04 42 04 20 00 + | 
-           | 3a 04 32 04 30 04 34 04 40 04 30 04 42 04 3d 04 + | 
-           | 4b 04 35 04 20 00 43 04 40 04 30 04 32 04 3d 04 + | 
-           | 35 04 3d 04 38 04 4f 04 20 00 32 04 20 00 32 04 + | 
-           | 38 04 34 04 35 04 20 00 61 00 78 00 5e 00 32 00 + | 
-           | 20 00 2b 00 20 00 62 00 78 00 20 00 2b 00 20 00 + | 
-           | 63 00 00 00                                       | 
-003: 0008c |                                                   | inputA:
-004: 0008c | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите a: "
-           | 20 00 61 00 3a 00 20 00 00 00                     | 
-005: 000a6 |                                                   | inputB:
-006: 000a6 | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите b: "
-           | 20 00 62 00 3a 00 20 00 00 00                     | 
-007: 000c0 |                                                   | inputC:
-008: 000c0 | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите c: "
-           | 20 00 63 00 3a 00 20 00 00 00                     | 
-009: 000da |                                                   | noSolutions:
-010: 000da | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение не имеет решений\n"
-           | 38 04 35 04 20 00 3d 04 35 04 20 00 38 04 3c 04 + | 
-           | 35 04 35 04 42 04 20 00 40 04 35 04 48 04 35 04 + | 
-           | 3d 04 38 04 39 04 0a 00 00 00                     | 
-011: 00114 |                                                   | oneSolution:
-012: 00114 | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет одно решение: \n"
-           | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
-           | 20 00 3e 04 34 04 3d 04 3e 04 20 00 40 04 35 04 + | 
-           | 48 04 35 04 3d 04 38 04 35 04 3a 00 20 00 0a 00 + | 
-           | 00 00                                             | 
-013: 00156 |                                                   | twoSolutions:
-014: 00156 | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет два решения: \n"
-           | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
-           | 20 00 34 04 32 04 30 04 20 00 40 04 35 04 48 04 + | 
-           | 35 04 3d 04 38 04 4f 04 3a 00 20 00 0a 00 00 00   | 
-015: 00196 |                                                   | programmStart:
-016: 00196 | 03 01 00 00 00 00 08 00                           | out intro
-017: 0019e | 03 01 00 00 00 00 8c 00                           | out inputA
-018: 001a6 | 02 00 00 00                                       | in
-019: 001aa | 03 01 00 00 00 00 a6 00                           | out inputB
-020: 001b2 | 02 00 00 00                                       | in
-021: 001b6 | 03 01 00 00 00 00 c0 00                           | out inputC
-022: 001be | 02 00 00 00                                       | in
-023: 001c2 | 09 02 00 00 00 00 02 00                           | pop cx
-024: 001ca | 09 02 00 00 00 00 01 00                           | pop bx
-025: 001d2 | 09 02 00 00 00 00 00 00                           | pop ax
-026: 001da |                                                   | 
-027: 001da | 04 02 00 00 00 00 00 00                           | push ax
-028: 001e2 | 04 01 00 00 00 00 00 00                           | push 0
-029: 001ea | 10 01 00 00 ff ff ff ff                           | jne quadratic
-030: 001f2 |                                                   | 
-031: 001f2 | 04 01 00 00 00 00 00 00                           | push 0
-032: 001fa | 04 02 00 00 00 00 02 00                           | push cx
-033: 00202 | 06 00 00 00                                       | sub
-034: 00206 | 04 02 00 00 00 00 01 00                           | push bx
-035: 0020e | 04 01 00 00 00 00 00 00                           | push 0
-036: 00216 | 10 01 00 00 ff ff ff ff                           | jne linear
-037: 0021e | 03 01 00 00 00 00 da 00                           | out noSolutions
-038: 00226 | 01 00 00 00                                       | hlt
-039: 0022a |                                                   | 
-040: 0022a |                                                   | linear:
-041: 0022a | 04 02 00 00 00 00 01 00                           | push bx
-042: 00232 | 08 00 00 00                                       | div
-043: 00236 |                                                   | 
-044: 00236 | 03 01 00 00 00 00 14 01                           | out oneSolution
-045: 0023e | 03 00 00 00                                       | out
-046: 00242 |                                                   | 
-047: 00242 | 01 00 00 00                                       | hlt
-048: 00246 |                                                   | 
-049: 00246 |                                                   | quadratic:
-050: 00246 | 04 02 00 00 00 00 01 00                           | push bx
-051: 0024e | 04 02 00 00 00 00 01 00                           | push bx
-052: 00256 | 07 00 00 00                                       | mul
-053: 0025a | 04 01 00 00 00 00 04 00                           | push 4
-054: 00262 | 04 02 00 00 00 00 00 00                           | push ax
-055: 0026a | 07 00 00 00                                       | mul 
-056: 0026e | 04 02 00 00 00 00 02 00                           | push cx
-057: 00276 | 07 00 00 00                                       | mul
-058: 0027a | 06 00 00 00                                       | sub
-059: 0027e | 09 02 00 00 00 00 03 00                           | pop dx
-060: 00286 |                                                   | 
-061: 00286 | 04 02 00 00 00 00 03 00                           | push dx
-062: 0028e | 04 01 00 00 00 00 00 00                           | push 0
-063: 00296 | 0c 01 00 00 ff ff ff ff                           | jae positiveD
-064: 0029e | 03 01 00 00 00 00 da 00                           | out noSolutions
-065: 002a6 | 01 00 00 00                                       | hlt
-066: 002aa |                                                   | 
-067: 002aa |                                                   | positiveD:
-068: 002aa | 04 02 00 00 00 00 03 00                           | push dx
-069: 002b2 | 11 00 00 00                                       | sqrt
-070: 002b6 |                                                   | 
-071: 002b6 | 09 02 00 00 00 00 03 00                           | pop dx
-072: 002be |                                                   | 
-073: 002be | 04 01 00 00 00 00 00 00                           | push 0
-074: 002c6 | 04 02 00 00 00 00 01 00                           | push bx
-075: 002ce | 06 00 00 00                                       | sub
-076: 002d2 | 09 05 00 00 00 00 01 00                           | pop [1]
-077: 002da | 04 05 00 00 00 00 01 00                           | push [1]
-078: 002e2 |                                                   | 
-079: 002e2 | 04 02 00 00 00 00 03 00                           | push dx
-080: 002ea | 05 00 00 00                                       | add
-081: 002ee | 04 01 00 00 00 00 02 00                           | push 2
-082: 002f6 | 04 02 00 00 00 00 00 00                           | push ax
-083: 002fe | 07 00 00 00                                       | mul
-084: 00302 | 09 05 00 00 00 00 02 00                           | pop [2]
-085: 0030a | 04 05 00 00 00 00 02 00                           | push [2]
-086: 00312 | 08 00 00 00                                       | div
-087: 00316 | 09 05 00 00 00 00 03 00                           | pop [3]
-088: 0031e |                                                   | 
-089: 0031e | 04 05 00 00 00 00 01 00                           | push [1]
-090: 00326 | 04 02 00 00 00 00 03 00                           | push dx
-091: 0032e | 06 00 00 00                                       | sub
-092: 00332 | 04 05 00 00 00 00 02 00                           | push [2]
-093: 0033a | 08 00 00 00                                       | div
-094: 0033e | 09 05 00 00 00 00 04 00                           | pop [4]
-095: 00346 |                                                   | 
-096: 00346 | 04 05 00 00 00 00 03 00                           | push [3]
-097: 0034e | 03 00 00 00                                       | out
-098: 00352 | 04 02 00 00 00 00 03 00                           | push dx
-099: 0035a | 04 01 00 00 00 00 00 00                           | push 0
-100: 00362 | 0f 01 00 00 ff ff ff ff                           | je endProgamm
-101: 0036a | 04 05 00 00 00 00 04 00                           | push [4]
-102: 00372 | 03 00 00 00                                       | out
-103: 00376 |                                                   | 
-104: 00376 |                                                   | endProgamm:
-105: 00376 | 01 00 00 00                                       | hlt
+000 | #2 | 00000 | 0a 01 00 00 ff ff ff ff                           | jmp programmStart
+001 | #2 | 00008 |                                                   | intro:
+002 | #2 | 00008 | 14 04 30 04 3d 04 3d 04 30 04 4f 04 20 00 3f 04 + | db "Данная программа решает квадратные уравнения в виде ax^2 + bx + c"
+                 | 40 04 3e 04 33 04 40 04 30 04 3c 04 3c 04 30 04 + | 
+                 | 20 00 40 04 35 04 48 04 30 04 35 04 42 04 20 00 + | 
+                 | 3a 04 32 04 30 04 34 04 40 04 30 04 42 04 3d 04 + | 
+                 | 4b 04 35 04 20 00 43 04 40 04 30 04 32 04 3d 04 + | 
+                 | 35 04 3d 04 38 04 4f 04 20 00 32 04 20 00 32 04 + | 
+                 | 38 04 34 04 35 04 20 00 61 00 78 00 5e 00 32 00 + | 
+                 | 20 00 2b 00 20 00 62 00 78 00 20 00 2b 00 20 00 + | 
+                 | 63 00 00 00                                       | 
+003 | #2 | 0008c |                                                   | inputA:
+004 | #2 | 0008c | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите a: "
+                 | 20 00 61 00 3a 00 20 00 00 00                     | 
+005 | #2 | 000a6 |                                                   | inputB:
+006 | #2 | 000a6 | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите b: "
+                 | 20 00 62 00 3a 00 20 00 00 00                     | 
+007 | #2 | 000c0 |                                                   | inputC:
+008 | #2 | 000c0 | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите c: "
+                 | 20 00 63 00 3a 00 20 00 00 00                     | 
+009 | #2 | 000da |                                                   | noSolutions:
+010 | #2 | 000da | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение не имеет решений\n"
+                 | 38 04 35 04 20 00 3d 04 35 04 20 00 38 04 3c 04 + | 
+                 | 35 04 35 04 42 04 20 00 40 04 35 04 48 04 35 04 + | 
+                 | 3d 04 38 04 39 04 0a 00 00 00                     | 
+011 | #2 | 00114 |                                                   | oneSolution:
+012 | #2 | 00114 | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет одно решение: \n"
+                 | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
+                 | 20 00 3e 04 34 04 3d 04 3e 04 20 00 40 04 35 04 + | 
+                 | 48 04 35 04 3d 04 38 04 35 04 3a 00 20 00 0a 00 + | 
+                 | 00 00                                             | 
+013 | #2 | 00156 |                                                   | twoSolutions:
+014 | #2 | 00156 | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет два решения: \n"
+                 | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
+                 | 20 00 34 04 32 04 30 04 20 00 40 04 35 04 48 04 + | 
+                 | 35 04 3d 04 38 04 4f 04 3a 00 20 00 0a 00 00 00   | 
+015 | #2 | 00196 |                                                   | programmStart:
+016 | #2 | 00196 | 03 01 00 00 00 00 08 00                           | out intro
+017 | #2 | 0019e | 03 01 00 00 00 00 8c 00                           | out inputA
+018 | #2 | 001a6 | 02 00 00 00                                       | in
+019 | #2 | 001aa | 03 01 00 00 00 00 a6 00                           | out inputB
+020 | #2 | 001b2 | 02 00 00 00                                       | in
+021 | #2 | 001b6 | 03 01 00 00 00 00 c0 00                           | out inputC
+022 | #2 | 001be | 02 00 00 00                                       | in
+023 | #2 | 001c2 | 09 02 00 00 00 00 02 00                           | pop cx
+024 | #2 | 001ca | 09 02 00 00 00 00 01 00                           | pop bx
+025 | #2 | 001d2 | 09 02 00 00 00 00 00 00                           | pop ax
+026 | #2 | 001da |                                                   | 
+027 | #2 | 001da | 04 02 00 00 00 00 00 00                           | push ax
+028 | #2 | 001e2 | 04 01 00 00 00 00 00 00                           | push 0
+029 | #2 | 001ea | 10 01 00 00 ff ff ff ff                           | jne quadratic
+030 | #2 | 001f2 |                                                   | 
+031 | #2 | 001f2 | 04 01 00 00 00 00 00 00                           | push 0
+032 | #2 | 001fa | 04 02 00 00 00 00 02 00                           | push cx
+033 | #2 | 00202 | 06 00 00 00                                       | sub
+034 | #2 | 00206 | 04 02 00 00 00 00 01 00                           | push bx
+035 | #2 | 0020e | 04 01 00 00 00 00 00 00                           | push 0
+036 | #2 | 00216 | 10 01 00 00 ff ff ff ff                           | jne linear
+037 | #2 | 0021e | 03 01 00 00 00 00 da 00                           | out noSolutions
+038 | #2 | 00226 | 01 00 00 00                                       | hlt
+039 | #2 | 0022a |                                                   | 
+040 | #2 | 0022a |                                                   | linear:
+041 | #2 | 0022a | 04 02 00 00 00 00 01 00                           | push bx
+042 | #2 | 00232 | 08 00 00 00                                       | div
+043 | #2 | 00236 |                                                   | 
+044 | #2 | 00236 | 03 01 00 00 00 00 14 01                           | out oneSolution
+045 | #2 | 0023e | 03 00 00 00                                       | out
+046 | #2 | 00242 |                                                   | 
+047 | #2 | 00242 | 01 00 00 00                                       | hlt
+048 | #2 | 00246 |                                                   | 
+049 | #2 | 00246 |                                                   | quadratic:
+050 | #2 | 00246 | 04 02 00 00 00 00 01 00                           | push bx
+051 | #2 | 0024e | 04 02 00 00 00 00 01 00                           | push bx
+052 | #2 | 00256 | 07 00 00 00                                       | mul
+053 | #2 | 0025a | 04 01 00 00 00 00 04 00                           | push 4
+054 | #2 | 00262 | 04 02 00 00 00 00 00 00                           | push ax
+055 | #2 | 0026a | 07 00 00 00                                       | mul 
+056 | #2 | 0026e | 04 02 00 00 00 00 02 00                           | push cx
+057 | #2 | 00276 | 07 00 00 00                                       | mul
+058 | #2 | 0027a | 06 00 00 00                                       | sub
+059 | #2 | 0027e | 09 02 00 00 00 00 03 00                           | pop dx
+060 | #2 | 00286 |                                                   | 
+061 | #2 | 00286 | 04 02 00 00 00 00 03 00                           | push dx
+062 | #2 | 0028e | 04 01 00 00 00 00 00 00                           | push 0
+063 | #2 | 00296 | 0c 01 00 00 ff ff ff ff                           | jae positiveD
+064 | #2 | 0029e | 03 01 00 00 00 00 da 00                           | out noSolutions
+065 | #2 | 002a6 | 01 00 00 00                                       | hlt
+066 | #2 | 002aa |                                                   | 
+067 | #2 | 002aa |                                                   | positiveD:
+068 | #2 | 002aa | 04 02 00 00 00 00 03 00                           | push dx
+069 | #2 | 002b2 | 11 00 00 00                                       | sqrt
+070 | #2 | 002b6 |                                                   | 
+071 | #2 | 002b6 | 09 02 00 00 00 00 03 00                           | pop dx
+072 | #2 | 002be |                                                   | 
+073 | #2 | 002be | 04 01 00 00 00 00 00 00                           | push 0
+074 | #2 | 002c6 | 04 02 00 00 00 00 01 00                           | push bx
+075 | #2 | 002ce | 06 00 00 00                                       | sub
+076 | #2 | 002d2 | 09 05 00 00 00 00 01 00                           | pop [1]
+077 | #2 | 002da | 04 05 00 00 00 00 01 00                           | push [1]
+078 | #2 | 002e2 |                                                   | 
+079 | #2 | 002e2 | 04 02 00 00 00 00 03 00                           | push dx
+080 | #2 | 002ea | 05 00 00 00                                       | add
+081 | #2 | 002ee | 04 01 00 00 00 00 02 00                           | push 2
+082 | #2 | 002f6 | 04 02 00 00 00 00 00 00                           | push ax
+083 | #2 | 002fe | 07 00 00 00                                       | mul
+084 | #2 | 00302 | 09 05 00 00 00 00 02 00                           | pop [2]
+085 | #2 | 0030a | 04 05 00 00 00 00 02 00                           | push [2]
+086 | #2 | 00312 | 08 00 00 00                                       | div
+087 | #2 | 00316 | 09 05 00 00 00 00 03 00                           | pop [3]
+088 | #2 | 0031e |                                                   | 
+089 | #2 | 0031e | 04 05 00 00 00 00 01 00                           | push [1]
+090 | #2 | 00326 | 04 02 00 00 00 00 03 00                           | push dx
+091 | #2 | 0032e | 06 00 00 00                                       | sub
+092 | #2 | 00332 | 04 05 00 00 00 00 02 00                           | push [2]
+093 | #2 | 0033a | 08 00 00 00                                       | div
+094 | #2 | 0033e | 09 05 00 00 00 00 04 00                           | pop [4]
+095 | #2 | 00346 |                                                   | 
+096 | #2 | 00346 | 04 05 00 00 00 00 03 00                           | push [3]
+097 | #2 | 0034e | 03 00 00 00                                       | out
+098 | #2 | 00352 | 04 02 00 00 00 00 03 00                           | push dx
+099 | #2 | 0035a | 04 01 00 00 00 00 00 00                           | push 0
+100 | #2 | 00362 | 0f 01 00 00 ff ff ff ff                           | je endProgamm
+101 | #2 | 0036a | 04 05 00 00 00 00 04 00                           | push [4]
+102 | #2 | 00372 | 03 00 00 00                                       | out
+103 | #2 | 00376 |                                                   | 
+104 | #2 | 00376 |                                                   | endProgamm:
+105 | #2 | 00376 | 01 00 00 00                                       | hlt
 
 
 File listing Pass #3: Final Machine Code
 
-000: 00000 | 0a 01 00 00 00 00 96 01                           | jmp programmStart
-001: 00008 |                                                   | intro:
-002: 00008 | 14 04 30 04 3d 04 3d 04 30 04 4f 04 20 00 3f 04 + | db "Данная программа решает квадратные уравнения в виде ax^2 + bx + c"
-           | 40 04 3e 04 33 04 40 04 30 04 3c 04 3c 04 30 04 + | 
-           | 20 00 40 04 35 04 48 04 30 04 35 04 42 04 20 00 + | 
-           | 3a 04 32 04 30 04 34 04 40 04 30 04 42 04 3d 04 + | 
-           | 4b 04 35 04 20 00 43 04 40 04 30 04 32 04 3d 04 + | 
-           | 35 04 3d 04 38 04 4f 04 20 00 32 04 20 00 32 04 + | 
-           | 38 04 34 04 35 04 20 00 61 00 78 00 5e 00 32 00 + | 
-           | 20 00 2b 00 20 00 62 00 78 00 20 00 2b 00 20 00 + | 
-           | 63 00 00 00                                       | 
-003: 0008c |                                                   | inputA:
-004: 0008c | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите a: "
-           | 20 00 61 00 3a 00 20 00 00 00                     | 
-005: 000a6 |                                                   | inputB:
-006: 000a6 | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите b: "
-           | 20 00 62 00 3a 00 20 00 00 00                     | 
-007: 000c0 |                                                   | inputC:
-008: 000c0 | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите c: "
-           | 20 00 63 00 3a 00 20 00 00 00                     | 
-009: 000da |                                                   | noSolutions:
-010: 000da | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение не имеет решений\n"
-           | 38 04 35 04 20 00 3d 04 35 04 20 00 38 04 3c 04 + | 
-           | 35 04 35 04 42 04 20 00 40 04 35 04 48 04 35 04 + | 
-           | 3d 04 38 04 39 04 0a 00 00 00                     | 
-011: 00114 |                                                   | oneSolution:
-012: 00114 | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет одно решение: \n"
-           | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
-           | 20 00 3e 04 34 04 3d 04 3e 04 20 00 40 04 35 04 + | 
-           | 48 04 35 04 3d 04 38 04 35 04 3a 00 20 00 0a 00 + | 
-           | 00 00                                             | 
-013: 00156 |                                                   | twoSolutions:
-014: 00156 | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет два решения: \n"
-           | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
-           | 20 00 34 04 32 04 30 04 20 00 40 04 35 04 48 04 + | 
-           | 35 04 3d 04 38 04 4f 04 3a 00 20 00 0a 00 00 00   | 
-015: 00196 |                                                   | programmStart:
-016: 00196 | 03 01 00 00 00 00 08 00                           | out intro
-017: 0019e | 03 01 00 00 00 00 8c 00                           | out inputA
-018: 001a6 | 02 00 00 00                                       | in
-019: 001aa | 03 01 00 00 00 00 a6 00                           | out inputB
-020: 001b2 | 02 00 00 00                                       | in
-021: 001b6 | 03 01 00 00 00 00 c0 00                           | out inputC
-022: 001be | 02 00 00 00                                       | in
-023: 001c2 | 09 02 00 00 00 00 02 00                           | pop cx
-024: 001ca | 09 02 00 00 00 00 01 00                           | pop bx
-025: 001d2 | 09 02 00 00 00 00 00 00                           | pop ax
-026: 001da |                                                   | 
-027: 001da | 04 02 00 00 00 00 00 00                           | push ax
-028: 001e2 | 04 01 00 00 00 00 00 00                           | push 0
-029: 001ea | 10 01 00 00 00 00 46 02                           | jne quadratic
-030: 001f2 |                                                   | 
-031: 001f2 | 04 01 00 00 00 00 00 00                           | push 0
-032: 001fa | 04 02 00 00 00 00 02 00                           | push cx
-033: 00202 | 06 00 00 00                                       | sub
-034: 00206 | 04 02 00 00 00 00 01 00                           | push bx
-035: 0020e | 04 01 00 00 00 00 00 00                           | push 0
-036: 00216 | 10 01 00 00 00 00 2a 02                           | jne linear
-037: 0021e | 03 01 00 00 00 00 da 00                           | out noSolutions
-038: 00226 | 01 00 00 00                                       | hlt
-039: 0022a |                                                   | 
-040: 0022a |                                                   | linear:
-041: 0022a | 04 02 00 00 00 00 01 00                           | push bx
-042: 00232 | 08 00 00 00                                       | div
-043: 00236 |                                                   | 
-044: 00236 | 03 01 00 00 00 00 14 01                           | out oneSolution
-045: 0023e | 03 00 00 00                                       | out
-046: 00242 |                                                   | 
-047: 00242 | 01 00 00 00                                       | hlt
-048: 00246 |                                                   | 
-049: 00246 |                                                   | quadratic:
-050: 00246 | 04 02 00 00 00 00 01 00                           | push bx
-051: 0024e | 04 02 00 00 00 00 01 00                           | push bx
-052: 00256 | 07 00 00 00                                       | mul
-053: 0025a | 04 01 00 00 00 00 04 00                           | push 4
-054: 00262 | 04 02 00 00 00 00 00 00                           | push ax
-055: 0026a | 07 00 00 00                                       | mul 
-056: 0026e | 04 02 00 00 00 00 02 00                           | push cx
-057: 00276 | 07 00 00 00                                       | mul
-058: 0027a | 06 00 00 00                                       | sub
-059: 0027e | 09 02 00 00 00 00 03 00                           | pop dx
-060: 00286 |                                                   | 
-061: 00286 | 04 02 00 00 00 00 03 00                           | push dx
-062: 0028e | 04 01 00 00 00 00 00 00                           | push 0
-063: 00296 | 0c 01 00 00 00 00 aa 02                           | jae positiveD
-064: 0029e | 03 01 00 00 00 00 da 00                           | out noSolutions
-065: 002a6 | 01 00 00 00                                       | hlt
-066: 002aa |                                                   | 
-067: 002aa |                                                   | positiveD:
-068: 002aa | 04 02 00 00 00 00 03 00                           | push dx
-069: 002b2 | 11 00 00 00                                       | sqrt
-070: 002b6 |                                                   | 
-071: 002b6 | 09 02 00 00 00 00 03 00                           | pop dx
-072: 002be |                                                   | 
-073: 002be | 04 01 00 00 00 00 00 00                           | push 0
-074: 002c6 | 04 02 00 00 00 00 01 00                           | push bx
-075: 002ce | 06 00 00 00                                       | sub
-076: 002d2 | 09 05 00 00 00 00 01 00                           | pop [1]
-077: 002da | 04 05 00 00 00 00 01 00                           | push [1]
-078: 002e2 |                                                   | 
-079: 002e2 | 04 02 00 00 00 00 03 00                           | push dx
-080: 002ea | 05 00 00 00                                       | add
-081: 002ee | 04 01 00 00 00 00 02 00                           | push 2
-082: 002f6 | 04 02 00 00 00 00 00 00                           | push ax
-083: 002fe | 07 00 00 00                                       | mul
-084: 00302 | 09 05 00 00 00 00 02 00                           | pop [2]
-085: 0030a | 04 05 00 00 00 00 02 00                           | push [2]
-086: 00312 | 08 00 00 00                                       | div
-087: 00316 | 09 05 00 00 00 00 03 00                           | pop [3]
-088: 0031e |                                                   | 
-089: 0031e | 04 05 00 00 00 00 01 00                           | push [1]
-090: 00326 | 04 02 00 00 00 00 03 00                           | push dx
-091: 0032e | 06 00 00 00                                       | sub
-092: 00332 | 04 05 00 00 00 00 02 00                           | push [2]
-093: 0033a | 08 00 00 00                                       | div
-094: 0033e | 09 05 00 00 00 00 04 00                           | pop [4]
-095: 00346 |                                                   | 
-096: 00346 | 04 05 00 00 00 00 03 00                           | push [3]
-097: 0034e | 03 00 00 00                                       | out
-098: 00352 | 04 02 00 00 00 00 03 00                           | push dx
-099: 0035a | 04 01 00 00 00 00 00 00                           | push 0
-100: 00362 | 0f 01 00 00 00 00 76 03                           | je endProgamm
-101: 0036a | 04 05 00 00 00 00 04 00                           | push [4]
-102: 00372 | 03 00 00 00                                       | out
-103: 00376 |                                                   | 
-104: 00376 |                                                   | endProgamm:
-105: 00376 | 01 00 00 00                                       | hlt
+000 | #3 | 00000 | 0a 01 00 00 00 00 96 01                           | jmp programmStart
+001 | #3 | 00008 |                                                   | intro:
+002 | #3 | 00008 | 14 04 30 04 3d 04 3d 04 30 04 4f 04 20 00 3f 04 + | db "Данная программа решает квадратные уравнения в виде ax^2 + bx + c"
+                 | 40 04 3e 04 33 04 40 04 30 04 3c 04 3c 04 30 04 + | 
+                 | 20 00 40 04 35 04 48 04 30 04 35 04 42 04 20 00 + | 
+                 | 3a 04 32 04 30 04 34 04 40 04 30 04 42 04 3d 04 + | 
+                 | 4b 04 35 04 20 00 43 04 40 04 30 04 32 04 3d 04 + | 
+                 | 35 04 3d 04 38 04 4f 04 20 00 32 04 20 00 32 04 + | 
+                 | 38 04 34 04 35 04 20 00 61 00 78 00 5e 00 32 00 + | 
+                 | 20 00 2b 00 20 00 62 00 78 00 20 00 2b 00 20 00 + | 
+                 | 63 00 00 00                                       | 
+003 | #3 | 0008c |                                                   | inputA:
+004 | #3 | 0008c | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите a: "
+                 | 20 00 61 00 3a 00 20 00 00 00                     | 
+005 | #3 | 000a6 |                                                   | inputB:
+006 | #3 | 000a6 | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите b: "
+                 | 20 00 62 00 3a 00 20 00 00 00                     | 
+007 | #3 | 000c0 |                                                   | inputC:
+008 | #3 | 000c0 | 0a 00 12 04 32 04 35 04 34 04 38 04 42 04 35 04 + | db "\nВведите c: "
+                 | 20 00 63 00 3a 00 20 00 00 00                     | 
+009 | #3 | 000da |                                                   | noSolutions:
+010 | #3 | 000da | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение не имеет решений\n"
+                 | 38 04 35 04 20 00 3d 04 35 04 20 00 38 04 3c 04 + | 
+                 | 35 04 35 04 42 04 20 00 40 04 35 04 48 04 35 04 + | 
+                 | 3d 04 38 04 39 04 0a 00 00 00                     | 
+011 | #3 | 00114 |                                                   | oneSolution:
+012 | #3 | 00114 | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет одно решение: \n"
+                 | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
+                 | 20 00 3e 04 34 04 3d 04 3e 04 20 00 40 04 35 04 + | 
+                 | 48 04 35 04 3d 04 38 04 35 04 3a 00 20 00 0a 00 + | 
+                 | 00 00                                             | 
+013 | #3 | 00156 |                                                   | twoSolutions:
+014 | #3 | 00156 | 0a 00 23 04 40 04 30 04 32 04 3d 04 35 04 3d 04 + | db "\nУравнение имеет два решения: \n"
+                 | 38 04 35 04 20 00 38 04 3c 04 35 04 35 04 42 04 + | 
+                 | 20 00 34 04 32 04 30 04 20 00 40 04 35 04 48 04 + | 
+                 | 35 04 3d 04 38 04 4f 04 3a 00 20 00 0a 00 00 00   | 
+015 | #3 | 00196 |                                                   | programmStart:
+016 | #3 | 00196 | 03 01 00 00 00 00 08 00                           | out intro
+017 | #3 | 0019e | 03 01 00 00 00 00 8c 00                           | out inputA
+018 | #3 | 001a6 | 02 00 00 00                                       | in
+019 | #3 | 001aa | 03 01 00 00 00 00 a6 00                           | out inputB
+020 | #3 | 001b2 | 02 00 00 00                                       | in
+021 | #3 | 001b6 | 03 01 00 00 00 00 c0 00                           | out inputC
+022 | #3 | 001be | 02 00 00 00                                       | in
+023 | #3 | 001c2 | 09 02 00 00 00 00 02 00                           | pop cx
+024 | #3 | 001ca | 09 02 00 00 00 00 01 00                           | pop bx
+025 | #3 | 001d2 | 09 02 00 00 00 00 00 00                           | pop ax
+026 | #3 | 001da |                                                   | 
+027 | #3 | 001da | 04 02 00 00 00 00 00 00                           | push ax
+028 | #3 | 001e2 | 04 01 00 00 00 00 00 00                           | push 0
+029 | #3 | 001ea | 10 01 00 00 00 00 46 02                           | jne quadratic
+030 | #3 | 001f2 |                                                   | 
+031 | #3 | 001f2 | 04 01 00 00 00 00 00 00                           | push 0
+032 | #3 | 001fa | 04 02 00 00 00 00 02 00                           | push cx
+033 | #3 | 00202 | 06 00 00 00                                       | sub
+034 | #3 | 00206 | 04 02 00 00 00 00 01 00                           | push bx
+035 | #3 | 0020e | 04 01 00 00 00 00 00 00                           | push 0
+036 | #3 | 00216 | 10 01 00 00 00 00 2a 02                           | jne linear
+037 | #3 | 0021e | 03 01 00 00 00 00 da 00                           | out noSolutions
+038 | #3 | 00226 | 01 00 00 00                                       | hlt
+039 | #3 | 0022a |                                                   | 
+040 | #3 | 0022a |                                                   | linear:
+041 | #3 | 0022a | 04 02 00 00 00 00 01 00                           | push bx
+042 | #3 | 00232 | 08 00 00 00                                       | div
+043 | #3 | 00236 |                                                   | 
+044 | #3 | 00236 | 03 01 00 00 00 00 14 01                           | out oneSolution
+045 | #3 | 0023e | 03 00 00 00                                       | out
+046 | #3 | 00242 |                                                   | 
+047 | #3 | 00242 | 01 00 00 00                                       | hlt
+048 | #3 | 00246 |                                                   | 
+049 | #3 | 00246 |                                                   | quadratic:
+050 | #3 | 00246 | 04 02 00 00 00 00 01 00                           | push bx
+051 | #3 | 0024e | 04 02 00 00 00 00 01 00                           | push bx
+052 | #3 | 00256 | 07 00 00 00                                       | mul
+053 | #3 | 0025a | 04 01 00 00 00 00 04 00                           | push 4
+054 | #3 | 00262 | 04 02 00 00 00 00 00 00                           | push ax
+055 | #3 | 0026a | 07 00 00 00                                       | mul 
+056 | #3 | 0026e | 04 02 00 00 00 00 02 00                           | push cx
+057 | #3 | 00276 | 07 00 00 00                                       | mul
+058 | #3 | 0027a | 06 00 00 00                                       | sub
+059 | #3 | 0027e | 09 02 00 00 00 00 03 00                           | pop dx
+060 | #3 | 00286 |                                                   | 
+061 | #3 | 00286 | 04 02 00 00 00 00 03 00                           | push dx
+062 | #3 | 0028e | 04 01 00 00 00 00 00 00                           | push 0
+063 | #3 | 00296 | 0c 01 00 00 00 00 aa 02                           | jae positiveD
+064 | #3 | 0029e | 03 01 00 00 00 00 da 00                           | out noSolutions
+065 | #3 | 002a6 | 01 00 00 00                                       | hlt
+066 | #3 | 002aa |                                                   | 
+067 | #3 | 002aa |                                                   | positiveD:
+068 | #3 | 002aa | 04 02 00 00 00 00 03 00                           | push dx
+069 | #3 | 002b2 | 11 00 00 00                                       | sqrt
+070 | #3 | 002b6 |                                                   | 
+071 | #3 | 002b6 | 09 02 00 00 00 00 03 00                           | pop dx
+072 | #3 | 002be |                                                   | 
+073 | #3 | 002be | 04 01 00 00 00 00 00 00                           | push 0
+074 | #3 | 002c6 | 04 02 00 00 00 00 01 00                           | push bx
+075 | #3 | 002ce | 06 00 00 00                                       | sub
+076 | #3 | 002d2 | 09 05 00 00 00 00 01 00                           | pop [1]
+077 | #3 | 002da | 04 05 00 00 00 00 01 00                           | push [1]
+078 | #3 | 002e2 |                                                   | 
+079 | #3 | 002e2 | 04 02 00 00 00 00 03 00                           | push dx
+080 | #3 | 002ea | 05 00 00 00                                       | add
+081 | #3 | 002ee | 04 01 00 00 00 00 02 00                           | push 2
+082 | #3 | 002f6 | 04 02 00 00 00 00 00 00                           | push ax
+083 | #3 | 002fe | 07 00 00 00                                       | mul
+084 | #3 | 00302 | 09 05 00 00 00 00 02 00                           | pop [2]
+085 | #3 | 0030a | 04 05 00 00 00 00 02 00                           | push [2]
+086 | #3 | 00312 | 08 00 00 00                                       | div
+087 | #3 | 00316 | 09 05 00 00 00 00 03 00                           | pop [3]
+088 | #3 | 0031e |                                                   | 
+089 | #3 | 0031e | 04 05 00 00 00 00 01 00                           | push [1]
+090 | #3 | 00326 | 04 02 00 00 00 00 03 00                           | push dx
+091 | #3 | 0032e | 06 00 00 00                                       | sub
+092 | #3 | 00332 | 04 05 00 00 00 00 02 00                           | push [2]
+093 | #3 | 0033a | 08 00 00 00                                       | div
+094 | #3 | 0033e | 09 05 00 00 00 00 04 00                           | pop [4]
+095 | #3 | 00346 |                                                   | 
+096 | #3 | 00346 | 04 05 00 00 00 00 03 00                           | push [3]
+097 | #3 | 0034e | 03 00 00 00                                       | out
+098 | #3 | 00352 | 04 02 00 00 00 00 03 00                           | push dx
+099 | #3 | 0035a | 04 01 00 00 00 00 00 00                           | push 0
+100 | #3 | 00362 | 0f 01 00 00 00 00 76 03                           | je endProgamm
+101 | #3 | 0036a | 04 05 00 00 00 00 04 00                           | push [4]
+102 | #3 | 00372 | 03 00 00 00                                       | out
+103 | #3 | 00376 |                                                   | 
+104 | #3 | 00376 |                                                   | endProgamm:
+105 | #3 | 00376 | 01 00 00 00                                       | hlt

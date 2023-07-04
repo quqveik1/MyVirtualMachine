@@ -5,6 +5,7 @@
 #include "../StackFunc.cpp"
 #include "../FloatConvert.cpp"
 #include "CommandIR.h"
+#include "../CommandConstants.h"
 
 
 LabelSearchIR::LabelSearchIR(IR* _ir) :
@@ -15,10 +16,7 @@ LabelSearchIR::LabelSearchIR(IR* _ir) :
 
 LabelSearchIR::~LabelSearchIR()
 {
-    if(!fixUpList.empty())
-    {
-        std::cout << "Words waiting list is not empty\n";
-    }
+    
 }
 
 int LabelSearchIR::getWordPos(std::wstring_view& word)
@@ -64,9 +62,18 @@ void LabelSearchIR::writeOrWaitLabel(std::wstring_view& word, CommandIR* command
         return;
     }
 
-    //commandIR->put(wordPos);
-
     fixUpList[word].push_back(commandIR);
+}
+
+int LabelSearchIR::checkLabelLinking()
+{
+    if (!fixUpList.empty())
+    {
+        std::cout << "Label fix up list is not empty\n";
+        return NotEmptyFixUpLinkingLabelList;
+    }
+
+    return WellCode;
 }
 
 void LabelSearchIR::checkFixUpList(std::wstring_view& word, int pos)

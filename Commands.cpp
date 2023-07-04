@@ -214,13 +214,20 @@ int commonJmpFnc(Processor& processor, bool needToJump, int codedNum)
 
     if (needToJump)
     {
-        bool res = processor.getCommandData().setCurrPos(jmpPos);
+        doJump(processor, jmpPos);
+    }
 
-        if (!res)
-        {
-            throw std::exception("Попытка перепрыгнуть на несуществующюю позицию");
-            return MachineCodeOutOfBound;
-        }
+    return WellCode;
+}
+
+int doJump(Processor& processor, int pos)
+{
+    bool res = processor.getCommandData().setCurrPos(pos);
+
+    if (!res)
+    {
+        throw std::exception("Попытка перепрыгнуть на несуществующюю позицию");
+        return MachineCodeOutOfBound;
     }
 
     return WellCode;
@@ -318,6 +325,23 @@ int sqrt_command(Processor& processor, int codedCommandNum)
     double res = sqrt(a);
 
     processor.getRuntimeData().push(convNum(res));
+
+    return WellCode;
+}
+
+int call_command(Processor& processor, int codedCommandNum)
+{
+    processor.getCallStack().push(processor.getCommandData().getCurrPos() + sizeof(int));
+    commonJmpFnc(processor, true, codedCommandNum);
+
+    return WellCode;
+}
+
+int ret_command(Processor& processor, int codedCommandNum)
+{
+    int lastPos = processor.getCallStack().peek();
+
+    doJump(processor, lastPos);
 
     return WellCode;
 }

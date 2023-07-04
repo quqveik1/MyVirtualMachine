@@ -10,10 +10,6 @@ LabelSearchBin::LabelSearchBin(struct BinCompileData* _compileData) :
 
 LabelSearchBin::~LabelSearchBin()
 {
-    if (!fixUpList.empty())
-    {
-        std::cout << "Words waiting list is not empty\n";
-    }
 }
 
 int LabelSearchBin::getWordPos(int wordLine)
@@ -47,6 +43,17 @@ void LabelSearchBin::pushWord(int wordLine, int pos/* = -1*/)
     checkFixUpList(wordLine, pos);
 
     words[wordLine] = pos;
+}
+
+int LabelSearchBin::checkLabelLinking()
+{
+    if (!fixUpList.empty())
+    {
+        std::cout << "Label fix up list is not empty\n";
+        return NotEmptyFixUpLinkingLabelList;
+    }
+
+    return WellCode;
 }
 
 

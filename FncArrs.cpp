@@ -21,4 +21,7 @@ void initCommandsArr()
     commandsArr[je_num] = je_command;
     commandsArr[jne_num] = jne_command;
     commandsArr[sqrt_num] = sqrt_command;
+
+    commandsArr[call_num] = call_command;
+    commandsArr[ret_num] = ret_command;
 }

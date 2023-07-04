@@ -1,0 +1,46 @@
+File listing Pass #1: Code -> Intermediate Representation
+
+0000 | #1 | commandNum: 0010; isFinal: 1; labelLinePos: -001; | 0a 01 00 00                                       | jmp start
+0001 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0001; |                                                   | text:
+0002 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 57 00 65 00 6c 00 6c 00 20 00 64 00 6f 00 6e 00 + | db "Well done!\n"
+                                                              | 65 00 21 00 0a 00 00 00                           | 
+0003 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0004 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0004; |                                                   | fnc: 
+0005 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0001; | 03 01 00 00                                       | out text
+0006 | #1 | commandNum: 0021; isFinal: 1; labelLinePos: -001; | 15 00 00 00                                       | ret
+0007 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0008 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0008; |                                                   | start:
+0009 | #1 | commandNum: 0020; isFinal: 1; labelLinePos: 0004; | 14 01 00 00                                       | call fnc
+0010 | #1 | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+
+
+File listing Pass #2: Intermediate Representation -> Machine Code
+
+000 | #2 | 00000 | 0a 01 00 00 ff ff ff ff                           | jmp start
+001 | #2 | 00008 |                                                   | text:
+002 | #2 | 00008 | 57 00 65 00 6c 00 6c 00 20 00 64 00 6f 00 6e 00 + | db "Well done!\n"
+                 | 65 00 21 00 0a 00 00 00                           | 
+003 | #2 | 00020 |                                                   | 
+004 | #2 | 00020 |                                                   | fnc: 
+005 | #2 | 00020 | 03 01 00 00 00 00 08 00                           | out text
+006 | #2 | 00028 | 15 00 00 00                                       | ret
+007 | #2 | 0002c |                                                   | 
+008 | #2 | 0002c |                                                   | start:
+009 | #2 | 0002c | 14 01 00 00 00 00 20 00                           | call fnc
+010 | #2 | 00034 | 01 00 00 00                                       | hlt
+
+
+File listing Pass #3: Final Machine Code
+
+000 | #3 | 00000 | 0a 01 00 00 00 00 2c 00                           | jmp start
+001 | #3 | 00008 |                                                   | text:
+002 | #3 | 00008 | 57 00 65 00 6c 00 6c 00 20 00 64 00 6f 00 6e 00 + | db "Well done!\n"
+                 | 65 00 21 00 0a 00 00 00                           | 
+003 | #3 | 00020 |                                                   | 
+004 | #3 | 00020 |                                                   | fnc: 
+005 | #3 | 00020 | 03 01 00 00 00 00 08 00                           | out text
+006 | #3 | 00028 | 15 00 00 00                                       | ret
+007 | #3 | 0002c |                                                   | 
+008 | #3 | 0002c |                                                   | start:
+009 | #3 | 0002c | 14 01 00 00 00 00 20 00                           | call fnc
+010 | #3 | 00034 | 01 00 00 00                                       | hlt

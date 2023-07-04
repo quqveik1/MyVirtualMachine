@@ -20,6 +20,7 @@ public:
     void pushWord(int wordLine, int pos = -1);
 
     void writeOrWaitLabel(int wordLine, int pos = -1);
+    int checkLabelLinking();
 
 private:
     void checkFixUpList(int wordLine, int pos);

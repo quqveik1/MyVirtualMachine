@@ -2,9 +2,9 @@
 
 #include <string>
 
-const int COMMANDSVERSION = 9;
+const int COMMANDSVERSION = 11;
 
-const int cCommands = 19;
+const int cCommands = 21;
 
 const std::wstring hlt_str = L"hlt";
 
@@ -32,6 +32,9 @@ const std::wstring sqrt_str = L"sqrt";
 const std::wstring db_str = L"db";
 
 const std::wstring word_str = L"word";
+
+const std::wstring call_str = L"call";
+const std::wstring ret_str = L"ret";
 
 //------------------------------------------------------------------
 
@@ -64,6 +67,9 @@ const int db_num = 18;
 
 const int word_num = 19;
 
+const int call_num = 20;
+const int ret_num = 21;
+
 //------------------------------------------------------------------
 
 int getCommandNum(std::wstring_view& commandName, size_t commandSize = std::wstring_view::npos);
@@ -86,3 +92,5 @@ const int EmptyStackGetError = -8;
 
 const int NoQuoteDBError = -9;
 const int CommandDataReadError = -10;
+
+const int NotEmptyFixUpLinkingLabelList = -11;

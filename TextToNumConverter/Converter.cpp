@@ -39,36 +39,38 @@ void convertToNum(std::wstring path)
 
     FileListing fileListing(binCompileData, lines, cLines, ir);
 
-    int runRes = createIR(lines, ir, cLines, fileListing);
-
-    if (runRes != WellCode)
-    {
-        std::wcout << L"Ошибка перевода в промежуточный вид, код: " << runRes << L"\n";
-        clearMem(fullText, lines);
-        return;
-    }
+    int irRes = createIR(lines, ir, cLines, fileListing);
+    if(printAndFinish(irRes, L"Ошибка перевода в промежуточный вид, код: ", fullText, lines)) return;
 
     fileListing.end1Part();
-    std::wcout << L"Промежуточный слой создан\n";
+    std::wcout << L"Промежуточный слой успешно создан\n";
 
     int binRunRes = irToBin(ir, binCompileData, fileListing);
-
-    if (binRunRes != WellCode)
-    {
-        std::wcout << L"Ошибка перевода в байтовый вид, код: " << binRunRes << L"\n";
-        clearMem(fullText, lines);
-        return;
-    }
+    if (printAndFinish(binRunRes, L"Ошибка перевода в байтовый вид, код: ", fullText, lines)) return;
 
     fileListing.end2Part();
 
     int finalListing = addToListingFinalCode(ir, binCompileData, fileListing);
+
+    if (printAndFinish(finalListing, L"Ошибка создания финального файла листинга код: ", fullText, lines)) return;
 
     save2Files(lines, binCompileData, fileListing, cLines, path);
 
     clearMem(fullText, lines);
 
     std::cout << "Компиляция завершилась успешно\n";
+}
+
+bool printAndFinish(int res, std::wstring str, std::wstring_view& fullText, std::wstring_view* lines)
+{
+    if (res != WellCode)
+    {
+        std::wcout << str << res << L"\n";
+        clearMem(fullText, lines);
+        return true;
+    }
+
+    return false;
 }
 
 //Формат номера команд:
@@ -143,7 +145,7 @@ int addToListingFinalCode(IR& ir, BinCompileData& compileData, FileListing& file
 {
     for (size_t i = 0; i < ir.getCommands().size(); i++)
     {
-        fileListing.add2CompileCommand(ir.getCommand((int)i), compileData, compileData.getBufferLineStart()[i], compileData.getBufferLineFinish()[i]);
+        fileListing.add3CompileCommand(ir.getCommand((int)i), compileData, compileData.getBufferLineStart()[i], compileData.getBufferLineFinish()[i]);
     }
 
     return WellCode;
@@ -183,7 +185,7 @@ int irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
         fileListing.add2CompileCommand(commandIR, compileData, bytePosBefore, bytePosAfter);
     }
 
-    return WellCode;
+    return compileData.finishWork();
 }
 
 int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileListing)
@@ -222,7 +224,7 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
                 }
                 else
                 {
-                    printError(CommandReadErrorCode, i, oldLines[i]);
+                    printLineError(CommandReadErrorCode, i, oldLines[i]);
                     return CommandReadErrorCode;
                 }
             }
@@ -242,16 +244,17 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
 
             if (res != WellCode)
             {
-                printError(res, i, oldLines[i]);
+                printLineError(res, i, oldLines[i]);
             }
         }
 
         fileListing.add1CompileCommand(ir.getActiveCommand());
     }
-    return WellCode;
+
+    return ir.finishIntermediateWork();
 }
 
-void printError(int errorCode, int lineNum, std::wstring_view& line)
+void printLineError(int errorCode, int lineNum, std::wstring_view& line)
 {
     std::wcout << L"Ошибка ["<< errorCode <<L"] в распозновании команды в строке (" << lineNum << L")\n";
     std::wcout << L"\"" << line << "\"\n";

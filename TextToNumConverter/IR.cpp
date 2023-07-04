@@ -15,3 +15,8 @@ CommandIR& IR::getCommand(int i)
 { 
     return commands[i]; 
 };
+
+int IR::finishIntermediateWork()
+{
+    return labelSearchIR.checkLabelLinking();
+}

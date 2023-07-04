@@ -39,6 +39,8 @@ public:
 
     int add1CompileCommand(CommandIR& commandIR);
     int add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter);
+    int add3CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter);
+    int add2PartCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter, int passNum);
 
 private:
     bool printDataLine(std::vector<char>& buffer, size_t& cursorPos, size_t bytePosAfter);
