@@ -9,3 +9,8 @@ std::stack<int> &RuntimeData::getAppData()
 {
     return getData();
 }
+
+void RuntimeData::printStack()
+{
+    
+}

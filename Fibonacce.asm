@@ -1,5 +1,4 @@
 in
-pop ax
 
 jmp main
 
@@ -34,6 +33,11 @@ push -1
 add
 call fib
 
+pop cx
+pop bx
+push cx
+
+push bx
 push -2
 add
 call fib
@@ -43,7 +47,6 @@ ret
 
 main:
 
-push ax
 call fib
 
 out

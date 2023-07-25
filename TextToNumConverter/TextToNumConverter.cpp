@@ -14,6 +14,7 @@ int fib(int n)
 
 int main()
 {
-    int fx = fib(6);
+    int a = fib(5);
+
     convertToNum(L"../Fibonacce.asm");
 }

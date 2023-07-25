@@ -12,5 +12,7 @@ struct RuntimeData : Stack
 {
 public:
     std::stack<int> &getAppData();
+
+    void printStack();
 };
 
