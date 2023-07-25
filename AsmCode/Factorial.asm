@@ -25,7 +25,8 @@ pop bx
 push bx
 push bx
 push -1
-add
+neg
+sub
 call factorial
 
 mul

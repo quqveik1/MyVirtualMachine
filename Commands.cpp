@@ -347,3 +347,19 @@ int ret_command(Processor& processor, int codedCommandNum)
 
     return WellCode;
 }
+
+//!!!
+int neg_command(Processor& processor, int codedCommandNum)
+{
+    int num = processor.getRuntimeData().peek();
+
+    num = deConvNum<int>(num);
+
+    num *= -1;
+
+    num = convNum(num);
+
+    processor.getRuntimeData().push(num);
+
+    return WellCode;
+}

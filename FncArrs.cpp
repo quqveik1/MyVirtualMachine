@@ -24,4 +24,6 @@ void initCommandsArr()
 
     commandsArr[call_num] = call_command;
     commandsArr[ret_num] = ret_command;
+
+    commandsArr[neg_num] = neg_command;
 }

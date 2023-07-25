@@ -3,6 +3,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Converter.cpp"
+/*
 
 int fib(int n)
 {
@@ -11,10 +12,9 @@ int fib(int n)
 
     return fib(n - 1) + fib(n - 2);
 }
+*/
 
 int main()
 {
-    int a = fib(5);
-
-    convertToNum(L"../AsmCode/Fibonacce.asm");
+    convertToNum(L"../AsmCode/Factorial.asm");
 }

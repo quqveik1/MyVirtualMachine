@@ -14,6 +14,7 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
     }
 
     if (commandSize == 0) return res;
+
     if (svcmp(commandName, in_str) == 0)
     {
         res = in_num;
@@ -119,6 +120,12 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
         res = ret_num;
     }
 
+    //!!!
+    else if (svcmp(commandName, neg_str) == 0)
+    {
+        res = neg_num;
+    }
+
     return res;
 }
 
@@ -129,4 +136,46 @@ bool isCommandNumValid(int num)
         return true;
     }
     return false;
+}
+
+void _checkCommandsHealth()
+{
+    int num = 0;
+
+    switch (num)
+    {
+    case innerCall_num:
+    case hlt_num:
+    case in_num:
+    case out_num:
+    case push_num:
+    case add_num:
+    case sub_num:
+    case mul_num:
+    case div_num:
+
+    case pop_num:
+
+    case jmp_num:
+    case ja_num:
+    case jae_num:
+    case jb_num:
+    case jbe_num:
+    case je_num:
+    case jne_num:
+
+    case sqrt_num:
+
+    case db_num:
+
+    case word_num:
+
+    case call_num:
+    case ret_num:
+
+    case neg_num:  //!!!
+
+    default:
+        break;
+    }
 }

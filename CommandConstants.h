@@ -2,9 +2,9 @@
 
 #include <string>
 
-const int COMMANDSVERSION = 11;
+const int COMMANDSVERSION = 12;
 
-const int cCommands = 21;
+const int cCommands = 22;
 
 const std::wstring hlt_str = L"hlt";
 
@@ -36,61 +36,70 @@ const std::wstring word_str = L"word";
 const std::wstring call_str = L"call";
 const std::wstring ret_str = L"ret";
 
+const std::wstring neg_str = L"neg";  //!!!
+
 //------------------------------------------------------------------
 
-const int innerCall_num = 0;
+enum CommandNums
+{
+    innerCall_num = 0,
+    hlt_num = 1,
+    in_num = 2,
+    out_num = 3,
+    push_num = 4,
+    add_num = 5,
+    sub_num = 6,
+    mul_num = 7,
+    div_num = 8,
 
-const int hlt_num = 1;
+    pop_num = 9,
 
-const int in_num = 2;
-const int out_num = 3;
-const int push_num = 4;
+    jmp_num = 10,
+    ja_num = 11,
+    jae_num = 12,
+    jb_num = 13,
+    jbe_num = 14,
+    je_num = 15,
+    jne_num = 16,
 
-const int add_num = 5;
-const int sub_num = 6;
-const int mul_num = 7;
-const int div_num = 8;
+    sqrt_num = 17,
 
-const int pop_num = 9;
+    db_num = 18,
 
-const int jmp_num = 10;
-const int ja_num = 11;
-const int jae_num = 12;
-const int jb_num = 13;
-const int jbe_num = 14;
-const int je_num = 15;
-const int jne_num = 16;
+    word_num = 19,
 
-const int sqrt_num = 17;
+    call_num = 20,
+    ret_num = 21,
 
-const int db_num = 18;
-
-const int word_num = 19;
-
-const int call_num = 20;
-const int ret_num = 21;
+    neg_num = 22  //!!!
+};
 
 //------------------------------------------------------------------
 
 int getCommandNum(std::wstring_view& commandName, size_t commandSize = std::wstring_view::npos);
 bool isCommandNumValid(int num);
+void _checkCommandsHealth();
                       
 //------------------------------------------------------------------
 
-const int WellCode = 0;
-const int CommandBreakCode = -1;
 
-const int CommandReadErrorCode = -2;
-const int CommandEndFileErrorCode = -3;
+enum ErrorNums
+{
+    WellCode = 0,
+    CommandBreakCode = -1,
 
-const int FileHeaderReadErrorCode = -4;   
-const int CommandWriteDataCode = -5;
-const int CommandRecognizeError = -6;
+    CommandReadErrorCode = -2,
+    CommandEndFileErrorCode = -3,
 
-const int MachineCodeOutOfBound = -7;
-const int EmptyStackGetError = -8;
+    FileHeaderReadErrorCode = -4,
+    CommandWriteDataCode = -5,
+    CommandRecognizeError = -6,
 
-const int NoQuoteDBError = -9;
-const int CommandDataReadError = -10;
+    MachineCodeOutOfBound = -7,
+    EmptyStackGetError = -8,
 
-const int NotEmptyFixUpLinkingLabelList = -11;
+    NoQuoteDBError = -9,
+    CommandDataReadError = -10,
+
+    NotEmptyFixUpLinkingLabelList = -11,
+};
