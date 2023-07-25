@@ -18,7 +18,7 @@ int in_command(Processor& processor, int codedCommandNum)
     float num = 0;
     std::cin >> num;
     int pnum = convNum(num);
-    processor.getRuntimeData().getAppData().push(pnum);
+    processor.getRuntimeData().push(pnum);
 
     return WellCode;
 }
@@ -94,13 +94,13 @@ int evalExpression(Processor& processor, int codedCommandNum)
     if (hasConst)
     {
         int constNum = *processor.getCommandData().peek<int>();
-        processor.getRuntimeData().getAppData().push(constNum);
+        processor.getRuntimeData().push(constNum);
     }
 
     if (hasRegister)
     {
         int regNum = *processor.getCommandData().peek<int>();
-        processor.getRuntimeData().getAppData().push(processor.getAppRegister().getReg(deConvNum<int>(regNum)));
+        processor.getRuntimeData().push(processor.getAppRegister().getReg(deConvNum<int>(regNum)));
     }
 
     if (hasConst && hasRegister)
@@ -115,6 +115,8 @@ template <typename T>
 void get2Arg(T& a, T& b, Processor& processor)
 {
     int a1 = 0, b1 = 0;
+
+    //processor.getRuntimeData().printStack();
 
     a1 = processor.getRuntimeData().peek();
     b1 = processor.getRuntimeData().peek();
@@ -136,7 +138,7 @@ int add_command(Processor& processor, int codedCommandNum)
 
     a = a + b;
 
-    processor.getRuntimeData().getAppData().push(convNum(a));
+    processor.getRuntimeData().push(convNum(a));
 
     return WellCode;
 }
@@ -149,7 +151,7 @@ int sub_command(Processor& processor, int codedCommandNum)
 
     a = b - a;
 
-    processor.getRuntimeData().getAppData().push(convNum(a));
+    processor.getRuntimeData().push(convNum(a));
 
     return WellCode;
 }
@@ -162,7 +164,7 @@ int mul_command(Processor& processor, int codedCommandNum)
 
     a = a * b;
 
-    processor.getRuntimeData().getAppData().push(convNum(a));
+    processor.getRuntimeData().push(convNum(a));
 
     return WellCode;
 }
@@ -175,7 +177,7 @@ int div_command(Processor& processor, int codedCommandNum)
 
     a = b / a;
 
-    processor.getRuntimeData().getAppData().push(convNum(a));
+    processor.getRuntimeData().push(convNum(a));
 
     return WellCode;
 }

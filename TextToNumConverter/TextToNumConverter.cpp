@@ -16,5 +16,5 @@ int main()
 {
     int a = fib(5);
 
-    convertToNum(L"../Fibonacce.asm");
+    convertToNum(L"../AsmCode/Fibonacce.asm");
 }

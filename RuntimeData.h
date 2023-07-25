@@ -5,14 +5,13 @@
 
 #include <stack>
 
-#include "StackFunc.h"
-#include "Stack.h"
+#include "StackVector.h"
 
-struct RuntimeData : Stack
+struct RuntimeData : StackVector
 {
 public:
-    std::stack<int> &getAppData();
+    std::vector<int> &getAppData();
 
-    void printStack();
+    void printStack(bool needToConvertToUserRepresentation = true);
 };
 

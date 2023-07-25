@@ -1,0 +1,259 @@
+File listing Pass #1: Code -> Intermediate Representation
+
+0000 | #1 | commandNum: 0010; isFinal: 1; labelLinePos: -001; | 0a 01 00 00                                       | jmp main
+0001 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0001; |                                                   | intro:
+0002 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 12 04 32 04 35 04 34 04 38 04 42 04 35 04 20 00 + | db "Введите число для которого надо рассчитать число Фибоначчи: \n"
+                                                              | 47 04 38 04 41 04 3b 04 3e 04 20 00 34 04 3b 04 + | 
+                                                              | 4f 04 20 00 3a 04 3e 04 42 04 3e 04 40 04 3e 04 + | 
+                                                              | 33 04 3e 04 20 00 3d 04 30 04 34 04 3e 04 20 00 + | 
+                                                              | 40 04 30 04 41 04 41 04 47 04 38 04 42 04 30 04 + | 
+                                                              | 42 04 4c 04 20 00 47 04 38 04 41 04 3b 04 3e 04 + | 
+                                                              | 20 00 24 04 38 04 31 04 3e 04 3d 04 30 04 47 04 + | 
+                                                              | 47 04 38 04 3a 00 20 00 0a 00 00 00               | 
+0003 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0003; |                                                   | answer:
+0004 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 1e 04 42 04 32 04 35 04 42 04 3a 00 20 00 00 00   | db "Ответ: "
+0005 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0005; |                                                   | impossibleFactorial:
+0006 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 22 04 30 04 3a 04 3e 04 33 04 3e 04 20 00 47 04 + | db "Такого числа Фибоначчи нет\n"
+                                                              | 38 04 41 04 3b 04 30 04 20 00 24 04 38 04 31 04 + | 
+                                                              | 3e 04 3d 04 30 04 47 04 47 04 38 04 20 00 3d 04 + | 
+                                                              | 35 04 42 04 0a 00 00 00                           | 
+0007 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0008 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0008; |                                                   | fib:
+0009 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0010 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
+0011 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
+0012 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
+0013 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0014 | #1 | commandNum: 0011; isFinal: 1; labelLinePos: -001; | 0b 01 00 00                                       | ja checkRet1
+0015 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
+0016 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0017 | #1 | commandNum: 0021; isFinal: 1; labelLinePos: -001; | 15 00 00 00                                       | ret
+0018 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0019 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0019; |                                                   | checkRet1:
+0020 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
+0021 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
+0022 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
+0023 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 64 00 00 00                           | push 1
+0024 | #1 | commandNum: 0016; isFinal: 1; labelLinePos: -001; | 10 01 00 00                                       | jne prev
+0025 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0025; |                                                   | ret1:
+0026 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
+0027 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 64 00 00 00                           | push 1
+0028 | #1 | commandNum: 0021; isFinal: 1; labelLinePos: -001; | 15 00 00 00                                       | ret
+0029 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0030 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0030; |                                                   | prev:
+0031 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0032 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
+0033 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
+0034 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
+0035 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 9c ff ff ff                           | push -1
+0036 | #1 | commandNum: 0005; isFinal: 1; labelLinePos: -001; | 05 00 00 00                                       | add
+0037 | #1 | commandNum: 0020; isFinal: 1; labelLinePos: 0008; | 14 01 00 00                                       | call fib
+0038 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0039 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 c8 00 00 00                           | pop cx
+0040 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
+0041 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 c8 00 00 00                           | push cx
+0042 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0043 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
+0044 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 38 ff ff ff                           | push -2
+0045 | #1 | commandNum: 0005; isFinal: 1; labelLinePos: -001; | 05 00 00 00                                       | add
+0046 | #1 | commandNum: 0020; isFinal: 1; labelLinePos: 0008; | 14 01 00 00                                       | call fib
+0047 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0048 | #1 | commandNum: 0005; isFinal: 1; labelLinePos: -001; | 05 00 00 00                                       | add
+0049 | #1 | commandNum: 0021; isFinal: 1; labelLinePos: -001; | 15 00 00 00                                       | ret
+0050 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0051 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0051; |                                                   | main:
+0052 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0053 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0001; | 03 01 00 00                                       | out intro
+0054 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0055 | #1 | commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
+0056 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0057 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
+0058 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
+0059 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
+0060 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0061 | #1 | commandNum: 0012; isFinal: 1; labelLinePos: -001; | 0c 01 00 00                                       | jae normalInput
+0062 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0005; | 03 01 00 00                                       | out impossibleFactorial
+0063 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
+0064 | #1 | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+0065 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0066 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0066; |                                                   | normalInput:
+0067 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0068 | #1 | commandNum: 0020; isFinal: 1; labelLinePos: 0008; | 14 01 00 00                                       | call fib
+0069 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0070 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0003; | 03 01 00 00                                       | out answer
+0071 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: -001; | 03 00 00 00                                       | out
+0072 | #1 | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+
+
+File listing Pass #2: Intermediate Representation -> Machine Code
+
+000 | #2 | 00000 | 0a 01 00 00 ff ff ff ff                           | jmp main
+001 | #2 | 00008 |                                                   | intro:
+002 | #2 | 00008 | 12 04 32 04 35 04 34 04 38 04 42 04 35 04 20 00 + | db "Введите число для которого надо рассчитать число Фибоначчи: \n"
+                 | 47 04 38 04 41 04 3b 04 3e 04 20 00 34 04 3b 04 + | 
+                 | 4f 04 20 00 3a 04 3e 04 42 04 3e 04 40 04 3e 04 + | 
+                 | 33 04 3e 04 20 00 3d 04 30 04 34 04 3e 04 20 00 + | 
+                 | 40 04 30 04 41 04 41 04 47 04 38 04 42 04 30 04 + | 
+                 | 42 04 4c 04 20 00 47 04 38 04 41 04 3b 04 3e 04 + | 
+                 | 20 00 24 04 38 04 31 04 3e 04 3d 04 30 04 47 04 + | 
+                 | 47 04 38 04 3a 00 20 00 0a 00 00 00               | 
+003 | #2 | 00084 |                                                   | answer:
+004 | #2 | 00084 | 1e 04 42 04 32 04 35 04 42 04 3a 00 20 00 00 00   | db "Ответ: "
+005 | #2 | 00094 |                                                   | impossibleFactorial:
+006 | #2 | 00094 | 22 04 30 04 3a 04 3e 04 33 04 3e 04 20 00 47 04 + | db "Такого числа Фибоначчи нет\n"
+                 | 38 04 41 04 3b 04 30 04 20 00 24 04 38 04 31 04 + | 
+                 | 3e 04 3d 04 30 04 47 04 47 04 38 04 20 00 3d 04 + | 
+                 | 35 04 42 04 0a 00 00 00                           | 
+007 | #2 | 000cc |                                                   | 
+008 | #2 | 000cc |                                                   | fib:
+009 | #2 | 000cc |                                                   | 
+010 | #2 | 000cc | 09 02 00 00 64 00 00 00                           | pop bx
+011 | #2 | 000d4 | 04 02 00 00 64 00 00 00                           | push bx
+012 | #2 | 000dc | 04 02 00 00 64 00 00 00                           | push bx
+013 | #2 | 000e4 | 04 01 00 00 00 00 00 00                           | push 0
+014 | #2 | 000ec | 0b 01 00 00 ff ff ff ff                           | ja checkRet1
+015 | #2 | 000f4 | 09 02 00 00 64 00 00 00                           | pop bx
+016 | #2 | 000fc | 04 01 00 00 00 00 00 00                           | push 0
+017 | #2 | 00104 | 15 00 00 00                                       | ret
+018 | #2 | 00108 |                                                   | 
+019 | #2 | 00108 |                                                   | checkRet1:
+020 | #2 | 00108 | 09 02 00 00 64 00 00 00                           | pop bx
+021 | #2 | 00110 | 04 02 00 00 64 00 00 00                           | push bx
+022 | #2 | 00118 | 04 02 00 00 64 00 00 00                           | push bx
+023 | #2 | 00120 | 04 01 00 00 64 00 00 00                           | push 1
+024 | #2 | 00128 | 10 01 00 00 ff ff ff ff                           | jne prev
+025 | #2 | 00130 |                                                   | ret1:
+026 | #2 | 00130 | 09 02 00 00 64 00 00 00                           | pop bx
+027 | #2 | 00138 | 04 01 00 00 64 00 00 00                           | push 1
+028 | #2 | 00140 | 15 00 00 00                                       | ret
+029 | #2 | 00144 |                                                   | 
+030 | #2 | 00144 |                                                   | prev:
+031 | #2 | 00144 |                                                   | 
+032 | #2 | 00144 | 09 02 00 00 64 00 00 00                           | pop bx
+033 | #2 | 0014c | 04 02 00 00 64 00 00 00                           | push bx
+034 | #2 | 00154 | 04 02 00 00 64 00 00 00                           | push bx
+035 | #2 | 0015c | 04 01 00 00 9c ff ff ff                           | push -1
+036 | #2 | 00164 | 05 00 00 00                                       | add
+037 | #2 | 00168 | 14 01 00 00 b0 4f 00 00                           | call fib
+038 | #2 | 00170 |                                                   | 
+039 | #2 | 00170 | 09 02 00 00 c8 00 00 00                           | pop cx
+040 | #2 | 00178 | 09 02 00 00 64 00 00 00                           | pop bx
+041 | #2 | 00180 | 04 02 00 00 c8 00 00 00                           | push cx
+042 | #2 | 00188 |                                                   | 
+043 | #2 | 00188 | 04 02 00 00 64 00 00 00                           | push bx
+044 | #2 | 00190 | 04 01 00 00 38 ff ff ff                           | push -2
+045 | #2 | 00198 | 05 00 00 00                                       | add
+046 | #2 | 0019c | 14 01 00 00 b0 4f 00 00                           | call fib
+047 | #2 | 001a4 |                                                   | 
+048 | #2 | 001a4 | 05 00 00 00                                       | add
+049 | #2 | 001a8 | 15 00 00 00                                       | ret
+050 | #2 | 001ac |                                                   | 
+051 | #2 | 001ac |                                                   | main:
+052 | #2 | 001ac |                                                   | 
+053 | #2 | 001ac | 03 01 00 00 20 03 00 00                           | out intro
+054 | #2 | 001b4 |                                                   | 
+055 | #2 | 001b4 | 02 00 00 00                                       | in
+056 | #2 | 001b8 |                                                   | 
+057 | #2 | 001b8 | 09 02 00 00 00 00 00 00                           | pop ax
+058 | #2 | 001c0 | 04 02 00 00 00 00 00 00                           | push ax
+059 | #2 | 001c8 | 04 02 00 00 00 00 00 00                           | push ax
+060 | #2 | 001d0 | 04 01 00 00 00 00 00 00                           | push 0
+061 | #2 | 001d8 | 0c 01 00 00 ff ff ff ff                           | jae normalInput
+062 | #2 | 001e0 | 03 01 00 00 d0 39 00 00                           | out impossibleFactorial
+063 | #2 | 001e8 | 09 02 00 00 00 00 00 00                           | pop ax
+064 | #2 | 001f0 | 01 00 00 00                                       | hlt
+065 | #2 | 001f4 |                                                   | 
+066 | #2 | 001f4 |                                                   | normalInput:
+067 | #2 | 001f4 |                                                   | 
+068 | #2 | 001f4 | 14 01 00 00 b0 4f 00 00                           | call fib
+069 | #2 | 001fc |                                                   | 
+070 | #2 | 001fc | 03 01 00 00 90 33 00 00                           | out answer
+071 | #2 | 00204 | 03 00 00 00                                       | out
+072 | #2 | 00208 | 01 00 00 00                                       | hlt
+
+
+File listing Pass #3: Final Machine Code
+
+000 | #3 | 00000 | 0a 01 00 00 30 a7 00 00                           | jmp main
+001 | #3 | 00008 |                                                   | intro:
+002 | #3 | 00008 | 12 04 32 04 35 04 34 04 38 04 42 04 35 04 20 00 + | db "Введите число для которого надо рассчитать число Фибоначчи: \n"
+                 | 47 04 38 04 41 04 3b 04 3e 04 20 00 34 04 3b 04 + | 
+                 | 4f 04 20 00 3a 04 3e 04 42 04 3e 04 40 04 3e 04 + | 
+                 | 33 04 3e 04 20 00 3d 04 30 04 34 04 3e 04 20 00 + | 
+                 | 40 04 30 04 41 04 41 04 47 04 38 04 42 04 30 04 + | 
+                 | 42 04 4c 04 20 00 47 04 38 04 41 04 3b 04 3e 04 + | 
+                 | 20 00 24 04 38 04 31 04 3e 04 3d 04 30 04 47 04 + | 
+                 | 47 04 38 04 3a 00 20 00 0a 00 00 00               | 
+003 | #3 | 00084 |                                                   | answer:
+004 | #3 | 00084 | 1e 04 42 04 32 04 35 04 42 04 3a 00 20 00 00 00   | db "Ответ: "
+005 | #3 | 00094 |                                                   | impossibleFactorial:
+006 | #3 | 00094 | 22 04 30 04 3a 04 3e 04 33 04 3e 04 20 00 47 04 + | db "Такого числа Фибоначчи нет\n"
+                 | 38 04 41 04 3b 04 30 04 20 00 24 04 38 04 31 04 + | 
+                 | 3e 04 3d 04 30 04 47 04 47 04 38 04 20 00 3d 04 + | 
+                 | 35 04 42 04 0a 00 00 00                           | 
+007 | #3 | 000cc |                                                   | 
+008 | #3 | 000cc |                                                   | fib:
+009 | #3 | 000cc |                                                   | 
+010 | #3 | 000cc | 09 02 00 00 64 00 00 00                           | pop bx
+011 | #3 | 000d4 | 04 02 00 00 64 00 00 00                           | push bx
+012 | #3 | 000dc | 04 02 00 00 64 00 00 00                           | push bx
+013 | #3 | 000e4 | 04 01 00 00 00 00 00 00                           | push 0
+014 | #3 | 000ec | 0b 01 00 00 20 67 00 00                           | ja checkRet1
+015 | #3 | 000f4 | 09 02 00 00 64 00 00 00                           | pop bx
+016 | #3 | 000fc | 04 01 00 00 00 00 00 00                           | push 0
+017 | #3 | 00104 | 15 00 00 00                                       | ret
+018 | #3 | 00108 |                                                   | 
+019 | #3 | 00108 |                                                   | checkRet1:
+020 | #3 | 00108 | 09 02 00 00 64 00 00 00                           | pop bx
+021 | #3 | 00110 | 04 02 00 00 64 00 00 00                           | push bx
+022 | #3 | 00118 | 04 02 00 00 64 00 00 00                           | push bx
+023 | #3 | 00120 | 04 01 00 00 64 00 00 00                           | push 1
+024 | #3 | 00128 | 10 01 00 00 90 7e 00 00                           | jne prev
+025 | #3 | 00130 |                                                   | ret1:
+026 | #3 | 00130 | 09 02 00 00 64 00 00 00                           | pop bx
+027 | #3 | 00138 | 04 01 00 00 64 00 00 00                           | push 1
+028 | #3 | 00140 | 15 00 00 00                                       | ret
+029 | #3 | 00144 |                                                   | 
+030 | #3 | 00144 |                                                   | prev:
+031 | #3 | 00144 |                                                   | 
+032 | #3 | 00144 | 09 02 00 00 64 00 00 00                           | pop bx
+033 | #3 | 0014c | 04 02 00 00 64 00 00 00                           | push bx
+034 | #3 | 00154 | 04 02 00 00 64 00 00 00                           | push bx
+035 | #3 | 0015c | 04 01 00 00 9c ff ff ff                           | push -1
+036 | #3 | 00164 | 05 00 00 00                                       | add
+037 | #3 | 00168 | 14 01 00 00 b0 4f 00 00                           | call fib
+038 | #3 | 00170 |                                                   | 
+039 | #3 | 00170 | 09 02 00 00 c8 00 00 00                           | pop cx
+040 | #3 | 00178 | 09 02 00 00 64 00 00 00                           | pop bx
+041 | #3 | 00180 | 04 02 00 00 c8 00 00 00                           | push cx
+042 | #3 | 00188 |                                                   | 
+043 | #3 | 00188 | 04 02 00 00 64 00 00 00                           | push bx
+044 | #3 | 00190 | 04 01 00 00 38 ff ff ff                           | push -2
+045 | #3 | 00198 | 05 00 00 00                                       | add
+046 | #3 | 0019c | 14 01 00 00 b0 4f 00 00                           | call fib
+047 | #3 | 001a4 |                                                   | 
+048 | #3 | 001a4 | 05 00 00 00                                       | add
+049 | #3 | 001a8 | 15 00 00 00                                       | ret
+050 | #3 | 001ac |                                                   | 
+051 | #3 | 001ac |                                                   | main:
+052 | #3 | 001ac |                                                   | 
+053 | #3 | 001ac | 03 01 00 00 20 03 00 00                           | out intro
+054 | #3 | 001b4 |                                                   | 
+055 | #3 | 001b4 | 02 00 00 00                                       | in
+056 | #3 | 001b8 |                                                   | 
+057 | #3 | 001b8 | 09 02 00 00 00 00 00 00                           | pop ax
+058 | #3 | 001c0 | 04 02 00 00 00 00 00 00                           | push ax
+059 | #3 | 001c8 | 04 02 00 00 00 00 00 00                           | push ax
+060 | #3 | 001d0 | 04 01 00 00 00 00 00 00                           | push 0
+061 | #3 | 001d8 | 0c 01 00 00 50 c3 00 00                           | jae normalInput
+062 | #3 | 001e0 | 03 01 00 00 d0 39 00 00                           | out impossibleFactorial
+063 | #3 | 001e8 | 09 02 00 00 00 00 00 00                           | pop ax
+064 | #3 | 001f0 | 01 00 00 00                                       | hlt
+065 | #3 | 001f4 |                                                   | 
+066 | #3 | 001f4 |                                                   | normalInput:
+067 | #3 | 001f4 |                                                   | 
+068 | #3 | 001f4 | 14 01 00 00 b0 4f 00 00                           | call fib
+069 | #3 | 001fc |                                                   | 
+070 | #3 | 001fc | 03 01 00 00 90 33 00 00                           | out answer
+071 | #3 | 00204 | 03 00 00 00                                       | out
+072 | #3 | 00208 | 01 00 00 00                                       | hlt

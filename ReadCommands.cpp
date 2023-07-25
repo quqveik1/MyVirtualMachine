@@ -36,6 +36,8 @@ void readByteCode(std::string path)
     {
         std::cout << "Проблема запуска скомпилированного байткода: " << readRes << std::endl;
     }
+
+    processor.getRuntimeData().printStack();
 }
 
 int compiledFileWork(std::string& path, Processor& processor)
