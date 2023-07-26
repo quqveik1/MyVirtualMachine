@@ -23,5 +23,8 @@ public:
 
     void addLastCommand(int commandFileStart, int commandNum);
 
-    void print();
+    int print();
+
+private:
+    int disassemble(std::wstring& ans, RuntimeCommandInfo& info);
 };

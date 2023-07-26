@@ -4,6 +4,8 @@
 
 #include "StringViewExtension.cpp"
 
+std::vector<std::wstring> commandNames;
+
 int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::wstring_view::npos*/)
 {
     int res = CommandRecognizeError;
@@ -127,6 +129,50 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
     }
 
     return res;
+}
+
+int getCommandName(int commandNum, std::wstring& ans)
+{
+    bool res = isCommandNumValid(commandNum);
+
+    if(!res)
+    {
+        return DisassemblyNameError;
+    }
+
+    ans = commandNames[commandNum];
+
+    return WellCode;
+}
+
+void initCommandsNameArr()
+{
+    commandNames =
+    {
+        /*0*/   L"innerCall",
+                L"hlt",
+                L"in",
+                L"out",
+                L"push",
+                L"add",
+                L"sub",
+                L"mul",
+                L"div",
+                L"pop",
+                L"jmp",
+                L"ja",
+                L"jae",
+                L"jb",
+                L"jbe",
+                L"je",
+                L"jne",
+                L"sqrt",
+                L"db",
+                L"word",
+                L"call",
+                L"ret",
+                L"neg"
+    };
 }
 
 bool isCommandNumValid(int num)

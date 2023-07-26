@@ -78,6 +78,8 @@ enum CommandNums
 
 int getCommandNum(std::wstring_view& commandName, size_t commandSize = std::wstring_view::npos);
 bool isCommandNumValid(int num);
+int getCommandName(int commandNum, std::wstring& ans);
+void initCommandsNameArr();
 void _checkCommandsHealth();
                       
 //------------------------------------------------------------------
@@ -102,4 +104,6 @@ enum ErrorNums
     CommandDataReadError = -10,
 
     NotEmptyFixUpLinkingLabelList = -11,
+
+    DisassemblyNameError = -12
 };
