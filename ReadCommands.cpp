@@ -17,7 +17,6 @@
 #include "CommandConstants.cpp"
 #include "Processor.cpp"
 
-
 void readByteCode(std::string path)
 {
     initCommandsArr();
@@ -36,8 +35,6 @@ void readByteCode(std::string path)
     {
         std::cout << "Проблема запуска скомпилированного байткода: " << readRes << std::endl;
     }
-
-    processor.getRuntimeData().printStack();
 }
 
 int compiledFileWork(std::string& path, Processor& processor)
@@ -80,21 +77,17 @@ long fileSize(FILE* File)
     return buff.st_size;
 }
 
+
+/** File pos  |  Command pos  |  Command                 | Disassembly
+ *  000172    |  0004         |  00 00 00 00 00 00 00 00 | push 5
+ */
+
 void readAndExecuteCommands(Processor& data)
 {
     int callCode = CommandReadErrorCode;
 
-    std::queue<int> calledByteCodes;
-    const size_t queueSize = 10;
-
     for(int i = 0; ; i++)
     {
-        if(calledByteCodes.size() >= queueSize)
-        {
-            calledByteCodes.pop();
-        }
-        calledByteCodes.push(data.getCommandData().getCurrPos());
-
         callCode = executeCommand(data);
         if(callCode != WellCode)
         {
@@ -102,40 +95,41 @@ void readAndExecuteCommands(Processor& data)
         }
     }
 
-    endProgramWithCode(callCode, data, calledByteCodes);
+    endProgramWithCode(callCode, data);
 }
 
-void endProgramWithCode(int code, Processor& data, std::queue<int>& calledByteCodes)
+void endProgramWithCode(int code, Processor& processor)
 {
     if(code == CommandBreakCode)
     {
-        std::cout << "Программа завершилась удачно\n";
+        std::cout << "\nПрограмма завершилась удачно\n";
     }
     else
     {
-        std::cout << "Программа неудачно завершилась с кодом: " << code << std::endl;
-        if(!calledByteCodes.empty())
+        std::cout << "\nПрограмма неудачно завершилась с кодом: " << code << std::endl;
+
+        processor.getRuntimeInfoCollector().print();
+
+        if(processor.getRuntimeData().isEmpty())
         {
-            std::cout << "Байт коды вызываемых комманд: \n";
-            for(int i = 0; !calledByteCodes.empty(); i++)
-            {
-                std::cout << i << ": [" << calledByteCodes.front() << "]\n";
-                calledByteCodes.pop();
-            }
-        }
-        if(data.getRuntimeData().isEmpty())
-        {
-            std::cout << "Стек пуст\n";
+            std::cout << "\nСтек пуст\n";
         }
         else
         {
-            std::cout << "Данные в стеке:\n";
-            for(int i = 0; data.getRuntimeData().isEmpty(); i++)
+            std::cout << "\nДанные в стеке:\n";
+            for(int i = 0; processor.getRuntimeData().isEmpty(); i++)
             {
-                std::cout << i << ": [" << data.getRuntimeData().peek() << "]\n";
+                std::cout << i << ": [" << processor.getRuntimeData().peek() << "]\n";
             }
         }
     }
+
+    processor.getRuntimeData().printStack();
+}
+
+void printCallStack()
+{
+    
 }
 
 /*
@@ -168,6 +162,8 @@ pop ax
 
 int executeCommand(Processor& processor)
 {
+    int filePos = processor.getCommandData().getCurrPos();
+
     int codedCommandNum = *processor.getCommandData().peek<int>();
 
     int commandNum = decodeNumberRepresentation(codedCommandNum, NULL, NULL);
@@ -178,6 +174,9 @@ int executeCommand(Processor& processor)
         if (fnc)
         {
             int callRes = fnc(processor, codedCommandNum);
+
+            processor.getRuntimeInfoCollector().addLastCommand(filePos, commandNum);
+
             return callRes;
         }
     }

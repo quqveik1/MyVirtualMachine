@@ -3,8 +3,10 @@
 #include "Processor.h"
 
 #include "CallStack.cpp"
+#include "ProcessorDebug\RuntimeInfoCollector.cpp"
 
 Processor::Processor() :
-    callStack(this)
+    callStack(this),
+    runtimeInfoCollector(*this)
 {
 };

@@ -5,6 +5,7 @@
 #include "Register.cpp"
 #include "RAM.cpp"
 #include "CallStack.h"
+#include "ProcessorDebug\RuntimeInfoCollector.h"
 
 struct Processor
 {
@@ -17,10 +18,14 @@ private:
     RAM         appRAM;
     CallStack   callStack;
 
+    RuntimeInfoCollector   runtimeInfoCollector;
+
 public:
     RuntimeData& getRuntimeData() { return runtimeData; };
     DataStack&   getCommandData() { return commandData; };
     Register&    getAppRegister() { return appRegister; };
     RAM&         getAppRAM()      { return appRAM; };
     CallStack&   getCallStack()   { return callStack; };
+
+    RuntimeInfoCollector&   getRuntimeInfoCollector()   { return runtimeInfoCollector; };
 };
