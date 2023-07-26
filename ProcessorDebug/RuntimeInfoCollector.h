@@ -23,6 +23,7 @@ public:
 
     void addLastCommand(int commandFileStart, int commandNum);
 
+    int onError();
     int print();
 
 private:

@@ -149,31 +149,32 @@ void initCommandsNameArr()
 {
     commandNames =
     {
-        /*0*/   L"innerCall",
-                L"hlt",
-                L"in",
-                L"out",
-                L"push",
-                L"add",
-                L"sub",
-                L"mul",
-                L"div",
-                L"pop",
-                L"jmp",
-                L"ja",
-                L"jae",
-                L"jb",
-                L"jbe",
-                L"je",
-                L"jne",
-                L"sqrt",
-                L"db",
-                L"word",
-                L"call",
-                L"ret",
-                L"neg"
+        /*0*/   L"inner call",
+                hlt_str,
+                in_str,
+                out_str,
+                push_str,
+                add_str,
+                sub_str,
+                mul_str,
+                div_str,
+                pop_str,
+                jmp_str,
+                ja_str,
+                jae_str,
+                jb_str,
+                jbe_str,
+                je_str,
+                jne_str,
+                sqrt_str,
+                db_str,
+                word_str,
+                call_str,
+                ret_str,
+                neg_str
     };
 }
+
 
 bool isCommandNumValid(int num)
 {

@@ -4,7 +4,8 @@
 
 #include "Disassembler/DisassemblerCommands.cpp"
 #include "Disassembler/DisassemblerArrs.cpp"
-#include "..\CommandConstants.h"
+#include "../CommandConstants.h"
+#include "../RegisterCompile.h"
 
 RuntimeInfoCollector::RuntimeInfoCollector(Processor& _processor) :
     processor(_processor)
@@ -31,11 +32,17 @@ void RuntimeInfoCollector::addLastCommand(int commandFileStart, int commandNum)
     pushCommand(command);
 }
 
-int RuntimeInfoCollector::print()
-{
+int RuntimeInfoCollector::onError()
+{ 
     initCommandsNameArr();
     initDisassemblerCommands();
+    initRegisterNames();
 
+    return print();
+}
+
+int RuntimeInfoCollector::print()
+{
     std::cout << "\nПоследние " << HistoryLen << " полностью исполненных комманд:  \n";
 
     std::cout << "   | Command num | File pos | Disassembled code\n";

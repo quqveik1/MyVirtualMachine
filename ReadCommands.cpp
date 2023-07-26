@@ -108,7 +108,12 @@ void endProgramWithCode(int code, Processor& processor)
     {
         std::cout << "\nПрограмма неудачно завершилась с кодом: " << code << std::endl;
 
-        processor.getRuntimeInfoCollector().print();
+        int res = processor.getRuntimeInfoCollector().onError();
+
+        if(res != WellCode)
+        {
+            std::cout << "Ошибка при выполение распечатки последних комманд: " << res << std::endl;
+        }
 
         if(processor.getRuntimeData().isEmpty())
         {

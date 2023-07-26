@@ -14,3 +14,8 @@ const int cx_numeric = 2;
 const int dx_numeric = 3;
 
 int getRegisterNumFromStr(std::wstring_view& str);
+int getRegisterStrFromNum(int num, std::wstring& reg);
+
+void initRegisterNames();
+
+bool isRegisterValid(int num);

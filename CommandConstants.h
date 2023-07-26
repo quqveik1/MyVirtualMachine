@@ -105,5 +105,7 @@ enum ErrorNums
 
     NotEmptyFixUpLinkingLabelList = -11,
 
-    DisassemblyNameError = -12
+    DisassemblyNameError = -12,
+
+    RegisterNotFound = -13
 };
