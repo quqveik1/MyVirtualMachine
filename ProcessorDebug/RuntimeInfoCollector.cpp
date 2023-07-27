@@ -6,6 +6,7 @@
 #include "Disassembler/DisassemblerArrs.cpp"
 #include "../CommandConstants.h"
 #include "../RegisterCompile.h"
+#include "../StrFormatting/PrintByteData.cpp"
 
 RuntimeInfoCollector::RuntimeInfoCollector(Processor& _processor) :
     processor(_processor)
@@ -43,9 +44,7 @@ int RuntimeInfoCollector::onError()
 
 int RuntimeInfoCollector::print()
 {
-    std::cout << "\nПоследние " << HistoryLen << " полностью исполненных комманд:  \n";
-
-    std::cout << "   | Command num | File pos | Disassembled code\n";
+    std::cout << "\nПоследние " << HistoryLen << " полностью исполненных комманд:  \n\n";
 
     if (!getCommands().empty())
     {
@@ -53,17 +52,26 @@ int RuntimeInfoCollector::print()
         {
             std::wstring ans;
 
-            int res = disassemble(ans, getCommands().front());
+            RuntimeCommandInfo& info = getCommands().front();
+
+            int res = disassemble(ans, info);
 
             if (res != WellCode) return res;
 
+            //static const int startLen = 
+
             std::cout << std::setw(2) << std::setfill('0') << std::right << std::dec << i << " | ";
 
-            std::cout << std::setw(3) << std::setfill('0') << std::right << std::hex << getCommands().front().commandNum << std::setfill(' ') << std::setw(11) << " | ";
+            std::cout << std::setw(5) << std::setfill('0') << std:: hex << std::right << info.commandStart;
 
-            std::cout << std::setw(5) << std::setfill('0') << std::right << getCommands().front().commandStart << std::setfill(' ') << std::setw(6) << " | ";
+            static const int marginData = 10;
 
-            std::wcout << ans;
+            std::wstring output;
+            char* arr = processor.getCommandData().getArr();
+
+            printByteData(&arr, info.commandStart, info.commandFinish, ans, marginData, output, PrintByteDataLen);
+
+            std::wcout << output;
 
             std::cout << std::endl;
 

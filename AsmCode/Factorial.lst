@@ -1,69 +1,70 @@
+
 File listing Pass #1: Code -> Intermediate Representation
 
-0000 | #1 | commandNum: 0010; isFinal: 1; labelLinePos: -001; | 0a 01 00 00                                       | jmp main
-0001 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0002 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0002; |                                                   | enterData:
-0003 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 12 04 32 04 35 04 34 04 38 04 42 04 35 04 20 00 + | db "Введите число для которого надо найти факториал: \n"	
-                                                              | 47 04 38 04 41 04 3b 04 3e 04 20 00 34 04 3b 04 + | 
-                                                              | 4f 04 20 00 3a 04 3e 04 42 04 3e 04 40 04 3e 04 + | 
-                                                              | 33 04 3e 04 20 00 3d 04 30 04 34 04 3e 04 20 00 + | 
-                                                              | 3d 04 30 04 39 04 42 04 38 04 20 00 44 04 30 04 + | 
-                                                              | 3a 04 42 04 3e 04 40 04 38 04 30 04 3b 04 3a 00 + | 
-                                                              | 20 00 0a 00 00 00                                 | 
-0004 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0004; |                                                   | answer:
-0005 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 1e 04 42 04 32 04 35 04 42 04 3a 00 20 00 00 00   | db "Ответ: "
-0006 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0006; |                                                   | impossibleFactorial:
-0007 | #1 | commandNum: 0018; isFinal: 1; labelLinePos: -001; | 22 04 30 04 3a 04 3e 04 33 04 3e 04 20 00 44 04 + | db "Такого факториала нет\n"
-                                                              | 30 04 3a 04 42 04 3e 04 40 04 38 04 30 04 3b 04 + | 
-                                                              | 30 04 20 00 3d 04 35 04 42 04 0a 00 00 00         | 
-0008 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0009 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0009; |                                                   | factorial:
-0010 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0011 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
-0012 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
-0013 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
-0014 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 64 00 00 00                           | push 1
-0015 | #1 | commandNum: 0012; isFinal: 1; labelLinePos: -001; | 0c 01 00 00                                       | jae prev
-0016 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0016; |                                                   | ret1:
-0017 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
-0018 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 64 00 00 00                           | push 1
-0019 | #1 | commandNum: 0021; isFinal: 1; labelLinePos: -001; | 15 00 00 00                                       | ret
-0020 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0021 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0021; |                                                   | prev:
-0022 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0023 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
-0024 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
-0025 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
-0026 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 9c ff ff ff                           | push -1
-0027 | #1 | commandNum: 0022; isFinal: 1; labelLinePos: -001; | 16 00 00 00                                       | neg
-0028 | #1 | commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
-0029 | #1 | commandNum: 0020; isFinal: 1; labelLinePos: 0009; | 14 01 00 00                                       | call factorial
-0030 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0031 | #1 | commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
-0032 | #1 | commandNum: 0021; isFinal: 1; labelLinePos: -001; | 15 00 00 00                                       | ret
-0033 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0034 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0034; |                                                   | main:
-0035 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0036 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0002; | 03 01 00 00                                       | out enterData
-0037 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0038 | #1 | commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
-0039 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0040 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
-0041 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
-0042 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
-0043 | #1 | commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
-0044 | #1 | commandNum: 0012; isFinal: 1; labelLinePos: -001; | 0c 01 00 00                                       | jae normalInput
-0045 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0006; | 03 01 00 00                                       | out impossibleFactorial
-0046 | #1 | commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
-0047 | #1 | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
-0048 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0049 | #1 | commandNum: 0019; isFinal: 1; labelLinePos: 0049; |                                                   | normalInput:
-0050 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0051 | #1 | commandNum: 0020; isFinal: 1; labelLinePos: 0009; | 14 01 00 00                                       | call factorial
-0052 | #1 | commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0053 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: 0004; | 03 01 00 00                                       | out answer
-0054 | #1 | commandNum: 0003; isFinal: 1; labelLinePos: -001; | 03 00 00 00                                       | out
-0055 | #1 | commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+0000 | #1commandNum: 0010; isFinal: 1; labelLinePos: -001; | 0a 01 00 00                                       | jmp main
+0001 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0002 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0002; |                                                   | enterData:
+0003 | #1commandNum: 0018; isFinal: 1; labelLinePos: -001; | 12 04 32 04 35 04 34 04 38 04 42 04 35 04 20 00 + | db "Введите число для которого надо найти факториал: \n"	
+                                                           | 47 04 38 04 41 04 3b 04 3e 04 20 00 34 04 3b 04 + | 
+                                                           | 4f 04 20 00 3a 04 3e 04 42 04 3e 04 40 04 3e 04 + | 
+                                                           | 33 04 3e 04 20 00 3d 04 30 04 34 04 3e 04 20 00 + | 
+                                                           | 3d 04 30 04 39 04 42 04 38 04 20 00 44 04 30 04 + | 
+                                                           | 3a 04 42 04 3e 04 40 04 38 04 30 04 3b 04 3a 00 + | 
+                                                           | 20 00 0a 00 00 00                                 | 
+0004 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0004; |                                                   | answer:
+0005 | #1commandNum: 0018; isFinal: 1; labelLinePos: -001; | 1e 04 42 04 32 04 35 04 42 04 3a 00 20 00 00 00   | db "Ответ: "
+0006 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0006; |                                                   | impossibleFactorial:
+0007 | #1commandNum: 0018; isFinal: 1; labelLinePos: -001; | 22 04 30 04 3a 04 3e 04 33 04 3e 04 20 00 44 04 + | db "Такого факториала нет\n"
+                                                           | 30 04 3a 04 42 04 3e 04 40 04 38 04 30 04 3b 04 + | 
+                                                           | 30 04 20 00 3d 04 35 04 42 04 0a 00 00 00         | 
+0008 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0009 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0009; |                                                   | factorial:
+0010 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0011 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
+0012 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
+0013 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
+0014 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 64 00 00 00                           | push 1
+0015 | #1commandNum: 0012; isFinal: 1; labelLinePos: -001; | 0c 01 00 00                                       | jae body
+0016 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0016; |                                                   | ret1:
+0017 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
+0018 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 64 00 00 00                           | push 1
+0019 | #1commandNum: 0021; isFinal: 1; labelLinePos: -001; | 15 00 00 00                                       | ret
+0020 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0021 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0021; |                                                   | body:
+0022 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0023 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
+0024 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
+0025 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
+0026 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 9c ff ff ff                           | push -1
+0027 | #1commandNum: 0022; isFinal: 1; labelLinePos: -001; | 16 00 00 00                                       | neg
+0028 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
+0029 | #1commandNum: 0020; isFinal: 1; labelLinePos: 0009; | 14 01 00 00                                       | call factorial
+0030 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0031 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
+0032 | #1commandNum: 0021; isFinal: 1; labelLinePos: -001; | 15 00 00 00                                       | ret
+0033 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0034 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0034; |                                                   | main:
+0035 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0036 | #1commandNum: 0003; isFinal: 1; labelLinePos: 0002; | 03 01 00 00                                       | out enterData
+0037 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0038 | #1commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
+0039 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0040 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
+0041 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
+0042 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
+0043 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0044 | #1commandNum: 0012; isFinal: 1; labelLinePos: -001; | 0c 01 00 00                                       | jae normalInput
+0045 | #1commandNum: 0003; isFinal: 1; labelLinePos: 0006; | 03 01 00 00                                       | out impossibleFactorial
+0046 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
+0047 | #1commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+0048 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0049 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0049; |                                                   | normalInput:
+0050 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0051 | #1commandNum: 0020; isFinal: 1; labelLinePos: 0009; | 14 01 00 00                                       | call factorial
+0052 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0053 | #1commandNum: 0003; isFinal: 1; labelLinePos: 0004; | 03 01 00 00                                       | out answer
+0054 | #1commandNum: 0003; isFinal: 1; labelLinePos: -001; | 03 00 00 00                                       | out
+0055 | #1commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
 
 
 File listing Pass #2: Intermediate Representation -> Machine Code
@@ -91,13 +92,13 @@ File listing Pass #2: Intermediate Representation -> Machine Code
 012 | #2 | 000b4 | 04 02 00 00 64 00 00 00                           | push bx
 013 | #2 | 000bc | 04 02 00 00 64 00 00 00                           | push bx
 014 | #2 | 000c4 | 04 01 00 00 64 00 00 00                           | push 1
-015 | #2 | 000cc | 0c 01 00 00 ff ff ff ff                           | jae prev
+015 | #2 | 000cc | 0c 01 00 00 ff ff ff ff                           | jae body
 016 | #2 | 000d4 |                                                   | ret1:
 017 | #2 | 000d4 | 09 02 00 00 64 00 00 00                           | pop bx
 018 | #2 | 000dc | 04 01 00 00 64 00 00 00                           | push 1
 019 | #2 | 000e4 | 15 00 00 00                                       | ret
 020 | #2 | 000e8 |                                                   | 
-021 | #2 | 000e8 |                                                   | prev:
+021 | #2 | 000e8 |                                                   | body:
 022 | #2 | 000e8 |                                                   | 
 023 | #2 | 000e8 | 09 02 00 00 64 00 00 00                           | pop bx
 024 | #2 | 000f0 | 04 02 00 00 64 00 00 00                           | push bx
@@ -159,13 +160,13 @@ File listing Pass #3: Final Machine Code
 012 | #3 | 000b4 | 04 02 00 00 64 00 00 00                           | push bx
 013 | #3 | 000bc | 04 02 00 00 64 00 00 00                           | push bx
 014 | #3 | 000c4 | 04 01 00 00 64 00 00 00                           | push 1
-015 | #3 | 000cc | 0c 01 00 00 a0 5a 00 00                           | jae prev
+015 | #3 | 000cc | 0c 01 00 00 a0 5a 00 00                           | jae body
 016 | #3 | 000d4 |                                                   | ret1:
 017 | #3 | 000d4 | 09 02 00 00 64 00 00 00                           | pop bx
 018 | #3 | 000dc | 04 01 00 00 64 00 00 00                           | push 1
 019 | #3 | 000e4 | 15 00 00 00                                       | ret
 020 | #3 | 000e8 |                                                   | 
-021 | #3 | 000e8 |                                                   | prev:
+021 | #3 | 000e8 |                                                   | body:
 022 | #3 | 000e8 |                                                   | 
 023 | #3 | 000e8 | 09 02 00 00 64 00 00 00                           | pop bx
 024 | #3 | 000f0 | 04 02 00 00 64 00 00 00                           | push bx

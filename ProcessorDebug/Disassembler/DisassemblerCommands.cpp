@@ -16,7 +16,7 @@ int defaultSmallExpression_dissassemblerCommand(Processor& processor, RuntimeCom
     return defaultSmallExpression(processor, commandInfo, originalLine);
 }
 
-int defaultSmallExpression(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine, int constantBase/* = 10*/)
+int defaultSmallExpression(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine, int constantBase/* = 10*/, int* finishPos/* = nullptr*/)
 {
     int res = defaultOnlyName_dissassemblerCommand(processor, commandInfo, originalLine);
     if (res != WellCode) return res;
@@ -78,6 +78,11 @@ int defaultSmallExpression(Processor& processor, RuntimeCommandInfo& commandInfo
         originalLine += L"]";
     }
 
+    if(finishPos)
+    {
+        *finishPos = processor.getCommandData().getCurrPos();
+    }
+
     processor.getCommandData().setCurrPos(startFilePos);
 
     return WellCode;
@@ -87,4 +92,16 @@ int defaultSmallExpression(Processor& processor, RuntimeCommandInfo& commandInfo
 int hexSaveSmallExpression_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
 {
     return defaultSmallExpression(processor, commandInfo, originalLine, 16);
+}
+
+int jmp_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
+{
+    int finishPos = 0;
+    int res = defaultSmallExpression(processor, commandInfo, originalLine, 16, &finishPos);
+
+    if (res != WellCode) return res;
+
+    commandInfo.commandFinish = finishPos;
+
+    return WellCode;
 }

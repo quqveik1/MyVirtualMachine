@@ -13,13 +13,13 @@ pop bx
 push bx
 push bx
 push 1
-jae prev
+jae body
 ret1:
 pop bx
 push 1
 ret
 
-prev:
+body:
 
 pop bx
 push bx

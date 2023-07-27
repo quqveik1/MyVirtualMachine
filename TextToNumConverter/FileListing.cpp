@@ -2,6 +2,8 @@
 
 #include "FileListing.h"
 
+#include "../StrFormatting/PrintByteData.cpp"
+
 FileListing::FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir) :
     bincompileData(_data),
     ir(_ir)
@@ -14,7 +16,7 @@ void FileListing::end1Part()
 {
     addNewListingLine();
     std::wstring& activeLine = getActiveFileListingString();
-    activeLine = L"\n\nFile listing Pass #2: Intermediate Representation -> Machine Code\n";
+    activeLine += L"\n\nFile listing Pass #2: Intermediate Representation -> Machine Code\n";
 
     outputLineNum = 0;
 }
@@ -23,7 +25,7 @@ void FileListing::end2Part()
 {
     addNewListingLine();
     std::wstring& activeLine = getActiveFileListingString();
-    activeLine = L"\n\nFile listing Pass #3: Final Machine Code\n";
+    activeLine += L"\n\nFile listing Pass #3: Final Machine Code\n";
 
     outputLineNum = 0;
 }
@@ -32,7 +34,7 @@ void FileListing::initListing()
 {
     addNewListingLine();
     std::wstring& activeLine = getActiveFileListingString();
-    activeLine = L"File listing Pass #1: Code -> Intermediate Representation\n";
+    activeLine += L"File listing Pass #1: Code -> Intermediate Representation\n";
 }
 
 int FileListing::getListingFileActiveStringIndex()
@@ -42,12 +44,12 @@ int FileListing::getListingFileActiveStringIndex()
 
 std::wstring& FileListing::getActiveFileListingString()
 {
-    return getFileListing()[getListingFileActiveStringIndex()];
+    return getFileListing();
 };
 
 void FileListing::addNewListingLine()
 {
-    getFileListing().resize(getFileListing().size() + 1);
+    getActiveFileListingString() += L"\n";
 }
 
 int FileListing::add1CompileCommand(CommandIR& commandIR)
@@ -57,15 +59,17 @@ int FileListing::add1CompileCommand(CommandIR& commandIR)
     wchar_t buffer[20]{};
     swprintf(buffer, 20, L"%04d | #1", getOutputLineNum());
 
-    getActiveFileListingString() += buffer;
+    static const int startLen = (int)getActiveFileListingString().size();
 
-    getActiveFileListingString() += L" | ";
+    getActiveFileListingString() += buffer;
 
     getActiveFileListingString() += commandIR.toString();
 
-    static const int marginData = (int)getActiveFileListingString().size();
+    static const int finishLen = (int)getActiveFileListingString().size();
 
-    printByteData(commandIR.getData(), 0, commandIR.getData().size(), *commandIR.getLine(), marginData);
+    static const int marginData = finishLen - startLen;
+
+    printByteData(&commandIR.getData(), 0, commandIR.getData().size(), *commandIR.getLine(), marginData, getActiveFileListingString());
 
     outputLineNum++;
 
@@ -91,88 +95,17 @@ int FileListing::add2PartCommand(CommandIR& commandIR, BinCompileData& binCompil
 
     static const int marginData = (int)wcslen(buffer);
 
-    getActiveFileListingString() += buffer;
+    getActiveFileListingString() += buffer;                                                                                        
 
-    printByteData(binCompileData.getData(), bytePosBefore, bytePosAfter, *commandIR.getLine(), marginData);
+    printByteData(&binCompileData.getData(), bytePosBefore, bytePosAfter, *commandIR.getLine(), marginData, getActiveFileListingString());
 
     outputLineNum++;
 
     return WellCode;
 }
 
-const bool needNewLine = true;
-const bool noNewLine = false;
-
-void FileListing::printByteData(std::vector<char>& data, size_t bytePosBefore, size_t bytePosAfter, std::wstring_view& originalLine, const int margin)
-{
-    size_t cursorPos = bytePosBefore;
-    bool isFirstStr = true;
-
-    for (;;)
-    {
-        std::wstring& listingFile = getActiveFileListingString();
-
-        if (!isFirstStr)
-        {
-            for (int i = 0; i < margin; i++)
-            {
-                listingFile += L' ';
-            }
-        }
-
-        listingFile += L" | ";
-
-        bool res = printDataLine(data, cursorPos, bytePosAfter);
-
-        if (res == needNewLine)
-        {
-            listingFile += L'+';
-            listingFile += L" | ";
-        }
-        else
-        {
-            listingFile += L"  | ";
-        }
-
-        if (isFirstStr) listingFile += originalLine;
-
-        isFirstStr = false;
-
-        if (res == noNewLine) break;
-        else
-        {
-            addNewListingLine();
-        }
-    }
-}
-
-bool FileListing::printDataLine(std::vector<char>& buffer, size_t& cursorPos, size_t bytePosAfter)
-{
-    size_t startPos = cursorPos;
-
-    wchar_t hexBuff[4]{};
-
-    for (; cursorPos - startPos < ByteDataPrintLen; cursorPos++)
-    {
-        if (cursorPos < bytePosAfter)
-        {
-            unsigned char printByte1 = buffer[cursorPos];
-            swprintf(hexBuff, 4, L"%02x ", printByte1);
-            getActiveFileListingString() += hexBuff;
-        }
-        else
-        {
-            getActiveFileListingString() += L"   ";
-        }
-    }
-
-    bool hasFreeSpace = cursorPos < bytePosAfter;
-
-    return hasFreeSpace;
-}
-
 void FileListing::saveInFile(std::wstring path)
 {
     std::ofstream listing(path);
-    saveText(getFileListing(), (int)getFileListing().size(), listing, false);
+    saveString(getFileListing(), listing);
 }

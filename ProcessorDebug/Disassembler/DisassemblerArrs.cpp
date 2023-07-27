@@ -13,13 +13,13 @@ void initDisassemblerCommands()
 
     disassemblerCommands[pop_num] = defaultSmallExpression_dissassemblerCommand;
 
-    disassemblerCommands[jmp_num] = hexSaveSmallExpression_dissassemblerCommand;
-    disassemblerCommands[ja_num] = hexSaveSmallExpression_dissassemblerCommand;
-    disassemblerCommands[jae_num] = hexSaveSmallExpression_dissassemblerCommand;
-    disassemblerCommands[jb_num] = hexSaveSmallExpression_dissassemblerCommand;
-    disassemblerCommands[jbe_num] = hexSaveSmallExpression_dissassemblerCommand;
-    disassemblerCommands[je_num] = hexSaveSmallExpression_dissassemblerCommand;
-    disassemblerCommands[jne_num] = hexSaveSmallExpression_dissassemblerCommand;
+    disassemblerCommands[jmp_num] = jmp_dissassemblerCommand;
+    disassemblerCommands[ja_num] = jmp_dissassemblerCommand;
+    disassemblerCommands[jae_num] = jmp_dissassemblerCommand;
+    disassemblerCommands[jb_num] = jmp_dissassemblerCommand;
+    disassemblerCommands[jbe_num] = jmp_dissassemblerCommand;
+    disassemblerCommands[je_num] = jmp_dissassemblerCommand;
+    disassemblerCommands[jne_num] = jmp_dissassemblerCommand;
 
-    disassemblerCommands[call_num] = hexSaveSmallExpression_dissassemblerCommand;
+    disassemblerCommands[call_num] = jmp_dissassemblerCommand;
 }

@@ -10,6 +10,7 @@ class RuntimeInfoCollector
     std::queue<RuntimeCommandInfo> commands;
 
     const int HistoryLen = 16;
+    const int PrintByteDataLen = 8;
 
     Processor& processor;
 

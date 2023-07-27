@@ -6,12 +6,10 @@
 #include "BinCompileData.h"
 #include "IR.h"
 
-const int ByteDataPrintLen = 16;
-
 struct FileListing
 {
 private:
-    std::vector<std::wstring> fileListing;
+    std::wstring fileListing;
     BinCompileData& bincompileData;
     IR& ir;
 
@@ -24,7 +22,7 @@ public:
     void end1Part();
     void end2Part();
 
-    std::vector<std::wstring>& getFileListing() { return fileListing; };
+    std::wstring& getFileListing() { return fileListing; };
     BinCompileData& getBinCompileData() { return bincompileData; };
     IR& getIR() { return ir; };
 
@@ -43,7 +41,5 @@ public:
     int add2PartCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter, int passNum);
 
 private:
-    bool printDataLine(std::vector<char>& buffer, size_t& cursorPos, size_t bytePosAfter);
-    void printByteData(std::vector<char>& data, size_t bytePosBefore, size_t bytePosAfter, std::wstring_view& originalLine, const int margin);
     void initListing();
 };
