@@ -2,6 +2,9 @@
 
 #include "InteractiveCommands.h"
 
+#include "../Processor/Register/RegisterCompile.h"
+#include "../Common/StringViewExtension.cpp"
+
 ErrorCode quit_command(Processor& processor, InteractiveCode& code, std::wstring& data)
 {
     code = InteractiveCode::ShutDownProgramm;
@@ -62,4 +65,44 @@ void printRuntimeInfoDissassembler(Processor& processor)
 void printCallStack(Processor& processor)
 {
     processor.getCallStack().print();
+}
+
+ErrorCode examine_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+{
+    int memPos = std::stoi(data, nullptr, 16);
+
+    processor.getAppRAM().print(memPos);
+
+    return WellCode;
+}
+
+ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+{
+    std::wstring_view datav = data;
+
+    std::wstring_view object{}, numStr{};
+
+    splitCommand(datav, object, numStr);
+
+    int regNum = getRegisterNumFromStr(object);
+
+    float num = strToFloat<float>(numStr);
+    int convNumber = convNum(num);
+
+    if(isRegisterValid(regNum))
+    {
+        
+        processor.getAppRegister().setReg(regNum, convNumber);
+
+        return WellCode;
+    }
+    else
+    {
+        int pos = strToNum(object, 16);
+        processor.getAppRAM()[pos] = convNumber;
+
+        return WellCode;
+    }
+
+    return CommandDataReadError;
 }

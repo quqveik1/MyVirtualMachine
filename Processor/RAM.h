@@ -8,4 +8,6 @@ private:
 
 public:
     int& operator[](int index);
+
+    void print(int index);
 };

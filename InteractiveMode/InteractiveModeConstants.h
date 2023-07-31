@@ -4,13 +4,12 @@
 
 #include "InteractiveCommands.h"
 
-const std::wstring q_str = L"q";
-const std::wstring quit_str = L"quit";
-const std::wstring i_str = L"info";
-const std::wstring info_str = L"i";    
-const std::wstring bt_str = L"bt";
-const std::wstring backtrace_str = L"backtrace"; 
-const std::wstring d_str = L"d";
-const std::wstring disassemble_str = L"disassemble";
+const std::wstring quit_str[] = { L"quit", L"q" };
+const std::wstring info_str[] = { L"info", L"i" };
+const std::wstring backtrace_str[] = { L"backtrace", L"bt" };
+const std::wstring disassemble_str[] = { L"disassemble", L"d" };
+const std::wstring examine_str[] = { L"examine", L"x" };
+const std::wstring set_str[] = { L"set", L"s" };
 
 INTERACTVECOMMAND getInteractiveCommand(std::wstring& command);
+bool hasThisCommand(const std::wstring arr[], std::wstring& command);

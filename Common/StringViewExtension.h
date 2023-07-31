@@ -14,3 +14,8 @@ T strToFloat(const TS& str);
 
 template <typename TS>
 void findNumStart(const TS& str, size_t& numberStart, bool& isNegative);
+
+template <typename NUM>
+std::string numToStr(NUM num, int base = 10);
+template <typename NUM>
+std::wstring numToStrW(NUM num, int base = 10);

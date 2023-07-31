@@ -15,3 +15,6 @@ void printRuntimeData(Processor& processor);
 void printRuntimeInfoDissassembler(Processor& processor);
 void printCallStack(Processor& processor);
 void printRegisters(Processor& processor);
+
+ErrorCode examine_command(Processor& processor, InteractiveCode& code, std::wstring& data);
+ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring& data);

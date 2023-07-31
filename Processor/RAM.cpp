@@ -5,6 +5,8 @@
 #include <exception>
 
 #include "../Common/CommonCode.cpp"
+#include "../Common/StringViewExtension.cpp"
+#include "../Converter/FloatConvert.h"
 
 int& RAM::operator[](int index)
 {
@@ -15,4 +17,13 @@ int& RAM::operator[](int index)
     }
 
     return data[index];
+}
+
+void RAM::print(int index)
+{
+    int& data = (*this)[index];
+
+    float deconvData = deConvNum<float>(data);
+
+    std::cout << std::setw(3) << std::setfill('0') << std::right << std::hex << index << ": " << std::dec << deconvData << "\n";
 }

@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <charconv>
 
 template <typename T1, typename T2>
 int svcmp(const T1& str1, const T2& str2)
@@ -201,4 +202,31 @@ void findNumStart(const TS& str, size_t& numberStart, bool& isNegative)
     }
 
     numberStart = i;
+}
+
+template <typename NUM>
+std::string numToStr(NUM num, int base/* = 10*/)
+{
+    char buffer[65]{};
+    std::to_chars_result result = std::to_chars(buffer, buffer + sizeof(buffer), num, base);
+    if (result.ec == std::errc{})
+    {
+        return std::string(buffer, result.ptr);
+    }
+    return "";
+}
+
+template <typename NUM>
+std::wstring numToStrW(NUM num, int base/* = 10*/)
+{
+    std::string str = numToStr(num, base);
+
+    std::wstring ans{};
+
+    for (char c : str)
+    {
+        ans.push_back((wchar_t)c);
+    }
+
+    return ans;
 }
