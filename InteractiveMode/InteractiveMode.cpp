@@ -1,7 +1,11 @@
 #pragma once
 
 #include "InteractiveMode.h"
+
 #include "../Constants/ErrorCode.h"
+#include "../TextToNumConverter/Parser/ParseCommand.cpp"
+#include "InteractiveModeConstants.cpp"
+#include "InteractiveCommands.cpp"
 
 ErrorCode startInteractiveMode(Processor& processor, ErrorCode code)
 {
@@ -12,7 +16,51 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode code)
         std::cout << "Он был вызван из-за ошибки " << code << "\n";
     }
 
+    std::wstring line{};
+
+    for(;;)
+    {
+        std::getline(std::wcin, line);
+
+        InteractiveCode code = Nothing;
+
+        if (line.empty()) continue;
+
+        ErrorCode res = executeCommand(processor, line, code);
+        if(res != WellCode)
+        {
+            if (res == InteractiveCommandNotFound)
+            {
+                std::cout << "Не найдено такой комманды\n";
+            }
+            else
+            {
+                std::cout << "Ошибка выполнения комманды: " << res << std::endl;
+            }
+        }
+
+        if (code == ShutDownProgramm) break;
+    }
+
     return ErrorCode::WellCode;
+}
+
+ErrorCode executeCommand(Processor& processor, std::wstring& line, InteractiveCode& code)
+{
+    std::wstring command{}, data{};
+
+    splitCommand(line, command, data);
+
+    INTERACTVECOMMAND fnc = getInteractiveCommand(command);
+
+    if(!fnc)
+    {
+        return ErrorCode::InteractiveCommandNotFound;
+    }
+
+    ErrorCode res = fnc(processor, code, data);
+
+    return res;
 }
 
 ErrorCode defaultPrint(Processor& processor)
@@ -22,32 +70,4 @@ ErrorCode defaultPrint(Processor& processor)
     printCallStack(processor);
     printRegisters(processor);
     return ErrorCode::WellCode;
-}
-
-void printRuntimeData(Processor& processor)
-{
-    int res = processor.getRuntimeData().print();
-    if (res != WellCode)
-    {
-        std::cout << "Ошибка при выполении распечатки стека: " << res << std::endl;
-    }
-}
-
-void printRuntimeInfoDissassembler(Processor& processor)
-{
-    int res = processor.getRuntimeInfoCollector().onError();
-    if (res != WellCode)
-    {
-        std::cout << "Ошибка при выполении распечатки последних комманд: " << res << std::endl;
-    }
-}
-
-void printCallStack(Processor& processor)
-{
-    processor.getCallStack().print();
-}
-
-void printRegisters(Processor& processor)
-{
-    processor.getAppRegister().print();
 }

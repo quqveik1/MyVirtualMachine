@@ -1,13 +1,13 @@
 #pragma once
 
-#include <queue>
+#include <deque>
 
 #include "RuntimeCommandInfo.h"
 #include "Processor.h"
 
 class RuntimeInfoCollector
 {
-    std::queue<RuntimeCommandInfo> commands;
+    std::deque<RuntimeCommandInfo> commands;
 
     const int HistoryLen = 16;
     const int PrintByteDataLen = 8;
@@ -18,7 +18,7 @@ public:
 
     RuntimeInfoCollector(Processor& _processor);
 
-    std::queue<RuntimeCommandInfo>& getCommands() { return commands; }
+    std::deque<RuntimeCommandInfo>& getCommands() { return commands; }
 
     void pushCommand(RuntimeCommandInfo& info);
 

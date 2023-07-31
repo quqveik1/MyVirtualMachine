@@ -17,9 +17,9 @@ void RuntimeInfoCollector::pushCommand(RuntimeCommandInfo& info)
 {
     if (getCommands().size() >= HistoryLen)
     {
-        getCommands().pop();
+        getCommands().pop_back();
     }
-    getCommands().push(info);
+    getCommands().push_back(info);
 }
 
 void RuntimeInfoCollector::addLastCommand(int commandFileStart, int commandNum)
@@ -46,37 +46,33 @@ int RuntimeInfoCollector::print()
 {
     std::cout << "\nПоследние " << HistoryLen << " полностью исполненных комманд:  \n";
 
-    if (!getCommands().empty())
+
+    for (size_t i = 0; i < getCommands().size(); i++)
     {
-        for (int i = 0; !getCommands().empty(); i++)
-        {
-            std::wstring ans;
+        std::wstring ans;
 
-            RuntimeCommandInfo& info = getCommands().front();
+        RuntimeCommandInfo& info = getCommands().at(i);
 
-            int res = disassemble(ans, info);
+        int res = disassemble(ans, info);
 
-            if (res != WellCode) return res;
+        if (res != WellCode) return res;
 
-            //static const int startLen = 
+        //static const int startLen = 
 
-            std::cout << std::setw(2) << std::setfill('0') << std::right << std::dec << i << " | ";
+        std::cout << std::setw(2) << std::setfill('0') << std::right << std::dec << i << " | ";
 
-            std::cout << std::setw(5) << std::setfill('0') << std:: hex << std::right << info.commandStart;
+        std::cout << std::setw(5) << std::setfill('0') << std::hex << std::right << info.commandStart;
 
-            static const int marginData = 10;
+        static const int marginData = 10;
 
-            std::wstring output;
-            char* arr = processor.getCommandData().getArr();
+        std::wstring output;
+        char* arr = processor.getCommandData().getArr();
 
-            printByteData(&arr, info.commandStart, info.commandFinish, ans, marginData, output, PrintByteDataLen);
+        printByteData(&arr, info.commandStart, info.commandFinish, ans, marginData, output, PrintByteDataLen);
 
-            std::wcout << output;
+        std::wcout << output;
 
-            std::cout << std::endl;
-
-            getCommands().pop();
-        }
+        std::cout << std::endl;
     }
 
     std::cout << std::dec << "\n";

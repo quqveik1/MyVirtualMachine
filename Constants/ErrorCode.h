@@ -22,5 +22,7 @@ enum ErrorCode
 
     DisassemblyNameError = -12,
 
-    RegisterNotFound = -13
+    RegisterNotFound = -13,
+
+    InteractiveCommandNotFound = -14
 };
