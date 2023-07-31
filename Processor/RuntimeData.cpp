@@ -15,28 +15,34 @@ std::vector<int> &RuntimeData::getAppData()
     return getData();
 }
 
-void RuntimeData::printStack(bool needToConvertToUserRepresentation/*= true*/)
+ErrorCode RuntimeData::print(bool needToConvertToUserRepresentation/*= true*/)
 {
     if (getData().empty())
     {
-        std::cout << "Ñòåê ïóñò" << std::endl;
+        std::cout << "Ð¡Ñ‚ÐµÐº Ð¿ÑƒÑÑ‚" << std::endl;
                                                                                                                                                                                                  
-        return;
+        return ErrorCode::WellCode;
     }
 
-    std::cout << "Ñòåê ñ íà÷àëà äî êîíöà: \n";
+    std::cout << "Ð¡Ñ‚ÐµÐº Ñ Ð½Ð°Ñ‡Ð°Ð»Ð° Ð´Ð¾ ÐºÐ¾Ð½Ñ†Ð°: \n";
 
     for(size_t i = 0; i < getData().size(); i++)
     {
         int data = getData()[i];
+        std::cout << std::setw(5) << std::setfill('0') << std::right << i << ": ";
 
         if(needToConvertToUserRepresentation)
         {
-            data = deConvNum<int>(data);
+            float number = deConvNum<float>(data);
+            std::cout << number << std::endl;
         }
-
-        std::cout << std::setw(5) << std::setfill('0') << std::right << i << ": " << data << std::endl;
+        else
+        {
+            std::cout << data << std::endl;
+        }
     }
 
-    std::cout << "Êîíåö ñòåêà\n\n";
+    std::cout << "ÐšÐ¾Ð½ÐµÑ† ÑÑ‚ÐµÐºÐ°\n\n";
+
+    return ErrorCode::WellCode;
 }

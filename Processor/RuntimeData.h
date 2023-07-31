@@ -6,12 +6,13 @@
 #include <stack>
 
 #include "../Common/StackVector.h"
+#include "../Constants/ErrorCode.h"
 
 struct RuntimeData : StackVector
 {
 public:
     std::vector<int> &getAppData();
 
-    void printStack(bool needToConvertToUserRepresentation = true);
+    ErrorCode print(bool needToConvertToUserRepresentation = true);
 };
 

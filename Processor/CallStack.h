@@ -1,13 +1,15 @@
 #pragma once
 
-#include "../Common/Stack.h"
+#include "../Common/StackVector.h"
 #include "Processor.h"
 
-struct CallStack : Stack
+struct CallStack : StackVector
 {
     struct Processor* processor;
 
     CallStack(struct Processor* _processor);
 
     void putCurPos();
+
+    void print();
 };

@@ -14,6 +14,7 @@
 #include "Constants/FncArrs.cpp"
 #include "FileHeader.cpp"
 #include "Processor/Processor.cpp"
+#include "InteractiveMode/InteractiveMode.cpp"
 
 void readByteCode(std::string path)
 {
@@ -104,30 +105,8 @@ void endProgramWithCode(int code, Processor& processor)
     }
     else
     {
-        std::cout << "\nПрограмма неудачно завершилась с кодом: " << code << std::endl;
-
-        int res = processor.getRuntimeInfoCollector().onError();
-
-        if(res != WellCode)
-        {
-            std::cout << "Ошибка при выполение распечатки последних комманд: " << res << std::endl;
-        }
-
-        if(processor.getRuntimeData().isEmpty())
-        {
-            std::cout << "\nСтек пуст\n";
-        }
-        else
-        {
-            std::cout << "\nДанные в стеке:\n";
-            for(int i = 0; processor.getRuntimeData().isEmpty(); i++)
-            {
-                std::cout << i << ": [" << processor.getRuntimeData().peek() << "]\n";
-            }
-        }
+        startInteractiveMode(processor, (ErrorCode)code);
     }
-
-    processor.getRuntimeData().printStack();
 }
 
 void printCallStack()

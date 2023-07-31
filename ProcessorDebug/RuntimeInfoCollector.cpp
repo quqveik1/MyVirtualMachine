@@ -44,7 +44,7 @@ int RuntimeInfoCollector::onError()
 
 int RuntimeInfoCollector::print()
 {
-    std::cout << "\nПоследние " << HistoryLen << " полностью исполненных комманд:  \n\n";
+    std::cout << "\nПоследние " << HistoryLen << " полностью исполненных комманд:  \n";
 
     if (!getCommands().empty())
     {
@@ -79,7 +79,7 @@ int RuntimeInfoCollector::print()
         }
     }
 
-    std::cout << std::dec;
+    std::cout << std::dec << "\n";
 
     return WellCode;
 }

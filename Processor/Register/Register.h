@@ -10,4 +10,6 @@ private:
 public:
     int getReg(int num);
     void setReg(int num, int value);
+
+    void print(bool needToConvertToUserRepresentation = true);
 };
