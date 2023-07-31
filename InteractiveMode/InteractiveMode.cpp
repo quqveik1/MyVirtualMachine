@@ -7,13 +7,13 @@
 #include "InteractiveModeConstants.cpp"
 #include "InteractiveCommands.cpp"
 
-ErrorCode startInteractiveMode(Processor& processor, ErrorCode code)
+ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, InteractiveCode& code)
 {
     defaultPrint(processor);
     std::cout << "Запущен интерактивный режим\n";
-    if (code != ErrorCode::WellCode)
+    if (errorCode != ErrorCode::WellCode || errorCode != ErrorCode::DebugBreakCode)
     {
-        std::cout << "Он был вызван из-за ошибки " << code << "\n";
+        std::cout << "Он был вызван из-за ошибки " << errorCode << "\n";
     }
 
     std::wstring line{};
@@ -40,6 +40,11 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode code)
         }
 
         if (code == ShutDownProgramm) break;
+    }
+
+    if(errorCode == DebugBreakCode)
+    {
+        code = ContinueExecuting;
     }
 
     return ErrorCode::WellCode;

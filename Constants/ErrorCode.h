@@ -24,5 +24,6 @@ enum ErrorCode
 
     RegisterNotFound = -13,
 
-    InteractiveCommandNotFound = -14
+    InteractiveCommandNotFound = -14,
+    DebugBreakCode = -15
 };

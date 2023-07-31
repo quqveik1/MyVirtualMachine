@@ -42,3 +42,5 @@ int call_command(Processor& processor, int codedCommandNum);
 int ret_command(Processor& processor, int codedCommandNum);
 
 int neg_command(Processor& processor, int codedCommandNum); //!!!
+
+int imto_command(Processor& processor, int codedCommandNum); //!!!

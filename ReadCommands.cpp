@@ -105,7 +105,12 @@ void endProgramWithCode(int code, Processor& processor)
     }
     else
     {
-        startInteractiveMode(processor, (ErrorCode)code);
+        InteractiveCode interCode = Nothing;
+        startInteractiveMode(processor, (ErrorCode)code, interCode);
+        if(interCode == ContinueExecuting)
+        {
+            readAndExecuteCommands(processor);
+        }
     }
 }
 

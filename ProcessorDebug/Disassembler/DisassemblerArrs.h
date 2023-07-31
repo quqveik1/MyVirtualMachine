@@ -4,6 +4,6 @@
 
 #include "../../Constants/CommandConstants.h"
 
-DISASSEMBLERCOMMANDS disassemblerCommands[cCommands]{};
+DISASSEMBLERCOMMANDS disassemblerCommands[cCommands + 1]{};
 
 void initDisassemblerCommands();

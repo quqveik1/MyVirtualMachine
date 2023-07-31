@@ -6,7 +6,7 @@
 
 const int COMMANDSVERSION = 14;
 
-const int cCommands = 22;
+const int cCommands = 23;
 
 const std::wstring hlt_str = L"hlt";
 
@@ -40,7 +40,7 @@ const std::wstring ret_str = L"ret";
 
 const std::wstring neg_str = L"neg";  //!!!
 
-//const std::wstring imto_str = L"imto";  //!!!
+const std::wstring imto_str = L"imto";  //!!!
 
 //------------------------------------------------------------------
 
@@ -75,7 +75,8 @@ enum CommandNums
     call_num = 20,
     ret_num = 21,
 
-    neg_num = 22  //!!!
+    neg_num = 22,  //!!!
+    imto_num = 23  //!!!
 };
 
 //------------------------------------------------------------------

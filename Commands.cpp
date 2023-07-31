@@ -362,3 +362,8 @@ int neg_command(Processor& processor, int codedCommandNum)
 
     return WellCode;
 }
+
+int imto_command(Processor& processor, int codedCommandNum)
+{
+    return DebugBreakCode;
+}

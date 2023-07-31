@@ -127,6 +127,10 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
     {
         res = neg_num;
     }
+    else if (svcmp(commandName, imto_str) == 0)
+    {
+        res = imto_num;
+    }
 
     return res;
 }
@@ -171,7 +175,8 @@ void initCommandsNameArr()
                 word_str,
                 call_str,
                 ret_str,
-                neg_str
+                neg_str,
+                imto_str
     };
 }
 
@@ -220,7 +225,8 @@ void _checkCommandsHealth()
     case call_num:
     case ret_num:
 
-    case neg_num:  //!!!
+    case neg_num:
+    case imto_num://!!!
 
     default:
         break;

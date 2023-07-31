@@ -86,22 +86,29 @@ ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring&
 
     int regNum = getRegisterNumFromStr(object);
 
-    float num = strToFloat<float>(numStr);
-    int convNumber = convNum(num);
-
-    if(isRegisterValid(regNum))
+    try
     {
-        
-        processor.getAppRegister().setReg(regNum, convNumber);
+        float num = strToFloat<float>(numStr);
+        int convNumber = convNum(num);
 
-        return WellCode;
+        if (isRegisterValid(regNum))
+        {
+
+            processor.getAppRegister().setReg(regNum, convNumber);
+
+            return WellCode;
+        }
+        else
+        {
+            int pos = strToNum(object, 16);
+            processor.getAppRAM()[pos] = convNumber;
+
+            return WellCode;
+        }
     }
-    else
+    catch(std::exception e)
     {
-        int pos = strToNum(object, 16);
-        processor.getAppRAM()[pos] = convNumber;
-
-        return WellCode;
+        std::cout << e.what() << "\n";
     }
 
     return CommandDataReadError;
