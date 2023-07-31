@@ -4,8 +4,8 @@
 
 #include "Disassembler/DisassemblerCommands.cpp"
 #include "Disassembler/DisassemblerArrs.cpp"
-#include "../CommandConstants.h"
-#include "../RegisterCompile.h"
+#include "../Constants/CommandConstants.h"
+#include "../Processor/Register/RegisterCompile.h"
 #include "../StrFormatting/PrintByteData.cpp"
 
 RuntimeInfoCollector::RuntimeInfoCollector(Processor& _processor) :

@@ -2,9 +2,9 @@
 
 #include "DisassemblerCommands.h"
 
-#include "..\..\CommandConstants.h"
-#include "..\..\RegisterCompile.cpp"
-#include "..\..\StringViewExtension.cpp"
+#include "../../Constants/CommandConstants.h"
+#include "../../Processor/Register/RegisterCompile.cpp"
+#include "../../Common//StringViewExtension.cpp"
 
 int defaultOnlyName_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
 {

@@ -2,7 +2,7 @@
 
 #include "CommandIR.h"
 
-#include "BufferObj.cpp"
+#include "../Common/BufferObj.cpp"
 
 CommandIR::CommandIR() :
     BufferObj(),

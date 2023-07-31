@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DataStack.h"
-#include "CommonCode.cpp"
+#include "../Common/CommonCode.cpp"
 
 char* DataStack::peek(int _size)
 {

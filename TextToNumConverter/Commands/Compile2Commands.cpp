@@ -5,9 +5,9 @@
 #include <string>
 #include <string_view>
 
-#include "../CommandConstants.h"
-#include "IR.h"
-#include "BinCompileData.h"
+#include "../../Constants/CommandConstants.h"
+#include "IR/IR.h"
+#include "Bin/BinCompileData.h"
 
 int default_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
 {

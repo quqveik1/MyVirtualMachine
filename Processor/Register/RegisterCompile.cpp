@@ -2,7 +2,7 @@
 
 #include "RegisterCompile.h"
 
-#include "CommandConstants.h" 
+#include "../../Constants/CommandConstants.h" 
 
 int getRegisterNumFromStr(std::wstring_view& str)
 {

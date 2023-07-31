@@ -7,8 +7,8 @@
 
 #include <iomanip> 
 
-#include "StackVector.cpp"
-#include "FloatConvert.cpp"
+#include "../Common/StackVector.cpp"
+#include "../Converter/FloatConvert.cpp"
 
 std::vector<int> &RuntimeData::getAppData()
 {

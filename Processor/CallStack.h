@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Stack.h"
+#include "../Common/Stack.h"
 #include "Processor.h"
 
 struct CallStack : Stack

@@ -3,8 +3,8 @@
 #include <string>
 #include <string_view>
 
-#include "BinCompileData.h"
-#include "IR.h"
+#include "Bin/BinCompileData.h"
+#include "IR/IR.h"
 
 struct FileListing
 {

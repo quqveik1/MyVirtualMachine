@@ -2,7 +2,7 @@
 
 #include "CommandConstants.h"
 
-#include "StringViewExtension.cpp"
+#include "../Common/StringViewExtension.cpp"
 
 std::vector<std::wstring> commandNames;
 

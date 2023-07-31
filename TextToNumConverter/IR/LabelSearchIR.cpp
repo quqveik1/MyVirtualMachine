@@ -2,10 +2,10 @@
 
 #include "LabelSearchIR.h"
 
-#include "../StackFunc.cpp"
-#include "../FloatConvert.cpp"
+#include "../../Common/StackFunc.cpp"
+#include "../../Converter/FloatConvert.cpp"
 #include "CommandIR.h"
-#include "../CommandConstants.h"
+#include "../../Constants/CommandConstants.h"
 
 
 LabelSearchIR::LabelSearchIR(IR* _ir) :

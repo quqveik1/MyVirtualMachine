@@ -1,8 +1,7 @@
 #pragma once
 
-#include "CommandIR.h"
-#include "IR.h"
-#include "BinCompileData.h"
+#include "../IR/IR.h"
+#include "../Bin/BinCompileData.h"
 
 using COMMAND2COMPILETYPE = int (*)(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData);
 

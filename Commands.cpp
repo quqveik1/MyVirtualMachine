@@ -7,11 +7,10 @@
 #include <iostream>
 #include <cmath>
 
-#include "StackFunc.cpp"
-#include "CommandConstants.h"
-#include "ByteConverter.cpp"
-#include "Register.cpp"
-#include "FloatConvert.cpp"
+#include "Common/StackFunc.cpp"
+#include "Constants/CommandConstants.h"
+#include "Converter/ByteConverter.cpp"
+#include "Converter/FloatConvert.cpp"
 
 int in_command(Processor& processor, int codedCommandNum)
 {

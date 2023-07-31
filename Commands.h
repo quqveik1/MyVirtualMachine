@@ -5,9 +5,8 @@
 #include <string_view>
 #include <string>
 
-#include "RuntimeData.h"
-#include "CommandConstants.h"
-#include "Processor.h"
+#include "Constants/CommandConstants.h"
+#include "Processor/Processor.h"
 
 using COMMANDTYPE = int (*)(Processor& processor, int codedCommandNum);
 

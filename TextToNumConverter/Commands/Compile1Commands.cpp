@@ -6,14 +6,14 @@
 #include <iostream>
 #include <map>
 
-#include "../ByteConverter.cpp"
-#include "CommandIR.cpp"
-#include "../CommonCode.cpp"
-#include "../RegisterCompile.cpp"
-#include "../CommandConstants.h"
-#include "../FloatConvert.cpp"
-#include "../StringViewExtension.cpp"
-#include "CommandIR.cpp"
+#include "../../Converter/ByteConverter.cpp"
+#include "IR/CommandIR.cpp"
+#include "../../Common/CommonCode.cpp"
+#include "../../Processor/Register/RegisterCompile.cpp"
+#include "../../Constants/CommandConstants.h"
+#include "../../Converter/FloatConvert.cpp"
+#include "../../Common/StringViewExtension.cpp"
+#include "../IR/CommandIR.cpp"
 
 int default_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {

@@ -2,7 +2,7 @@
 
 #include "DisassemblerCommands.h"
 
-#include "..\..\CommandConstants.h"
+#include "../../Constants/CommandConstants.h"
 
 DISASSEMBLERCOMMANDS disassemblerCommands[cCommands]{};
 

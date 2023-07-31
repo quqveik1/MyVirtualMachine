@@ -2,9 +2,9 @@
 
 #include <string>    
 
-#include "BinCompileData.h"
+#include "Bin/BinCompileData.h"
 #include "FileListing.h"
-#include "IR.h"
+#include "IR/IR.h"
 
 void save2Files(std::wstring_view* oldLines, BinCompileData& dataArr, FileListing& fileListing, int cLines, std::wstring path);
 void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines);

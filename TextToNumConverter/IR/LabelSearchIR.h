@@ -4,8 +4,8 @@
 #include <string_view>
 #include <vector>
 
-#include "BinCompileData.h"
-#include "IR.h"
+#include "Bin/BinCompileData.h"
+#include "IR/IR.h"
 
 struct LabelSearchIR
 {

@@ -5,7 +5,7 @@
 
 #include <exception>
 
-#include "Processor.h"
+#include "Processor/Processor.h"
 
 void readByteCode(std::string path);
 long fileSize(FILE* File);

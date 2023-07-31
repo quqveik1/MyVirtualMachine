@@ -4,7 +4,7 @@
 
 #include <exception>
 
-#include "CommonCode.cpp"
+#include "../Common/CommonCode.cpp"
 
 int& RAM::operator[](int index)
 {

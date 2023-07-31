@@ -3,7 +3,7 @@
 #include <exception>
 
 #include "Register.h"
-#include "CommonCode.h"
+#include "../../Common/CommonCode.h"
 
 int Register::getReg(int num)
 {

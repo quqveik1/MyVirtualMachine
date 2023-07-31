@@ -8,14 +8,12 @@
 #include "..\StringSort\WStringFnc.cpp"
 
 #include "ReadCommands.h"
-#include "VMConstants.h"
-#include "RuntimeData.cpp"
-#include "CommandConstants.cpp"
+#include "Constants/VMConstants.h"
+#include "Constants/CommandConstants.cpp"
 #include "Commands.cpp"
-#include "FncArrs.cpp"
+#include "Constants/FncArrs.cpp"
 #include "FileHeader.cpp"
-#include "CommandConstants.cpp"
-#include "Processor.cpp"
+#include "Processor/Processor.cpp"
 
 void readByteCode(std::string path)
 {

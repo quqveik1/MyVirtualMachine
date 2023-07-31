@@ -4,18 +4,18 @@
 #include <cstdio>
 
 #include "Converter.h"
-#include "Compile1Commands.cpp"
+#include "Commands/Compile1Commands.cpp"
 #include "../FileHeader.h"
-#include "BinCompileData.cpp"
-#include "../ByteConverter.cpp"
-#include "CompileArrs.cpp"
+#include "Bin/BinCompileData.cpp"
+#include "../Converter/ByteConverter.cpp"
+#include "Commands/CompileArrs.cpp"
 #include "WStringFnc.cpp"
-#include "../CommandConstants.cpp"
-#include "../ExtensionConverter.cpp"
+#include "../Constants/CommandConstants.cpp"
+#include "../Converter/ExtensionConverter.cpp"
 #include "FileListing.cpp"
-#include "IR.cpp"
-#include "Compile2Commands.cpp"
-#include "../StackFunc.cpp"
+#include "IR/IR.cpp"
+#include "Commands/Compile2Commands.cpp"
+#include "../Common/StackFunc.cpp"
 
 void convertToNum(std::wstring path)
 {

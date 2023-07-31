@@ -2,7 +2,7 @@
 
 #include "RuntimeData.cpp"
 #include "DataStack.cpp"
-#include "Register.cpp"
+#include "Register/Register.cpp"
 #include "RAM.cpp"
 #include "CallStack.h"
 #include "ProcessorDebug\RuntimeInfoCollector.h"

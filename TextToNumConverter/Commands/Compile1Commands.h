@@ -1,9 +1,7 @@
 #pragma once
 #include <string>
 
-#include "CommandIR.h"
-#include "IR.h"
-#include "CommandIR.h"
+#include "../IR/IR.h"
 
 using COMMAND1COMPILETYPE = int (*)(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir);
 
