@@ -17,7 +17,7 @@ void RuntimeInfoCollector::pushCommand(RuntimeCommandInfo& info)
 {
     if (getCommands().size() >= HistoryLen)
     {
-        getCommands().pop_back();
+        getCommands().pop_front();
     }
     getCommands().push_back(info);
 }

@@ -2,7 +2,7 @@
 
 enum InteractiveCode
 {
-    Nothing = 0,
+    ContinueInteractiveMode = 0,
     ShutDownProgramm = 1,
-    ContinueExecuting = 2
+    ContinueAppExecuting = 2
 };

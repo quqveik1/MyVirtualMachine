@@ -113,3 +113,23 @@ ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring&
 
     return CommandDataReadError;
 }
+
+ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+{
+
+    if(data.empty())
+    {
+        code = ContinueAppExecuting;
+        return WellCode;
+    }
+
+    int pos = strToNum(data, 16);
+
+    bool res = processor.getCommandData().setCurrPos(pos);
+
+    if (!res) return CommandDataReadError;
+
+    code = ContinueAppExecuting;
+
+    return WellCode;
+}

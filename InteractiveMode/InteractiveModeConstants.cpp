@@ -28,6 +28,10 @@ INTERACTVECOMMAND getInteractiveCommand(std::wstring& command)
     {
         return set_command;
     }
+    if (hasThisCommand(jump_interactive_str, command))
+    {
+        return jump_interactive_command;
+    }
 
     return nullptr;
 }

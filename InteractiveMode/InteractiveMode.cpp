@@ -22,7 +22,7 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
     {
         std::getline(std::wcin, line);
 
-        InteractiveCode code = Nothing;
+        InteractiveCode code = ContinueInteractiveMode;
 
         if (line.empty()) continue;
 
@@ -44,7 +44,7 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
 
     if(errorCode == DebugBreakCode)
     {
-        code = ContinueExecuting;
+        code = ContinueAppExecuting;
     }
 
     return ErrorCode::WellCode;

@@ -18,3 +18,5 @@ void printRegisters(Processor& processor);
 
 ErrorCode examine_command(Processor& processor, InteractiveCode& code, std::wstring& data);
 ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring& data);
+
+ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, std::wstring& data);

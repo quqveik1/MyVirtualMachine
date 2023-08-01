@@ -26,7 +26,6 @@ push bx
 push bx
 push -1
 neg
-imto
 sub
 call factorial
 
@@ -38,7 +37,6 @@ main:
 out enterData
 
 in
-imto
 
 pop ax
 push ax
