@@ -6,6 +6,7 @@
 #include "RAM.cpp"
 #include "CallStack.h"
 #include "ProcessorDebug\RuntimeInfoCollector.h"
+#include "BreakPoint/Breakpoints.h"
 
 struct Processor
 {
@@ -19,6 +20,7 @@ private:
     CallStack   callStack;
 
     RuntimeInfoCollector   runtimeInfoCollector;
+    Breakpoints   breakpoints;
 
 public:
     RuntimeData& getRuntimeData() { return runtimeData; };
@@ -28,4 +30,5 @@ public:
     CallStack&   getCallStack()   { return callStack; };
 
     RuntimeInfoCollector&   getRuntimeInfoCollector()   { return runtimeInfoCollector; };
+    Breakpoints&            getBreakpoints()   { return breakpoints; };
 };

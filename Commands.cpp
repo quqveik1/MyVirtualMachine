@@ -367,3 +367,9 @@ int imto_command(Processor& processor, int codedCommandNum)
 {
     return DebugBreakCode;
 }
+
+int breakpoint_command(Processor& processor, int codedCommandNum)
+{
+    processor.getBreakpoints().remove(processor.getCommandData().getCurrPos());
+    return DebugBreakCode;
+}

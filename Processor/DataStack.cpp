@@ -19,17 +19,29 @@ char* DataStack::peek(int _size)
     return NULL;
 }
 
-char* DataStack::get(int _size)
+char* DataStack::get(int _size, int pos/* = -1*/)
 {
-    if (currPos + _size < size)
+    if (pos < 0) pos = currPos;
+    if (pos + _size < size)
     {
-        return &arr[currPos];
+        return &arr[pos];
     }
     else
     {
         throw std::exception("peek: currPos > size");
     }
     return NULL;
+}
+
+void DataStack::set(int pos, int _size, char* data)
+{
+    memcpy(&(getArr()[pos]), data, size);
+}
+
+template<typename T>
+void DataStack::set(int pos, T data)
+{
+    set(pos, sizeof(T), (char*)&data);
 }
 
 template<typename T>
@@ -40,10 +52,10 @@ T* DataStack::peek()
 }
 
 template<typename T>
-T* DataStack::get()
+T* DataStack::get(int pos/* = -1*/)
 {
     int _size = sizeof(T);
-    return (T*)get(_size);
+    return (T*)get(_size, pos);
 }
 
 bool DataStack::setCurrPos(int _pos)

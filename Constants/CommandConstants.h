@@ -41,6 +41,7 @@ const std::wstring ret_str = L"ret";
 const std::wstring neg_str = L"neg";  //!!!
 
 const std::wstring imto_str = L"imto";  //!!!
+const std::wstring breakpoint_str = L"breakpoint";  //!!!
 
 //------------------------------------------------------------------
 
@@ -75,8 +76,9 @@ enum CommandNums
     call_num = 20,
     ret_num = 21,
 
-    neg_num = 22,  //!!!
-    imto_num = 23  //!!!
+    neg_num = 22,  
+    imto_num = 23,  
+    breakpoint_num = 24 
 };
 
 //------------------------------------------------------------------

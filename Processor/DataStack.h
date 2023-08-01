@@ -10,11 +10,14 @@ private:
 public:
 
     char* peek(int _size); 
-    char* get(int _size);
+    char* get(int _size, int pos = -1);
+    void set(int pos, int _size, char* data);
+    template<typename T>
+    void set(int pos, T data);
     template<typename T>
     T* peek(); 
     template<typename T>
-    T* get();
+    T* get(int pos = -1);
 
 
     bool moveCursor(int _delta);
