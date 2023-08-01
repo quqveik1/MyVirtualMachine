@@ -9,18 +9,28 @@ std::vector<int>& StackVector::getData()
 
 int StackVector::peek()
 {
-    int ans = getData().back();
+    int ans = get();
 
     getData().pop_back();
 
     return ans;
 }
 
+void StackVector::pop()
+{
+    if(getData().size() == 0)
+    {
+        throw std::runtime_error("–ù–µ–ª—å–∑—è —É–¥–∞–ª—è—Ç—å—Å—è –∏–∑ –ø—É—Å—Ç–æ–≥–æ —Å—Ç–µ–∫–∞");
+        return;
+    }
+    getData().pop_back();
+}
+
 int StackVector::get()
 {
     if (getData().empty())
     {
-        std::cout << "œÓÔ˚ÚÍ‡ ‚ÁˇÚ¸ ËÁ ÔÛÒÚÓ„Ó ÒÚÂÍ‡ ˝ÎÂÏÂÌÚ\n";
+        std::cout << "–ü–æ–ø—ã—Ç–∫–∞ –≤–∑—è—Ç—å –∏–∑ –ø—É—Å—Ç–æ–≥–æ —Å—Ç–µ–∫–∞ —ç–ª–µ–º–µ–Ω—Ç\n";
         return {};
     }
     return getData().back();
@@ -29,4 +39,13 @@ int StackVector::get()
 void StackVector::push(int obj)
 {
     return getData().push_back(obj);
+}
+
+int* StackVector::at(int pos)
+{
+    if (0 <= pos && pos < getData().size())
+    {
+        return &(getData()[pos]);
+    }
+    return nullptr;
 }

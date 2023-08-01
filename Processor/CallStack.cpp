@@ -14,7 +14,7 @@ void CallStack::putCurPos()
 {
     if (!processor)
     {
-        throw std::runtime_error("CallStack has no access to proessor");
+        throw std::runtime_error("CallStack has no access to processor");
         return;
     }
 
@@ -39,5 +39,5 @@ void CallStack::print()
         std::cout << std::setw(5) << std::setfill('0') << std::right << std::dec << i << ": " << std::hex << data << std::endl;
     }
 
-    std::cout << std::dec << "Конец стека вызовов\n\n";
+    std::cout << std::dec << "Конец стека вызовов\n";
 }

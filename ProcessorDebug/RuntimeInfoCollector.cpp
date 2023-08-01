@@ -75,7 +75,7 @@ int RuntimeInfoCollector::print()
         std::cout << std::endl;
     }
 
-    std::cout << std::dec << "\n";
+    std::cout << std::dec;
 
     return WellCode;
 }

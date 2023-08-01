@@ -29,7 +29,7 @@ ErrorCode RuntimeData::print(bool needToConvertToUserRepresentation/*= true*/)
     for(size_t i = 0; i < getData().size(); i++)
     {
         int data = getData()[i];
-        std::cout << std::setw(5) << std::setfill('0') << std::right << i << ": ";
+        std::cout << std::setw(5) << std::setfill('0') << std::right << std::hex << i << ": ";
 
         if(needToConvertToUserRepresentation)
         {
@@ -42,7 +42,7 @@ ErrorCode RuntimeData::print(bool needToConvertToUserRepresentation/*= true*/)
         }
     }
 
-    std::cout << "Конец стека\n\n";
+    std::cout << "Конец стека\n";
 
     return ErrorCode::WellCode;
 }

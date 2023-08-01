@@ -13,7 +13,7 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
     std::cout << "Запущен интерактивный режим\n";
     if (errorCode != ErrorCode::WellCode || errorCode != ErrorCode::DebugBreakCode)
     {
-        std::cout << "Он был вызван из-за ошибки " << errorCode << "\n";
+        std::cout << "Он был вызван из-за ошибки " << std::dec << errorCode << "\n";
     }
 
     std::wstring line{};
@@ -22,7 +22,7 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
     {
         std::getline(std::wcin, line);
 
-        InteractiveCode code = ContinueInteractiveMode;
+        code = ContinueInteractiveMode;
 
         if (line.empty()) continue;
 
@@ -39,12 +39,7 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
             }
         }
 
-        if (code == ShutDownProgramm) break;
-    }
-
-    if(errorCode == DebugBreakCode)
-    {
-        code = ContinueAppExecuting;
+        if (code != ContinueInteractiveMode) break;
     }
 
     return ErrorCode::WellCode;

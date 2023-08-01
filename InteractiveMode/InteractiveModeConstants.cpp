@@ -8,6 +8,10 @@ INTERACTVECOMMAND getInteractiveCommand(std::wstring& command)
     {
         return quit_command;
     }
+    if (hasThisCommand(continue_str, command))
+    {
+        return continue_command;
+    }
     if (hasThisCommand(info_str, command))
     {
         return info_command;
@@ -27,6 +31,14 @@ INTERACTVECOMMAND getInteractiveCommand(std::wstring& command)
     if (hasThisCommand(set_str, command))
     {
         return set_command;
+    }
+    if (hasThisCommand(set_stack_str, command))
+    {
+        return set_stack_command;
+    }
+    if (hasThisCommand(set_backtrace_str, command))
+    {
+        return set_backtrace_command;
     }
     if (hasThisCommand(jump_interactive_str, command))
     {

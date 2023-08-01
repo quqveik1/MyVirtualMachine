@@ -12,6 +12,9 @@ public:
     bool isEmpty() { return getData().empty(); };
 
     int peek();
+    void pop();
     int get();
     void push(int obj);
+
+    int* at(int pos);
 };

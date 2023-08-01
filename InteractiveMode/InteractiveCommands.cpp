@@ -7,7 +7,14 @@
 
 ErrorCode quit_command(Processor& processor, InteractiveCode& code, std::wstring& data)
 {
-    code = InteractiveCode::ShutDownProgramm;
+    code = ShutDownProgramm;
+    return WellCode;
+}
+
+ErrorCode continue_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+{
+    code = ContinueAppExecuting;
+
     return WellCode;
 }
 
@@ -114,6 +121,78 @@ ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring&
     return CommandDataReadError;
 }
 
+ErrorCode set_backtrace_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+{
+    return stack_universal_command(processor, code, data, processor.getCallStack(), false);
+}
+
+ErrorCode set_stack_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+{
+    return stack_universal_command(processor, code, data, processor.getRuntimeData());
+}
+
+ErrorCode stack_universal_command(Processor& processor, InteractiveCode& code, std::wstring& data, StackVector& stackVector, bool needToConvert/* = true*/)
+{
+    std::wstring_view datav = data;
+
+    std::wstring_view object{}, numStr{};
+
+    splitCommand(datav, object, numStr);
+
+    int stackPos = -1;
+
+    if (object == L"push")
+    {
+        stackPos = (int)stackVector.getData().size();
+
+        stackVector.push(1329);
+    }
+    else if (object == L"pop")
+    {
+        try
+        {
+            stackVector.pop();
+        }
+        catch (std::runtime_error e)
+        {
+            std::cout << e.what() << "\n";
+        }
+        return WellCode;
+    }
+    else
+    {
+        try
+        {
+            stackPos = strToNum(object, 16);
+        }
+        catch (std::exception e)
+        {
+            std::cout << e.what() << "\n";
+        }
+    }
+
+    try
+    {
+        float num = strToFloat<float>(numStr);
+        int convNumber = (int)num;
+        if(needToConvert) convNumber = convNum(num);
+
+        int* ram = stackVector.at(stackPos);
+
+        if (!ram) return RAMOutOfBounds;
+
+        *ram = convNumber;
+
+        return WellCode;
+    }
+    catch (std::exception e)
+    {
+        std::cout << e.what() << "\n";
+    }
+
+    return CommandDataReadError;
+}
+
 ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, std::wstring& data)
 {
 
@@ -128,8 +207,6 @@ ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, 
     bool res = processor.getCommandData().setCurrPos(pos);
 
     if (!res) return CommandDataReadError;
-
-    code = ContinueAppExecuting;
 
     return WellCode;
 }
