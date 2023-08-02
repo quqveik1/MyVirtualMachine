@@ -10,7 +10,7 @@ private:
 public:
 
     char* peek(int _size); 
-    char* get(int _size, int pos = -1);
+    char* get(int _size, int pos);
     void set(int pos, int _size, char* data);
     template<typename T>
     void set(int pos, T data);

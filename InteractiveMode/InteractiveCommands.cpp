@@ -195,7 +195,6 @@ ErrorCode stack_universal_command(Processor& processor, InteractiveCode& code, s
 
 ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, std::wstring& data)
 {
-
     if(data.empty())
     {
         code = ContinueAppExecuting;
@@ -207,6 +206,25 @@ ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, 
     bool res = processor.getCommandData().setCurrPos(pos);
 
     if (!res) return CommandDataReadError;
+
+    return WellCode;
+}
+
+ErrorCode breakpoint_interactive_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+{
+    int breakPos = 0;
+    try
+    {
+        breakPos = strToNum(data, 16);
+    }
+    catch (std::exception e)
+    {
+        std::cout << e.what() << std::endl;
+        return CommandDataReadError;
+    }
+
+    processor.getBreakpoints().add(breakPos);
+
 
     return WellCode;
 }

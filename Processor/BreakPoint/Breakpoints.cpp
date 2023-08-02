@@ -10,7 +10,7 @@ Breakpoints::Breakpoints(Processor* _processor) :
 
 void Breakpoints::add(int pos)
 {
-    int originalCommand = *processor->getCommandData().get(pos);
+    int originalCommand = *processor->getCommandData().get<int>(pos);
     Breakpoint bp = { pos, originalCommand };
     processor->getCommandData().set(pos, breakpoint_num);
     

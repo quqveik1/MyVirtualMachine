@@ -24,3 +24,5 @@ ErrorCode set_stack_command(Processor& processor, InteractiveCode& code, std::ws
 ErrorCode set_backtrace_command(Processor& processor, InteractiveCode& code, std::wstring& data);
 
 ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, std::wstring& data);
+
+ErrorCode breakpoint_interactive_command(Processor& processor, InteractiveCode& code, std::wstring& data);

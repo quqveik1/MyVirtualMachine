@@ -14,6 +14,7 @@ const std::wstring set_str[] = { L"set", L"s" };
 const std::wstring set_stack_str[] = { L"set_stack", L"ss" };
 const std::wstring set_backtrace_str[] = { L"set_backtrace", L"sb" };
 const std::wstring jump_interactive_str[] = { L"jump", L"j" };
+const std::wstring breakpoint_intractive_str[] = { L"break", L"b" };
 
 INTERACTVECOMMAND getInteractiveCommand(std::wstring& command);
 bool hasThisCommand(const std::wstring arr[], std::wstring& command);

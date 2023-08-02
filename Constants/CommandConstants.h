@@ -6,7 +6,7 @@
 
 const int COMMANDSVERSION = 14;
 
-const int cCommands = 23;
+const int cCommands = 24;
 
 const std::wstring hlt_str = L"hlt";
 

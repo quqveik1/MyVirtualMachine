@@ -19,7 +19,7 @@ char* DataStack::peek(int _size)
     return NULL;
 }
 
-char* DataStack::get(int _size, int pos/* = -1*/)
+char* DataStack::get(int _size, int pos)
 {
     if (pos < 0) pos = currPos;
     if (pos + _size < size)
@@ -35,7 +35,7 @@ char* DataStack::get(int _size, int pos/* = -1*/)
 
 void DataStack::set(int pos, int _size, char* data)
 {
-    memcpy(&(getArr()[pos]), data, size);
+    memcpy(&(getArr()[pos]), data, _size);
 }
 
 template<typename T>
