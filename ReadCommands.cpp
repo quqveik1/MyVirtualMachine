@@ -152,6 +152,8 @@ int executeCommand(Processor& processor)
     int filePos = processor.getCommandData().getCurrPos();
 
     int codedCommandNum = *processor.getCommandData().peek<int>();
+    processor.getBreakpoints().observeBreakpoints();
+
 
     int commandNum = decodeNumberRepresentation(codedCommandNum, NULL, NULL);
 

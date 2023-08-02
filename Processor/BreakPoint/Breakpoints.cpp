@@ -41,3 +41,28 @@ ErrorCode Breakpoints::remove(int pos)
     return WellCode;
 
 }
+
+bool Breakpoints::needToRewriteBreakpoint()
+{
+    if(rewriteBreakpointPos >= 0 ) return true;
+    return false;
+}
+
+void Breakpoints::rewriteBreakpoint()
+{
+    add(rewriteBreakpointPos);
+    rewriteBreakpointPos = -1;
+}
+
+void Breakpoints::setRewriteBreakpoint(int pos)
+{
+    rewriteBreakpointPos = pos;
+}
+
+void Breakpoints::observeBreakpoints()
+{
+    if(needToRewriteBreakpoint())
+    {
+        rewriteBreakpoint();
+    }
+}
