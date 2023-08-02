@@ -44,7 +44,7 @@ int RuntimeInfoCollector::onError()
 
 int RuntimeInfoCollector::print()
 {
-    std::cout << "\nПоследние " << HistoryLen << " полностью исполненных комманд:  \n";
+    std::cout << "Последние " << HistoryLen << " полностью исполненных комманд:  \n";
 
 
     for (size_t i = 0; i < getCommands().size(); i++)

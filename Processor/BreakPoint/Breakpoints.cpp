@@ -18,28 +18,60 @@ void Breakpoints::add(int pos)
     breakPoints.push_back(bp);
 }
 
+void Breakpoints::removeEl(std::vector<Breakpoint>::iterator it)
+{
+    changeCodeForEl(it);
+    rewriteBreakpointPos = -1;
+    breakPoints.erase(it);
+}
+
+void Breakpoints::changeCodeForEl(std::vector<Breakpoint>::iterator it)
+{
+    processor->getCommandData().set(it->filePos, it->originalCommand);
+}
+
 ErrorCode Breakpoints::remove(int pos)
 {
-    bool hasOriginalCodeChanged = false;
-    for (;;)
-    {
-        auto it = std::find(breakPoints.begin(), breakPoints.end(), pos);
+    auto it = std::find(breakPoints.begin(), breakPoints.end(), pos);
 
-        if (it == breakPoints.end()) break;
+    if (it == breakPoints.end()) return BreakPointNotFounded;
 
-        processor->getCommandData().set(pos, it->originalCommand);
-        hasOriginalCodeChanged = true;
-
-        breakPoints.erase(it);
-    }
-
-    if(!hasOriginalCodeChanged)
-    {
-        return BreakPointNotFounded;
-    }
+    removeEl(it);
 
     return WellCode;
 
+}
+
+ErrorCode Breakpoints::removeOnlyFromCode(int pos)
+{
+    auto it = std::find(breakPoints.begin(), breakPoints.end(), pos);
+
+    if (it == breakPoints.end()) return BreakPointNotFounded;
+
+    changeCodeForEl(it);
+
+    return WellCode;
+}
+
+ErrorCode Breakpoints::removeByNumber(int num)
+{
+    if (!(0 <= num && num < breakPoints.size())) return BreakPointNotFounded;
+
+    removeEl(breakPoints.begin() + num);
+
+    return WellCode;
+}
+
+ErrorCode Breakpoints::removeAll()
+{
+    for(int i = ((int)breakPoints.size()) - 1; i >= 0; i--)
+    {
+        ErrorCode res = removeByNumber(i);
+
+        if (res != WellCode) return res;
+    }
+
+    return WellCode;
 }
 
 bool Breakpoints::needToRewriteBreakpoint()
@@ -65,4 +97,20 @@ void Breakpoints::observeBreakpoints()
     {
         rewriteBreakpoint();
     }
+}
+
+ErrorCode Breakpoints::print()
+{
+    if(breakPoints.size() == 0)
+    {
+        std::cout << "Точек остановки нет\n";
+    }
+
+    for (int i = 0; i < breakPoints.size(); i++)
+    {
+        std::cout << std::setfill('0') << std::setw(5) << std::right << std::dec << i << " | "
+             << std::setfill('0') << std::setw(5) << std::right << std::hex << breakPoints[i].filePos << "\n";
+    }
+
+    return WellCode;
 }

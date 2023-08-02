@@ -10,7 +10,7 @@ void splitCommand(S& fullCommand, S& commandName, S& commandData)
 
     if (spacePos >= 0)
     {
-        if (commandStart >= 0) commandName = fullCommand.substr(commandStart, spacePos - commandStart);
+        if (commandStart >= 0) commandName = fullCommand.substr(commandStart, (int)spacePos - commandStart);
 
         int dataPos = findFirstNotEmptySymPos(fullCommand, spacePos + 1);
         int lastCommandPos = findLastLineSymbol(fullCommand);

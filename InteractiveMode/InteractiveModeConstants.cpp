@@ -48,6 +48,10 @@ INTERACTVECOMMAND getInteractiveCommand(std::wstring& command)
     {
         return breakpoint_interactive_command;
     }
+    if (hasThisCommand(delete_breakpoint_intractive_str, command))
+    {
+        return delete_command;
+    }
 
     return nullptr;
 }

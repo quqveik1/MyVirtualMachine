@@ -372,7 +372,7 @@ int breakpoint_command(Processor& processor, int codedCommandNum)
 {
     processor.getCommandData().setCurrPos(processor.getCommandData().getCurrPos() - sizeof(int));
     processor.getBreakpoints().setRewriteBreakpoint(processor.getCommandData().getCurrPos());
-    ErrorCode res = processor.getBreakpoints().remove(processor.getCommandData().getCurrPos());
+    ErrorCode res = processor.getBreakpoints().removeOnlyFromCode(processor.getCommandData().getCurrPos());
 
     if (res != WellCode) return res;
 

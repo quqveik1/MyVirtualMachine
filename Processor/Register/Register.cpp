@@ -61,5 +61,5 @@ void Register::print(bool needToConvertToUserRepresentation/* = true*/)
          
     }
 
-    std::cout << "Конец распечатки регистров\n\n";
+    std::cout << "Конец распечатки регистров\n";
 }

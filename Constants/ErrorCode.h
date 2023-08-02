@@ -27,5 +27,5 @@ enum ErrorCode
     InteractiveCommandNotFound = -14,
     DebugBreakCode = -15,
     RAMOutOfBounds = -16,
-    BreakPointNotFounded = -17
+    BreakPointNotFounded = -17,
 };

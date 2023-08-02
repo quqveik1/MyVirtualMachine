@@ -76,7 +76,6 @@ long fileSize(FILE* File)
     return buff.st_size;
 }
 
-
 /** File pos  |  Command pos  |  Command                 | Disassembly
  *  000172    |  0004         |  00 00 00 00 00 00 00 00 | push 5
  */

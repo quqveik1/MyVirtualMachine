@@ -30,8 +30,18 @@ ErrorCode info_command(Processor& processor, InteractiveCode& code, std::wstring
         printRuntimeData(processor);
         return WellCode;
     }
+    else if(hasThisCommand(breakpoint_intractive_str, data))
+    {
+        return info_breakpoint_command(processor);
+    }
 
     return CommandDataReadError;
+}
+
+ErrorCode info_breakpoint_command(Processor& processor)
+{
+    processor.getBreakpoints().print();
+    return WellCode;
 }
 
 ErrorCode backtrace_command(Processor& processor, InteractiveCode& code, std::wstring& data)
@@ -56,7 +66,7 @@ void printRuntimeData(Processor& processor)
     int res = processor.getRuntimeData().print();
     if (res != WellCode)
     {
-        std::cout << "Ошибка при выполении распечатки стека: " << res << std::endl;
+        std::cout << "Ошибка при выполении распечатки стека: " << std::dec << res << std::endl;
     }
 }
 
@@ -65,13 +75,25 @@ void printRuntimeInfoDissassembler(Processor& processor)
     int res = processor.getRuntimeInfoCollector().onError();
     if (res != WellCode)
     {
-        std::cout << "Ошибка при выполении распечатки последних комманд: " << res << std::endl;
+        std::cout << "Ошибка при выполении распечатки последних комманд: " << std::dec << res << std::endl;
     }
 }
 
 void printCallStack(Processor& processor)
 {
     processor.getCallStack().print();
+}
+
+ErrorCode delete_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+{
+    if(data.empty())
+    {
+        return processor.getBreakpoints().removeAll();
+    }
+
+    int breakNum = std::stoi(data);
+
+    return processor.getBreakpoints().removeByNumber(breakNum);
 }
 
 ErrorCode examine_command(Processor& processor, InteractiveCode& code, std::wstring& data)

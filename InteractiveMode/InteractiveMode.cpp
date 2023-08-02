@@ -9,9 +9,10 @@
 
 ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, InteractiveCode& code)
 {
+    std::cout << "-----Запущен интерактивный режим-----\n";
     defaultPrint(processor);
-    std::cout << "Запущен интерактивный режим\n";
-    if (errorCode != ErrorCode::WellCode || errorCode != ErrorCode::DebugBreakCode)
+    
+    if (errorCode != ErrorCode::WellCode && errorCode != ErrorCode::DebugBreakCode)
     {
         std::cout << "Он был вызван из-за ошибки " << std::dec << errorCode << "\n";
     }
@@ -35,12 +36,14 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
             }
             else
             {
-                std::cout << "Ошибка выполнения комманды: " << res << std::endl;
+                std::cout << "Ошибка выполнения комманды: " << std::dec << res << std::endl;
             }
         }
 
         if (code != ContinueInteractiveMode) break;
     }
+
+    std::cout << "-----Конец интерактивного режима-----\n";
 
     return ErrorCode::WellCode;
 }
