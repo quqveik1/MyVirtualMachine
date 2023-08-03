@@ -17,17 +17,27 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
         std::cout << "Он был вызван из-за ошибки " << std::dec << errorCode << "\n";
     }
 
+    code = ContinueInteractiveMode;
+
     std::wstring line{};
+
+    bool needToWriteArrow = true;
 
     for(;;)
     {
+        if(needToWriteArrow)std::cout << "-> ";
         std::getline(std::wcin, line);
+        needToWriteArrow = true;
 
-        code = ContinueInteractiveMode;
+        if (line.empty())
+        {
+            needToWriteArrow = false;
+            continue;
+        }
 
-        if (line.empty()) continue;
+        std::wstring_view line_view = line;
 
-        ErrorCode res = executeCommand(processor, line, code);
+        ErrorCode res = executeCommand(processor, line_view, code);
         if(res != WellCode)
         {
             if (res == InteractiveCommandNotFound)
@@ -41,6 +51,7 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
         }
 
         if (code != ContinueInteractiveMode) break;
+        std::cout << "\n";
     }
 
     std::cout << "-----Конец интерактивного режима-----\n";
@@ -48,9 +59,9 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
     return ErrorCode::WellCode;
 }
 
-ErrorCode executeCommand(Processor& processor, std::wstring& line, InteractiveCode& code)
+ErrorCode executeCommand(Processor& processor, std::wstring_view& line, InteractiveCode& code)
 {
-    std::wstring command{}, data{};
+    std::wstring_view command{}, data{};
 
     splitCommand(line, command, data);
 
@@ -68,9 +79,14 @@ ErrorCode executeCommand(Processor& processor, std::wstring& line, InteractiveCo
 
 ErrorCode defaultPrint(Processor& processor)
 {
+    std::cout << "\n";
     printRuntimeInfoDissassembler(processor);
+    std::cout << "\n";
     printRuntimeData(processor);
+    std::cout << "\n";
     printCallStack(processor);
+    std::cout << "\n";
     printRegisters(processor);
+    std::cout << "\n";
     return ErrorCode::WellCode;
 }

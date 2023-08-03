@@ -17,5 +17,7 @@ const std::wstring jump_interactive_str[] = { L"jump", L"j" };
 const std::wstring breakpoint_intractive_str[] = { L"break", L"b" };
 const std::wstring delete_breakpoint_intractive_str[] = { L"delete", L"del" };
 
-INTERACTVECOMMAND getInteractiveCommand(std::wstring& command);
-bool hasThisCommand(const std::wstring arr[], std::wstring& command);
+template<typename S>
+INTERACTVECOMMAND getInteractiveCommand(S& command);
+template<typename S>
+bool hasThisCommand(const std::wstring arr[], S& command);

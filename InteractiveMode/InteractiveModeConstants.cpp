@@ -2,7 +2,8 @@
 
 #include "InteractiveModeConstants.h"
 
-INTERACTVECOMMAND getInteractiveCommand(std::wstring& command)
+template<typename S>
+INTERACTVECOMMAND getInteractiveCommand(S& command)
 {
     if (hasThisCommand(quit_str, command))
     {
@@ -56,7 +57,8 @@ INTERACTVECOMMAND getInteractiveCommand(std::wstring& command)
     return nullptr;
 }
 
-bool hasThisCommand(const std::wstring arr[], std::wstring& command)
+template<typename S>
+bool hasThisCommand(const std::wstring arr[], S& command)
 {
     for(int i = 0; i < 2; i++)
     {

@@ -5,20 +5,20 @@
 #include "../Processor/Register/RegisterCompile.h"
 #include "../Common/StringViewExtension.cpp"
 
-ErrorCode quit_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode quit_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     code = ShutDownProgramm;
     return WellCode;
 }
 
-ErrorCode continue_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode continue_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     code = ContinueAppExecuting;
 
     return WellCode;
 }
 
-ErrorCode info_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode info_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     if(data == L"r" || data == L"registers")
     {
@@ -44,13 +44,13 @@ ErrorCode info_breakpoint_command(Processor& processor)
     return WellCode;
 }
 
-ErrorCode backtrace_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode backtrace_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     printCallStack(processor);
     return WellCode;
 }
 
-ErrorCode disassemble_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode disassemble_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     printRuntimeInfoDissassembler(processor);
     return WellCode;
@@ -84,28 +84,28 @@ void printCallStack(Processor& processor)
     processor.getCallStack().print();
 }
 
-ErrorCode delete_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode delete_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     if(data.empty())
     {
         return processor.getBreakpoints().removeAll();
     }
 
-    int breakNum = std::stoi(data);
+    int breakNum = strToNum(data);
 
     return processor.getBreakpoints().removeByNumber(breakNum);
 }
 
-ErrorCode examine_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode examine_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
-    int memPos = std::stoi(data, nullptr, 16);
+    int memPos = std::stoi((std::wstring)data, nullptr, 16);
 
     processor.getAppRAM().print(memPos);
 
     return WellCode;
 }
 
-ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     std::wstring_view datav = data;
 
@@ -143,17 +143,17 @@ ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring&
     return CommandDataReadError;
 }
 
-ErrorCode set_backtrace_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode set_backtrace_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     return stack_universal_command(processor, code, data, processor.getCallStack(), false);
 }
 
-ErrorCode set_stack_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode set_stack_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     return stack_universal_command(processor, code, data, processor.getRuntimeData());
 }
 
-ErrorCode stack_universal_command(Processor& processor, InteractiveCode& code, std::wstring& data, StackVector& stackVector, bool needToConvert/* = true*/)
+ErrorCode stack_universal_command(Processor& processor, InteractiveCode& code, std::wstring_view& data, StackVector& stackVector, bool needToConvert/* = true*/)
 {
     std::wstring_view datav = data;
 
@@ -215,7 +215,7 @@ ErrorCode stack_universal_command(Processor& processor, InteractiveCode& code, s
     return CommandDataReadError;
 }
 
-ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     if(data.empty())
     {
@@ -232,7 +232,7 @@ ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, 
     return WellCode;
 }
 
-ErrorCode breakpoint_interactive_command(Processor& processor, InteractiveCode& code, std::wstring& data)
+ErrorCode breakpoint_interactive_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     int breakPos = 0;
     try
