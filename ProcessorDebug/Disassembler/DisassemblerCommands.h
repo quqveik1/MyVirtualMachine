@@ -13,3 +13,5 @@ int defaultSmallExpression_dissassemblerCommand(Processor& processor, RuntimeCom
 int hexSaveSmallExpression_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine);
 
 int jmp_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine);
+
+int ret_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine);

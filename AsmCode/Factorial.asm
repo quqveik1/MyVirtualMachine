@@ -26,7 +26,6 @@ push bx
 push bx
 push -1
 neg
-imto
 sub
 call factorial
 
@@ -38,6 +37,7 @@ main:
 out enterData
 
 in
+
 imto
 
 pop ax
@@ -52,6 +52,8 @@ hlt
 normalInput:
 
 call factorial
+
+imto
 
 out answer
 out

@@ -6,10 +6,14 @@
 #include "../TextToNumConverter/Parser/ParseCommand.cpp"
 #include "InteractiveModeConstants.cpp"
 #include "InteractiveCommands.cpp"
+#include "InteractiveCode.h"
 
 ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, InteractiveCode& code)
 {
     std::cout << "-----Запущен интерактивный режим-----\n";
+
+    processor.getBreakpoints().removeAllOnlyFromCode();
+
     defaultPrint(processor);
     
     if (errorCode != ErrorCode::WellCode && errorCode != ErrorCode::DebugBreakCode)
@@ -53,6 +57,8 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
         if (code != ContinueInteractiveMode) break;
         std::cout << "\n";
     }
+
+    processor.getBreakpoints().insertAllBack();
 
     std::cout << "-----Конец интерактивного режима-----\n";
 

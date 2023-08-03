@@ -7,6 +7,7 @@
 #include "CallStack.h"
 #include "ProcessorDebug\RuntimeInfoCollector.h"
 #include "BreakPoint/Breakpoints.h"
+#include "Constants/ErrorCode.h"
 
 struct Processor
 {
@@ -31,4 +32,13 @@ public:
 
     RuntimeInfoCollector&   getRuntimeInfoCollector()   { return runtimeInfoCollector; };
     Breakpoints&            getBreakpoints()   { return breakpoints; };
+
+    ErrorCode startExecutingProgramm(std::string& path);
+    ErrorCode readFile(std::string& path);
+
+private:
+
+    void readAndExecuteCommands();
+    void endProgramWithCode(int code);
+    int executeCommand();
 };

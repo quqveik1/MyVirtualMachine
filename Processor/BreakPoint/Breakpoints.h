@@ -12,7 +12,8 @@ class Breakpoints
     int rewriteBreakpointPos = -1;
 
     void removeEl(std::vector<Breakpoint>::iterator it);
-    void changeCodeForEl(std::vector<Breakpoint>::iterator it);
+    void replaceWithOriginalCommand(Breakpoint& bp);
+    void replaceWithBreakpoint(Breakpoint& bp);
 
 public:
     Breakpoints(Processor* _processor);
@@ -20,8 +21,13 @@ public:
     void add(int pos);
     ErrorCode remove(int pos);
     ErrorCode removeOnlyFromCode(int pos);
+    ErrorCode removeAllOnlyFromCode();
     ErrorCode removeByNumber(int num);
+    ErrorCode removeByNumberOnlyFromCode(int num);
     ErrorCode removeAll();
+
+    ErrorCode insertBack(int breakNum);
+    ErrorCode insertAllBack(bool needToInsertRewriteException = false);
 
     bool needToRewriteBreakpoint();
     void rewriteBreakpoint();

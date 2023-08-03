@@ -21,5 +21,6 @@ void initDisassemblerCommands()
     disassemblerCommands[je_num] = jmp_dissassemblerCommand;
     disassemblerCommands[jne_num] = jmp_dissassemblerCommand;
 
+    disassemblerCommands[ret_num] = ret_dissassemblerCommand;
     disassemblerCommands[call_num] = jmp_dissassemblerCommand;
 }

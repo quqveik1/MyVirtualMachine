@@ -7,10 +7,5 @@
 
 #include "Processor/Processor.h"
 
-void readByteCode(std::string path);
+ErrorCode readByteCode(std::string path);
 long fileSize(FILE* File);
-int compiledFileWork(std::string& path, Processor& processor);
-void readAndExecuteCommands(Processor& processor);
-int executeCommand(Processor& processor);
-
-void endProgramWithCode(int code, Processor& data);

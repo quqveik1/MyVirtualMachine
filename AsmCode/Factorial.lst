@@ -37,18 +37,18 @@ File listing Pass #1: Code -> Intermediate Representation
 0025 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 64 00 00 00                           | push bx
 0026 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 9c ff ff ff                           | push -1
 0027 | #1commandNum: 0022; isFinal: 1; labelLinePos: -001; | 16 00 00 00                                       | neg
-0028 | #1commandNum: 0023; isFinal: 1; labelLinePos: -001; | 17 00 00 00                                       | imto
-0029 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
-0030 | #1commandNum: 0020; isFinal: 1; labelLinePos: 0009; | 14 01 00 00                                       | call factorial
-0031 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0032 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
-0033 | #1commandNum: 0021; isFinal: 1; labelLinePos: -001; | 15 00 00 00                                       | ret
-0034 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0035 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0035; |                                                   | main:
-0036 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0037 | #1commandNum: 0003; isFinal: 1; labelLinePos: 0002; | 03 01 00 00                                       | out enterData
-0038 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0039 | #1commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
+0028 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
+0029 | #1commandNum: 0020; isFinal: 1; labelLinePos: 0009; | 14 01 00 00                                       | call factorial
+0030 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0031 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
+0032 | #1commandNum: 0021; isFinal: 1; labelLinePos: -001; | 15 00 00 00                                       | ret
+0033 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0034 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0034; |                                                   | main:
+0035 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0036 | #1commandNum: 0003; isFinal: 1; labelLinePos: 0002; | 03 01 00 00                                       | out enterData
+0037 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0038 | #1commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
+0039 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
 0040 | #1commandNum: 0023; isFinal: 1; labelLinePos: -001; | 17 00 00 00                                       | imto
 0041 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
 0042 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
@@ -64,9 +64,11 @@ File listing Pass #1: Code -> Intermediate Representation
 0052 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
 0053 | #1commandNum: 0020; isFinal: 1; labelLinePos: 0009; | 14 01 00 00                                       | call factorial
 0054 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0055 | #1commandNum: 0003; isFinal: 1; labelLinePos: 0004; | 03 01 00 00                                       | out answer
-0056 | #1commandNum: 0003; isFinal: 1; labelLinePos: -001; | 03 00 00 00                                       | out
-0057 | #1commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+0055 | #1commandNum: 0023; isFinal: 1; labelLinePos: -001; | 17 00 00 00                                       | imto
+0056 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0057 | #1commandNum: 0003; isFinal: 1; labelLinePos: 0004; | 03 01 00 00                                       | out answer
+0058 | #1commandNum: 0003; isFinal: 1; labelLinePos: -001; | 03 00 00 00                                       | out
+0059 | #1commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
 
 
 File listing Pass #2: Intermediate Representation -> Machine Code
@@ -107,41 +109,43 @@ File listing Pass #2: Intermediate Representation -> Machine Code
 025 | #2 | 000f8 | 04 02 00 00 64 00 00 00                           | push bx
 026 | #2 | 00100 | 04 01 00 00 9c ff ff ff                           | push -1
 027 | #2 | 00108 | 16 00 00 00                                       | neg
-028 | #2 | 0010c | 17 00 00 00                                       | imto
-029 | #2 | 00110 | 06 00 00 00                                       | sub
-030 | #2 | 00114 | 14 01 00 00 30 43 00 00                           | call factorial
-031 | #2 | 0011c |                                                   | 
-032 | #2 | 0011c | 07 00 00 00                                       | mul
-033 | #2 | 00120 | 15 00 00 00                                       | ret
-034 | #2 | 00124 |                                                   | 
-035 | #2 | 00124 |                                                   | main:
-036 | #2 | 00124 |                                                   | 
-037 | #2 | 00124 | 03 01 00 00 20 03 00 00                           | out enterData
-038 | #2 | 0012c |                                                   | 
-039 | #2 | 0012c | 02 00 00 00                                       | in
-040 | #2 | 00130 | 17 00 00 00                                       | imto
-041 | #2 | 00134 |                                                   | 
-042 | #2 | 00134 | 09 02 00 00 00 00 00 00                           | pop ax
-043 | #2 | 0013c | 04 02 00 00 00 00 00 00                           | push ax
-044 | #2 | 00144 | 04 02 00 00 00 00 00 00                           | push ax
-045 | #2 | 0014c | 04 01 00 00 00 00 00 00                           | push 0
-046 | #2 | 00154 | 0c 01 00 00 ff ff ff ff                           | jae normalInput
-047 | #2 | 0015c | 03 01 00 00 38 31 00 00                           | out impossibleFactorial
-048 | #2 | 00164 | 09 02 00 00 00 00 00 00                           | pop ax
-049 | #2 | 0016c | 01 00 00 00                                       | hlt
-050 | #2 | 00170 |                                                   | 
-051 | #2 | 00170 |                                                   | normalInput:
-052 | #2 | 00170 |                                                   | 
-053 | #2 | 00170 | 14 01 00 00 30 43 00 00                           | call factorial
-054 | #2 | 00178 |                                                   | 
-055 | #2 | 00178 | 03 01 00 00 f8 2a 00 00                           | out answer
-056 | #2 | 00180 | 03 00 00 00                                       | out
-057 | #2 | 00184 | 01 00 00 00                                       | hlt
+028 | #2 | 0010c | 06 00 00 00                                       | sub
+029 | #2 | 00110 | 14 01 00 00 30 43 00 00                           | call factorial
+030 | #2 | 00118 |                                                   | 
+031 | #2 | 00118 | 07 00 00 00                                       | mul
+032 | #2 | 0011c | 15 00 00 00                                       | ret
+033 | #2 | 00120 |                                                   | 
+034 | #2 | 00120 |                                                   | main:
+035 | #2 | 00120 |                                                   | 
+036 | #2 | 00120 | 03 01 00 00 20 03 00 00                           | out enterData
+037 | #2 | 00128 |                                                   | 
+038 | #2 | 00128 | 02 00 00 00                                       | in
+039 | #2 | 0012c |                                                   | 
+040 | #2 | 0012c | 17 00 00 00                                       | imto
+041 | #2 | 00130 |                                                   | 
+042 | #2 | 00130 | 09 02 00 00 00 00 00 00                           | pop ax
+043 | #2 | 00138 | 04 02 00 00 00 00 00 00                           | push ax
+044 | #2 | 00140 | 04 02 00 00 00 00 00 00                           | push ax
+045 | #2 | 00148 | 04 01 00 00 00 00 00 00                           | push 0
+046 | #2 | 00150 | 0c 01 00 00 ff ff ff ff                           | jae normalInput
+047 | #2 | 00158 | 03 01 00 00 38 31 00 00                           | out impossibleFactorial
+048 | #2 | 00160 | 09 02 00 00 00 00 00 00                           | pop ax
+049 | #2 | 00168 | 01 00 00 00                                       | hlt
+050 | #2 | 0016c |                                                   | 
+051 | #2 | 0016c |                                                   | normalInput:
+052 | #2 | 0016c |                                                   | 
+053 | #2 | 0016c | 14 01 00 00 30 43 00 00                           | call factorial
+054 | #2 | 00174 |                                                   | 
+055 | #2 | 00174 | 17 00 00 00                                       | imto
+056 | #2 | 00178 |                                                   | 
+057 | #2 | 00178 | 03 01 00 00 f8 2a 00 00                           | out answer
+058 | #2 | 00180 | 03 00 00 00                                       | out
+059 | #2 | 00184 | 01 00 00 00                                       | hlt
 
 
 File listing Pass #3: Final Machine Code
 
-000 | #3 | 00000 | 0a 01 00 00 10 72 00 00                           | jmp main
+000 | #3 | 00000 | 0a 01 00 00 80 70 00 00                           | jmp main
 001 | #3 | 00008 |                                                   | 
 002 | #3 | 00008 |                                                   | enterData:
 003 | #3 | 00008 | 12 04 32 04 35 04 34 04 38 04 42 04 35 04 20 00 + | db "Введите число для которого надо найти факториал: \n"	
@@ -177,33 +181,35 @@ File listing Pass #3: Final Machine Code
 025 | #3 | 000f8 | 04 02 00 00 64 00 00 00                           | push bx
 026 | #3 | 00100 | 04 01 00 00 9c ff ff ff                           | push -1
 027 | #3 | 00108 | 16 00 00 00                                       | neg
-028 | #3 | 0010c | 17 00 00 00                                       | imto
-029 | #3 | 00110 | 06 00 00 00                                       | sub
-030 | #3 | 00114 | 14 01 00 00 30 43 00 00                           | call factorial
-031 | #3 | 0011c |                                                   | 
-032 | #3 | 0011c | 07 00 00 00                                       | mul
-033 | #3 | 00120 | 15 00 00 00                                       | ret
-034 | #3 | 00124 |                                                   | 
-035 | #3 | 00124 |                                                   | main:
-036 | #3 | 00124 |                                                   | 
-037 | #3 | 00124 | 03 01 00 00 20 03 00 00                           | out enterData
-038 | #3 | 0012c |                                                   | 
-039 | #3 | 0012c | 02 00 00 00                                       | in
-040 | #3 | 00130 | 17 00 00 00                                       | imto
-041 | #3 | 00134 |                                                   | 
-042 | #3 | 00134 | 09 02 00 00 00 00 00 00                           | pop ax
-043 | #3 | 0013c | 04 02 00 00 00 00 00 00                           | push ax
-044 | #3 | 00144 | 04 02 00 00 00 00 00 00                           | push ax
-045 | #3 | 0014c | 04 01 00 00 00 00 00 00                           | push 0
-046 | #3 | 00154 | 0c 01 00 00 c0 8f 00 00                           | jae normalInput
-047 | #3 | 0015c | 03 01 00 00 38 31 00 00                           | out impossibleFactorial
-048 | #3 | 00164 | 09 02 00 00 00 00 00 00                           | pop ax
-049 | #3 | 0016c | 01 00 00 00                                       | hlt
-050 | #3 | 00170 |                                                   | 
-051 | #3 | 00170 |                                                   | normalInput:
-052 | #3 | 00170 |                                                   | 
-053 | #3 | 00170 | 14 01 00 00 30 43 00 00                           | call factorial
-054 | #3 | 00178 |                                                   | 
-055 | #3 | 00178 | 03 01 00 00 f8 2a 00 00                           | out answer
-056 | #3 | 00180 | 03 00 00 00                                       | out
-057 | #3 | 00184 | 01 00 00 00                                       | hlt
+028 | #3 | 0010c | 06 00 00 00                                       | sub
+029 | #3 | 00110 | 14 01 00 00 30 43 00 00                           | call factorial
+030 | #3 | 00118 |                                                   | 
+031 | #3 | 00118 | 07 00 00 00                                       | mul
+032 | #3 | 0011c | 15 00 00 00                                       | ret
+033 | #3 | 00120 |                                                   | 
+034 | #3 | 00120 |                                                   | main:
+035 | #3 | 00120 |                                                   | 
+036 | #3 | 00120 | 03 01 00 00 20 03 00 00                           | out enterData
+037 | #3 | 00128 |                                                   | 
+038 | #3 | 00128 | 02 00 00 00                                       | in
+039 | #3 | 0012c |                                                   | 
+040 | #3 | 0012c | 17 00 00 00                                       | imto
+041 | #3 | 00130 |                                                   | 
+042 | #3 | 00130 | 09 02 00 00 00 00 00 00                           | pop ax
+043 | #3 | 00138 | 04 02 00 00 00 00 00 00                           | push ax
+044 | #3 | 00140 | 04 02 00 00 00 00 00 00                           | push ax
+045 | #3 | 00148 | 04 01 00 00 00 00 00 00                           | push 0
+046 | #3 | 00150 | 0c 01 00 00 30 8e 00 00                           | jae normalInput
+047 | #3 | 00158 | 03 01 00 00 38 31 00 00                           | out impossibleFactorial
+048 | #3 | 00160 | 09 02 00 00 00 00 00 00                           | pop ax
+049 | #3 | 00168 | 01 00 00 00                                       | hlt
+050 | #3 | 0016c |                                                   | 
+051 | #3 | 0016c |                                                   | normalInput:
+052 | #3 | 0016c |                                                   | 
+053 | #3 | 0016c | 14 01 00 00 30 43 00 00                           | call factorial
+054 | #3 | 00174 |                                                   | 
+055 | #3 | 00174 | 17 00 00 00                                       | imto
+056 | #3 | 00178 |                                                   | 
+057 | #3 | 00178 | 03 01 00 00 f8 2a 00 00                           | out answer
+058 | #3 | 00180 | 03 00 00 00                                       | out
+059 | #3 | 00184 | 01 00 00 00                                       | hlt

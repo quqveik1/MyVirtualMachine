@@ -105,3 +105,10 @@ int jmp_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandIn
 
     return WellCode;
 }
+
+int ret_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
+{
+    commandInfo.commandFinish = commandInfo.commandStart + sizeof(int);
+
+    return defaultOnlyName_dissassemblerCommand(processor, commandInfo, originalLine);
+}
