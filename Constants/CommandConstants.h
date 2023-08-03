@@ -4,9 +4,9 @@
 
 #include "ErrorCode.h"
 
-const int COMMANDSVERSION = 14;
+const int COMMANDSVERSION = 15;
 
-const int cCommands = 24;
+const int cCommands = 25;
 
 const std::wstring hlt_str = L"hlt";
 
@@ -43,6 +43,8 @@ const std::wstring neg_str = L"neg";  //!!!
 const std::wstring imto_str = L"imto";  //!!!
 const std::wstring breakpoint_str = L"breakpoint";  //!!!
 
+const std::wstring pixel_str = L"pixel";
+
 //------------------------------------------------------------------
 
 enum CommandNums
@@ -78,7 +80,8 @@ enum CommandNums
 
     neg_num = 22,  
     imto_num = 23,  
-    breakpoint_num = 24 
+    breakpoint_num = 24,
+    pixel_num = 25
 };
 
 //------------------------------------------------------------------

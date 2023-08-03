@@ -94,7 +94,8 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>C:\Users\Алехандро\Desktop\AlexProjects\Libs\SFML-2.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -112,7 +113,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>C:\Users\Алехандро\Desktop\AlexProjects\Libs\SFML-2.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -130,7 +132,8 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>C:\Users\Алехандро\Desktop\AlexProjects\Libs\SFML-2.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -148,7 +151,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>C:\Users\Алехандро\Desktop\AlexProjects\Libs\SFML-2.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

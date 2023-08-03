@@ -2,5 +2,5 @@
 
 int main(int argc, char** argv)
 {
-    return readByteCode("AsmCode/Factorial.bin");
+    return readByteCode("AsmCode/VideoProgram.bin");
 }

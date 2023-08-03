@@ -28,4 +28,6 @@ void initCommandsArr()
     commandsArr[neg_num] = neg_command;
     commandsArr[imto_num] = imto_command;
     commandsArr[breakpoint_num] = breakpoint_command;
+
+    commandsArr[pixel_num] = pixel_command;
 }

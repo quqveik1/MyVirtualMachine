@@ -1,0 +1,59 @@
+
+File listing Pass #1: Code -> Intermediate Representation
+
+0000 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0001 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0002 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 9c 63 00 00                           | push 255
+0003 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 9c 63 00 00                           | push 255
+0004 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 9c 63 00 00                           | push 255
+0005 | #1commandNum: 0025; isFinal: 1; labelLinePos: -001; | 19 00 00 00                                       | pixel 
+0006 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0007 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
+0008 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0009 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0009; |                                                   | circle:
+0010 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 03 00 00 64 00 00 00 00 00 00 00               | push ax+1
+0011 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
+0012 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 10 27 00 00                           | push 100
+0013 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
+0014 | #1commandNum: 0011; isFinal: 1; labelLinePos: 0009; | 0b 01 00 00                                       | ja circle
+0015 | #1commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+
+
+File listing Pass #2: Intermediate Representation -> Machine Code
+
+000 | #2 | 00000 | 04 01 00 00 00 00 00 00                           | push 0
+001 | #2 | 00008 | 04 01 00 00 00 00 00 00                           | push 0
+002 | #2 | 00010 | 04 01 00 00 9c 63 00 00                           | push 255
+003 | #2 | 00018 | 04 01 00 00 9c 63 00 00                           | push 255
+004 | #2 | 00020 | 04 01 00 00 9c 63 00 00                           | push 255
+005 | #2 | 00028 | 19 00 00 00                                       | pixel 
+006 | #2 | 0002c | 04 01 00 00 00 00 00 00                           | push 0
+007 | #2 | 00034 | 09 02 00 00 00 00 00 00                           | pop ax
+008 | #2 | 0003c |                                                   | 
+009 | #2 | 0003c |                                                   | circle:
+010 | #2 | 0003c | 04 03 00 00 64 00 00 00 00 00 00 00               | push ax+1
+011 | #2 | 00048 | 09 02 00 00 00 00 00 00                           | pop ax
+012 | #2 | 00050 | 04 01 00 00 10 27 00 00                           | push 100
+013 | #2 | 00058 | 04 02 00 00 00 00 00 00                           | push ax
+014 | #2 | 00060 | 0b 01 00 00 70 17 00 00                           | ja circle
+015 | #2 | 00068 | 01 00 00 00                                       | hlt
+
+
+File listing Pass #3: Final Machine Code
+
+000 | #3 | 00000 | 04 01 00 00 00 00 00 00                           | push 0
+001 | #3 | 00008 | 04 01 00 00 00 00 00 00                           | push 0
+002 | #3 | 00010 | 04 01 00 00 9c 63 00 00                           | push 255
+003 | #3 | 00018 | 04 01 00 00 9c 63 00 00                           | push 255
+004 | #3 | 00020 | 04 01 00 00 9c 63 00 00                           | push 255
+005 | #3 | 00028 | 19 00 00 00                                       | pixel 
+006 | #3 | 0002c | 04 01 00 00 00 00 00 00                           | push 0
+007 | #3 | 00034 | 09 02 00 00 00 00 00 00                           | pop ax
+008 | #3 | 0003c |                                                   | 
+009 | #3 | 0003c |                                                   | circle:
+010 | #3 | 0003c | 04 03 00 00 64 00 00 00 00 00 00 00               | push ax+1
+011 | #3 | 00048 | 09 02 00 00 00 00 00 00                           | pop ax
+012 | #3 | 00050 | 04 01 00 00 10 27 00 00                           | push 100
+013 | #3 | 00058 | 04 02 00 00 00 00 00 00                           | push ax
+014 | #3 | 00060 | 0b 01 00 00 70 17 00 00                           | ja circle
+015 | #3 | 00068 | 01 00 00 00                                       | hlt

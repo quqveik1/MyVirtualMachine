@@ -9,6 +9,11 @@
 #include "BreakPoint/Breakpoints.h"
 #include "Constants/ErrorCode.h"
 
+namespace sf
+{
+    class RenderWindow;
+}
+
 struct Processor
 {
     Processor();
@@ -41,9 +46,13 @@ public:
 
 private:
 
-    void readAndExecuteCommands();
-    void endProgramWithCode(int code);
+    void readAndExecuteCommands(sf::RenderWindow& window);
+    void endProgramWithCode(int code, sf::RenderWindow& window);
     int executeCommand();
 
     void startUiThread();
+    void observeFrame(sf::RenderWindow& window);
+    void drawFrame(sf::RenderWindow& window);
+    void drawLines(sf::RenderWindow& window);
+    void drawVram(sf::RenderWindow& window);
 };

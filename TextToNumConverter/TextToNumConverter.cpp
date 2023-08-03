@@ -16,5 +16,5 @@ int fib(int n)
 
 int main()
 {
-    convertToNum(L"../AsmCode/Factorial.asm");
+    convertToNum(L"../AsmCode/VideoProgram.asm");
 }

@@ -129,6 +129,10 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
     {
         res = imto_num;
     }
+    else if (svcmp(commandName, pixel_str) == 0)
+    {
+        res = pixel_num;
+    }
 
     return res;
 }
@@ -227,6 +231,7 @@ void _checkCommandsHealth()
     case neg_num:
     case imto_num:
     case breakpoint_num:
+    case pixel_num:
 
     default:
         break;

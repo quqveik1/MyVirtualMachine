@@ -44,4 +44,6 @@ int ret_command(Processor& processor, int codedCommandNum);
 int neg_command(Processor& processor, int codedCommandNum);
 
 int imto_command(Processor& processor, int codedCommandNum); 
-int breakpoint_command(Processor& processor, int codedCommandNum); 
+int breakpoint_command(Processor& processor, int codedCommandNum);
+
+int pixel_command(Processor& processor, int codedCommandNum); 

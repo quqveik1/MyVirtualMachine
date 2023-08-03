@@ -25,9 +25,10 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
 
     if (readRes == WellCode)
     {
-        std::thread t(&Processor::startUiThread, this);
-        readAndExecuteCommands();
-        t.join();
+        sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window", sf::Style::Titlebar);
+        window.setFramerateLimit(60);
+        readAndExecuteCommands(window);
+        window.close();
     }
     else
     {
@@ -39,24 +40,87 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
 
 void Processor::startUiThread()
 {
-    sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window");
-    //window.setFramerateLimit(60);
+}
 
-    while (window.isOpen())
+void Processor::observeFrame(sf::RenderWindow& window)
+{
+    sf::Event event;
+    while (window.pollEvent(event))
     {
-        sf::Event event;
-        while (window.pollEvent(event))
+        if (event.type == sf::Event::Closed)
         {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-                break;
-            }
-
+            window.close();
+            break;
         }
 
-        window.clear();
-        window.display();
+    }
+
+    window.clear();
+
+    drawFrame(window);
+
+    window.display();
+}
+
+void Processor::drawFrame(sf::RenderWindow& window)
+{
+    drawLines(window);
+
+    drawVram(window);
+
+}
+
+void Processor::drawLines(sf::RenderWindow& window)
+{
+    const int colorLine = 0x808080;
+    const int lineDeltaX = window.getSize().x / appRAM.xSize;
+    const int lineDeltaY = window.getSize().y / appRAM.ySize;
+
+    const sf::Color lineColor(80, 80, 80);
+
+    for (unsigned int x = lineDeltaX; x < window.getSize().x; x += lineDeltaX)
+    {
+        sf::VertexArray line(sf::Lines, 2);
+        line[0].position = sf::Vector2f((float)x, 0);
+        line[1].position = sf::Vector2f((float)x, (float)window.getSize().y);
+        line[0].color = lineColor;
+        line[1].color = lineColor;
+
+        window.draw(line);
+    }
+
+    for (unsigned int y = lineDeltaY; y < window.getSize().y; y += lineDeltaY)
+    {
+        sf::VertexArray line(sf::Lines, 2);
+        line[0].position = sf::Vector2f(0, (float)y);
+        line[1].position = sf::Vector2f((float)window.getSize().x, (float)y);
+        line[0].color = lineColor;
+        line[1].color = lineColor;
+
+        window.draw(line);
+    }
+}
+
+void Processor::drawVram(sf::RenderWindow& window)
+{
+    const int pixelSizeX = window.getSize().x / appRAM.xSize;
+    const int pixelSizeY = window.getSize().y / appRAM.ySize;
+
+    for (int x = 0; x < getAppRAM().xSize; x ++)
+    {
+        for (int y = 0; y < getAppRAM().ySize; y ++)
+        {
+            int colorCode = getAppRAM().getPixel(x, y);
+
+            sf::RectangleShape pixel(sf::Vector2f((float)pixelSizeX, (float)pixelSizeY));
+            pixel.setPosition((float)x * pixelSizeX, (float)y * pixelSizeY);
+
+            sf::Color color(colorCode);
+
+            pixel.setFillColor(color);
+
+            window.draw(pixel);
+        }
     }
 }
 
@@ -89,13 +153,11 @@ ErrorCode Processor::readFile(std::string& path)
     return WellCode;
 }
 
-void Processor::readAndExecuteCommands()
+void Processor::readAndExecuteCommands(sf::RenderWindow& window)
 {
-    sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window");
-
     int callCode = CommandReadErrorCode;
 
-    for (int i = 0; ; i++)
+    while (window.isOpen())
     {
         callCode = executeCommand();
         if (callCode != WellCode)
@@ -103,13 +165,14 @@ void Processor::readAndExecuteCommands()
             break;
         }
 
+        observeFrame(window);
         
     }
 
-    endProgramWithCode(callCode);
+    endProgramWithCode(callCode, window);
 }
 
-void Processor::endProgramWithCode(int code)
+void Processor::endProgramWithCode(int code, sf::RenderWindow& window)
 {
 
     if (code == CommandBreakCode)
@@ -122,7 +185,7 @@ void Processor::endProgramWithCode(int code)
         startInteractiveMode(*this, (ErrorCode)code, interCode);
         if (interCode == ContinueAppExecuting)
         {
-            readAndExecuteCommands();
+            readAndExecuteCommands(window);
         }
     }
 }

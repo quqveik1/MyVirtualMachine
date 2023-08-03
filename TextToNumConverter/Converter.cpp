@@ -114,6 +114,8 @@ db abc
 
 void save2Files(std::wstring_view* oldLines, BinCompileData& dataArr, FileListing& fileListing, int cLines, std::wstring path)
 {
+    if (dataArr.getData().size() == 0) return;
+
     std::wstring saveBinPath = path;
     changeExtension(saveBinPath, L"bin");
 

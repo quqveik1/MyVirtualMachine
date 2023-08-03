@@ -11,6 +11,7 @@
 #include "Constants/CommandConstants.h"
 #include "Converter/ByteConverter.cpp"
 #include "Converter/FloatConvert.cpp"
+#include "Converter/ColorConverter.cpp"
 
 int in_command(Processor& processor, int codedCommandNum)
 {
@@ -377,4 +378,21 @@ int breakpoint_command(Processor& processor, int codedCommandNum)
     if (res != WellCode) return res;
 
     return DebugBreakCode;
+}
+
+int pixel_command(Processor& processor, int codedCommandNum)
+{
+    unsigned char blue = deConvNum<unsigned char>(processor.getRuntimeData().peek());
+    unsigned char green = deConvNum<char>(processor.getRuntimeData().peek());
+    unsigned char red = deConvNum<unsigned char>(processor.getRuntimeData().peek());
+
+    int y = deConvNum<int>(processor.getRuntimeData().peek());
+    int x = deConvNum<int>(processor.getRuntimeData().peek());
+                     
+    int color = convColor(red, green, blue);
+
+    processor.getAppRAM().setPixel(x, y, color);
+
+    return WellCode;
+
 }
