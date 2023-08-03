@@ -2,6 +2,9 @@
 
 #include "Processor.h"
 
+#include <thread>
+#include <SFML/Graphics.hpp>
+
 #include "CallStack.cpp"
 #include "ProcessorDebug/RuntimeInfoCollector.cpp"
 #include "BreakPoint/Breakpoints.cpp"
@@ -22,14 +25,39 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
 
     if (readRes == WellCode)
     {
+        std::thread t(&Processor::startUiThread, this);
         readAndExecuteCommands();
+        t.join();
     }
     else
     {
         std::cout << "Проблема запуска скомпилированного байткода: " << readRes << std::endl;
     }
 
-    return readRes;
+    return WellCode;
+}
+
+void Processor::startUiThread()
+{
+    sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window");
+    //window.setFramerateLimit(60);
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+                break;
+            }
+
+        }
+
+        window.clear();
+        window.display();
+    }
 }
 
 ErrorCode Processor::readFile(std::string& path)
@@ -63,6 +91,7 @@ ErrorCode Processor::readFile(std::string& path)
 
 void Processor::readAndExecuteCommands()
 {
+    sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window");
 
     int callCode = CommandReadErrorCode;
 
@@ -73,6 +102,8 @@ void Processor::readAndExecuteCommands()
         {
             break;
         }
+
+        
     }
 
     endProgramWithCode(callCode);

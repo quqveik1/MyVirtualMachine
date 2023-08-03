@@ -27,3 +27,17 @@ void RAM::print(int index)
 
     std::cout << std::setw(3) << std::setfill('0') << std::right << std::hex << index << ": " << std::dec << deconvData << "\n";
 }
+
+int RAM::getPixel(int x, int y)
+{
+    int index = y * xSize + x;
+
+    return data[index];
+}
+
+void RAM::setPixel(int x, int y, int pix)
+{
+    int index = y * xSize + x;
+
+    data[index] = pix;
+}

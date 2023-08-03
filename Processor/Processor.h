@@ -23,6 +23,9 @@ private:
     RuntimeInfoCollector   runtimeInfoCollector;
     Breakpoints   breakpoints;
 
+    const int xSize = 800;
+    const int ySize = 800;
+
 public:
     RuntimeData& getRuntimeData() { return runtimeData; };
     DataStack&   getCommandData() { return commandData; };
@@ -41,4 +44,6 @@ private:
     void readAndExecuteCommands();
     void endProgramWithCode(int code);
     int executeCommand();
+
+    void startUiThread();
 };
