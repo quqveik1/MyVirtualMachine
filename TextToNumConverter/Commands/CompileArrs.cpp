@@ -33,6 +33,8 @@ void init1CompileArr()
     commands1CompileArr[word_num] = word_1compile; 
     
     commands1CompileArr[call_num] = jmp_1compile;
+
+    commands1CompileArr[si_num] = si_1compile;
 }
 
 void init2CompileArr()

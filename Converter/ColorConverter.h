@@ -5,3 +5,4 @@ int convColor(unsigned char red, unsigned char green, unsigned char blue, unsign
 unsigned char deconvColorRed(int color);
 unsigned char deconvColorGreen(int color);
 unsigned char deconvColorBlue(int color);
+unsigned char deconvColorAlpha(int color);

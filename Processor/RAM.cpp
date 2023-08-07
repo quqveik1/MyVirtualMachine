@@ -30,14 +30,24 @@ void RAM::print(int index)
 
 int RAM::getPixel(int x, int y)
 {
-    int index = y * xSize + x;
+    int index = y * xSize + x + arrSize;
+
+    if (!checkArrBound(VRAMSize, index))
+    {
+        return 0;
+    }
 
     return data[index];
 }
 
 void RAM::setPixel(int x, int y, int pix)
 {
-    int index = y * xSize + x;
+    int index = y * xSize + x + arrSize;
+
+    if (!checkArrBound(VRAMSize, index))
+    {
+        return;
+    }
 
     data[index] = pix;
 }

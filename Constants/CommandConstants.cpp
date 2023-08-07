@@ -133,6 +133,10 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
     {
         res = pixel_num;
     }
+    else if (svcmp(commandName, si_str) == 0)
+    {
+        res = si_num;
+    }
 
     return res;
 }
@@ -146,7 +150,94 @@ int getCommandName(int commandNum, std::wstring& ans)
         return DisassemblyNameError;
     }
 
-    ans = commandNames[commandNum];
+    switch (commandNum)
+    {
+    case innerCall_num:
+        ans = L"inner_call";
+        break;
+    case hlt_num:
+        ans = hlt_str;
+        break;
+    case in_num:
+        ans = in_str;
+        break;
+    case out_num:
+        ans = out_str;
+        break;
+    case push_num:
+        ans = push_str;
+        break;
+    case add_num:
+        ans = add_str;
+        break;
+    case sub_num:
+        ans = sub_str;
+        break;
+    case mul_num:
+        ans = mul_str;
+        break;
+    case div_num:
+        ans = div_str;
+        break;
+    case pop_num:
+        ans = pop_str;
+        break;
+    case jmp_num:
+        ans = jmp_str;
+        break;
+    case ja_num:
+        ans = ja_str;
+        break;
+    case jae_num:
+        ans = jae_str;
+        break;
+    case jb_num:
+        ans = jb_str;
+        break;
+    case jbe_num:
+        ans = jbe_str;
+        break;
+    case je_num:
+        ans = je_str;
+        break;
+    case jne_num:
+        ans = jne_str;
+        break;
+    case sqrt_num:
+        ans = sqrt_str;
+        break;
+    case db_num:
+        ans = db_str;
+        break;
+    case word_num:
+        ans = word_str;
+        break;
+    case call_num:
+        ans = call_str;
+        break;
+    case ret_num:
+        ans = ret_str;
+        break;
+    case neg_num:
+        ans = neg_str;
+        break;
+    case imto_num:
+        ans = imto_str;
+        break;
+    case breakpoint_num:
+        ans = breakpoint_str;
+        break;
+    case pixel_num:
+        ans = pixel_str;
+        break;
+    case si_num:
+        ans = si_str;
+        break;
+
+    default:
+        break;
+    
+    }
 
     return WellCode;
 }
@@ -179,7 +270,9 @@ void initCommandsNameArr()
                 ret_str,
                 neg_str,
                 imto_str,
-                breakpoint_str
+                breakpoint_str,
+                pixel_str,
+                si_str
     };
 }
 
@@ -232,6 +325,7 @@ void _checkCommandsHealth()
     case imto_num:
     case breakpoint_num:
     case pixel_num:
+    case si_num:
 
     default:
         break;

@@ -14,6 +14,7 @@
 #include "../../Converter/FloatConvert.cpp"
 #include "../../Common/StringViewExtension.cpp"
 #include "../IR/CommandIR.cpp"
+#include "../../Constants/SystemInfo.cpp"
 
 int default_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
@@ -286,6 +287,22 @@ int word_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data,
     commandIR.setLabelLinePos((int)ir.getActiveCommandNum());
 
     ir.getLabelSearchIR().pushWord(data);
+
+    return WellCode;
+}
+
+int si_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
+{
+    int code = getComponentNumFromStr(data);
+
+    if(code == error)
+    {
+        return SystemComponentNotFounded;
+    }
+
+    default_1compile(commandIR, commandNum, data, ir);
+
+    commandIR.put(code);
 
     return WellCode;
 }

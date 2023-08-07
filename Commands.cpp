@@ -12,6 +12,7 @@
 #include "Converter/ByteConverter.cpp"
 #include "Converter/FloatConvert.cpp"
 #include "Converter/ColorConverter.cpp"
+#include "Constants/SystemInfo.cpp"
 
 int in_command(Processor& processor, int codedCommandNum)
 {
@@ -395,4 +396,24 @@ int pixel_command(Processor& processor, int codedCommandNum)
 
     return WellCode;
 
+}
+
+int si_command(Processor& processor, int codedCommandNum)
+{
+    int component = *processor.getCommandData().peek<int>();
+
+    if(component == vsizex_num)
+    {
+        processor.getRuntimeData().push(convNum(processor.getAppRAM().xSize));
+
+        return WellCode;
+    }
+    else if (component == vsizey_num)
+    {
+        processor.getRuntimeData().push(convNum(processor.getAppRAM().ySize));
+
+        return WellCode;
+    }
+
+    return SystemComponentNotFounded;
 }

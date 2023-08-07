@@ -30,6 +30,7 @@ private:
 
     const int xSize = 800;
     const int ySize = 800;
+    bool isProgrammActive = true;
 
 public:
     RuntimeData& getRuntimeData() { return runtimeData; };
@@ -46,8 +47,8 @@ public:
 
 private:
 
-    void readAndExecuteCommands(sf::RenderWindow& window);
-    void endProgramWithCode(int code, sf::RenderWindow& window);
+    void readAndExecuteCommands();
+    void endProgramWithCode(int code);
     int executeCommand();
 
     void startUiThread();

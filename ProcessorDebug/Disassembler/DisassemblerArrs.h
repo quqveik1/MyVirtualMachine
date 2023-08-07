@@ -7,3 +7,5 @@
 DISASSEMBLERCOMMANDS disassemblerCommands[cCommands + 1]{};
 
 void initDisassemblerCommands();
+
+DISASSEMBLERCOMMANDS getDisassemblerCommand(int num);

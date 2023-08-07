@@ -3,9 +3,9 @@ File listing Pass #1: Code -> Intermediate Representation
 
 0000 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
 0001 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
-0002 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 9c 63 00 00                           | push 255
-0003 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 9c 63 00 00                           | push 255
-0004 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 9c 63 00 00                           | push 255
+0002 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 ff 00                           | push 255
+0003 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 ff 00                           | push 255
+0004 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 ff 00                           | push 255
 0005 | #1commandNum: 0025; isFinal: 1; labelLinePos: -001; | 19 00 00 00                                       | pixel 
 0006 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
 0007 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
@@ -14,22 +14,24 @@ File listing Pass #1: Code -> Intermediate Representation
 0010 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
 0011 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
 0012 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
-0013 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 64 00 00 00                           | pop bx
-0014 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 03 00 00 64 00 00 00 00 00 00 00               | push ax+1
+0013 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 01 00                           | pop bx
+0014 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 03 00 00 00 00 01 00 00 00 00 00               | push ax+1
 0015 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
-0016 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 10 27 00 00                           | push 100
+0016 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 64 00                           | push 100
 0017 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
 0018 | #1commandNum: 0011; isFinal: 1; labelLinePos: 0009; | 0b 01 00 00                                       | ja circle
-0019 | #1commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+0019 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0020 | #1commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
+0021 | #1commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
 
 
 File listing Pass #2: Intermediate Representation -> Machine Code
 
 000 | #2 | 00000 | 04 01 00 00 00 00 00 00                           | push 0
 001 | #2 | 00008 | 04 01 00 00 00 00 00 00                           | push 0
-002 | #2 | 00010 | 04 01 00 00 9c 63 00 00                           | push 255
-003 | #2 | 00018 | 04 01 00 00 9c 63 00 00                           | push 255
-004 | #2 | 00020 | 04 01 00 00 9c 63 00 00                           | push 255
+002 | #2 | 00010 | 04 01 00 00 00 00 ff 00                           | push 255
+003 | #2 | 00018 | 04 01 00 00 00 00 ff 00                           | push 255
+004 | #2 | 00020 | 04 01 00 00 00 00 ff 00                           | push 255
 005 | #2 | 00028 | 19 00 00 00                                       | pixel 
 006 | #2 | 0002c | 04 01 00 00 00 00 00 00                           | push 0
 007 | #2 | 00034 | 09 02 00 00 00 00 00 00                           | pop ax
@@ -38,22 +40,24 @@ File listing Pass #2: Intermediate Representation -> Machine Code
 010 | #2 | 0003c | 04 02 00 00 00 00 00 00                           | push ax
 011 | #2 | 00044 | 04 02 00 00 00 00 00 00                           | push ax
 012 | #2 | 0004c | 07 00 00 00                                       | mul
-013 | #2 | 00050 | 09 02 00 00 64 00 00 00                           | pop bx
-014 | #2 | 00058 | 04 03 00 00 64 00 00 00 00 00 00 00               | push ax+1
+013 | #2 | 00050 | 09 02 00 00 00 00 01 00                           | pop bx
+014 | #2 | 00058 | 04 03 00 00 00 00 01 00 00 00 00 00               | push ax+1
 015 | #2 | 00064 | 09 02 00 00 00 00 00 00                           | pop ax
-016 | #2 | 0006c | 04 01 00 00 10 27 00 00                           | push 100
+016 | #2 | 0006c | 04 01 00 00 00 00 64 00                           | push 100
 017 | #2 | 00074 | 04 02 00 00 00 00 00 00                           | push ax
-018 | #2 | 0007c | 0b 01 00 00 70 17 00 00                           | ja circle
-019 | #2 | 00084 | 01 00 00 00                                       | hlt
+018 | #2 | 0007c | 0b 01 00 00 00 00 3c 00                           | ja circle
+019 | #2 | 00084 |                                                   | 
+020 | #2 | 00084 | 02 00 00 00                                       | in
+021 | #2 | 00088 | 01 00 00 00                                       | hlt
 
 
 File listing Pass #3: Final Machine Code
 
 000 | #3 | 00000 | 04 01 00 00 00 00 00 00                           | push 0
 001 | #3 | 00008 | 04 01 00 00 00 00 00 00                           | push 0
-002 | #3 | 00010 | 04 01 00 00 9c 63 00 00                           | push 255
-003 | #3 | 00018 | 04 01 00 00 9c 63 00 00                           | push 255
-004 | #3 | 00020 | 04 01 00 00 9c 63 00 00                           | push 255
+002 | #3 | 00010 | 04 01 00 00 00 00 ff 00                           | push 255
+003 | #3 | 00018 | 04 01 00 00 00 00 ff 00                           | push 255
+004 | #3 | 00020 | 04 01 00 00 00 00 ff 00                           | push 255
 005 | #3 | 00028 | 19 00 00 00                                       | pixel 
 006 | #3 | 0002c | 04 01 00 00 00 00 00 00                           | push 0
 007 | #3 | 00034 | 09 02 00 00 00 00 00 00                           | pop ax
@@ -62,10 +66,12 @@ File listing Pass #3: Final Machine Code
 010 | #3 | 0003c | 04 02 00 00 00 00 00 00                           | push ax
 011 | #3 | 00044 | 04 02 00 00 00 00 00 00                           | push ax
 012 | #3 | 0004c | 07 00 00 00                                       | mul
-013 | #3 | 00050 | 09 02 00 00 64 00 00 00                           | pop bx
-014 | #3 | 00058 | 04 03 00 00 64 00 00 00 00 00 00 00               | push ax+1
+013 | #3 | 00050 | 09 02 00 00 00 00 01 00                           | pop bx
+014 | #3 | 00058 | 04 03 00 00 00 00 01 00 00 00 00 00               | push ax+1
 015 | #3 | 00064 | 09 02 00 00 00 00 00 00                           | pop ax
-016 | #3 | 0006c | 04 01 00 00 10 27 00 00                           | push 100
+016 | #3 | 0006c | 04 01 00 00 00 00 64 00                           | push 100
 017 | #3 | 00074 | 04 02 00 00 00 00 00 00                           | push ax
-018 | #3 | 0007c | 0b 01 00 00 70 17 00 00                           | ja circle
-019 | #3 | 00084 | 01 00 00 00                                       | hlt
+018 | #3 | 0007c | 0b 01 00 00 00 00 3c 00                           | ja circle
+019 | #3 | 00084 |                                                   | 
+020 | #3 | 00084 | 02 00 00 00                                       | in
+021 | #3 | 00088 | 01 00 00 00                                       | hlt

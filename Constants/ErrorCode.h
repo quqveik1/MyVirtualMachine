@@ -28,4 +28,5 @@ enum ErrorCode
     DebugBreakCode = -15,
     RAMOutOfBounds = -16,
     BreakPointNotFounded = -17,
+    SystemComponentNotFounded = -18
 };

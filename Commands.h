@@ -47,3 +47,4 @@ int imto_command(Processor& processor, int codedCommandNum);
 int breakpoint_command(Processor& processor, int codedCommandNum);
 
 int pixel_command(Processor& processor, int codedCommandNum); 
+int si_command(Processor& processor, int codedCommandNum); 

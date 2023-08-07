@@ -1,6 +1,7 @@
 #pragma once
 
 #include "FncArrs.h"
+#include "CommandConstants.h"
 
 void initCommandsArr()
 {
@@ -30,4 +31,12 @@ void initCommandsArr()
     commandsArr[breakpoint_num] = breakpoint_command;
 
     commandsArr[pixel_num] = pixel_command;
+
+    commandsArr[si_num] = si_command;
+}
+
+COMMANDTYPE getCommand(int num)
+{
+    if (!isCommandNumValid(num)) return nullptr;
+    return commandsArr[num];
 }

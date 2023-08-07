@@ -5,6 +5,7 @@
 #include "../../Constants/CommandConstants.h"
 #include "../../Processor/Register/RegisterCompile.cpp"
 #include "../../Common//StringViewExtension.cpp"
+#include "../../Constants/SystemInfo.cpp"
 
 int defaultOnlyName_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
 {
@@ -111,4 +112,26 @@ int ret_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandIn
     commandInfo.commandFinish = commandInfo.commandStart + sizeof(int);
 
     return defaultOnlyName_dissassemblerCommand(processor, commandInfo, originalLine);
+}
+
+int si_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
+{
+
+    defaultOnlyName_dissassemblerCommand(processor, commandInfo, originalLine);
+
+    processor.getCommandData().setCurrPos(commandInfo.commandStart + sizeof(int));
+
+    int compNum = *processor.getCommandData().peek<int>();
+
+    std::wstring compName{};
+
+    ErrorCode res = getComponentStrFromNum((SystemComponents)compNum, compName);
+
+    if (res != WellCode) return res;
+
+    originalLine += L" ";
+
+    originalLine += compName;
+
+    return WellCode;
 }

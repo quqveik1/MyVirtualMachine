@@ -1,0 +1,119 @@
+
+File listing Pass #1: Code -> Intermediate Representation
+
+0000 | #1commandNum: 0010; isFinal: 1; labelLinePos: -001; | 0a 01 00 00                                       | jmp main
+0001 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0002 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0002; |                                                   | parabola:
+0003 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 32 00                           | push 50
+0004 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 00 00 00                                       | sub
+0005 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 01 00                           | pop bx
+0006 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
+0007 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 01 00                           | push bx
+0008 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 00 00 00                                       | mul
+0009 | #1commandNum: 0022; isFinal: 1; labelLinePos: -001; | 16 00 00 00                                       | neg
+0010 | #1commandNum: 0026; isFinal: 1; labelLinePos: -001; | 1a 00 00 00 01 00 00 00                           | si vsizey
+0011 | #1commandNum: 0005; isFinal: 1; labelLinePos: -001; | 05 00 00 00                                       | add
+0012 | #1commandNum: 0021; isFinal: 1; labelLinePos: -001; | 15 00 00 00                                       | ret
+0013 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0014 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0014; |                                                   | main:
+0015 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0016 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 00 00                           | push 0
+0017 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
+0018 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0019 | #1commandNum: 0019; isFinal: 1; labelLinePos: 0019; |                                                   | circle:
+0020 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
+0021 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
+0022 | #1commandNum: 0020; isFinal: 1; labelLinePos: 0002; | 14 01 00 00                                       | call parabola
+0023 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 ff 00                           | push 255
+0024 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 ff 00                           | push 255
+0025 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 ff 00                           | push 255
+0026 | #1commandNum: 0025; isFinal: 1; labelLinePos: -001; | 19 00 00 00                                       | pixel
+0027 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 03 00 00 00 00 01 00 00 00 00 00               | push ax+1
+0028 | #1commandNum: 0009; isFinal: 1; labelLinePos: -001; | 09 02 00 00 00 00 00 00                           | pop ax
+0029 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 02 00 00 00 00 00 00                           | push ax
+0030 | #1commandNum: 0004; isFinal: 1; labelLinePos: -001; | 04 01 00 00 00 00 64 00                           | push 100
+0031 | #1commandNum: 0013; isFinal: 1; labelLinePos: 0019; | 0d 01 00 00                                       | jb circle
+0032 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0033 | #1commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
+0034 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0035 | #1commandNum: 0001; isFinal: 1; labelLinePos: -001; | 01 00 00 00                                       | hlt
+
+
+File listing Pass #2: Intermediate Representation -> Machine Code
+
+000 | #2 | 00000 | 0a 01 00 00 ff ff ff ff                           | jmp main
+001 | #2 | 00008 |                                                   | 
+002 | #2 | 00008 |                                                   | parabola:
+003 | #2 | 00008 | 04 01 00 00 00 00 32 00                           | push 50
+004 | #2 | 00010 | 06 00 00 00                                       | sub
+005 | #2 | 00014 | 09 02 00 00 00 00 01 00                           | pop bx
+006 | #2 | 0001c | 04 02 00 00 00 00 01 00                           | push bx
+007 | #2 | 00024 | 04 02 00 00 00 00 01 00                           | push bx
+008 | #2 | 0002c | 07 00 00 00                                       | mul
+009 | #2 | 00030 | 16 00 00 00                                       | neg
+010 | #2 | 00034 | 1a 00 00 00 01 00 00 00                           | si vsizey
+011 | #2 | 0003c | 05 00 00 00                                       | add
+012 | #2 | 00040 | 15 00 00 00                                       | ret
+013 | #2 | 00044 |                                                   | 
+014 | #2 | 00044 |                                                   | main:
+015 | #2 | 00044 |                                                   | 
+016 | #2 | 00044 | 04 01 00 00 00 00 00 00                           | push 0
+017 | #2 | 0004c | 09 02 00 00 00 00 00 00                           | pop ax
+018 | #2 | 00054 |                                                   | 
+019 | #2 | 00054 |                                                   | circle:
+020 | #2 | 00054 | 04 02 00 00 00 00 00 00                           | push ax
+021 | #2 | 0005c | 04 02 00 00 00 00 00 00                           | push ax
+022 | #2 | 00064 | 14 01 00 00 00 00 08 00                           | call parabola
+023 | #2 | 0006c | 04 01 00 00 00 00 ff 00                           | push 255
+024 | #2 | 00074 | 04 01 00 00 00 00 ff 00                           | push 255
+025 | #2 | 0007c | 04 01 00 00 00 00 ff 00                           | push 255
+026 | #2 | 00084 | 19 00 00 00                                       | pixel
+027 | #2 | 00088 | 04 03 00 00 00 00 01 00 00 00 00 00               | push ax+1
+028 | #2 | 00094 | 09 02 00 00 00 00 00 00                           | pop ax
+029 | #2 | 0009c | 04 02 00 00 00 00 00 00                           | push ax
+030 | #2 | 000a4 | 04 01 00 00 00 00 64 00                           | push 100
+031 | #2 | 000ac | 0d 01 00 00 00 00 54 00                           | jb circle
+032 | #2 | 000b4 |                                                   | 
+033 | #2 | 000b4 | 02 00 00 00                                       | in
+034 | #2 | 000b8 |                                                   | 
+035 | #2 | 000b8 | 01 00 00 00                                       | hlt
+
+
+File listing Pass #3: Final Machine Code
+
+000 | #3 | 00000 | 0a 01 00 00 00 00 44 00                           | jmp main
+001 | #3 | 00008 |                                                   | 
+002 | #3 | 00008 |                                                   | parabola:
+003 | #3 | 00008 | 04 01 00 00 00 00 32 00                           | push 50
+004 | #3 | 00010 | 06 00 00 00                                       | sub
+005 | #3 | 00014 | 09 02 00 00 00 00 01 00                           | pop bx
+006 | #3 | 0001c | 04 02 00 00 00 00 01 00                           | push bx
+007 | #3 | 00024 | 04 02 00 00 00 00 01 00                           | push bx
+008 | #3 | 0002c | 07 00 00 00                                       | mul
+009 | #3 | 00030 | 16 00 00 00                                       | neg
+010 | #3 | 00034 | 1a 00 00 00 01 00 00 00                           | si vsizey
+011 | #3 | 0003c | 05 00 00 00                                       | add
+012 | #3 | 00040 | 15 00 00 00                                       | ret
+013 | #3 | 00044 |                                                   | 
+014 | #3 | 00044 |                                                   | main:
+015 | #3 | 00044 |                                                   | 
+016 | #3 | 00044 | 04 01 00 00 00 00 00 00                           | push 0
+017 | #3 | 0004c | 09 02 00 00 00 00 00 00                           | pop ax
+018 | #3 | 00054 |                                                   | 
+019 | #3 | 00054 |                                                   | circle:
+020 | #3 | 00054 | 04 02 00 00 00 00 00 00                           | push ax
+021 | #3 | 0005c | 04 02 00 00 00 00 00 00                           | push ax
+022 | #3 | 00064 | 14 01 00 00 00 00 08 00                           | call parabola
+023 | #3 | 0006c | 04 01 00 00 00 00 ff 00                           | push 255
+024 | #3 | 00074 | 04 01 00 00 00 00 ff 00                           | push 255
+025 | #3 | 0007c | 04 01 00 00 00 00 ff 00                           | push 255
+026 | #3 | 00084 | 19 00 00 00                                       | pixel
+027 | #3 | 00088 | 04 03 00 00 00 00 01 00 00 00 00 00               | push ax+1
+028 | #3 | 00094 | 09 02 00 00 00 00 00 00                           | pop ax
+029 | #3 | 0009c | 04 02 00 00 00 00 00 00                           | push ax
+030 | #3 | 000a4 | 04 01 00 00 00 00 64 00                           | push 100
+031 | #3 | 000ac | 0d 01 00 00 00 00 54 00                           | jb circle
+032 | #3 | 000b4 |                                                   | 
+033 | #3 | 000b4 | 02 00 00 00                                       | in
+034 | #3 | 000b8 |                                                   | 
+035 | #3 | 000b8 | 01 00 00 00                                       | hlt

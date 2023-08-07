@@ -21,3 +21,8 @@ unsigned char deconvColorBlue(int color)
 {
     return color & 0xFF;
 }
+
+unsigned char deconvColorAlpha(int color)
+{
+    return (color >> 24) & 0xFF;
+}

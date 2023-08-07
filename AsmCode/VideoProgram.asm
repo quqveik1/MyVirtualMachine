@@ -17,4 +17,6 @@ pop ax
 push 100
 push ax
 ja circle
+
+in
 hlt

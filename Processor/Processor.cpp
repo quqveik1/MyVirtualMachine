@@ -25,18 +25,18 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
 
     if (readRes == WellCode)
     {
-        sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window", sf::Style::Titlebar);
-        window.setFramerateLimit(60);
-
         auto start = std::chrono::high_resolution_clock::now();
+
+        std::thread t(&Processor::startUiThread, this);
+        t.detach();
         
-        readAndExecuteCommands(window);
+        readAndExecuteCommands();
 
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> elapsed = end - start;
 
         std::cout << "Time elapsed: " << elapsed.count() << " ms" << std::endl;
-        window.close();
+        isProgrammActive = false;
     }
     else
     {
@@ -48,11 +48,17 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
 
 void Processor::startUiThread()
 {
+    sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window", sf::Style::Titlebar);
+    window.setFramerateLimit(60);
+
+    while(isProgrammActive)
+    {
+        observeFrame(window);
+    }
 }
 
 void Processor::observeFrame(sf::RenderWindow& window)
 {
-    /*
     sf::Event event;
     while (window.pollEvent(event))
     {
@@ -69,7 +75,6 @@ void Processor::observeFrame(sf::RenderWindow& window)
     drawFrame(window);
 
     window.display();
-    */
 }
 
 void Processor::drawFrame(sf::RenderWindow& window)
@@ -121,7 +126,7 @@ void Processor::drawVram(sf::RenderWindow& window)
         {
             int colorCode = getAppRAM().getPixel(x, y);
 
-            sf::RectangleShape pixel(sf::Vector2f((float)pixelSizeX, (float)pixelSizeY));
+            sf::RectangleShape pixel(sf::Vector2f((float)pixelSizeX - 1, (float)pixelSizeY - 1));
             pixel.setPosition((float)x * pixelSizeX, (float)y * pixelSizeY);
 
             sf::Color color(colorCode);
@@ -135,7 +140,7 @@ void Processor::drawVram(sf::RenderWindow& window)
 
 ErrorCode Processor::readFile(std::string& path)
 {
-    FILE* file = fopen(path.c_str(), "r");
+    FILE* file = fopen(path.c_str(), "rb");
 
     FileHeader fileHeader{};
 
@@ -162,26 +167,23 @@ ErrorCode Processor::readFile(std::string& path)
     return WellCode;
 }
 
-void Processor::readAndExecuteCommands(sf::RenderWindow& window)
+void Processor::readAndExecuteCommands()
 {
     int callCode = CommandReadErrorCode;
 
-    while (window.isOpen())
+    for (;;)
     {
         callCode = executeCommand();
         if (callCode != WellCode)
         {
             break;
         }
-
-        observeFrame(window);
-        
     }
 
-    endProgramWithCode(callCode, window);
+    endProgramWithCode(callCode);
 }
 
-void Processor::endProgramWithCode(int code, sf::RenderWindow& window)
+void Processor::endProgramWithCode(int code)
 {
 
     if (code == CommandBreakCode)
@@ -194,7 +196,7 @@ void Processor::endProgramWithCode(int code, sf::RenderWindow& window)
         startInteractiveMode(*this, (ErrorCode)code, interCode);
         if (interCode == ContinueAppExecuting)
         {
-            readAndExecuteCommands(window);
+            readAndExecuteCommands();
         }
     }
 }
@@ -209,17 +211,14 @@ int Processor::executeCommand()
 
     int commandNum = decodeNumberRepresentation(codedCommandNum, NULL, NULL);
 
-    if (isCommandNumValid(commandNum))
+    COMMANDTYPE fnc = getCommand(commandNum);
+    if (fnc)
     {
-        COMMANDTYPE fnc = commandsArr[commandNum];
-        if (fnc)
-        {
-            int callRes = fnc(*this, codedCommandNum);
+        int callRes = fnc(*this, codedCommandNum);
 
-            getRuntimeInfoCollector().addLastCommand(filePos, commandNum);
+        getRuntimeInfoCollector().addLastCommand(filePos, commandNum);
 
-            return callRes;
-        }
+        return callRes;
     }
 
     return CommandReadErrorCode;

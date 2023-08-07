@@ -27,3 +27,5 @@ int writeStrInData(CommandIR& commandIR, std::wstring_view& data, size_t firstQu
 int db_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir);
 
 int word_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir);
+
+int si_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir);
