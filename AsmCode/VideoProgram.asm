@@ -8,6 +8,10 @@ push 0
 pop ax
 
 circle:
+push ax
+push ax
+mul
+pop bx
 push ax+1
 pop ax
 push 100

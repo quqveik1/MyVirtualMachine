@@ -27,7 +27,15 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
     {
         sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window", sf::Style::Titlebar);
         window.setFramerateLimit(60);
+
+        auto start = std::chrono::high_resolution_clock::now();
+        
         readAndExecuteCommands(window);
+
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double, std::milli> elapsed = end - start;
+
+        std::cout << "Time elapsed: " << elapsed.count() << " ms" << std::endl;
         window.close();
     }
     else
@@ -44,6 +52,7 @@ void Processor::startUiThread()
 
 void Processor::observeFrame(sf::RenderWindow& window)
 {
+    /*
     sf::Event event;
     while (window.pollEvent(event))
     {
@@ -60,12 +69,12 @@ void Processor::observeFrame(sf::RenderWindow& window)
     drawFrame(window);
 
     window.display();
+    */
 }
 
 void Processor::drawFrame(sf::RenderWindow& window)
 {
     drawLines(window);
-
     drawVram(window);
 
 }
