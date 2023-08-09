@@ -31,6 +31,7 @@ private:
     const int xSize = 800;
     const int ySize = 800;
     bool isProgrammActive = true;
+    sf::RenderWindow* program_window = nullptr;
 
 public:
     RuntimeData& getRuntimeData() { return runtimeData; };

@@ -7,7 +7,7 @@ File listing Pass #1: Code -> Intermediate Representation
 0003 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 32 00                           | push 50
 0004 | #1commandNum: 0040; isFinal: 1; labelLinePos: -001; | 28 00 00 00                                       | sub
 0005 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 01 00                           | pop bx
-0006 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 02 00                           | push 2
+0006 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 10 27                           | push 10000
 0007 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 02 00                           | pop cx
 0008 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
 0009 | #1commandNum: 0025; isFinal: 1; labelLinePos: 0009; |                                                   | circleParabola:
@@ -48,9 +48,8 @@ File listing Pass #1: Code -> Intermediate Representation
 0044 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 64 00                           | push 100
 0045 | #1commandNum: 0238; isFinal: 1; labelLinePos: 0033; | ee 01 00 00                                       | jb circle
 0046 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0047 | #1commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00                                       | in
-0048 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0049 | #1commandNum: 0244; isFinal: 1; labelLinePos: -001; | f4 00 00 00                                       | hlt
+0047 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
+0048 | #1commandNum: 0244; isFinal: 1; labelLinePos: -001; | f4 00 00 00                                       | hlt
 
 
 File listing Pass #2: Intermediate Representation -> Machine Code
@@ -61,7 +60,7 @@ File listing Pass #2: Intermediate Representation -> Machine Code
 003 | #2 | 00008 | 06 01 00 00 00 00 32 00                           | push 50
 004 | #2 | 00010 | 28 00 00 00                                       | sub
 005 | #2 | 00014 | 07 02 00 00 00 00 01 00                           | pop bx
-006 | #2 | 0001c | 06 01 00 00 00 00 02 00                           | push 2
+006 | #2 | 0001c | 06 01 00 00 00 00 10 27                           | push 10000
 007 | #2 | 00024 | 07 02 00 00 00 00 02 00                           | pop cx
 008 | #2 | 0002c |                                                   | 
 009 | #2 | 0002c |                                                   | circleParabola:
@@ -102,9 +101,8 @@ File listing Pass #2: Intermediate Representation -> Machine Code
 044 | #2 | 000f8 | 06 01 00 00 00 00 64 00                           | push 100
 045 | #2 | 00100 | ee 01 00 00 00 00 a8 00                           | jb circle
 046 | #2 | 00108 |                                                   | 
-047 | #2 | 00108 | 02 00 00 00                                       | in
-048 | #2 | 0010c |                                                   | 
-049 | #2 | 0010c | f4 00 00 00                                       | hlt
+047 | #2 | 00108 |                                                   | 
+048 | #2 | 00108 | f4 00 00 00                                       | hlt
 
 
 File listing Pass #3: Final Machine Code
@@ -115,7 +113,7 @@ File listing Pass #3: Final Machine Code
 003 | #3 | 00008 | 06 01 00 00 00 00 32 00                           | push 50
 004 | #3 | 00010 | 28 00 00 00                                       | sub
 005 | #3 | 00014 | 07 02 00 00 00 00 01 00                           | pop bx
-006 | #3 | 0001c | 06 01 00 00 00 00 02 00                           | push 2
+006 | #3 | 0001c | 06 01 00 00 00 00 10 27                           | push 10000
 007 | #3 | 00024 | 07 02 00 00 00 00 02 00                           | pop cx
 008 | #3 | 0002c |                                                   | 
 009 | #3 | 0002c |                                                   | circleParabola:
@@ -156,6 +154,5 @@ File listing Pass #3: Final Machine Code
 044 | #3 | 000f8 | 06 01 00 00 00 00 64 00                           | push 100
 045 | #3 | 00100 | ee 01 00 00 00 00 a8 00                           | jb circle
 046 | #3 | 00108 |                                                   | 
-047 | #3 | 00108 | 02 00 00 00                                       | in
-048 | #3 | 0010c |                                                   | 
-049 | #3 | 0010c | f4 00 00 00                                       | hlt
+047 | #3 | 00108 |                                                   | 
+048 | #3 | 00108 | f4 00 00 00                                       | hlt

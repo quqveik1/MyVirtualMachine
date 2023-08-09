@@ -4,7 +4,7 @@ parabola:
 push 50
 sub
 pop bx
-push 2
+push 10000
 pop cx
 
 circleParabola:
@@ -45,6 +45,5 @@ push ax
 push 100
 jb circle
 
-in
 
 hlt

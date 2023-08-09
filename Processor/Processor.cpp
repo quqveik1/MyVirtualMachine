@@ -27,8 +27,11 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
     {
         auto start = std::chrono::high_resolution_clock::now();
 
-        std::thread t(&Processor::startUiThread, this);
-        t.detach();
+        //std::thread t(&Processor::startUiThread, this);
+        //t.detach();
+        sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window", sf::Style::Titlebar);
+        program_window = &window;
+        program_window->setFramerateLimit(60);
         
         readAndExecuteCommands();
 
@@ -178,6 +181,7 @@ void Processor::readAndExecuteCommands()
         {
             break;
         }
+        observeFrame(*program_window);
     }
 
     endProgramWithCode(callCode);
