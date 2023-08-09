@@ -22,13 +22,13 @@ public:
     void end1Part();
     void end2Part();
 
-    std::wstring& getFileListing() { return fileListing; };
+    std::wstring& getFileListing     () { return fileListing; };
     BinCompileData& getBinCompileData() { return bincompileData; };
-    IR& getIR() { return ir; };
+    IR& getIR                        () { return ir; };
 
     int getOutputLineNum() { return outputLineNum; }
 
-    int getListingFileActiveStringIndex();
+    int getListingFileActiveStringIndex     ();
     std::wstring& getActiveFileListingString();
 
     void addNewListingLine();
@@ -38,7 +38,7 @@ public:
     int add1CompileCommand(CommandIR& commandIR);
     int add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter);
     int add3CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter);
-    int add2PartCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter, int passNum);
+    int add2PartCommand   (CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter, int passNum);
 
 private:
     void initListing();

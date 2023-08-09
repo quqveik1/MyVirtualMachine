@@ -38,7 +38,7 @@ void Breakpoints::replaceWithBreakpoint(Breakpoint& bp)
 {
     if (!bp.isInCode)
     {
-        processor->getCommandData().set(bp.filePos, breakpoint_num);
+        processor->getCommandData().set(bp.filePos, runtimeBreakPoint);
         bp.isInCode = true;
     }
 }

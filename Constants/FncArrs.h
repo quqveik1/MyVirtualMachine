@@ -3,6 +3,5 @@
 
 COMMANDTYPE commandsArr[cCommands + 1]{};
 
-void initCommandsArr();
-
+void initCommandsArr  ();
 COMMANDTYPE getCommand(int num);

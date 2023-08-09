@@ -10,7 +10,7 @@ public:
 
     bool isEmpty() { return getData().empty(); };
 
-    int peek();
-    int get();
+    int peek ();
+    int get  ();
     void push(int obj);
 };

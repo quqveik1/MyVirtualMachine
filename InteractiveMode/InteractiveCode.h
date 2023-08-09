@@ -3,6 +3,6 @@
 enum InteractiveCode
 {
     ContinueInteractiveMode = 0,
-    ShutDownProgramm = 1,
-    ContinueAppExecuting = 2
+    ShutDownProgramm        = 1,
+    ContinueAppExecuting    = 2
 };

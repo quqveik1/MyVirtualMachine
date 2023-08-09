@@ -22,11 +22,11 @@ void RuntimeInfoCollector::pushCommand(RuntimeCommandInfo& info)
     getCommands().push_back(info);
 }
 
-void RuntimeInfoCollector::addLastCommand(int commandFileStart, int commandNum)
+void RuntimeInfoCollector::addLastCommand(int commandFileStart, int commandData)
 {
     RuntimeCommandInfo command;
 
-    command.commandNum = commandNum;
+    command.commandData = commandData;
     command.commandStart = commandFileStart;
     command.commandFinish = processor.getCommandData().getCurrPos();
 
@@ -35,7 +35,6 @@ void RuntimeInfoCollector::addLastCommand(int commandFileStart, int commandNum)
 
 int RuntimeInfoCollector::onError()
 { 
-    initCommandsNameArr();
     initDisassemblerCommands();
     initRegisterNames();
 
@@ -49,15 +48,12 @@ int RuntimeInfoCollector::print()
 
     for (size_t i = 0; i < getCommands().size(); i++)
     {
-        std::wstring ans;
+        std::wstring ans{};
 
         RuntimeCommandInfo& info = getCommands().at(i);
 
         int res = disassemble(ans, info);
-
         if (res != WellCode) return res;
-
-        //static const int startLen = 
 
         std::cout << std::setw(2) << std::setfill('0') << std::right << std::dec << i << " | ";
 
@@ -82,7 +78,10 @@ int RuntimeInfoCollector::print()
 
 int RuntimeInfoCollector::disassemble(std::wstring& ans, RuntimeCommandInfo& info)
 {
-    DISASSEMBLERCOMMANDS fnc = disassemblerCommands[info.commandNum];
+    int decodedCommandNum = decodeNumberRepresentation(info.commandData);
+    DISASSEMBLERCOMMANDS fnc = disassemblerCommands[decodedCommandNum];
+
+    int originalFileStartPos = processor.getCommandData().getCurrPos();
 
     if (fnc == nullptr)
     {
@@ -90,6 +89,8 @@ int RuntimeInfoCollector::disassemble(std::wstring& ans, RuntimeCommandInfo& inf
     }
 
     int res = fnc(processor, info, ans);
+
+    processor.getCommandData().setCurrPos(originalFileStartPos);
 
     return res;
 }

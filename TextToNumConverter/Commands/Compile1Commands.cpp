@@ -291,7 +291,7 @@ int word_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data,
     return WellCode;
 }
 
-int si_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
+int rdsys_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     int code = getComponentNumFromStr(data);
 

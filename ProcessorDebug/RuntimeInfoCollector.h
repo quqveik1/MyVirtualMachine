@@ -9,7 +9,7 @@ class RuntimeInfoCollector
 {
     std::deque<RuntimeCommandInfo> commands;
 
-    const int HistoryLen = 16;
+    const int HistoryLen       = 16;
     const int PrintByteDataLen = 8;
 
     Processor& processor;
@@ -20,13 +20,12 @@ public:
 
     std::deque<RuntimeCommandInfo>& getCommands() { return commands; }
 
-    void pushCommand(RuntimeCommandInfo& info);
-
-    void addLastCommand(int commandFileStart, int commandNum);
+    void addLastCommand(int commandFileStart, int commandData);
 
     int onError();
-    int print();
+    int print  ();
 
 private:
-    int disassemble(std::wstring& ans, RuntimeCommandInfo& info);
+    int disassemble (std::wstring& ans, RuntimeCommandInfo& info);
+    void pushCommand(RuntimeCommandInfo& info);
 };

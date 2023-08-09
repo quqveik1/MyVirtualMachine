@@ -4,11 +4,25 @@ parabola:
 push 50
 sub
 pop bx
+push 2
+pop cx
+
+circleParabola:
 push bx
 push bx
 mul
+pop dx
+push cx
+push 1
+sub
+pop cx
+push cx
+push 0
+ja circleParabola
+
+push dx
 neg
-si vsizey
+rdsys vsizey
 add
 ret
 
@@ -24,7 +38,8 @@ call parabola
 push 255
 push 255
 push 255
-pixel
+setpxl
+imto
 push ax+1
 pop ax
 push ax

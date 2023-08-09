@@ -26,7 +26,7 @@ private:
     CallStack   callStack;
 
     RuntimeInfoCollector   runtimeInfoCollector;
-    Breakpoints   breakpoints;
+    Breakpoints            breakpoints;
 
     const int xSize = 800;
     const int ySize = 800;
@@ -53,7 +53,7 @@ private:
 
     void startUiThread();
     void observeFrame(sf::RenderWindow& window);
-    void drawFrame(sf::RenderWindow& window);
-    void drawLines(sf::RenderWindow& window);
-    void drawVram(sf::RenderWindow& window);
+    void drawFrame   (sf::RenderWindow& window);
+    void drawLines   (sf::RenderWindow& window);
+    void drawVram    (sf::RenderWindow& window);
 };

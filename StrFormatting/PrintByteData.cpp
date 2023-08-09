@@ -3,7 +3,7 @@
 #include "PrintByteData.h"
 
 const bool needNewLine = true;
-const bool noNewLine = false;
+const bool noNewLine   = false;
 
 template <typename ARR, typename TS>
 void printByteData(ARR* data, size_t bytePosBefore, size_t bytePosAfter, TS& originalLine, const int margin, std::wstring& newStr, const int byteDataPrintLen/* = DefaultByteDataPrintLen*/)

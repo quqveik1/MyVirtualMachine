@@ -8,4 +8,4 @@
 #include "Processor/Processor.h"
 
 ErrorCode readByteCode(std::string path);
-long fileSize(FILE* File);
+long fileSize         (FILE* File);

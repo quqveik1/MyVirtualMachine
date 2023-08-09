@@ -7,7 +7,7 @@
 
 enum SystemComponents
 {
-    error = -1,
+    error      = -1,
     vsizex_num = 0,
     vsizey_num = 1
 };

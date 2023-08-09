@@ -19,15 +19,15 @@ private:
     struct IR* ir;
     
 public:
-    int getWordPos(std::wstring_view& word);
-    void pushWord(std::wstring_view& word, int pos = -1);
+    int getWordPos       (std::wstring_view& word);
+    void pushWord        (std::wstring_view& word, int pos = -1);
 
     void writeOrWaitLabel(std::wstring_view& word, CommandIR* commandIR);
 
     int checkLabelLinking();
 
 private:
-    void checkFixUpList(std::wstring_view& word, int pos);
+    void checkFixUpList  (std::wstring_view& word, int pos);
 };
 
 /*

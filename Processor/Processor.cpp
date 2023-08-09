@@ -216,7 +216,7 @@ int Processor::executeCommand()
     {
         int callRes = fnc(*this, codedCommandNum);
 
-        getRuntimeInfoCollector().addLastCommand(filePos, commandNum);
+        getRuntimeInfoCollector().addLastCommand(filePos, codedCommandNum);
 
         return callRes;
     }

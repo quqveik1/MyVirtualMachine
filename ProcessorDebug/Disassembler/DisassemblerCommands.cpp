@@ -9,7 +9,8 @@
 
 int defaultOnlyName_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
 {
-    return getCommandName(commandInfo.commandNum, originalLine);
+    int decodedNum = decodeNumberRepresentation(commandInfo.commandData);
+    return getCommandName(decodedNum, originalLine);
 }
 
 int defaultSmallExpression_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
@@ -114,9 +115,8 @@ int ret_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandIn
     return defaultOnlyName_dissassemblerCommand(processor, commandInfo, originalLine);
 }
 
-int si_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
+int rdsys_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
 {
-
     defaultOnlyName_dissassemblerCommand(processor, commandInfo, originalLine);
 
     processor.getCommandData().setCurrPos(commandInfo.commandStart + sizeof(int));

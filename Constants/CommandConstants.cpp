@@ -129,13 +129,13 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
     {
         res = imto_num;
     }
-    else if (svcmp(commandName, pixel_str) == 0)
+    else if (svcmp(commandName, setpxl_str) == 0)
     {
-        res = pixel_num;
+        res = setpxl_num;
     }
-    else if (svcmp(commandName, si_str) == 0)
+    else if (svcmp(commandName, rdsys_str) == 0)
     {
-        res = si_num;
+        res = rdsys_num;
     }
 
     return res;
@@ -152,9 +152,6 @@ int getCommandName(int commandNum, std::wstring& ans)
 
     switch (commandNum)
     {
-    case innerCall_num:
-        ans = L"inner_call";
-        break;
     case hlt_num:
         ans = hlt_str;
         break;
@@ -224,14 +221,11 @@ int getCommandName(int commandNum, std::wstring& ans)
     case imto_num:
         ans = imto_str;
         break;
-    case breakpoint_num:
-        ans = breakpoint_str;
+    case setpxl_num:
+        ans = setpxl_str;
         break;
-    case pixel_num:
-        ans = pixel_str;
-        break;
-    case si_num:
-        ans = si_str;
+    case rdsys_num:
+        ans = rdsys_str;
         break;
 
     default:
@@ -242,41 +236,6 @@ int getCommandName(int commandNum, std::wstring& ans)
     return WellCode;
 }
 
-void initCommandsNameArr()
-{
-    commandNames =
-    {
-        /*0*/   L"inner call",
-                hlt_str,
-                in_str,
-                out_str,
-                push_str,
-                add_str,
-                sub_str,
-                mul_str,
-                div_str,
-                pop_str,
-                jmp_str,
-                ja_str,
-                jae_str,
-                jb_str,
-                jbe_str,
-                je_str,
-                jne_str,
-                sqrt_str,
-                db_str,
-                word_str,
-                call_str,
-                ret_str,
-                neg_str,
-                imto_str,
-                breakpoint_str,
-                pixel_str,
-                si_str
-    };
-}
-
-
 bool isCommandNumValid(int num)
 {
     if (0 < num && num <= cCommands)
@@ -284,50 +243,4 @@ bool isCommandNumValid(int num)
         return true;
     }
     return false;
-}
-
-void _checkCommandsHealth()
-{
-    int num = 0;
-
-    switch (num)
-    {
-    case innerCall_num:
-    case hlt_num:
-    case in_num:
-    case out_num:
-    case push_num:
-    case add_num:
-    case sub_num:
-    case mul_num:
-    case div_num:
-
-    case pop_num:
-
-    case jmp_num:
-    case ja_num:
-    case jae_num:
-    case jb_num:
-    case jbe_num:
-    case je_num:
-    case jne_num:
-
-    case sqrt_num:
-
-    case db_num:
-
-    case word_num:
-
-    case call_num:
-    case ret_num:
-
-    case neg_num:
-    case imto_num:
-    case breakpoint_num:
-    case pixel_num:
-    case si_num:
-
-    default:
-        break;
-    }
 }

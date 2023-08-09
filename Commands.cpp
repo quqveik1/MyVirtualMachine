@@ -106,7 +106,7 @@ int evalExpression(Processor& processor, int codedCommandNum)
 
     if (hasConst && hasRegister)
     {
-        add_command(processor, innerCall_num);
+        add_command(processor, add_num);
     }
 
     return WellCode;
@@ -365,13 +365,14 @@ int neg_command(Processor& processor, int codedCommandNum)
     return WellCode;
 }
 
+//if has constant it is runtime breakpoint
 int imto_command(Processor& processor, int codedCommandNum)
 {
-    return DebugBreakCode;
-}
+    bool hasConstant = false;
+    codedCommandNum = decodeNumberRepresentation(codedCommandNum, &hasConstant);
 
-int breakpoint_command(Processor& processor, int codedCommandNum)
-{
+    if(!hasConstant) return DebugBreakCode;
+
     processor.getCommandData().setCurrPos(processor.getCommandData().getCurrPos() - sizeof(int));
     processor.getBreakpoints().setRewriteBreakpoint(processor.getCommandData().getCurrPos());
     ErrorCode res = processor.getBreakpoints().removeOnlyFromCode(processor.getCommandData().getCurrPos());
