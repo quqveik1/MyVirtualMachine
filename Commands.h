@@ -43,7 +43,7 @@ int ret_command   (Processor& processor, int codedCommandNum);
 
 int neg_command   (Processor& processor, int codedCommandNum);
 
-int imto_command  (Processor& processor, int codedCommandNum);
+int into_command  (Processor& processor, int codedCommandNum);
 
 int pixel_command (Processor& processor, int codedCommandNum); 
 int si_command    (Processor& processor, int codedCommandNum); 

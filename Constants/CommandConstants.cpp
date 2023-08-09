@@ -125,9 +125,9 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
     {
         res = neg_num;
     }
-    else if (svcmp(commandName, imto_str) == 0)
+    else if (svcmp(commandName, into_str) == 0)
     {
-        res = imto_num;
+        res = into_num;
     }
     else if (svcmp(commandName, setpxl_str) == 0)
     {
@@ -218,8 +218,8 @@ int getCommandName(int commandNum, std::wstring& ans)
     case neg_num:
         ans = neg_str;
         break;
-    case imto_num:
-        ans = imto_str;
+    case into_num:
+        ans = into_str;
         break;
     case setpxl_num:
         ans = setpxl_str;
@@ -238,7 +238,7 @@ int getCommandName(int commandNum, std::wstring& ans)
 
 bool isCommandNumValid(int num)
 {
-    if (0 < num && num <= cCommands)
+    if (0 <= num && num <= cCommands)
     {
         return true;
     }

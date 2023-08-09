@@ -40,7 +40,7 @@ const std::wstring_view ret_str    = L"ret";
 
 const std::wstring_view neg_str    = L"neg";
 
-const std::wstring_view imto_str   = L"imto";
+const std::wstring_view into_str   = L"into";
 
 const std::wstring_view setpxl_str = L"setpxl";
 const std::wstring_view rdsys_str  = L"rdsys";
@@ -49,40 +49,34 @@ const std::wstring_view rdsys_str  = L"rdsys";
 
 enum CommandNums
 {
-    hlt_num    = 1,
-    in_num     = 2,
-    out_num    = 3,
-    push_num   = 4,
-    add_num    = 5,
-    sub_num    = 6,
-    mul_num    = 7,
-    div_num    = 8,
-
-    pop_num    = 9,
-
-    jmp_num    = 10,
-    ja_num     = 11,
-    jae_num    = 12,
-    jb_num     = 13,
-    jbe_num    = 14,
-    je_num     = 15,
-    jne_num    = 16,
-
-    sqrt_num   = 17,
-
-    db_num     = 18,
-
-    word_num   = 19,
-
-    call_num   = 20,
-    ret_num    = 21,
-
-    neg_num    = 22,  
-    imto_num   = 23,  
-
-    setpxl_num = 25,
-    rdsys_num  = 26
+    hlt_num    = 0xF4,
+    in_num     = 0x2,
+    out_num    = 0x3,
+    push_num   = 0x06,
+    add_num    = 0x00,
+    sub_num    = 0x28,
+    mul_num    = 0xF6,
+    div_num    = 0xF7,
+    pop_num    = 0x07,
+    jmp_num    = 0xEB,
+    ja_num     = 0xEC,
+    jae_num    = 0xED,
+    jb_num     = 0xEE,
+    jbe_num    = 0xEF,
+    je_num     = 0xF0,
+    jne_num    = 0xF1,
+    sqrt_num   = 0x17,
+    db_num     = 0x18,
+    word_num   = 0x19,
+    call_num   = 0xE8,
+    ret_num    = 0xC2,
+    neg_num    = 0xF8,
+    into_num   = 0xCE,
+    setpxl_num = 0x25,
+    rdsys_num  = 0x26
 };
+
+
 
 //------------------------------------------------------------------
 

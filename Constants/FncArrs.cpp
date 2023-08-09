@@ -31,7 +31,7 @@ void initCommandsArr()
     commandsArr[ret_num]    = ret_command;
 
     commandsArr[neg_num]    = neg_command;
-    commandsArr[imto_num]   = imto_command;
+    commandsArr[into_num]   = into_command;
 
     commandsArr[setpxl_num] = pixel_command;
 

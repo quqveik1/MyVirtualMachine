@@ -366,7 +366,7 @@ int neg_command(Processor& processor, int codedCommandNum)
 }
 
 //if has constant it is runtime breakpoint
-int imto_command(Processor& processor, int codedCommandNum)
+int into_command(Processor& processor, int codedCommandNum)
 {
     bool hasConstant = false;
     codedCommandNum = decodeNumberRepresentation(codedCommandNum, &hasConstant);

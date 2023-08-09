@@ -39,7 +39,6 @@ push 255
 push 255
 push 255
 setpxl
-imto
 push ax+1
 pop ax
 push ax

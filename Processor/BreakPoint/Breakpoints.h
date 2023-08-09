@@ -11,7 +11,7 @@ class Breakpoints
     std::vector<Breakpoint> breakPoints;
     Processor* processor;
     int rewriteBreakpointPos = -1;
-    int runtimeBreakPoint = codeToNumberRepresentation(imto_num, true);
+    int runtimeBreakPoint = codeToNumberRepresentation(into_num, true);
 
     void removeEl(std::vector<Breakpoint>::iterator it);
     void replaceWithOriginalCommand(Breakpoint& bp);
