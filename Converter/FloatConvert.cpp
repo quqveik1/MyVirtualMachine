@@ -11,5 +11,5 @@ int convNum(const T& num)
 template <typename T>
 T deConvNum(int num)
 {
-    return (T)((num) / Convert10Power);
+    return (T)((float)(num) / Convert10Power);
 }

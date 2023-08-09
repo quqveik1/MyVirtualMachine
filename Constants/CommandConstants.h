@@ -30,6 +30,7 @@ const std::wstring_view je_str     = L"je";
 const std::wstring_view jne_str    = L"jne";
 
 const std::wstring_view sqrt_str   = L"sqrt";
+const std::wstring_view sin_str    = L"sin";
 
 const std::wstring_view db_str     = L"db";
 
@@ -66,14 +67,15 @@ enum CommandNums
     je_num     = 0xF0,
     jne_num    = 0xF1,
     sqrt_num   = 0x17,
-    db_num     = 0x18,
-    word_num   = 0x19,
+    sin_num    = 0x18,
+    db_num     = 0x30,
+    word_num   = 0x31,
     call_num   = 0xE8,
     ret_num    = 0xC2,
     neg_num    = 0xF8,
     into_num   = 0xCE,
     setpxl_num = 0x25,
-    rdsys_num  = 0x26
+    rdsys_num  = 0x27
 };
 
 

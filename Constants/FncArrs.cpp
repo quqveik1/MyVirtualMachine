@@ -26,6 +26,7 @@ void initCommandsArr()
     commandsArr[jne_num]    = jne_command;
 
     commandsArr[sqrt_num]   = sqrt_command;
+    commandsArr[sin_num]    = sin_command;
 
     commandsArr[call_num]   = call_command;
     commandsArr[ret_num]    = ret_command;
@@ -33,7 +34,7 @@ void initCommandsArr()
     commandsArr[neg_num]    = neg_command;
     commandsArr[into_num]   = into_command;
 
-    commandsArr[setpxl_num] = pixel_command;
+    commandsArr[setpxl_num] = setpxl_command;
 
     commandsArr[rdsys_num]  = si_command;
 }

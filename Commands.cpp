@@ -5,7 +5,8 @@
 #include "Commands.h"
 
 #include <iostream>
-#include <cmath>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 #include "Common/StackFunc.cpp"
 #include "Constants/CommandConstants.h"
@@ -116,8 +117,6 @@ template <typename T>
 void get2Arg(T& a, T& b, Processor& processor)
 {
     int a1 = 0, b1 = 0;
-
-    //processor.getRuntimeData().printStack();
 
     a1 = processor.getRuntimeData().peek();
     b1 = processor.getRuntimeData().peek();
@@ -332,6 +331,41 @@ int sqrt_command(Processor& processor, int codedCommandNum)
     return WellCode;
 }
 
+int sin_command(Processor& processor, int codedCommandNum)
+{
+    float a = deConvNum<float>(processor.getRuntimeData().peek());
+
+    float res = sinus(a, 8);
+
+    processor.getRuntimeData().push(convNum(res));
+
+    return WellCode;
+}
+
+unsigned long long factorial(int n)
+{
+    unsigned long long result = 1;
+    for (int i = 2; i <= n; i++)
+    {
+        result *= i;
+    }
+    return result;
+}
+
+float sinus(float number, int len/* = 5*/)
+{
+    float res = 0;
+
+    number = std::fmod(number, 2 * M_PI);
+
+    for (int i = 0; i < len; i++)
+    {
+        res += (float)(pow(-1, i) * (pow(number, 2 * i + 1) / factorial(2 * i + 1)));
+    }
+
+    return res;
+}
+
 int call_command(Processor& processor, int codedCommandNum)
 {
     processor.getCallStack().push(processor.getCommandData().getCurrPos() + sizeof(int));
@@ -382,7 +416,7 @@ int into_command(Processor& processor, int codedCommandNum)
     return DebugBreakCode;
 }
 
-int pixel_command(Processor& processor, int codedCommandNum)
+int setpxl_command(Processor& processor, int codedCommandNum)
 {
     unsigned char blue = deConvNum<unsigned char>(processor.getRuntimeData().peek());
     unsigned char green = deConvNum<char>(processor.getRuntimeData().peek());

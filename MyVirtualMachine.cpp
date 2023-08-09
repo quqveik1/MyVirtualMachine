@@ -2,5 +2,5 @@
 
 int main(int argc, char** argv)
 {
-    return readByteCode("AsmCode/Parabola.bin");
+    return readByteCode("AsmCode/Sinus.bin");
 }

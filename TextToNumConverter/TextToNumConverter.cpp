@@ -6,5 +6,5 @@
 
 int main()
 {
-    convertToNum(L"../AsmCode/Parabola.asm");
+    convertToNum(L"../AsmCode/Sinus.asm");
 }

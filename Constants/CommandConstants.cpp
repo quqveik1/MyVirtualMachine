@@ -102,6 +102,11 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
         res = sqrt_num;
     }
 
+    else if (svcmp(commandName, sin_str) == 0)
+    {
+        res = sin_num;
+    }
+
     else if (svcmp(commandName, db_str) == 0)
     {
         res = db_num;
@@ -121,18 +126,22 @@ int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::ws
     {
         res = ret_num;
     }
+
     else if (svcmp(commandName, neg_str) == 0)
     {
         res = neg_num;
     }
+
     else if (svcmp(commandName, into_str) == 0)
     {
         res = into_num;
     }
+
     else if (svcmp(commandName, setpxl_str) == 0)
     {
         res = setpxl_num;
     }
+
     else if (svcmp(commandName, rdsys_str) == 0)
     {
         res = rdsys_num;
@@ -202,6 +211,9 @@ int getCommandName(int commandNum, std::wstring& ans)
         break;
     case sqrt_num:
         ans = sqrt_str;
+        break; 
+    case sin_num:
+        ans = sin_str;
         break;
     case db_num:
         ans = db_str;
@@ -224,13 +236,13 @@ int getCommandName(int commandNum, std::wstring& ans)
     case setpxl_num:
         ans = setpxl_str;
         break;
+        break;
     case rdsys_num:
         ans = rdsys_str;
         break;
 
     default:
         break;
-    
     }
 
     return WellCode;

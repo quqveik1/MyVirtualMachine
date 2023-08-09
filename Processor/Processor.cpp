@@ -27,11 +27,8 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
     {
         auto start = std::chrono::high_resolution_clock::now();
 
-        //std::thread t(&Processor::startUiThread, this);
-        //t.detach();
-        sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window", sf::Style::Titlebar);
-        program_window = &window;
-        program_window->setFramerateLimit(60);
+        std::thread t(&Processor::startUiThread, this);
+        t.detach();
         
         readAndExecuteCommands();
 
@@ -56,7 +53,12 @@ void Processor::startUiThread()
 
     while(isProgrammActive)
     {
+        //auto start = std::chrono::high_resolution_clock::now();
         observeFrame(window);
+        //auto end = std::chrono::high_resolution_clock::now();
+        //std::chrono::duration<double, std::milli> elapsed = end - start;
+
+        //std::cout << "Time frame: " << elapsed.count() << " ms" << std::endl;
     }
 }
 
@@ -84,7 +86,6 @@ void Processor::drawFrame(sf::RenderWindow& window)
 {
     drawLines(window);
     drawVram(window);
-
 }
 
 void Processor::drawLines(sf::RenderWindow& window)
@@ -181,7 +182,6 @@ void Processor::readAndExecuteCommands()
         {
             break;
         }
-        observeFrame(*program_window);
     }
 
     endProgramWithCode(callCode);
