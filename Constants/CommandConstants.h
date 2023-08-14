@@ -78,8 +78,6 @@ enum CommandNums
     rdsys_num  = 0x27
 };
 
-
-
 //------------------------------------------------------------------
 
 int getCommandNum     (std::wstring_view& commandName, size_t commandSize = std::wstring_view::npos);

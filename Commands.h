@@ -38,7 +38,8 @@ int jne_command    (Processor& processor, int codedCommandNum);
 
 int sqrt_command   (Processor& processor, int codedCommandNum);
 int sin_command    (Processor& processor, int codedCommandNum);
-float sinus                 (float number, int len = 5);
+const int defaultSinLen                            = 8;
+double sinus                (double number, int len = defaultSinLen);
 unsigned long long factorial(int n);
 
 int call_command   (Processor& processor, int codedCommandNum);

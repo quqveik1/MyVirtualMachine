@@ -2,5 +2,11 @@
 
 int main(int argc, char** argv)
 {
-    return readByteCode("AsmCode/Sinus.bin");
+
+    double res = sinus(M_PI, 8);
+    std::cout << "PI: " << res << "\n";
+    res = sinus(M_PI/2, 8);
+    std::cout << "PI/2: " << res << "\n";
+
+    //return readByteCode("AsmCode/Sinus.bin");
 }

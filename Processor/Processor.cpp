@@ -29,6 +29,9 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
 
         std::thread t(&Processor::startUiThread, this);
         t.detach();
+        //sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window", sf::Style::Titlebar);
+        //window.setFramerateLimit(60);
+        //program_window = &window;
         
         readAndExecuteCommands();
 
@@ -182,6 +185,8 @@ void Processor::readAndExecuteCommands()
         {
             break;
         }
+
+        //observeFrame(*program_window);
     }
 
     endProgramWithCode(callCode);
@@ -211,7 +216,6 @@ int Processor::executeCommand()
 
     int codedCommandNum = *getCommandData().peek<int>();
     getBreakpoints().observeBreakpoints();
-
 
     int commandNum = decodeNumberRepresentation(codedCommandNum, NULL, NULL);
 

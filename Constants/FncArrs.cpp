@@ -39,6 +39,7 @@ void initCommandsArr()
     commandsArr[rdsys_num]  = si_command;
 }
 
+
 COMMANDTYPE getCommand(int num)
 {
     if (!isCommandNumValid(num)) return nullptr;

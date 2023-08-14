@@ -335,7 +335,7 @@ int sin_command(Processor& processor, int codedCommandNum)
 {
     float a = deConvNum<float>(processor.getRuntimeData().peek());
 
-    float res = sinus(a, 8);
+    float res = (float)sinus((float)a);
 
     processor.getRuntimeData().push(convNum(res));
 
@@ -344,23 +344,61 @@ int sin_command(Processor& processor, int codedCommandNum)
 
 unsigned long long factorial(int n)
 {
-    unsigned long long result = 1;
-    for (int i = 2; i <= n; i++)
+    static const int facsLen = 2 * defaultSinLen + 1;
+    static unsigned long long facs[facsLen + 1]{};
+
+    if (facs[n] > 0) return facs[n];
+
+    facs[1] = 1;
+
+    int lastValidFac = 1;
+
+    for (int i = n - 1; i >= 1; i--)
     {
-        result *= i;
+        if(facs[i] > 0)
+        {
+            lastValidFac = i;
+            break;
+        }
     }
-    return result;
+
+    for (int i = lastValidFac + 1; i <= n; i++)
+    {
+        facs[i] = facs[i - 1] * i;
+    }
+
+    return facs[n];
 }
 
-float sinus(float number, int len/* = 5*/)
+//1! | 1    | * 1
+//3! | 6    | * 2 * 3
+//5! | 120  | * 4 * 5
+//7! | 5040 | * 6 * 7
+
+double sinus(double number, int len/* = defaultSinLen*/)
 {
-    float res = 0;
+    double res = 0;
 
     number = std::fmod(number, 2 * M_PI);
+    double sign = 1;
+
+    long long denom = 1;
+
+    double currNum = number;
+    double numberSquared = number * number;
 
     for (int i = 0; i < len; i++)
     {
-        res += (float)(pow(-1, i) * (pow(number, 2 * i + 1) / factorial(2 * i + 1)));
+        int currIndex = 2 * i + 1;
+
+        res     += sign * (currNum / denom);
+
+        denom   *= (++currIndex);
+        denom   *= (++currIndex);
+
+        currNum *= numberSquared;
+
+        sign    *= -1;
     }
 
     return res;

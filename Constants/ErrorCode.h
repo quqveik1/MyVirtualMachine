@@ -2,7 +2,7 @@
 
 enum ErrorCode
 {             
-    WellCode                      = 0,
+    WellCode                      =  0,
     CommandBreakCode              = -1,
 
     CommandReadErrorCode          = -2,

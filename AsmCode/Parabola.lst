@@ -1,158 +1,161 @@
 
 File listing Pass #1: Code -> Intermediate Representation
 
-0000 | #1commandNum: 0235; isFinal: 1; labelLinePos: -001; | eb 01 00 00                                       | jmp main
-0001 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0002 | #1commandNum: 0025; isFinal: 1; labelLinePos: 0002; |                                                   | parabola:
-0003 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 32 00                           | push 50
-0004 | #1commandNum: 0040; isFinal: 1; labelLinePos: -001; | 28 00 00 00                                       | sub
-0005 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 01 00                           | pop bx
-0006 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 10 27                           | push 10000
-0007 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 02 00                           | pop cx
-0008 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0009 | #1commandNum: 0025; isFinal: 1; labelLinePos: 0009; |                                                   | circleParabola:
-0010 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 01 00                           | push bx
-0011 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 01 00                           | push bx
-0012 | #1commandNum: 0246; isFinal: 1; labelLinePos: -001; | f6 00 00 00                                       | mul
-0013 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 03 00                           | pop dx
-0014 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 02 00                           | push cx
-0015 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 01 00                           | push 1
-0016 | #1commandNum: 0040; isFinal: 1; labelLinePos: -001; | 28 00 00 00                                       | sub
-0017 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 02 00                           | pop cx
-0018 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 02 00                           | push cx
-0019 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 00 00                           | push 0
-0020 | #1commandNum: 0236; isFinal: 1; labelLinePos: 0009; | ec 01 00 00                                       | ja circleParabola
-0021 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0022 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 03 00                           | push dx
-0023 | #1commandNum: 0248; isFinal: 1; labelLinePos: -001; | f8 00 00 00                                       | neg
-0024 | #1commandNum: 0038; isFinal: 1; labelLinePos: -001; | 26 00 00 00 01 00 00 00                           | rdsys vsizey
-0025 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; | 00 00 00 00                                       | add
-0026 | #1commandNum: 0194; isFinal: 1; labelLinePos: -001; | c2 00 00 00                                       | ret
-0027 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0028 | #1commandNum: 0025; isFinal: 1; labelLinePos: 0028; |                                                   | main:
-0029 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0030 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 00 00                           | push 0
-0031 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 00 00                           | pop ax
-0032 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0033 | #1commandNum: 0025; isFinal: 1; labelLinePos: 0033; |                                                   | circle:
-0034 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 00 00                           | push ax
-0035 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 00 00                           | push ax
-0036 | #1commandNum: 0232; isFinal: 1; labelLinePos: 0002; | e8 01 00 00                                       | call parabola
-0037 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00                           | push 255
-0038 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00                           | push 255
-0039 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00                           | push 255
-0040 | #1commandNum: 0037; isFinal: 1; labelLinePos: -001; | 25 00 00 00                                       | setpxl
-0041 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 03 00 00 00 00 01 00 00 00 00 00               | push ax+1
-0042 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 00 00                           | pop ax
-0043 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 00 00                           | push ax
-0044 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 64 00                           | push 100
-0045 | #1commandNum: 0238; isFinal: 1; labelLinePos: 0033; | ee 01 00 00                                       | jb circle
-0046 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0047 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                                   | 
-0048 | #1commandNum: 0244; isFinal: 1; labelLinePos: -001; | f4 00 00 00                                       | hlt
+0000 | #1commandNum: 0235; isFinal: 1; labelLinePos: -001; | eb 01 00 00               | jmp main
+0001 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
+0002 | #1commandNum: 0049; isFinal: 1; labelLinePos: 0002; |                           | parabola:
+0003 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 32 00   | push 50
+0004 | #1commandNum: 0040; isFinal: 1; labelLinePos: -001; | 28 00 00 00               | sub
+0005 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 01 00   | pop bx
+0006 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 10 27   | push 10000
+0007 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 02 00   | pop cx
+0008 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
+0009 | #1commandNum: 0049; isFinal: 1; labelLinePos: 0009; |                           | circleParabola:
+0010 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 01 00   | push bx
+0011 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 01 00   | push bx
+0012 | #1commandNum: 0246; isFinal: 1; labelLinePos: -001; | f6 00 00 00               | mul
+0013 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 03 00   | pop dx
+0014 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 02 00   | push cx
+0015 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 01 00   | push 1
+0016 | #1commandNum: 0040; isFinal: 1; labelLinePos: -001; | 28 00 00 00               | sub
+0017 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 02 00   | pop cx
+0018 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 02 00   | push cx
+0019 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 00 00   | push 0
+0020 | #1commandNum: 0236; isFinal: 1; labelLinePos: 0009; | ec 01 00 00               | ja circleParabola
+0021 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
+0022 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 03 00   | push dx
+0023 | #1commandNum: 0248; isFinal: 1; labelLinePos: -001; | f8 00 00 00               | neg
+0024 | #1commandNum: 0039; isFinal: 1; labelLinePos: -001; | 27 00 00 00 01 00 00 00   | rdsys vsizey
+0025 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; | 00 00 00 00               | add
+0026 | #1commandNum: 0194; isFinal: 1; labelLinePos: -001; | c2 00 00 00               | ret
+0027 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
+0028 | #1commandNum: 0049; isFinal: 1; labelLinePos: 0028; |                           | main:
+0029 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
+0030 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 00 00   | push 0
+0031 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 00 00   | pop ax
+0032 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
+0033 | #1commandNum: 0049; isFinal: 1; labelLinePos: 0033; |                           | circle:
+0034 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 00 00   | push ax
+0035 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 00 00   | push ax
+0036 | #1commandNum: 0232; isFinal: 1; labelLinePos: 0002; | e8 01 00 00               | call parabola
+0037 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00   | push 255
+0038 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00   | push 255
+0039 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00   | push 255
+0040 | #1commandNum: 0037; isFinal: 1; labelLinePos: -001; | 25 00 00 00               | setpxl
+0041 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 03 00 00 00 00 01 00 + | push ax+1
+                                                           | 00 00 00 00               | 
+0042 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 00 00   | pop ax
+0043 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 00 00   | push ax
+0044 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 64 00   | push 100
+0045 | #1commandNum: 0238; isFinal: 1; labelLinePos: 0033; | ee 01 00 00               | jb circle
+0046 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
+0047 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
+0048 | #1commandNum: 0244; isFinal: 1; labelLinePos: -001; | f4 00 00 00               | hlt
 
 
 File listing Pass #2: Intermediate Representation -> Machine Code
 
-000 | #2 | 00000 | eb 01 00 00 ff ff ff ff                           | jmp main
-001 | #2 | 00008 |                                                   | 
-002 | #2 | 00008 |                                                   | parabola:
-003 | #2 | 00008 | 06 01 00 00 00 00 32 00                           | push 50
-004 | #2 | 00010 | 28 00 00 00                                       | sub
-005 | #2 | 00014 | 07 02 00 00 00 00 01 00                           | pop bx
-006 | #2 | 0001c | 06 01 00 00 00 00 10 27                           | push 10000
-007 | #2 | 00024 | 07 02 00 00 00 00 02 00                           | pop cx
-008 | #2 | 0002c |                                                   | 
-009 | #2 | 0002c |                                                   | circleParabola:
-010 | #2 | 0002c | 06 02 00 00 00 00 01 00                           | push bx
-011 | #2 | 00034 | 06 02 00 00 00 00 01 00                           | push bx
-012 | #2 | 0003c | f6 00 00 00                                       | mul
-013 | #2 | 00040 | 07 02 00 00 00 00 03 00                           | pop dx
-014 | #2 | 00048 | 06 02 00 00 00 00 02 00                           | push cx
-015 | #2 | 00050 | 06 01 00 00 00 00 01 00                           | push 1
-016 | #2 | 00058 | 28 00 00 00                                       | sub
-017 | #2 | 0005c | 07 02 00 00 00 00 02 00                           | pop cx
-018 | #2 | 00064 | 06 02 00 00 00 00 02 00                           | push cx
-019 | #2 | 0006c | 06 01 00 00 00 00 00 00                           | push 0
-020 | #2 | 00074 | ec 01 00 00 00 00 2c 00                           | ja circleParabola
-021 | #2 | 0007c |                                                   | 
-022 | #2 | 0007c | 06 02 00 00 00 00 03 00                           | push dx
-023 | #2 | 00084 | f8 00 00 00                                       | neg
-024 | #2 | 00088 | 26 00 00 00 01 00 00 00                           | rdsys vsizey
-025 | #2 | 00090 | 00 00 00 00                                       | add
-026 | #2 | 00094 | c2 00 00 00                                       | ret
-027 | #2 | 00098 |                                                   | 
-028 | #2 | 00098 |                                                   | main:
-029 | #2 | 00098 |                                                   | 
-030 | #2 | 00098 | 06 01 00 00 00 00 00 00                           | push 0
-031 | #2 | 000a0 | 07 02 00 00 00 00 00 00                           | pop ax
-032 | #2 | 000a8 |                                                   | 
-033 | #2 | 000a8 |                                                   | circle:
-034 | #2 | 000a8 | 06 02 00 00 00 00 00 00                           | push ax
-035 | #2 | 000b0 | 06 02 00 00 00 00 00 00                           | push ax
-036 | #2 | 000b8 | e8 01 00 00 00 00 08 00                           | call parabola
-037 | #2 | 000c0 | 06 01 00 00 00 00 ff 00                           | push 255
-038 | #2 | 000c8 | 06 01 00 00 00 00 ff 00                           | push 255
-039 | #2 | 000d0 | 06 01 00 00 00 00 ff 00                           | push 255
-040 | #2 | 000d8 | 25 00 00 00                                       | setpxl
-041 | #2 | 000dc | 06 03 00 00 00 00 01 00 00 00 00 00               | push ax+1
-042 | #2 | 000e8 | 07 02 00 00 00 00 00 00                           | pop ax
-043 | #2 | 000f0 | 06 02 00 00 00 00 00 00                           | push ax
-044 | #2 | 000f8 | 06 01 00 00 00 00 64 00                           | push 100
-045 | #2 | 00100 | ee 01 00 00 00 00 a8 00                           | jb circle
-046 | #2 | 00108 |                                                   | 
-047 | #2 | 00108 |                                                   | 
-048 | #2 | 00108 | f4 00 00 00                                       | hlt
+000 | #2 | 00000 | eb 01 00 00 ff ff ff ff   | jmp main
+001 | #2 | 00008 |                           | 
+002 | #2 | 00008 |                           | parabola:
+003 | #2 | 00008 | 06 01 00 00 00 00 32 00   | push 50
+004 | #2 | 00010 | 28 00 00 00               | sub
+005 | #2 | 00014 | 07 02 00 00 00 00 01 00   | pop bx
+006 | #2 | 0001c | 06 01 00 00 00 00 10 27   | push 10000
+007 | #2 | 00024 | 07 02 00 00 00 00 02 00   | pop cx
+008 | #2 | 0002c |                           | 
+009 | #2 | 0002c |                           | circleParabola:
+010 | #2 | 0002c | 06 02 00 00 00 00 01 00   | push bx
+011 | #2 | 00034 | 06 02 00 00 00 00 01 00   | push bx
+012 | #2 | 0003c | f6 00 00 00               | mul
+013 | #2 | 00040 | 07 02 00 00 00 00 03 00   | pop dx
+014 | #2 | 00048 | 06 02 00 00 00 00 02 00   | push cx
+015 | #2 | 00050 | 06 01 00 00 00 00 01 00   | push 1
+016 | #2 | 00058 | 28 00 00 00               | sub
+017 | #2 | 0005c | 07 02 00 00 00 00 02 00   | pop cx
+018 | #2 | 00064 | 06 02 00 00 00 00 02 00   | push cx
+019 | #2 | 0006c | 06 01 00 00 00 00 00 00   | push 0
+020 | #2 | 00074 | ec 01 00 00 00 00 2c 00   | ja circleParabola
+021 | #2 | 0007c |                           | 
+022 | #2 | 0007c | 06 02 00 00 00 00 03 00   | push dx
+023 | #2 | 00084 | f8 00 00 00               | neg
+024 | #2 | 00088 | 27 00 00 00 01 00 00 00   | rdsys vsizey
+025 | #2 | 00090 | 00 00 00 00               | add
+026 | #2 | 00094 | c2 00 00 00               | ret
+027 | #2 | 00098 |                           | 
+028 | #2 | 00098 |                           | main:
+029 | #2 | 00098 |                           | 
+030 | #2 | 00098 | 06 01 00 00 00 00 00 00   | push 0
+031 | #2 | 000a0 | 07 02 00 00 00 00 00 00   | pop ax
+032 | #2 | 000a8 |                           | 
+033 | #2 | 000a8 |                           | circle:
+034 | #2 | 000a8 | 06 02 00 00 00 00 00 00   | push ax
+035 | #2 | 000b0 | 06 02 00 00 00 00 00 00   | push ax
+036 | #2 | 000b8 | e8 01 00 00 00 00 08 00   | call parabola
+037 | #2 | 000c0 | 06 01 00 00 00 00 ff 00   | push 255
+038 | #2 | 000c8 | 06 01 00 00 00 00 ff 00   | push 255
+039 | #2 | 000d0 | 06 01 00 00 00 00 ff 00   | push 255
+040 | #2 | 000d8 | 25 00 00 00               | setpxl
+041 | #2 | 000dc | 06 03 00 00 00 00 01 00 + | push ax+1
+                 | 00 00 00 00               | 
+042 | #2 | 000e8 | 07 02 00 00 00 00 00 00   | pop ax
+043 | #2 | 000f0 | 06 02 00 00 00 00 00 00   | push ax
+044 | #2 | 000f8 | 06 01 00 00 00 00 64 00   | push 100
+045 | #2 | 00100 | ee 01 00 00 00 00 a8 00   | jb circle
+046 | #2 | 00108 |                           | 
+047 | #2 | 00108 |                           | 
+048 | #2 | 00108 | f4 00 00 00               | hlt
 
 
 File listing Pass #3: Final Machine Code
 
-000 | #3 | 00000 | eb 01 00 00 00 00 98 00                           | jmp main
-001 | #3 | 00008 |                                                   | 
-002 | #3 | 00008 |                                                   | parabola:
-003 | #3 | 00008 | 06 01 00 00 00 00 32 00                           | push 50
-004 | #3 | 00010 | 28 00 00 00                                       | sub
-005 | #3 | 00014 | 07 02 00 00 00 00 01 00                           | pop bx
-006 | #3 | 0001c | 06 01 00 00 00 00 10 27                           | push 10000
-007 | #3 | 00024 | 07 02 00 00 00 00 02 00                           | pop cx
-008 | #3 | 0002c |                                                   | 
-009 | #3 | 0002c |                                                   | circleParabola:
-010 | #3 | 0002c | 06 02 00 00 00 00 01 00                           | push bx
-011 | #3 | 00034 | 06 02 00 00 00 00 01 00                           | push bx
-012 | #3 | 0003c | f6 00 00 00                                       | mul
-013 | #3 | 00040 | 07 02 00 00 00 00 03 00                           | pop dx
-014 | #3 | 00048 | 06 02 00 00 00 00 02 00                           | push cx
-015 | #3 | 00050 | 06 01 00 00 00 00 01 00                           | push 1
-016 | #3 | 00058 | 28 00 00 00                                       | sub
-017 | #3 | 0005c | 07 02 00 00 00 00 02 00                           | pop cx
-018 | #3 | 00064 | 06 02 00 00 00 00 02 00                           | push cx
-019 | #3 | 0006c | 06 01 00 00 00 00 00 00                           | push 0
-020 | #3 | 00074 | ec 01 00 00 00 00 2c 00                           | ja circleParabola
-021 | #3 | 0007c |                                                   | 
-022 | #3 | 0007c | 06 02 00 00 00 00 03 00                           | push dx
-023 | #3 | 00084 | f8 00 00 00                                       | neg
-024 | #3 | 00088 | 26 00 00 00 01 00 00 00                           | rdsys vsizey
-025 | #3 | 00090 | 00 00 00 00                                       | add
-026 | #3 | 00094 | c2 00 00 00                                       | ret
-027 | #3 | 00098 |                                                   | 
-028 | #3 | 00098 |                                                   | main:
-029 | #3 | 00098 |                                                   | 
-030 | #3 | 00098 | 06 01 00 00 00 00 00 00                           | push 0
-031 | #3 | 000a0 | 07 02 00 00 00 00 00 00                           | pop ax
-032 | #3 | 000a8 |                                                   | 
-033 | #3 | 000a8 |                                                   | circle:
-034 | #3 | 000a8 | 06 02 00 00 00 00 00 00                           | push ax
-035 | #3 | 000b0 | 06 02 00 00 00 00 00 00                           | push ax
-036 | #3 | 000b8 | e8 01 00 00 00 00 08 00                           | call parabola
-037 | #3 | 000c0 | 06 01 00 00 00 00 ff 00                           | push 255
-038 | #3 | 000c8 | 06 01 00 00 00 00 ff 00                           | push 255
-039 | #3 | 000d0 | 06 01 00 00 00 00 ff 00                           | push 255
-040 | #3 | 000d8 | 25 00 00 00                                       | setpxl
-041 | #3 | 000dc | 06 03 00 00 00 00 01 00 00 00 00 00               | push ax+1
-042 | #3 | 000e8 | 07 02 00 00 00 00 00 00                           | pop ax
-043 | #3 | 000f0 | 06 02 00 00 00 00 00 00                           | push ax
-044 | #3 | 000f8 | 06 01 00 00 00 00 64 00                           | push 100
-045 | #3 | 00100 | ee 01 00 00 00 00 a8 00                           | jb circle
-046 | #3 | 00108 |                                                   | 
-047 | #3 | 00108 |                                                   | 
-048 | #3 | 00108 | f4 00 00 00                                       | hlt
+000 | #3 | 00000 | eb 01 00 00 00 00 98 00   | jmp main
+001 | #3 | 00008 |                           | 
+002 | #3 | 00008 |                           | parabola:
+003 | #3 | 00008 | 06 01 00 00 00 00 32 00   | push 50
+004 | #3 | 00010 | 28 00 00 00               | sub
+005 | #3 | 00014 | 07 02 00 00 00 00 01 00   | pop bx
+006 | #3 | 0001c | 06 01 00 00 00 00 10 27   | push 10000
+007 | #3 | 00024 | 07 02 00 00 00 00 02 00   | pop cx
+008 | #3 | 0002c |                           | 
+009 | #3 | 0002c |                           | circleParabola:
+010 | #3 | 0002c | 06 02 00 00 00 00 01 00   | push bx
+011 | #3 | 00034 | 06 02 00 00 00 00 01 00   | push bx
+012 | #3 | 0003c | f6 00 00 00               | mul
+013 | #3 | 00040 | 07 02 00 00 00 00 03 00   | pop dx
+014 | #3 | 00048 | 06 02 00 00 00 00 02 00   | push cx
+015 | #3 | 00050 | 06 01 00 00 00 00 01 00   | push 1
+016 | #3 | 00058 | 28 00 00 00               | sub
+017 | #3 | 0005c | 07 02 00 00 00 00 02 00   | pop cx
+018 | #3 | 00064 | 06 02 00 00 00 00 02 00   | push cx
+019 | #3 | 0006c | 06 01 00 00 00 00 00 00   | push 0
+020 | #3 | 00074 | ec 01 00 00 00 00 2c 00   | ja circleParabola
+021 | #3 | 0007c |                           | 
+022 | #3 | 0007c | 06 02 00 00 00 00 03 00   | push dx
+023 | #3 | 00084 | f8 00 00 00               | neg
+024 | #3 | 00088 | 27 00 00 00 01 00 00 00   | rdsys vsizey
+025 | #3 | 00090 | 00 00 00 00               | add
+026 | #3 | 00094 | c2 00 00 00               | ret
+027 | #3 | 00098 |                           | 
+028 | #3 | 00098 |                           | main:
+029 | #3 | 00098 |                           | 
+030 | #3 | 00098 | 06 01 00 00 00 00 00 00   | push 0
+031 | #3 | 000a0 | 07 02 00 00 00 00 00 00   | pop ax
+032 | #3 | 000a8 |                           | 
+033 | #3 | 000a8 |                           | circle:
+034 | #3 | 000a8 | 06 02 00 00 00 00 00 00   | push ax
+035 | #3 | 000b0 | 06 02 00 00 00 00 00 00   | push ax
+036 | #3 | 000b8 | e8 01 00 00 00 00 08 00   | call parabola
+037 | #3 | 000c0 | 06 01 00 00 00 00 ff 00   | push 255
+038 | #3 | 000c8 | 06 01 00 00 00 00 ff 00   | push 255
+039 | #3 | 000d0 | 06 01 00 00 00 00 ff 00   | push 255
+040 | #3 | 000d8 | 25 00 00 00               | setpxl
+041 | #3 | 000dc | 06 03 00 00 00 00 01 00 + | push ax+1
+                 | 00 00 00 00               | 
+042 | #3 | 000e8 | 07 02 00 00 00 00 00 00   | pop ax
+043 | #3 | 000f0 | 06 02 00 00 00 00 00 00   | push ax
+044 | #3 | 000f8 | 06 01 00 00 00 00 64 00   | push 100
+045 | #3 | 00100 | ee 01 00 00 00 00 a8 00   | jb circle
+046 | #3 | 00108 |                           | 
+047 | #3 | 00108 |                           | 
+048 | #3 | 00108 | f4 00 00 00               | hlt
