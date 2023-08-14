@@ -50,7 +50,7 @@ int findFirstNotEmptySymPos(S& fullCommand, int startPos/* = 0*/)
 {
     for (int i = startPos; i < (int)fullCommand.size(); i++)
     {
-        if (fullCommand[i] != L' ')
+        if (fullCommand[i] != L' ' && fullCommand[i] != L'\t')
         {
             return i;
         }
@@ -72,7 +72,7 @@ int findFirstSpacePosAfterCommand(S& fullCommand)
             continue;
         }
 
-        if (fullCommand[i] == L' ' && wasAlNumC)
+        if ((fullCommand[i] == L' ' || fullCommand[i] == L'\t') && wasAlNumC)
         {
             return i;
         }
@@ -85,7 +85,7 @@ int findLastLineSymbol(S& fullCommand)
 {
     for (size_t i = fullCommand.size() - 1; i >= 0; i--)
     {
-        if (!iswspace(fullCommand[i]))
+        if (!iswspace(fullCommand[i]) && fullCommand[i] != L'\t')
         {
             return (int)i;
         }

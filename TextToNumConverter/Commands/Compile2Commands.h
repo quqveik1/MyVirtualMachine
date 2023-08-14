@@ -9,9 +9,9 @@ ErrorCode (*)                            (CommandIR& commandIR, IR& ir, BinCompi
 
 ErrorCode default_2compile               (CommandIR& commandIR, IR& ir, BinCompileData& binCompileData);
 
-ErrorCode out_2compile                   (CommandIR& commandIR, IR& ir, BinCompileData& binCompileData);
-
 ErrorCode saveWordExpressionToBin        (CommandIR& commandIR, IR& ir, BinCompileData& binCompileData);
 
+ErrorCode optional_word_2compile         (CommandIR& commandIR, IR& ir, BinCompileData& binCompileData);
+ErrorCode out_2compile                   (CommandIR& commandIR, IR& ir, BinCompileData& binCompileData);
 ErrorCode jmp_2compile                   (CommandIR& commandIR, IR& ir, BinCompileData& binCompileData);
 ErrorCode word_2compile                  (CommandIR& commandIR, IR& ir, BinCompileData& binCompileData);

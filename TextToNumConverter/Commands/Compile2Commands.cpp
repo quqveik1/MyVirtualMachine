@@ -28,7 +28,7 @@ ErrorCode saveWordExpressionToBin(CommandIR& commandIR, IR& ir, BinCompileData& 
     return ErrorCode::WellCode;
 }
 
-ErrorCode out_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
+ErrorCode optional_word_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
 {
     if (commandIR.getHasLabel())
     {
@@ -40,23 +40,18 @@ ErrorCode out_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileD
     }
 }
 
-ErrorCode jmp_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
+ErrorCode out_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
 {
-    if(commandIR.getHasLabel())
-    {
-        return saveWordExpressionToBin(commandIR, ir, binCompileData);
-    }
-    else
-    {
-        return default_2compile(commandIR, ir, binCompileData);
-    }
+    return optional_word_2compile(commandIR, ir, binCompileData);
 }
 
+ErrorCode jmp_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
+{
+    return optional_word_2compile(commandIR, ir, binCompileData);
+}
 
 ErrorCode word_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
 {
-    //std::wstring_view word = (wchar_t*)commandIR.getCommandData();
-
     binCompileData.getLabelSearchBin().pushWord(commandIR.getLabelLinePos());
 
     return ErrorCode::WellCode;
