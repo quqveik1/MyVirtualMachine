@@ -47,11 +47,11 @@ ErrorCode Breakpoints::remove(int pos)
 {
     auto it = std::find(breakPoints.begin(), breakPoints.end(), pos);
 
-    if (it == breakPoints.end()) return BreakPointNotFounded;
+    if (it == breakPoints.end()) return ErrorCode::BreakPointNotFounded;
 
     removeEl(it);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 
 }
 
@@ -61,12 +61,12 @@ ErrorCode Breakpoints::removeOnlyFromCode(int pos)
 
     if (it == breakPoints.end())
     {
-        return BreakPointNotFounded;
+        return ErrorCode::BreakPointNotFounded;
     }
 
     replaceWithOriginalCommand(*it);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode Breakpoints::removeAllOnlyFromCode()
@@ -75,28 +75,28 @@ ErrorCode Breakpoints::removeAllOnlyFromCode()
     {
         ErrorCode res = removeByNumberOnlyFromCode(i);
 
-        if (res != WellCode) return res;
+        if (res != ErrorCode::WellCode) return res;
     }
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode Breakpoints::removeByNumberOnlyFromCode(int num)
 {
-    if (!(0 <= num && num < breakPoints.size())) return BreakPointNotFounded;
+    if (!(0 <= num && num < breakPoints.size())) return ErrorCode::BreakPointNotFounded;
 
     replaceWithOriginalCommand(breakPoints[num]);;
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode Breakpoints::removeByNumber(int num)
 {
-    if (!(0 <= num && num < breakPoints.size())) return BreakPointNotFounded;
+    if (!(0 <= num && num < breakPoints.size())) return ErrorCode::BreakPointNotFounded;
 
     removeEl(breakPoints.begin() + num);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode Breakpoints::removeAll()
@@ -105,16 +105,16 @@ ErrorCode Breakpoints::removeAll()
     {
         ErrorCode res = removeByNumber(i);
 
-        if (res != WellCode) return res;
+        if (res != ErrorCode::WellCode) return res;
     }
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode Breakpoints::insertBack(int breakNum)
 {
     replaceWithBreakpoint(breakPoints[breakNum]);
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode Breakpoints::insertAllBack(bool needToInsertRewriteException/* = false*/)
@@ -124,11 +124,11 @@ ErrorCode Breakpoints::insertAllBack(bool needToInsertRewriteException/* = false
         if (needToInsertRewriteException || breakPoints[i].filePos != rewriteBreakpointPos)
         {
             ErrorCode res = insertBack(i);
-            if (res != WellCode) return res;
+            if (res != ErrorCode::WellCode) return res;
         }
     }
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 bool Breakpoints::needToRewriteBreakpoint()
@@ -174,5 +174,5 @@ ErrorCode Breakpoints::print()
              << std::setfill('0') << std::setw(5) << std::right << std::hex << breakPoints[i].filePos << "\n";
     }
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }

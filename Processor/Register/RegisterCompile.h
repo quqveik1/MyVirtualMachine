@@ -1,5 +1,8 @@
 #pragma once
+
 #include <string>
+
+#include "../../Constants/ErrorCode.h"
 
 const int cRegister = 4;
 
@@ -13,9 +16,10 @@ const int bx_numeric = 1;
 const int cx_numeric = 2;
 const int dx_numeric = 3;
 
-int getRegisterNumFromStr(std::wstring_view& str);
-int getRegisterStrFromNum(int num, std::wstring& reg);
+ErrorCode getRegisterNumFromStr(std::wstring_view& str, int& regNum);
+ErrorCode getRegisterStrFromNum(int num, std::wstring& reg);
 
 void initRegisterNames();
 
 bool isRegisterValid(int num);
+bool isRegister(std::wstring_view& arg);

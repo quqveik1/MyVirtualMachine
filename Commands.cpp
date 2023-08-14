@@ -15,17 +15,17 @@
 #include "Converter/ColorConverter.cpp"
 #include "Constants/SystemInfo.cpp"
 
-int in_command(Processor& processor, int codedCommandNum)
+ErrorCode in_command(Processor& processor, int codedCommandNum)
 {
     float num = 0;
     std::cin >> num;
     int pnum = convNum(num);
     processor.getRuntimeData().push(pnum);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int out_command(Processor& processor, int codedCommandNum)
+ErrorCode out_command(Processor& processor, int codedCommandNum)
 {
     bool hasConst = false;
     decodeNumberRepresentation(codedCommandNum, &hasConst);
@@ -35,7 +35,7 @@ int out_command(Processor& processor, int codedCommandNum)
         int num = processor.getRuntimeData().peek();
         std::cout << deConvNum<float>(num) << std::endl;
 
-        return WellCode;
+        return ErrorCode::WellCode;
     }
 
     int beforeJmp = processor.getCommandData().getCurrPos() + sizeof(int);
@@ -51,10 +51,10 @@ int out_command(Processor& processor, int codedCommandNum)
 
     processor.getCommandData().setCurrPos(beforeJmp);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int callRam(Processor& processor, int codedNum)
+ErrorCode callRam(Processor& processor, int codedNum)
 {
     bool hasRamCall = false;
 
@@ -68,26 +68,26 @@ int callRam(Processor& processor, int codedNum)
 
         processor.getRuntimeData().push(ramData);
     }
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int evalRamExpression(Processor& processor, int codedNum)
+ErrorCode evalRamExpression(Processor& processor, int codedNum)
 {
     evalExpression(processor, codedNum);
 
     callRam(processor, codedNum);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int push_command(Processor& processor, int codedCommandNum)
+ErrorCode push_command(Processor& processor, int codedCommandNum)
 {
     evalRamExpression(processor, codedCommandNum);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int evalExpression(Processor& processor, int codedCommandNum)
+ErrorCode evalExpression(Processor& processor, int codedCommandNum)
 {
     bool hasRegister = false;
     bool hasConst = false;
@@ -110,27 +110,36 @@ int evalExpression(Processor& processor, int codedCommandNum)
         add_command(processor, add_num);
     }
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 template <typename T>
-void get2Arg(T& a, T& b, Processor& processor)
+ErrorCode get2Arg(T& a, T& b, Processor& processor)
 {
     int a1 = 0, b1 = 0;
 
-    a1 = processor.getRuntimeData().peek();
-    b1 = processor.getRuntimeData().peek();
+    try
+    {
+        a1 = processor.getRuntimeData().peek();
+        b1 = processor.getRuntimeData().peek();
+    }
+    catch(...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     a = deConvNum<T>(a1);
     b = deConvNum<T>(b1);
+
+    return ErrorCode::WellCode;
 }
 
-int hlt_command(Processor& processor, int codedCommandNum)
+ErrorCode hlt_command(Processor& processor, int codedCommandNum)
 {
-    return CommandBreakCode;
+    return ErrorCode::CommandBreakCode;
 }
 
-int add_command(Processor& processor, int codedCommandNum)
+ErrorCode add_command(Processor& processor, int codedCommandNum)
 {
     float a = 0, b = 0;
 
@@ -140,10 +149,10 @@ int add_command(Processor& processor, int codedCommandNum)
 
     processor.getRuntimeData().push(convNum(a));
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int sub_command(Processor& processor, int codedCommandNum)
+ErrorCode sub_command(Processor& processor, int codedCommandNum)
 {
     float a = 0, b = 0;
 
@@ -153,10 +162,10 @@ int sub_command(Processor& processor, int codedCommandNum)
 
     processor.getRuntimeData().push(convNum(a));
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int mul_command(Processor& processor, int codedCommandNum)
+ErrorCode mul_command(Processor& processor, int codedCommandNum)
 {
     float a = 0, b = 0;
 
@@ -166,10 +175,10 @@ int mul_command(Processor& processor, int codedCommandNum)
 
     processor.getRuntimeData().push(convNum(a));
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int div_command(Processor& processor, int codedCommandNum)
+ErrorCode div_command(Processor& processor, int codedCommandNum)
 {
     float a = 0, b = 0;
 
@@ -179,11 +188,11 @@ int div_command(Processor& processor, int codedCommandNum)
 
     processor.getRuntimeData().push(convNum(a));
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 
-int pop_command(Processor& processor, int codedCommandNum)
+ErrorCode pop_command(Processor& processor, int codedCommandNum)
 {
     bool hasRamCall = false;
 
@@ -197,7 +206,7 @@ int pop_command(Processor& processor, int codedCommandNum)
 
         ramData = processor.getRuntimeData().peek();
 
-        return WellCode;
+        return ErrorCode::WellCode;
     }
 
     int regNum = deConvNum<int>(*processor.getCommandData().peek<int>());
@@ -206,10 +215,10 @@ int pop_command(Processor& processor, int codedCommandNum)
 
     processor.getAppRegister().setReg(regNum, convNum(data));
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int commonJmpFnc(Processor& processor, bool needToJump, int codedNum)
+ErrorCode commonJmpFnc(Processor& processor, bool needToJump, int codedNum)
 {
     evalRamExpression(processor, codedNum);
     int jmpPos = deConvNum<int>(processor.getRuntimeData().peek());
@@ -219,28 +228,28 @@ int commonJmpFnc(Processor& processor, bool needToJump, int codedNum)
         doJump(processor, jmpPos);
     }
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int doJump(Processor& processor, int pos)
+ErrorCode doJump(Processor& processor, int pos)
 {
     bool res = processor.getCommandData().setCurrPos(pos);
 
     if (!res)
     {
         throw std::exception("Попытка перепрыгнуть на несуществующюю позицию");
-        return MachineCodeOutOfBound;
+        return ErrorCode::MachineCodeOutOfBound;
     }
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int jmp_command(Processor& processor, int codedCommandNum)
+ErrorCode jmp_command(Processor& processor, int codedCommandNum)
 {
     return commonJmpFnc(processor, true, codedCommandNum);
 }
 
-int get2ElementsFromStack(int* a, int* b, Processor& processor)
+ErrorCode get2ElementsFromStack(int* a, int* b, Processor& processor)
 {
     try
     {
@@ -249,12 +258,12 @@ int get2ElementsFromStack(int* a, int* b, Processor& processor)
     }
     catch (...)
     {
-        return EmptyStackGetError;
+        return ErrorCode::EmptyStackGetError;
     }
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int ja_command(Processor& processor, int codedCommandNum)
+ErrorCode ja_command(Processor& processor, int codedCommandNum)
 {
     float b = 0, a = 0;
 
@@ -265,7 +274,7 @@ int ja_command(Processor& processor, int codedCommandNum)
     return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
-int jae_command(Processor& processor, int codedCommandNum)
+ErrorCode jae_command(Processor& processor, int codedCommandNum)
 {
     float b = 0, a = 0;
 
@@ -276,7 +285,7 @@ int jae_command(Processor& processor, int codedCommandNum)
     return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
-int jb_command(Processor& processor, int codedCommandNum)
+ErrorCode jb_command(Processor& processor, int codedCommandNum)
 {
     float b = 0, a = 0;
 
@@ -287,7 +296,7 @@ int jb_command(Processor& processor, int codedCommandNum)
     return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
-int jbe_command(Processor& processor, int codedCommandNum)
+ErrorCode jbe_command(Processor& processor, int codedCommandNum)
 {
     float b = 0, a = 0;
 
@@ -298,7 +307,7 @@ int jbe_command(Processor& processor, int codedCommandNum)
     return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
-int je_command(Processor& processor, int codedCommandNum)
+ErrorCode je_command(Processor& processor, int codedCommandNum)
 {
     float b = 0, a = 0;
 
@@ -309,7 +318,7 @@ int je_command(Processor& processor, int codedCommandNum)
     return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
-int jne_command(Processor& processor, int codedCommandNum)
+ErrorCode jne_command(Processor& processor, int codedCommandNum)
 {
     float b = 0, a = 0;
 
@@ -320,7 +329,7 @@ int jne_command(Processor& processor, int codedCommandNum)
     return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }
 
-int sqrt_command(Processor& processor, int codedCommandNum)
+ErrorCode sqrt_command(Processor& processor, int codedCommandNum)
 {
     float a = deConvNum<float>(processor.getRuntimeData().peek());
 
@@ -328,10 +337,10 @@ int sqrt_command(Processor& processor, int codedCommandNum)
 
     processor.getRuntimeData().push(convNum(res));
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int sin_command(Processor& processor, int codedCommandNum)
+ErrorCode sin_command(Processor& processor, int codedCommandNum)
 {
     float a = deConvNum<float>(processor.getRuntimeData().peek());
 
@@ -339,7 +348,7 @@ int sin_command(Processor& processor, int codedCommandNum)
 
     processor.getRuntimeData().push(convNum(res));
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 unsigned long long factorial(int n)
@@ -404,25 +413,25 @@ double sinus(double number, int len/* = defaultSinLen*/)
     return res;
 }
 
-int call_command(Processor& processor, int codedCommandNum)
+ErrorCode call_command(Processor& processor, int codedCommandNum)
 {
     processor.getCallStack().push(processor.getCommandData().getCurrPos() + sizeof(int));
     commonJmpFnc(processor, true, codedCommandNum);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int ret_command(Processor& processor, int codedCommandNum)
+ErrorCode ret_command(Processor& processor, int codedCommandNum)
 {
     int lastPos = processor.getCallStack().peek();
 
     doJump(processor, lastPos);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 //!!!
-int neg_command(Processor& processor, int codedCommandNum)
+ErrorCode neg_command(Processor& processor, int codedCommandNum)
 {
     int num = processor.getRuntimeData().peek();
 
@@ -434,27 +443,27 @@ int neg_command(Processor& processor, int codedCommandNum)
 
     processor.getRuntimeData().push(num);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 //if has constant it is runtime breakpoint
-int into_command(Processor& processor, int codedCommandNum)
+ErrorCode into_command(Processor& processor, int codedCommandNum)
 {
     bool hasConstant = false;
     codedCommandNum = decodeNumberRepresentation(codedCommandNum, &hasConstant);
 
-    if(!hasConstant) return DebugBreakCode;
+    if(!hasConstant) return ErrorCode::DebugBreakCode;
 
     processor.getCommandData().setCurrPos(processor.getCommandData().getCurrPos() - sizeof(int));
     processor.getBreakpoints().setRewriteBreakpoint(processor.getCommandData().getCurrPos());
     ErrorCode res = processor.getBreakpoints().removeOnlyFromCode(processor.getCommandData().getCurrPos());
 
-    if (res != WellCode) return res;
+    if (res != ErrorCode::WellCode) return res;
 
-    return DebugBreakCode;
+    return ErrorCode::DebugBreakCode;
 }
 
-int setpxl_command(Processor& processor, int codedCommandNum)
+ErrorCode setpxl_command(Processor& processor, int codedCommandNum)
 {
     unsigned char blue = deConvNum<unsigned char>(processor.getRuntimeData().peek());
     unsigned char green = deConvNum<char>(processor.getRuntimeData().peek());
@@ -467,11 +476,11 @@ int setpxl_command(Processor& processor, int codedCommandNum)
 
     processor.getAppRAM().setPixel(x, y, color);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 
 }
 
-int si_command(Processor& processor, int codedCommandNum)
+ErrorCode si_command(Processor& processor, int codedCommandNum)
 {
     int component = *processor.getCommandData().peek<int>();
 
@@ -479,14 +488,14 @@ int si_command(Processor& processor, int codedCommandNum)
     {
         processor.getRuntimeData().push(convNum(processor.getAppRAM().xSize));
 
-        return WellCode;
+        return ErrorCode::WellCode;
     }
     else if (component == vsizey_num)
     {
         processor.getRuntimeData().push(convNum(processor.getAppRAM().ySize));
 
-        return WellCode;
+        return ErrorCode::WellCode;
     }
 
-    return SystemComponentNotFounded;
+    return ErrorCode::SystemComponentNotFounded;
 }

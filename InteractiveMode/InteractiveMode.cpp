@@ -18,7 +18,7 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
     
     if (errorCode != ErrorCode::WellCode && errorCode != ErrorCode::DebugBreakCode)
     {
-        std::cout << "Он был вызван из-за ошибки " << std::dec << errorCode << "\n";
+        std::cout << "Он был вызван из-за ошибки " << std::dec << (int)errorCode << "\n";
     }
 
     code = ContinueInteractiveMode;
@@ -42,15 +42,15 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
         std::wstring_view line_view = line;
 
         ErrorCode res = executeCommand(processor, line_view, code);
-        if(res != WellCode)
+        if(res != ErrorCode::WellCode)
         {
-            if (res == InteractiveCommandNotFound)
+            if (res == ErrorCode::InteractiveCommandNotFound)
             {
                 std::cout << "Не найдено такой комманды\n";
             }
             else
             {
-                std::cout << "Ошибка выполнения комманды: " << std::dec << res << std::endl;
+                std::cout << "Ошибка выполнения комманды: " << std::dec << (int)res << std::endl;
             }
         }
 

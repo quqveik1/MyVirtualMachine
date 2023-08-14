@@ -52,7 +52,7 @@ void FileListing::addNewListingLine()
     getActiveFileListingString() += L"\n";
 }
 
-int FileListing::add1CompileCommand(CommandIR& commandIR)
+ErrorCode FileListing::add1CompileCommand(CommandIR& commandIR)
 {
     addNewListingLine();
 
@@ -73,20 +73,20 @@ int FileListing::add1CompileCommand(CommandIR& commandIR)
 
     outputLineNum++;
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int FileListing::add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter)
+ErrorCode FileListing::add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter)
 {
     return add2PartCommand(commandIR, binCompileData, bytePosBefore, bytePosAfter, 2);
 }
 
-int FileListing::add3CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter)
+ErrorCode FileListing::add3CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter)
 {
     return add2PartCommand(commandIR, binCompileData, bytePosBefore, bytePosAfter, 3);
 }
 
-int FileListing::add2PartCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter, int passNum)
+ErrorCode FileListing::add2PartCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter, int passNum)
 {
     addNewListingLine();
 
@@ -101,7 +101,7 @@ int FileListing::add2PartCommand(CommandIR& commandIR, BinCompileData& binCompil
 
     outputLineNum++;
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 void FileListing::saveInFile(std::wstring path)

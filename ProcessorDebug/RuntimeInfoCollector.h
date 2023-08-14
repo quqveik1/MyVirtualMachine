@@ -22,10 +22,10 @@ public:
 
     void addLastCommand(int commandFileStart, int commandData);
 
-    int onError();
-    int print  ();
+    ErrorCode onError();
+    ErrorCode print  ();
 
 private:
-    int disassemble (std::wstring& ans, RuntimeCommandInfo& info);
+    ErrorCode disassemble (std::wstring& ans, RuntimeCommandInfo& info);
     void pushCommand(RuntimeCommandInfo& info);
 };

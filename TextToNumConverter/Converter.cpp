@@ -40,18 +40,18 @@ void convertToNum(std::wstring path)
 
     FileListing fileListing(binCompileData, lines, cLines, ir);
 
-    int irRes = createIR(lines, ir, cLines, fileListing);
+    ErrorCode irRes = createIR(lines, ir, cLines, fileListing);
     if(printAndFinish(irRes, L"Ошибка перевода в промежуточный вид, код: ", fullText, lines)) return;
 
     fileListing.end1Part();
     std::wcout << L"Промежуточный слой успешно создан\n";
 
-    int binRunRes = irToBin(ir, binCompileData, fileListing);
+    ErrorCode binRunRes = irToBin(ir, binCompileData, fileListing);
     if (printAndFinish(binRunRes, L"Ошибка перевода в байтовый вид, код: ", fullText, lines)) return;
 
     fileListing.end2Part();
 
-    int finalListing = addToListingFinalCode(ir, binCompileData, fileListing);
+    ErrorCode finalListing = addToListingFinalCode(ir, binCompileData, fileListing);
 
     if (printAndFinish(finalListing, L"Ошибка создания финального файла листинга код: ", fullText, lines)) return;
 
@@ -62,11 +62,11 @@ void convertToNum(std::wstring path)
     std::cout << "Компиляция завершилась успешно\n";
 }
 
-bool printAndFinish(int res, std::wstring str, std::wstring_view& fullText, std::wstring_view* lines)
+bool printAndFinish(ErrorCode res, std::wstring str, std::wstring_view& fullText, std::wstring_view* lines)
 {
-    if (res != WellCode)
+    if (res != ErrorCode::WellCode)
     {
-        std::wcout << str << res << L"\n";
+        std::wcout << str << (int)res << L"\n";
         clearMem(fullText, lines);
         return true;
     }
@@ -144,17 +144,17 @@ void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines)
     if (fullText.data()) delete[] fullText.data();
 }
 
-int addToListingFinalCode(IR& ir, BinCompileData& compileData, FileListing& fileListing)
+ErrorCode addToListingFinalCode(IR& ir, BinCompileData& compileData, FileListing& fileListing)
 {
     for (size_t i = 0; i < ir.getCommands().size(); i++)
     {
         fileListing.add3CompileCommand(ir.getCommand((int)i), compileData, compileData.getBufferLineStart()[i], compileData.getBufferLineFinish()[i]);
     }
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
+ErrorCode irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
 {
 
     for(size_t i = 0; i < ir.getCommands().size(); i++)
@@ -170,7 +170,7 @@ int irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
         {
             COMMAND2COMPILETYPE fnc = commands2CompileArr[commandIR.getCommandNum()];
 
-            int res = WellCode;
+            ErrorCode res = ErrorCode::WellCode;
 
             if(fnc)
             {
@@ -191,7 +191,7 @@ int irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
     return compileData.finishWork();
 }
 
-int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileListing)
+ErrorCode createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileListing)
 {
     for (int i = 0; i < cLines; i++)
     {
@@ -208,12 +208,11 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
 
         if (commandName.size() > 0)
         {
-            commandNum = getCommandNum(commandName);
-            
+            ErrorCode code = getCommandNum(commandNum, commandName);
 
             COMMAND1COMPILETYPE fnc = nullptr;
 
-            if (isCommandNumValid(commandNum))
+            if (code == ErrorCode::WellCode)
             {
                 fnc = commands1CompileArr[commandNum];
             }
@@ -227,14 +226,14 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
                 }
                 else
                 {
-                    printLineError(CommandReadErrorCode, i, oldLines[i]);
-                    return CommandReadErrorCode;
+                    printLineError(ErrorCode::CommandReadErrorCode, i, oldLines[i]);
+                    return ErrorCode::CommandReadErrorCode;
                 }
             }
 
             ir.getActiveCommand().setCommandNum(commandNum);
 
-            int res = WellCode;
+            ErrorCode res = ErrorCode::WellCode;
 
             if (fnc)
             {
@@ -245,7 +244,7 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
                 res = default_1compile(ir.getActiveCommand(), commandNum, commandData, ir);
             }
 
-            if (res != WellCode)
+            if (res != ErrorCode::WellCode)
             {
                 printLineError(res, i, oldLines[i]);
             }
@@ -257,9 +256,9 @@ int createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing& fileL
     return ir.finishIntermediateWork();
 }
 
-void printLineError(int errorCode, int lineNum, std::wstring_view& line)
+void printLineError(ErrorCode errorCode, int lineNum, std::wstring_view& line)
 {
-    std::wcout << L"Ошибка ["<< errorCode <<L"] в распозновании команды в строке (" << lineNum << L")\n";
+    std::wcout << L"Ошибка ["<< (int)errorCode <<L"] в распозновании команды в строке (" << lineNum << L")\n";
     std::wcout << L"\"" << line << "\"\n";
 }
 

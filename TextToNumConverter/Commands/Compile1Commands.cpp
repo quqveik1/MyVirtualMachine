@@ -16,14 +16,14 @@
 #include "../IR/CommandIR.cpp"
 #include "../../Constants/SystemInfo.cpp"
 
-int default_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
+ErrorCode default_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     int writeNum = codeToNumberRepresentation(commandNum);
     commandIR.put(writeNum);
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int out_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
+ErrorCode out_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     if(data.empty())
     {
@@ -39,12 +39,12 @@ int out_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, 
 }
 
 //data type: const+arg
-int push_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
+ErrorCode push_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     return saveSmallExpr(commandIR, commandNum, data);
 }
 
-int saveSmallExpr(CommandIR& commandIR, int commandNum, std::wstring_view& data, int base/* = 10*/)
+ErrorCode saveSmallExpr(CommandIR& commandIR, int commandNum, std::wstring_view& data, int base/* = 10*/)
 {
     if (!data.empty())
     {
@@ -64,12 +64,22 @@ int saveSmallExpr(CommandIR& commandIR, int commandNum, std::wstring_view& data,
             firstArg = data.substr(0, plusPos);
             secondArg = data.substr(plusPos + 1);
 
-            second = convertArg(secondArg, &isConstant, &isReg, base);
+            ErrorCode res = convertArg(second, secondArg, &isConstant, &isReg, base);
+
+            if(res != ErrorCode::WellCode)
+            {
+                return res;
+            }
 
             needToSwapArgs = isConstant;
         }
 
-        first = convertArg(firstArg, &isConstant, &isReg, base);
+        ErrorCode res = convertArg(first, firstArg, &isConstant, &isReg, base);
+
+        if (res != ErrorCode::WellCode)
+        {
+            return res;
+        }
 
         int writeNum = codeToNumberRepresentation(commandNum, isConstant, isReg, isRamCall);
         commandIR.put(writeNum);
@@ -88,11 +98,11 @@ int saveSmallExpr(CommandIR& commandIR, int commandNum, std::wstring_view& data,
             commandIR.put(_s);
         }
 
-        return WellCode;
+        return ErrorCode::WellCode;
     }
 
     throw std::exception("data.empty()");
-    return CommandWriteDataCode;
+    return ErrorCode::CommandWriteDataCode;
 }
 
 bool editDataForBrackets(std::wstring_view& data)
@@ -109,13 +119,6 @@ bool editDataForBrackets(std::wstring_view& data)
     }
 
     return false;
-}
-
-bool isRegister(std::wstring_view& arg)
-{
-    int num = getRegisterNumFromStr(arg);
-
-    return num >= 0;
 }
 
 bool isJmpWord(std::wstring_view& arg)
@@ -140,27 +143,33 @@ bool isJmpWord(std::wstring_view& arg)
     return true;
 }
 
-double convertArg(std::wstring_view& arg, bool* isNumber, bool* reg, int base/* = 10*/)
+ErrorCode convertArg(double& ans, std::wstring_view& arg, bool* isNumber, bool* reg, int base/* = 10*/)
 {
     if (!isRegister(arg))
     {
         *isNumber = true;
-        double number = 0;
         if(base != 10)
         {
-            number = strToNum(arg, base);
+            ans = strToNum(arg, base);
         }
         else
         {
-            number = strToFloat<double>(arg);
+            ans = strToFloat<double>(arg);
         }
-        return number;
+        return ErrorCode::WellCode;
     }
     else
     {
         *reg = true;
-        double number = getRegisterNumFromStr(arg);
-        return number;
+        int registerNum = 0;
+        ErrorCode res = getRegisterNumFromStr(arg, registerNum);
+
+        if(res == ErrorCode::WellCode)
+        {
+            ans = registerNum;
+        }
+
+        return res;
     }
 }
 
@@ -182,12 +191,12 @@ void findBrackets(std::wstring_view& data, int& startPos, int& endPos)
     endPos = -1;
 }
 
-int pop_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
+ErrorCode pop_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     return saveSmallExpr(commandIR, commandNum, data);
 }
 
-int jmp_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
+ErrorCode jmp_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     if(isJmpWord(data))
     {
@@ -197,13 +206,13 @@ int jmp_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, 
     return saveSmallExpr(commandIR, commandNum, data, 16);
 }
 
-int saveWordExpression(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
+ErrorCode saveWordExpression(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     int codedCommandNum = codeToNumberRepresentation(commandNum, true);
     commandIR.put(codedCommandNum);
 
     ir.getLabelSearchIR().writeOrWaitLabel(data, &commandIR);
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 const std::map<wchar_t, wchar_t> specialChars = {
@@ -212,26 +221,26 @@ const std::map<wchar_t, wchar_t> specialChars = {
                                                 {L't', L'\t'},
                                                 {L'\\', L'\\'}};
 
-int db_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
+ErrorCode db_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     size_t firstQuotePos = data.find(L'"');
 
     if(firstQuotePos == std::wstring_view::npos)
     {
-        return NoQuoteDBError;
+        return ErrorCode::NoQuoteDBError;
     }
 
     size_t secondQuotePos = data.rfind(L'"');
 
     if(firstQuotePos == secondQuotePos)
     {
-        return NoQuoteDBError;
+        return ErrorCode::NoQuoteDBError;
     }
 
     return writeStrInData(commandIR, data, firstQuotePos, secondQuotePos);
 }
 
-int writeStrInData(CommandIR& commandIR, std::wstring_view& data, size_t firstQuotePos, size_t secondQuotePos)
+ErrorCode writeStrInData(CommandIR& commandIR, std::wstring_view& data, size_t firstQuotePos, size_t secondQuotePos)
 {
     for (size_t i = firstQuotePos + 1; i < secondQuotePos; i++)
     {
@@ -250,7 +259,7 @@ int writeStrInData(CommandIR& commandIR, std::wstring_view& data, size_t firstQu
                 else
                 {
                     throw std::exception("unknown symbol after \\");
-                    return CommandDataReadError;
+                    return ErrorCode::CommandDataReadError;
                 }
             }
         }
@@ -261,7 +270,7 @@ int writeStrInData(CommandIR& commandIR, std::wstring_view& data, size_t firstQu
     const wchar_t nullSymbol = 0;
     commandIR.put(nullSymbol);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 size_t cDeletedSymAfterCompilation(const std::wstring_view& str)
@@ -280,7 +289,7 @@ size_t cDeletedSymAfterCompilation(const std::wstring_view& str)
 }
 
 
-int word_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
+ErrorCode word_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     //default_1compile(commandIR, commandNum, data, ir);
 
@@ -288,21 +297,21 @@ int word_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data,
 
     ir.getLabelSearchIR().pushWord(data);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
-int rdsys_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
+ErrorCode rdsys_1compile(CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir)
 {
     int code = getComponentNumFromStr(data);
 
     if(code == error)
     {
-        return SystemComponentNotFounded;
+        return ErrorCode::SystemComponentNotFounded;
     }
 
     default_1compile(commandIR, commandNum, data, ir);
 
     commandIR.put(code);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }

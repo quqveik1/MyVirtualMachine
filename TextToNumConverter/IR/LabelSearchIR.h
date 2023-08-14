@@ -24,7 +24,7 @@ public:
 
     void writeOrWaitLabel(std::wstring_view& word, CommandIR* commandIR);
 
-    int checkLabelLinking();
+    ErrorCode checkLabelLinking();
 
 private:
     void checkFixUpList  (std::wstring_view& word, int pos);

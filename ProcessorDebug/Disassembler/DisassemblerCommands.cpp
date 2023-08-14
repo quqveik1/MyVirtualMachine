@@ -7,21 +7,21 @@
 #include "../../Common//StringViewExtension.cpp"
 #include "../../Constants/SystemInfo.cpp"
 
-int defaultOnlyName_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
+ErrorCode defaultOnlyName_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
 {
     int decodedNum = decodeNumberRepresentation(commandInfo.commandData);
     return getCommandName(decodedNum, originalLine);
 }
 
-int defaultSmallExpression_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
+ErrorCode defaultSmallExpression_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
 {
     return defaultSmallExpression(processor, commandInfo, originalLine);
 }
 
-int defaultSmallExpression(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine, int constantBase/* = 10*/, int* finishPos/* = nullptr*/)
+ErrorCode defaultSmallExpression(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine, int constantBase/* = 10*/, int* finishPos/* = nullptr*/)
 {
-    int res = defaultOnlyName_dissassemblerCommand(processor, commandInfo, originalLine);
-    if (res != WellCode) return res;
+    ErrorCode res = defaultOnlyName_dissassemblerCommand(processor, commandInfo, originalLine);
+    if (res != ErrorCode::WellCode) return res;
 
     int startFilePos = processor.getCommandData().getCurrPos();
 
@@ -68,9 +68,9 @@ int defaultSmallExpression(Processor& processor, RuntimeCommandInfo& commandInfo
 
         std::wstring regName;
 
-        int res = getRegisterStrFromNum(regNum, regName);
+        ErrorCode res = getRegisterStrFromNum(regNum, regName);
 
-        if (res != WellCode) return res;
+        if (res != ErrorCode::WellCode) return res;
 
         originalLine += regName;
     }
@@ -87,35 +87,35 @@ int defaultSmallExpression(Processor& processor, RuntimeCommandInfo& commandInfo
 
     processor.getCommandData().setCurrPos(startFilePos);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 
-int hexSaveSmallExpression_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
+ErrorCode hexSaveSmallExpression_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
 {
     return defaultSmallExpression(processor, commandInfo, originalLine, 16);
 }
 
-int jmp_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
+ErrorCode jmp_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
 {
     int finishPos = 0;
-    int res = defaultSmallExpression(processor, commandInfo, originalLine, 16, &finishPos);
+    ErrorCode res = defaultSmallExpression(processor, commandInfo, originalLine, 16, &finishPos);
 
-    if (res != WellCode) return res;
+    if (res != ErrorCode::WellCode) return res;
 
     commandInfo.commandFinish = finishPos;
 
-    return WellCode;
+    return  ErrorCode::WellCode;
 }
 
-int ret_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
+ErrorCode ret_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
 {
     commandInfo.commandFinish = commandInfo.commandStart + sizeof(int);
 
     return defaultOnlyName_dissassemblerCommand(processor, commandInfo, originalLine);
 }
 
-int rdsys_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
+ErrorCode rdsys_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& commandInfo, std::wstring& originalLine)
 {
     defaultOnlyName_dissassemblerCommand(processor, commandInfo, originalLine);
 
@@ -127,11 +127,11 @@ int rdsys_dissassemblerCommand(Processor& processor, RuntimeCommandInfo& command
 
     ErrorCode res = getComponentStrFromNum((SystemComponents)compNum, compName);
 
-    if (res != WellCode) return res;
+    if (res != ErrorCode::WellCode) return res;
 
     originalLine += L" ";
 
     originalLine += compName;
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }

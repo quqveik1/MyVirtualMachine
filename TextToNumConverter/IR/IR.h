@@ -23,5 +23,5 @@ public:
 
     void addNewCommand                 () { commands.resize(commands.size() + 1); }
 
-    int finishIntermediateWork         ();
+    ErrorCode finishIntermediateWork         ();
 };

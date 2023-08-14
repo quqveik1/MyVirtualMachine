@@ -5,6 +5,7 @@
 
 #include "Bin/BinCompileData.h"
 #include "IR/IR.h"
+#include "../Constants/ErrorCode.h"
 
 struct FileListing
 {
@@ -35,10 +36,10 @@ public:
 
     void saveInFile(std::wstring path);
 
-    int add1CompileCommand(CommandIR& commandIR);
-    int add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter);
-    int add3CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter);
-    int add2PartCommand   (CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter, int passNum);
+    ErrorCode add1CompileCommand(CommandIR& commandIR);
+    ErrorCode add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter);
+    ErrorCode add3CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter);
+    ErrorCode add2PartCommand   (CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter, int passNum);
 
 private:
     void initListing();

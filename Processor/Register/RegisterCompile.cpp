@@ -4,42 +4,50 @@
 
 #include "../../Constants/CommandConstants.h" 
 
-int getRegisterNumFromStr(std::wstring_view& str)
+ErrorCode getRegisterNumFromStr(std::wstring_view& str, int& regNum)
 {
     if (str == ax_string)
     {
-        return ax_numeric;
+        regNum =  ax_numeric;
+
+        return ErrorCode::WellCode;
     }
     if (str == bx_string)
     {
-        return bx_numeric;
+        regNum = bx_numeric;
+
+        return ErrorCode::WellCode;
     }
     if (str == cx_string)
     {
-        return cx_numeric;
+        regNum = cx_numeric;
+
+        return ErrorCode::WellCode;
     }
     if (str == dx_string)
     {
-        return dx_numeric;
+        regNum = dx_numeric;
+
+        return ErrorCode::WellCode;
     }
 
     //throw std::exception("Не найден регистр");
 
-    return RegisterNotFound;
+    return ErrorCode::RegisterNotFound;
 }
 
 
 std::vector<std::wstring> registerNames;
 
-int getRegisterStrFromNum(int num, std::wstring& reg)
+ErrorCode getRegisterStrFromNum(int num, std::wstring& reg)
 {
     bool res = isRegisterValid(num);
 
-    if(!res) return RegisterNotFound;
+    if(!res) return  ErrorCode::RegisterNotFound;
 
     reg = registerNames[num];
 
-    return WellCode;
+    return  ErrorCode::WellCode;
 }
 
 void initRegisterNames()
@@ -61,4 +69,12 @@ bool isRegisterValid(int num)
     }
 
     return false;
+}
+
+bool isRegister(std::wstring_view& arg)
+{
+    int regNum = 0;
+    ErrorCode num = getRegisterNumFromStr(arg, regNum);
+
+    return num == ErrorCode::WellCode;
 }

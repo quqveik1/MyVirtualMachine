@@ -49,8 +49,8 @@ public:
 private:
 
     void readAndExecuteCommands();
-    void endProgramWithCode(int code);
-    int executeCommand();
+    void endProgramWithCode(ErrorCode code);
+    ErrorCode executeCommand();
 
     void startUiThread();
     void observeFrame(sf::RenderWindow& window);

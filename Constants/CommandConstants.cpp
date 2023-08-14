@@ -6,157 +6,152 @@
 
 std::vector<std::wstring> commandNames;
 
-int getCommandNum(std::wstring_view& commandName, size_t commandSize/* = std::wstring_view::npos*/)
+ErrorCode getCommandNum(int& commandNum, const std::wstring_view& commandName)
 {
-    int res = CommandRecognizeError;
+    if (commandName.size() == 0) return ErrorCode::CommandRecognizeError;
 
-    if (commandSize == std::wstring_view::npos)
+    if (commandName == in_str)
     {
-        commandSize = commandName.size();
+        commandNum = in_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == out_str)
+    {
+        commandNum = out_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == push_str)
+    {
+        commandNum = push_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == hlt_str)
+    {
+        commandNum = hlt_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == add_str)
+    {
+        commandNum = add_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == sub_str)
+    {
+        commandNum = sub_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == mul_str)
+    {
+        commandNum = mul_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == div_str)
+    {
+        commandNum = div_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == pop_str)
+    {
+        commandNum = pop_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == jmp_str)
+    {
+        commandNum = jmp_num;
+        return ErrorCode::WellCode;
     }
 
-    if (commandSize == 0) return res;
-
-    if (svcmp(commandName, in_str) == 0)
+    else if (commandName == ja_str)
     {
-        res = in_num;
+        commandNum = ja_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == jae_str)
+    {
+        commandNum = jae_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == jb_str)
+    {
+        commandNum = jb_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == jbe_str)
+    {
+        commandNum = jbe_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == je_str)
+    {
+        commandNum = je_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == jne_str)
+    {
+        commandNum = jne_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == sqrt_str)
+    {
+        commandNum = sqrt_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == sin_str)
+    {
+        commandNum = sin_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == db_str)
+    {
+        commandNum = db_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == word_str)
+    {
+        commandNum = word_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == call_str)
+    {
+        commandNum = call_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == ret_str)
+    {
+        commandNum = ret_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == neg_str)
+    {
+        commandNum = neg_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == into_str)
+    {
+        commandNum = into_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == setpxl_str)
+    {
+        commandNum = setpxl_num;
+        return ErrorCode::WellCode;
+    }
+    else if (commandName == rdsys_str)
+    {
+        commandNum = rdsys_num;
+        return ErrorCode::WellCode;
     }
 
-    else if (svcmp(commandName, out_str) == 0)
-    {
-        res = out_num;
-    }
-
-    else if (svcmp(commandName, push_str) == 0)
-    {
-        res = push_num;
-    }
-
-    else if (svcmp(commandName, hlt_str) == 0)
-    {
-        res = hlt_num;
-    }
-
-    else if (svcmp(commandName, add_str) == 0)
-    {
-        res = add_num;
-    }
-
-    else if (svcmp(commandName, sub_str) == 0)
-    {
-        res = sub_num;
-    }
-
-    else if (svcmp(commandName, mul_str) == 0)
-    {
-        res = mul_num;
-    }
-
-    else if (svcmp(commandName, div_str) == 0)
-    {
-        res = div_num;
-    }
-
-    else if (svcmp(commandName, pop_str) == 0)
-    {
-        res = pop_num;
-    }
-
-    else if (svcmp(commandName, jmp_str) == 0)
-    {
-        res = jmp_num;
-    }
-
-    else if (svcmp(commandName, ja_str) == 0)
-    {
-        res = ja_num;
-    }
-
-    else if (svcmp(commandName, jae_str) == 0)
-    {
-        res = jae_num;
-    }
-
-    else if (svcmp(commandName, jb_str) == 0)
-    {
-        res = jb_num;
-    }
-
-    else if (svcmp(commandName, jbe_str) == 0)
-    {
-        res = jbe_num;
-    }
-
-    else if (svcmp(commandName, je_str) == 0)
-    {
-        res = je_num;
-    }
-
-    else if (svcmp(commandName, jne_str) == 0)
-    {
-        res = jne_num;
-    }
-
-    else if (svcmp(commandName, sqrt_str) == 0)
-    {
-        res = sqrt_num;
-    }
-
-    else if (svcmp(commandName, sin_str) == 0)
-    {
-        res = sin_num;
-    }
-
-    else if (svcmp(commandName, db_str) == 0)
-    {
-        res = db_num;
-    }
-
-    else if (svcmp(commandName, word_str) == 0)
-    {
-        res = word_num;
-    }
-
-    else if (svcmp(commandName, call_str) == 0)
-    {
-        res = call_num;
-    }
-
-    else if (svcmp(commandName, ret_str) == 0)
-    {
-        res = ret_num;
-    }
-
-    else if (svcmp(commandName, neg_str) == 0)
-    {
-        res = neg_num;
-    }
-
-    else if (svcmp(commandName, into_str) == 0)
-    {
-        res = into_num;
-    }
-
-    else if (svcmp(commandName, setpxl_str) == 0)
-    {
-        res = setpxl_num;
-    }
-
-    else if (svcmp(commandName, rdsys_str) == 0)
-    {
-        res = rdsys_num;
-    }
-
-    return res;
+    return ErrorCode::CommandRecognizeError;
 }
 
-int getCommandName(int commandNum, std::wstring& ans)
+ErrorCode getCommandName(int commandNum, std::wstring& ans)
 {
     bool res = isCommandNumValid(commandNum);
 
     if(!res)
     {
-        return DisassemblyNameError;
+        return ErrorCode::DisassemblyNameError;
     }
 
     switch (commandNum)
@@ -242,10 +237,11 @@ int getCommandName(int commandNum, std::wstring& ans)
         break;
 
     default:
+        return ErrorCode::CommandRecognizeError;
         break;
     }
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 bool isCommandNumValid(int num)

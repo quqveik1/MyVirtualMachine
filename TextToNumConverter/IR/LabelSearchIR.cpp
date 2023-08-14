@@ -65,15 +65,15 @@ void LabelSearchIR::writeOrWaitLabel(std::wstring_view& word, CommandIR* command
     fixUpList[word].push_back(commandIR);
 }
 
-int LabelSearchIR::checkLabelLinking()
+ErrorCode LabelSearchIR::checkLabelLinking()
 {
     if (!fixUpList.empty())
     {
         std::cout << "Label fix up list is not empty\n";
-        return NotEmptyFixUpLinkingLabelList;
+        return ErrorCode::NotEmptyFixUpLinkingLabelList;
     }
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 void LabelSearchIR::checkFixUpList(std::wstring_view& word, int pos)

@@ -80,8 +80,8 @@ enum CommandNums
 
 //------------------------------------------------------------------
 
-int getCommandNum     (std::wstring_view& commandName, size_t commandSize = std::wstring_view::npos);
+ErrorCode getCommandNum(int& commandNum, const std::wstring_view& commandName);
 bool isCommandNumValid(int num);
-int getCommandName    (int commandNum, std::wstring& ans);
+ErrorCode getCommandName    (int commandNum, std::wstring& ans);
                       
 //------------------------------------------------------------------

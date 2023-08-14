@@ -1,6 +1,6 @@
 #pragma once
 
-enum ErrorCode
+enum class ErrorCode
 {             
     WellCode                      =  0,
     CommandBreakCode              = -1,

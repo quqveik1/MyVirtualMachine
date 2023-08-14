@@ -30,7 +30,7 @@ int StackVector::get()
 {
     if (getData().empty())
     {
-        std::cout << "Попытка взять из пустого стека элемент\n";
+        throw std::runtime_error("Нельзя удаляться из пустого стека");
         return {};
     }
     return getData().back();

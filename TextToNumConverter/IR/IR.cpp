@@ -16,7 +16,7 @@ CommandIR& IR::getCommand(int i)
     return commands[i]; 
 };
 
-int IR::finishIntermediateWork()
+ErrorCode IR::finishIntermediateWork()
 {
     return labelSearchIR.checkLabelLinking();
 }

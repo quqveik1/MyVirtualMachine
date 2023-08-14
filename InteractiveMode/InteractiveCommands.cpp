@@ -8,14 +8,14 @@
 ErrorCode quit_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     code = ShutDownProgramm;
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode continue_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     code = ContinueAppExecuting;
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode info_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
@@ -23,37 +23,37 @@ ErrorCode info_command(Processor& processor, InteractiveCode& code, std::wstring
     if(data == L"r" || data == L"registers")
     {
         printRegisters(processor);
-        return WellCode;
+        return ErrorCode::WellCode;
     }
     else if (data == L"s" || data == L"stack")
     {
         printRuntimeData(processor);
-        return WellCode;
+        return ErrorCode::WellCode;
     }
     else if(hasThisCommand(breakpoint_intractive_str, data))
     {
         return info_breakpoint_command(processor);
     }
 
-    return CommandDataReadError;
+    return ErrorCode::CommandDataReadError;
 }
 
 ErrorCode info_breakpoint_command(Processor& processor)
 {
     processor.getBreakpoints().print();
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode backtrace_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     printCallStack(processor);
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode disassemble_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
     printRuntimeInfoDissassembler(processor);
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 void printRegisters(Processor& processor)
@@ -63,19 +63,19 @@ void printRegisters(Processor& processor)
 
 void printRuntimeData(Processor& processor)
 {
-    int res = processor.getRuntimeData().print();
-    if (res != WellCode)
+    ErrorCode res = processor.getRuntimeData().print();
+    if (res != ErrorCode::WellCode)
     {
-        std::cout << "Ошибка при выполении распечатки стека: " << std::dec << res << std::endl;
+        std::cout << "Ошибка при выполении распечатки стека: " << std::dec << (int)res << std::endl;
     }
 }
 
 void printRuntimeInfoDissassembler(Processor& processor)
 {
-    int res = processor.getRuntimeInfoCollector().onError();
-    if (res != WellCode)
+    ErrorCode res = processor.getRuntimeInfoCollector().onError();
+    if (res != ErrorCode::WellCode)
     {
-        std::cout << "Ошибка при выполении распечатки последних комманд: " << std::dec << res << std::endl;
+        std::cout << "Ошибка при выполении распечатки последних комманд: " << std::dec << (int)res << std::endl;
     }
 }
 
@@ -102,7 +102,7 @@ ErrorCode examine_command(Processor& processor, InteractiveCode& code, std::wstr
 
     processor.getAppRAM().print(memPos);
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
@@ -113,7 +113,10 @@ ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring_
 
     splitCommand(datav, object, numStr);
 
-    int regNum = getRegisterNumFromStr(object);
+    int regNum = 0;
+    ErrorCode resCode = getRegisterNumFromStr(object, regNum);
+
+    if (resCode != ErrorCode::WellCode) return resCode;
 
     try
     {
@@ -125,14 +128,14 @@ ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring_
 
             processor.getAppRegister().setReg(regNum, convNumber);
 
-            return WellCode;
+            return ErrorCode::WellCode;
         }
         else
         {
             int pos = strToNum(object, 16);
             processor.getAppRAM()[pos] = convNumber;
 
-            return WellCode;
+            return ErrorCode::WellCode;
         }
     }
     catch(std::exception e)
@@ -140,7 +143,7 @@ ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring_
         std::cout << e.what() << "\n";
     }
 
-    return CommandDataReadError;
+    return ErrorCode::CommandDataReadError;
 }
 
 ErrorCode set_backtrace_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
@@ -179,7 +182,7 @@ ErrorCode stack_universal_command(Processor& processor, InteractiveCode& code, s
         {
             std::cout << e.what() << "\n";
         }
-        return WellCode;
+        return ErrorCode::WellCode;
     }
     else
     {
@@ -201,18 +204,18 @@ ErrorCode stack_universal_command(Processor& processor, InteractiveCode& code, s
 
         int* ram = stackVector.at(stackPos);
 
-        if (!ram) return RAMOutOfBounds;
+        if (!ram) return ErrorCode::RAMOutOfBounds;
 
         *ram = convNumber;
 
-        return WellCode;
+        return ErrorCode::WellCode;
     }
     catch (std::exception e)
     {
         std::cout << e.what() << "\n";
     }
 
-    return CommandDataReadError;
+    return ErrorCode::CommandDataReadError;
 }
 
 ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
@@ -220,16 +223,16 @@ ErrorCode jump_interactive_command(Processor& processor, InteractiveCode& code, 
     if(data.empty())
     {
         code = ContinueAppExecuting;
-        return WellCode;
+        return ErrorCode::WellCode;
     }
 
     int pos = strToNum(data, 16);
 
     bool res = processor.getCommandData().setCurrPos(pos);
 
-    if (!res) return CommandDataReadError;
+    if (!res) return ErrorCode::CommandDataReadError;
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 ErrorCode breakpoint_interactive_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
@@ -242,11 +245,11 @@ ErrorCode breakpoint_interactive_command(Processor& processor, InteractiveCode& 
     catch (std::exception e)
     {
         std::cout << e.what() << std::endl;
-        return CommandDataReadError;
+        return ErrorCode::CommandDataReadError;
     }
 
     processor.getBreakpoints().add(breakPos);
 
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }

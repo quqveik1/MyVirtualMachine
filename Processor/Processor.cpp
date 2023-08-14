@@ -23,7 +23,7 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
 {
     ErrorCode readRes = readFile(path);
 
-    if (readRes == WellCode)
+    if (readRes == ErrorCode::WellCode)
     {
         auto start = std::chrono::high_resolution_clock::now();
 
@@ -43,10 +43,10 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
     }
     else
     {
-        std::cout << "Проблема запуска скомпилированного байткода: " << readRes << std::endl;
+        std::cout << "Проблема запуска скомпилированного байткода: " << (int)readRes << std::endl;
     }
 
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 void Processor::startUiThread()
@@ -158,7 +158,7 @@ ErrorCode Processor::readFile(std::string& path)
     if (!valRes)
     {
         std::cout << "Ошибка чтения заголовка файла\n";
-        return FileHeaderReadErrorCode;
+        return ErrorCode::FileHeaderReadErrorCode;
     }
 
     long size = fileSize(file);
@@ -171,17 +171,17 @@ ErrorCode Processor::readFile(std::string& path)
     fread(dataStack.getArr(), sizeof(char), size, file);
 
     fclose(file);
-    return WellCode;
+    return ErrorCode::WellCode;
 }
 
 void Processor::readAndExecuteCommands()
 {
-    int callCode = CommandReadErrorCode;
+    ErrorCode callCode = ErrorCode::CommandReadErrorCode;
 
     for (;;)
     {
         callCode = executeCommand();
-        if (callCode != WellCode)
+        if (callCode != ErrorCode::WellCode)
         {
             break;
         }
@@ -192,10 +192,10 @@ void Processor::readAndExecuteCommands()
     endProgramWithCode(callCode);
 }
 
-void Processor::endProgramWithCode(int code)
+void Processor::endProgramWithCode(ErrorCode code)
 {
 
-    if (code == CommandBreakCode)
+    if (code == ErrorCode::CommandBreakCode)
     {
         std::cout << "\nПрограмма завершилась удачно\n";
     }
@@ -210,7 +210,7 @@ void Processor::endProgramWithCode(int code)
     }
 }
 
-int Processor::executeCommand()
+ErrorCode Processor::executeCommand()
 {
     int filePos = getCommandData().getCurrPos();
 
@@ -222,12 +222,12 @@ int Processor::executeCommand()
     COMMANDTYPE fnc = getCommand(commandNum);
     if (fnc)
     {
-        int callRes = fnc(*this, codedCommandNum);
+        ErrorCode callRes = fnc(*this, codedCommandNum);
 
         getRuntimeInfoCollector().addLastCommand(filePos, codedCommandNum);
 
         return callRes;
     }
 
-    return CommandReadErrorCode;
+    return ErrorCode::CommandReadErrorCode;
 }

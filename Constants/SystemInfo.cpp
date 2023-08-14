@@ -24,12 +24,12 @@ ErrorCode getComponentStrFromNum(SystemComponents num, std::wstring& str)
     {
     case vsizex_num:
         str= vsizex_str;
-        return WellCode;
+        return ErrorCode::WellCode;
 
     case vsizey_num:
         str = vsizex_str;
-        return WellCode;
+        return ErrorCode::WellCode;
     default:
-        return SystemComponentNotFounded;
+        return ErrorCode::SystemComponentNotFounded;
     }
 }
