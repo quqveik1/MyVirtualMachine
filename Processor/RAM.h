@@ -2,20 +2,20 @@
 
 struct RAM
 {
-    const int arrSize          = 100;
-    static const int TotalSize = 10100;
+    const CommandDataType arrSize          = 100;
+    static const CommandDataType TotalSize = 10100;
 
-    const int xSize            = 100;
-    const int ySize            = 100;
-    const int VRAMSize         = 10000;
+    const CommandDataType xSize            = 100;
+    const CommandDataType ySize            = 100;
+    const CommandDataType VRAMSize         = 10000;
 private:
-    int data[TotalSize]{};
+    CommandDataType data[TotalSize]{};
 
 public:
-    int& operator[](int index);
+    CommandDataType& operator[](CommandDataType index);
 
-    void print     (int index);
+    void print     (CommandDataType index);
 
-    int getPixel   (int x, int y);
-    void setPixel  (int x, int y, int pix);
+    CommandDataType getPixel   (CommandDataType x, CommandDataType y);
+    void setPixel  (CommandDataType x, CommandDataType y, CommandDataType pix);
 };

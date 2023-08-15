@@ -4,8 +4,8 @@
 
 #include "CommonCode.h"
 
-
-bool checkArrBound(int arrSize, int elNum)
+template<typename T>
+bool checkArrBound(T arrSize, T elNum)
 {
     if (0 <= elNum && elNum < arrSize)
     {

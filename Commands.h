@@ -26,10 +26,9 @@ ErrorCode div_command    (Processor& processor, int codedCommandNum);
 
 ErrorCode pop_command    (Processor& processor, int codedCommandNum);
 
-ErrorCode doJump         (Processor& processor, int pos);
+ErrorCode doJump         (Processor& processor, CommandDataType pos);
 ErrorCode commonJmpFnc   (Processor& processor, bool needToJump, int codedNum);
 ErrorCode jmp_command    (Processor& processor, int codedCommandNum);
-ErrorCode get2ElementsFromStack(float* a, float* b, Processor& processor);
 ErrorCode ja_command     (Processor& processor, int codedCommandNum);
 ErrorCode jae_command    (Processor& processor, int codedCommandNum);
 ErrorCode jb_command     (Processor& processor, int codedCommandNum);
@@ -51,4 +50,4 @@ ErrorCode neg_command    (Processor& processor, int codedCommandNum);
 ErrorCode into_command   (Processor& processor, int codedCommandNum);
 
 ErrorCode setpxl_command (Processor& processor, int codedCommandNum);
-ErrorCode si_command     (Processor& processor, int codedCommandNum);
+ErrorCode rdsys_command     (Processor& processor, int codedCommandNum);

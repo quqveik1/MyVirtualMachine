@@ -8,7 +8,7 @@
 #include "../Common/StringViewExtension.cpp"
 #include "../Converter/FloatConvert.h"
 
-int& RAM::operator[](int index)
+CommandDataType& RAM::operator[](CommandDataType index)
 {
     if (!checkArrBound(arrSize, index))
     {
@@ -19,18 +19,18 @@ int& RAM::operator[](int index)
     return data[index];
 }
 
-void RAM::print(int index)
+void RAM::print(CommandDataType index)
 {
-    int& data = (*this)[index];
+    CommandDataType& data = (*this)[index];
 
-    float deconvData = deConvNum<float>(data);
+    CommandDataFloatType deconvData = deConvNum<CommandDataFloatType>(data);
 
     std::cout << std::setw(3) << std::setfill('0') << std::right << std::hex << index << ": " << std::dec << deconvData << "\n";
 }
 
-int RAM::getPixel(int x, int y)
+CommandDataType RAM::getPixel(CommandDataType x, CommandDataType y)
 {
-    int index = y * xSize + x + arrSize;
+    CommandDataType index = y * xSize + x + arrSize;
 
     if (!checkArrBound(VRAMSize, index))
     {
@@ -40,9 +40,9 @@ int RAM::getPixel(int x, int y)
     return data[index];
 }
 
-void RAM::setPixel(int x, int y, int pix)
+void RAM::setPixel(CommandDataType x, CommandDataType y, CommandDataType pix)
 {
-    int index = y * xSize + x + arrSize;
+    CommandDataType index = y * xSize + x + arrSize;
 
     if (!checkArrBound(VRAMSize, index))
     {

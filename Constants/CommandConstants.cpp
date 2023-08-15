@@ -6,7 +6,7 @@
 
 std::vector<std::wstring> commandNames;
 
-ErrorCode getCommandNum(int& commandNum, const std::wstring_view& commandName)
+ErrorCode getCommandNum(CommandType& commandNum, const std::wstring_view& commandName)
 {
     if (commandName.size() == 0) return ErrorCode::CommandRecognizeError;
 
@@ -145,7 +145,7 @@ ErrorCode getCommandNum(int& commandNum, const std::wstring_view& commandName)
     return ErrorCode::CommandRecognizeError;
 }
 
-ErrorCode getCommandName(int commandNum, std::wstring& ans)
+ErrorCode getCommandName(CommandType commandNum, std::wstring& ans)
 {
     bool res = isCommandNumValid(commandNum);
 
@@ -244,7 +244,7 @@ ErrorCode getCommandName(int commandNum, std::wstring& ans)
     return ErrorCode::WellCode;
 }
 
-bool isCommandNumValid(int num)
+bool isCommandNumValid(CommandType num)
 {
     if (0 <= num && num <= cCommands)
     {

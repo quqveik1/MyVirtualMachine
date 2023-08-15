@@ -48,8 +48,8 @@ ErrorCode saveSmallExpr(CommandIR& commandIR, int commandNum, std::wstring_view&
 {
     if (!data.empty())
     {
-        std::wstring_view firstArg{}, secondArg{};
-        double               first{}, second{};
+        std::wstring_view    firstArg{}, secondArg{};
+        CommandDataFloatType first{}, second{};
         bool needToSwapArgs = false;
 
         bool isConstant = false;
@@ -81,7 +81,7 @@ ErrorCode saveSmallExpr(CommandIR& commandIR, int commandNum, std::wstring_view&
             return res;
         }
 
-        int writeNum = codeToNumberRepresentation(commandNum, isConstant, isReg, isRamCall);
+        CommandType writeNum = codeToNumberRepresentation(commandNum, isConstant, isReg, isRamCall);
         commandIR.put(writeNum);
 
         if (needToSwapArgs)
@@ -89,12 +89,12 @@ ErrorCode saveSmallExpr(CommandIR& commandIR, int commandNum, std::wstring_view&
             std::swap(first, second);
         }
 
-        int _f = convNum(first);
+        CommandDataType _f = convNum(first);
         commandIR.put(_f);
 
         if (plusPos >= 0)
         {
-            int _s = convNum(second);
+            CommandDataType _s = convNum(second);
             commandIR.put(_s);
         }
 

@@ -34,7 +34,7 @@ void CallStack::print()
 
     for (size_t i = 0; i < getData().size(); i++)
     {
-        int data = getData()[i];
+        CommandDataType data = getData()[i];
 
         std::cout << std::setw(5) << std::setfill('0') << std::right << std::dec << i << ": " << std::hex << data << std::endl;
     }

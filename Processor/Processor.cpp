@@ -94,8 +94,8 @@ void Processor::drawFrame(sf::RenderWindow& window)
 void Processor::drawLines(sf::RenderWindow& window)
 {
     const int colorLine = 0x808080;
-    const int lineDeltaX = window.getSize().x / appRAM.xSize;
-    const int lineDeltaY = window.getSize().y / appRAM.ySize;
+    const int lineDeltaX = (int)window.getSize().x / (int)appRAM.xSize;
+    const int lineDeltaY = (int)window.getSize().y / (int)appRAM.ySize;
 
     const sf::Color lineColor(80, 80, 80);
 
@@ -124,14 +124,14 @@ void Processor::drawLines(sf::RenderWindow& window)
 
 void Processor::drawVram(sf::RenderWindow& window)
 {
-    const int pixelSizeX = window.getSize().x / appRAM.xSize;
-    const int pixelSizeY = window.getSize().y / appRAM.ySize;
+    const int pixelSizeX = window.getSize().x / (int)appRAM.xSize;
+    const int pixelSizeY = window.getSize().y / (int)appRAM.ySize;
 
     for (int x = 0; x < getAppRAM().xSize; x ++)
     {
         for (int y = 0; y < getAppRAM().ySize; y ++)
         {
-            int colorCode = getAppRAM().getPixel(x, y);
+            int colorCode = (int)getAppRAM().getPixel(x, y);
 
             sf::RectangleShape pixel(sf::Vector2f((float)pixelSizeX - 1, (float)pixelSizeY - 1));
             pixel.setPosition((float)x * pixelSizeX, (float)y * pixelSizeY);

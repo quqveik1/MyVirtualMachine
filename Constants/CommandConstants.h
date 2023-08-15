@@ -4,9 +4,13 @@
 
 #include "ErrorCode.h"
 
-const int COMMANDSVERSION = 17;
+const int COMMANDSVERSION = 18;
 
 const int cCommands = 256;
+
+using CommandDataType = long long;
+using CommandDataFloatType = double;
+using CommandType = int;
 
 const std::wstring_view hlt_str    = L"hlt";
 
@@ -80,8 +84,8 @@ enum CommandNums
 
 //------------------------------------------------------------------
 
-ErrorCode getCommandNum(int& commandNum, const std::wstring_view& commandName);
-bool isCommandNumValid(int num);
-ErrorCode getCommandName    (int commandNum, std::wstring& ans);
+ErrorCode getCommandNum(CommandType& commandNum, const std::wstring_view& commandName);
+bool isCommandNumValid(CommandType num);
+ErrorCode getCommandName    (CommandType commandNum, std::wstring& ans);
                       
 //------------------------------------------------------------------

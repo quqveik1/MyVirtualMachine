@@ -2,19 +2,20 @@
 
 #include <vector>
 
+template<typename T>
 class StackVector
 {
-    std::vector<int> data;
+    std::vector<T> data;
 
 public:
-    std::vector<int>& getData();
+    std::vector<T>& getData();
 
     bool isEmpty() { return getData().empty(); };
 
-    int peek ();
-    void pop ();
-    int get  ();
-    void push(int obj);
+    T    peek ();
+    void pop  ();
+    T    get  ();
+    void push (T obj);
 
-    int* at  (int pos);
+    T* at  (int pos);
 };

@@ -36,7 +36,7 @@ void initCommandsArr()
 
     commandsArr[setpxl_num] = setpxl_command;
 
-    commandsArr[rdsys_num]  = si_command;
+    commandsArr[rdsys_num]  = rdsys_command;
 }
 
 

@@ -6,5 +6,5 @@
 
 int main()
 {
-    convertToNum(L"../AsmCode/TrueSin.asm");
+    convertToNum(L"../AsmCode/Sinus.asm");
 }

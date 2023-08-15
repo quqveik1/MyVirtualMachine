@@ -1,9 +1,11 @@
 #pragma once
 
-const int Convert10Power = 65536;
+#include "../Constants/CommandConstants.h"
+
+const long long Convert10Power = 65536;
 
 template <typename T>
-int convNum(const T& num);
+CommandDataType convNum(const T& num);
 
 template <typename T>
-T deConvNum(int num);
+T deConvNum(CommandDataType num);

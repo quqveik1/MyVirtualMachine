@@ -120,8 +120,8 @@ ErrorCode set_command(Processor& processor, InteractiveCode& code, std::wstring_
 
     try
     {
-        float num = strToFloat<float>(numStr);
-        int convNumber = convNum(num);
+        CommandDataFloatType num = strToFloat<CommandDataFloatType>(numStr);
+        CommandDataType convNumber = convNum(num);
 
         if (isRegisterValid(regNum))
         {
@@ -156,7 +156,7 @@ ErrorCode set_stack_command(Processor& processor, InteractiveCode& code, std::ws
     return stack_universal_command(processor, code, data, processor.getRuntimeData());
 }
 
-ErrorCode stack_universal_command(Processor& processor, InteractiveCode& code, std::wstring_view& data, StackVector& stackVector, bool needToConvert/* = true*/)
+ErrorCode stack_universal_command(Processor& processor, InteractiveCode& code, std::wstring_view& data, StackVector<CommandDataType>& stackVector, bool needToConvert/* = true*/)
 {
     std::wstring_view datav = data;
 
@@ -198,11 +198,11 @@ ErrorCode stack_universal_command(Processor& processor, InteractiveCode& code, s
 
     try
     {
-        float num = strToFloat<float>(numStr);
-        int convNumber = (int)num;
+        CommandDataFloatType num = strToFloat<CommandDataFloatType>(numStr);
+        CommandDataType convNumber = (CommandDataType)num;
         if(needToConvert) convNumber = convNum(num);
 
-        int* ram = stackVector.at(stackPos);
+        CommandDataType* ram = stackVector.at(stackPos);
 
         if (!ram) return ErrorCode::RAMOutOfBounds;
 

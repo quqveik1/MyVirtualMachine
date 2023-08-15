@@ -86,7 +86,7 @@ void LabelSearchIR::checkFixUpList(std::wstring_view& word, int pos)
 
     while (!it->second.empty())
     {
-        int convertedPos = convNum(pos);
+        CommandDataType convertedPos = convNum(pos);
         CommandIR* insertCommand = it->second[it->second.size() - 1];
         insertCommand->setLabelLinePos(pos);
 

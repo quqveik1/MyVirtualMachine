@@ -3,13 +3,13 @@
 #include "FloatConvert.h"
 
 template <typename T>
-int convNum(const T& num)
+CommandDataType convNum(const T& num)
 {
-    return (int)(num * (T)Convert10Power);
+    return (CommandDataType)(num * (T)Convert10Power);
 }
 
 template <typename T>
-T deConvNum(int num)
+T deConvNum(CommandDataType num)
 {
-    return (T)((float)(num) / Convert10Power);
+    return (T)((double)(num) / Convert10Power);
 }

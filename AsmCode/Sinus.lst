@@ -4,54 +4,77 @@ File listing Pass #1: Code -> Intermediate Representation
 0000 | #1commandNum: 0235; isFinal: 1; labelLinePos: -001; | eb 01 00 00               | jmp main
 0001 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
 0002 | #1commandNum: 0049; isFinal: 1; labelLinePos: 0002; |                           | convertPixelsToRadians:
-0003 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 01 00   | push bx
+0003 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 01 00 + | push bx
+                                                           | 00 00 00 00               | 
 0004 | #1commandNum: 0247; isFinal: 1; labelLinePos: -001; | f7 00 00 00               | div
-0005 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 00 00   | push ax
+0005 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 00 00 + | push ax
+                                                           | 00 00 00 00               | 
 0006 | #1commandNum: 0246; isFinal: 1; labelLinePos: -001; | f6 00 00 00               | mul
 0007 | #1commandNum: 0194; isFinal: 1; labelLinePos: -001; | c2 00 00 00               | ret
 0008 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
 0009 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
 0010 | #1commandNum: 0049; isFinal: 1; labelLinePos: 0010; |                           | convertSinToPixels:
-0011 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 03 00   | push dx
+0011 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 03 00 + | push dx
+                                                           | 00 00 00 00               | 
 0012 | #1commandNum: 0246; isFinal: 1; labelLinePos: -001; | f6 00 00 00               | mul
 0013 | #1commandNum: 0248; isFinal: 1; labelLinePos: -001; | f8 00 00 00               | neg
-0014 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 03 00   | push dx
+0014 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 03 00 + | push dx
+                                                           | 00 00 00 00               | 
 0015 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; | 00 00 00 00               | add
 0016 | #1commandNum: 0194; isFinal: 1; labelLinePos: -001; | c2 00 00 00               | ret
 0017 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
 0018 | #1commandNum: 0049; isFinal: 1; labelLinePos: 0018; |                           | main:
 0019 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
-0020 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 1e 25 03 00   | push 3.145
-0021 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 00 00   | pop ax
-0022 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 33 73 1f 00   | push 31.45
-0023 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 01 00   | pop bx
+0020 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 1e 25 03 00 + | push 3.145
+                                                           | 00 00 00 00               | 
+0021 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 00 00 + | pop ax
+                                                           | 00 00 00 00               | 
+0022 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 33 73 1f 00 + | push 31.45
+                                                           | 00 00 00 00               | 
+0023 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 01 00 + | pop bx
+                                                           | 00 00 00 00               | 
 0024 | #1commandNum: 0039; isFinal: 1; labelLinePos: -001; | 27 00 00 00 01 00 00 00   | rdsys vsizey
-0025 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 02 00   | push 2
+0025 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 02 00 + | push 2
+                                                           | 00 00 00 00               | 
 0026 | #1commandNum: 0247; isFinal: 1; labelLinePos: -001; | f7 00 00 00               | div
-0027 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 03 00   | pop dx
+0027 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 03 00 + | pop dx
+                                                           | 00 00 00 00               | 
 0028 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
-0029 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 00 00   | push 0
-0030 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 02 00   | pop cx
+0029 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 00 00 + | push 0
+                                                           | 00 00 00 00               | 
+0030 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 02 00 + | pop cx
+                                                           | 00 00 00 00               | 
 0031 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
 0032 | #1commandNum: 0049; isFinal: 1; labelLinePos: 0032; |                           | drawCircle:
 0033 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
-0034 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 02 00   | push cx
+0034 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 02 00 + | push cx
+                                                           | 00 00 00 00               | 
 0035 | #1commandNum: 0232; isFinal: 1; labelLinePos: 0002; | e8 01 00 00               | call convertPixelsToRadians
 0036 | #1commandNum: 0024; isFinal: 1; labelLinePos: -001; | 18 00 00 00               | sin
-0037 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 05 00 00 00 00 00 00   | pop [0]
-0038 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 02 00   | push cx
-0039 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 05 00 00 00 00 00 00   | push [0]
+0037 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 05 00 00 00 00 00 00 + | pop [0]
+                                                           | 00 00 00 00               | 
+0038 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 02 00 + | push cx
+                                                           | 00 00 00 00               | 
+0039 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 05 00 00 00 00 00 00 + | push [0]
+                                                           | 00 00 00 00               | 
 0040 | #1commandNum: 0232; isFinal: 1; labelLinePos: 0010; | e8 01 00 00               | call convertSinToPixels
-0041 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00   | push 255
-0042 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00   | push 255
-0043 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00   | push 255
+0041 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00 + | push 255
+                                                           | 00 00 00 00               | 
+0042 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00 + | push 255
+                                                           | 00 00 00 00               | 
+0043 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 ff 00 + | push 255
+                                                           | 00 00 00 00               | 
 0044 | #1commandNum: 0037; isFinal: 1; labelLinePos: -001; | 25 00 00 00               | setpxl
 0045 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
 0046 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 03 00 00 00 00 01 00 + | push cx+1
-                                                           | 00 00 02 00               | 
-0047 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 02 00   | pop cx
-0048 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 02 00   | push cx
-0049 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 64 00   | push 100
+                                                           | 00 00 00 00 00 00 02 00 + | 
+                                                           | 00 00 00 00               | 
+0047 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 02 00 00 00 00 02 00 + | pop cx
+                                                           | 00 00 00 00               | 
+0048 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 02 00 00 00 00 02 00 + | push cx
+                                                           | 00 00 00 00               | 
+0049 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 64 00 + | push 100
+                                                           | 00 00 00 00               | 
 0050 | #1commandNum: 0238; isFinal: 1; labelLinePos: 0032; | ee 01 00 00               | jb drawCircle 
 0051 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                           | 
 0052 | #1commandNum: 0002; isFinal: 1; labelLinePos: -001; | 02 00 00 00               | in
@@ -61,119 +84,173 @@ File listing Pass #1: Code -> Intermediate Representation
 
 File listing Pass #2: Intermediate Representation -> Machine Code
 
-000 | #2 | 00000 | eb 01 00 00 ff ff ff ff   | jmp main
-001 | #2 | 00008 |                           | 
-002 | #2 | 00008 |                           | convertPixelsToRadians:
-003 | #2 | 00008 | 06 02 00 00 00 00 01 00   | push bx
-004 | #2 | 00010 | f7 00 00 00               | div
-005 | #2 | 00014 | 06 02 00 00 00 00 00 00   | push ax
-006 | #2 | 0001c | f6 00 00 00               | mul
-007 | #2 | 00020 | c2 00 00 00               | ret
-008 | #2 | 00024 |                           | 
-009 | #2 | 00024 |                           | 
-010 | #2 | 00024 |                           | convertSinToPixels:
-011 | #2 | 00024 | 06 02 00 00 00 00 03 00   | push dx
-012 | #2 | 0002c | f6 00 00 00               | mul
-013 | #2 | 00030 | f8 00 00 00               | neg
-014 | #2 | 00034 | 06 02 00 00 00 00 03 00   | push dx
-015 | #2 | 0003c | 00 00 00 00               | add
-016 | #2 | 00040 | c2 00 00 00               | ret
-017 | #2 | 00044 |                           | 
-018 | #2 | 00044 |                           | main:
-019 | #2 | 00044 |                           | 
-020 | #2 | 00044 | 06 01 00 00 1e 25 03 00   | push 3.145
-021 | #2 | 0004c | 07 02 00 00 00 00 00 00   | pop ax
-022 | #2 | 00054 | 06 01 00 00 33 73 1f 00   | push 31.45
-023 | #2 | 0005c | 07 02 00 00 00 00 01 00   | pop bx
-024 | #2 | 00064 | 27 00 00 00 01 00 00 00   | rdsys vsizey
-025 | #2 | 0006c | 06 01 00 00 00 00 02 00   | push 2
-026 | #2 | 00074 | f7 00 00 00               | div
-027 | #2 | 00078 | 07 02 00 00 00 00 03 00   | pop dx
-028 | #2 | 00080 |                           | 
-029 | #2 | 00080 | 06 01 00 00 00 00 00 00   | push 0
-030 | #2 | 00088 | 07 02 00 00 00 00 02 00   | pop cx
-031 | #2 | 00090 |                           | 
-032 | #2 | 00090 |                           | drawCircle:
-033 | #2 | 00090 |                           | 
-034 | #2 | 00090 | 06 02 00 00 00 00 02 00   | push cx
-035 | #2 | 00098 | e8 01 00 00 00 00 08 00   | call convertPixelsToRadians
-036 | #2 | 000a0 | 18 00 00 00               | sin
-037 | #2 | 000a4 | 07 05 00 00 00 00 00 00   | pop [0]
-038 | #2 | 000ac | 06 02 00 00 00 00 02 00   | push cx
-039 | #2 | 000b4 | 06 05 00 00 00 00 00 00   | push [0]
-040 | #2 | 000bc | e8 01 00 00 00 00 24 00   | call convertSinToPixels
-041 | #2 | 000c4 | 06 01 00 00 00 00 ff 00   | push 255
-042 | #2 | 000cc | 06 01 00 00 00 00 ff 00   | push 255
-043 | #2 | 000d4 | 06 01 00 00 00 00 ff 00   | push 255
-044 | #2 | 000dc | 25 00 00 00               | setpxl
-045 | #2 | 000e0 |                           | 
-046 | #2 | 000e0 | 06 03 00 00 00 00 01 00 + | push cx+1
-                 | 00 00 02 00               | 
-047 | #2 | 000ec | 07 02 00 00 00 00 02 00   | pop cx
-048 | #2 | 000f4 | 06 02 00 00 00 00 02 00   | push cx
-049 | #2 | 000fc | 06 01 00 00 00 00 64 00   | push 100
-050 | #2 | 00104 | ee 01 00 00 00 00 90 00   | jb drawCircle 
-051 | #2 | 0010c |                           | 
-052 | #2 | 0010c | 02 00 00 00               | in
-053 | #2 | 00110 |                           | 
-054 | #2 | 00110 | f4 00 00 00               | hlt
+000 | #2 | 00000 | eb 01 00 00 ff ff ff ff + | jmp main
+                 | ff ff ff ff               | 
+001 | #2 | 0000c |                           | 
+002 | #2 | 0000c |                           | convertPixelsToRadians:
+003 | #2 | 0000c | 06 02 00 00 00 00 01 00 + | push bx
+                 | 00 00 00 00               | 
+004 | #2 | 00018 | f7 00 00 00               | div
+005 | #2 | 0001c | 06 02 00 00 00 00 00 00 + | push ax
+                 | 00 00 00 00               | 
+006 | #2 | 00028 | f6 00 00 00               | mul
+007 | #2 | 0002c | c2 00 00 00               | ret
+008 | #2 | 00030 |                           | 
+009 | #2 | 00030 |                           | 
+010 | #2 | 00030 |                           | convertSinToPixels:
+011 | #2 | 00030 | 06 02 00 00 00 00 03 00 + | push dx
+                 | 00 00 00 00               | 
+012 | #2 | 0003c | f6 00 00 00               | mul
+013 | #2 | 00040 | f8 00 00 00               | neg
+014 | #2 | 00044 | 06 02 00 00 00 00 03 00 + | push dx
+                 | 00 00 00 00               | 
+015 | #2 | 00050 | 00 00 00 00               | add
+016 | #2 | 00054 | c2 00 00 00               | ret
+017 | #2 | 00058 |                           | 
+018 | #2 | 00058 |                           | main:
+019 | #2 | 00058 |                           | 
+020 | #2 | 00058 | 06 01 00 00 1e 25 03 00 + | push 3.145
+                 | 00 00 00 00               | 
+021 | #2 | 00064 | 07 02 00 00 00 00 00 00 + | pop ax
+                 | 00 00 00 00               | 
+022 | #2 | 00070 | 06 01 00 00 33 73 1f 00 + | push 31.45
+                 | 00 00 00 00               | 
+023 | #2 | 0007c | 07 02 00 00 00 00 01 00 + | pop bx
+                 | 00 00 00 00               | 
+024 | #2 | 00088 | 27 00 00 00 01 00 00 00   | rdsys vsizey
+025 | #2 | 00090 | 06 01 00 00 00 00 02 00 + | push 2
+                 | 00 00 00 00               | 
+026 | #2 | 0009c | f7 00 00 00               | div
+027 | #2 | 000a0 | 07 02 00 00 00 00 03 00 + | pop dx
+                 | 00 00 00 00               | 
+028 | #2 | 000ac |                           | 
+029 | #2 | 000ac | 06 01 00 00 00 00 00 00 + | push 0
+                 | 00 00 00 00               | 
+030 | #2 | 000b8 | 07 02 00 00 00 00 02 00 + | pop cx
+                 | 00 00 00 00               | 
+031 | #2 | 000c4 |                           | 
+032 | #2 | 000c4 |                           | drawCircle:
+033 | #2 | 000c4 |                           | 
+034 | #2 | 000c4 | 06 02 00 00 00 00 02 00 + | push cx
+                 | 00 00 00 00               | 
+035 | #2 | 000d0 | e8 01 00 00 00 00 0c 00 + | call convertPixelsToRadians
+                 | 00 00 00 00               | 
+036 | #2 | 000dc | 18 00 00 00               | sin
+037 | #2 | 000e0 | 07 05 00 00 00 00 00 00 + | pop [0]
+                 | 00 00 00 00               | 
+038 | #2 | 000ec | 06 02 00 00 00 00 02 00 + | push cx
+                 | 00 00 00 00               | 
+039 | #2 | 000f8 | 06 05 00 00 00 00 00 00 + | push [0]
+                 | 00 00 00 00               | 
+040 | #2 | 00104 | e8 01 00 00 00 00 30 00 + | call convertSinToPixels
+                 | 00 00 00 00               | 
+041 | #2 | 00110 | 06 01 00 00 00 00 ff 00 + | push 255
+                 | 00 00 00 00               | 
+042 | #2 | 0011c | 06 01 00 00 00 00 ff 00 + | push 255
+                 | 00 00 00 00               | 
+043 | #2 | 00128 | 06 01 00 00 00 00 ff 00 + | push 255
+                 | 00 00 00 00               | 
+044 | #2 | 00134 | 25 00 00 00               | setpxl
+045 | #2 | 00138 |                           | 
+046 | #2 | 00138 | 06 03 00 00 00 00 01 00 + | push cx+1
+                 | 00 00 00 00 00 00 02 00 + | 
+                 | 00 00 00 00               | 
+047 | #2 | 0014c | 07 02 00 00 00 00 02 00 + | pop cx
+                 | 00 00 00 00               | 
+048 | #2 | 00158 | 06 02 00 00 00 00 02 00 + | push cx
+                 | 00 00 00 00               | 
+049 | #2 | 00164 | 06 01 00 00 00 00 64 00 + | push 100
+                 | 00 00 00 00               | 
+050 | #2 | 00170 | ee 01 00 00 00 00 c4 00 + | jb drawCircle 
+                 | 00 00 00 00               | 
+051 | #2 | 0017c |                           | 
+052 | #2 | 0017c | 02 00 00 00               | in
+053 | #2 | 00180 |                           | 
+054 | #2 | 00180 | f4 00 00 00               | hlt
 
 
 File listing Pass #3: Final Machine Code
 
-000 | #3 | 00000 | eb 01 00 00 00 00 44 00   | jmp main
-001 | #3 | 00008 |                           | 
-002 | #3 | 00008 |                           | convertPixelsToRadians:
-003 | #3 | 00008 | 06 02 00 00 00 00 01 00   | push bx
-004 | #3 | 00010 | f7 00 00 00               | div
-005 | #3 | 00014 | 06 02 00 00 00 00 00 00   | push ax
-006 | #3 | 0001c | f6 00 00 00               | mul
-007 | #3 | 00020 | c2 00 00 00               | ret
-008 | #3 | 00024 |                           | 
-009 | #3 | 00024 |                           | 
-010 | #3 | 00024 |                           | convertSinToPixels:
-011 | #3 | 00024 | 06 02 00 00 00 00 03 00   | push dx
-012 | #3 | 0002c | f6 00 00 00               | mul
-013 | #3 | 00030 | f8 00 00 00               | neg
-014 | #3 | 00034 | 06 02 00 00 00 00 03 00   | push dx
-015 | #3 | 0003c | 00 00 00 00               | add
-016 | #3 | 00040 | c2 00 00 00               | ret
-017 | #3 | 00044 |                           | 
-018 | #3 | 00044 |                           | main:
-019 | #3 | 00044 |                           | 
-020 | #3 | 00044 | 06 01 00 00 1e 25 03 00   | push 3.145
-021 | #3 | 0004c | 07 02 00 00 00 00 00 00   | pop ax
-022 | #3 | 00054 | 06 01 00 00 33 73 1f 00   | push 31.45
-023 | #3 | 0005c | 07 02 00 00 00 00 01 00   | pop bx
-024 | #3 | 00064 | 27 00 00 00 01 00 00 00   | rdsys vsizey
-025 | #3 | 0006c | 06 01 00 00 00 00 02 00   | push 2
-026 | #3 | 00074 | f7 00 00 00               | div
-027 | #3 | 00078 | 07 02 00 00 00 00 03 00   | pop dx
-028 | #3 | 00080 |                           | 
-029 | #3 | 00080 | 06 01 00 00 00 00 00 00   | push 0
-030 | #3 | 00088 | 07 02 00 00 00 00 02 00   | pop cx
-031 | #3 | 00090 |                           | 
-032 | #3 | 00090 |                           | drawCircle:
-033 | #3 | 00090 |                           | 
-034 | #3 | 00090 | 06 02 00 00 00 00 02 00   | push cx
-035 | #3 | 00098 | e8 01 00 00 00 00 08 00   | call convertPixelsToRadians
-036 | #3 | 000a0 | 18 00 00 00               | sin
-037 | #3 | 000a4 | 07 05 00 00 00 00 00 00   | pop [0]
-038 | #3 | 000ac | 06 02 00 00 00 00 02 00   | push cx
-039 | #3 | 000b4 | 06 05 00 00 00 00 00 00   | push [0]
-040 | #3 | 000bc | e8 01 00 00 00 00 24 00   | call convertSinToPixels
-041 | #3 | 000c4 | 06 01 00 00 00 00 ff 00   | push 255
-042 | #3 | 000cc | 06 01 00 00 00 00 ff 00   | push 255
-043 | #3 | 000d4 | 06 01 00 00 00 00 ff 00   | push 255
-044 | #3 | 000dc | 25 00 00 00               | setpxl
-045 | #3 | 000e0 |                           | 
-046 | #3 | 000e0 | 06 03 00 00 00 00 01 00 + | push cx+1
-                 | 00 00 02 00               | 
-047 | #3 | 000ec | 07 02 00 00 00 00 02 00   | pop cx
-048 | #3 | 000f4 | 06 02 00 00 00 00 02 00   | push cx
-049 | #3 | 000fc | 06 01 00 00 00 00 64 00   | push 100
-050 | #3 | 00104 | ee 01 00 00 00 00 90 00   | jb drawCircle 
-051 | #3 | 0010c |                           | 
-052 | #3 | 0010c | 02 00 00 00               | in
-053 | #3 | 00110 |                           | 
-054 | #3 | 00110 | f4 00 00 00               | hlt
+000 | #3 | 00000 | eb 01 00 00 00 00 58 00 + | jmp main
+                 | 00 00 00 00               | 
+001 | #3 | 0000c |                           | 
+002 | #3 | 0000c |                           | convertPixelsToRadians:
+003 | #3 | 0000c | 06 02 00 00 00 00 01 00 + | push bx
+                 | 00 00 00 00               | 
+004 | #3 | 00018 | f7 00 00 00               | div
+005 | #3 | 0001c | 06 02 00 00 00 00 00 00 + | push ax
+                 | 00 00 00 00               | 
+006 | #3 | 00028 | f6 00 00 00               | mul
+007 | #3 | 0002c | c2 00 00 00               | ret
+008 | #3 | 00030 |                           | 
+009 | #3 | 00030 |                           | 
+010 | #3 | 00030 |                           | convertSinToPixels:
+011 | #3 | 00030 | 06 02 00 00 00 00 03 00 + | push dx
+                 | 00 00 00 00               | 
+012 | #3 | 0003c | f6 00 00 00               | mul
+013 | #3 | 00040 | f8 00 00 00               | neg
+014 | #3 | 00044 | 06 02 00 00 00 00 03 00 + | push dx
+                 | 00 00 00 00               | 
+015 | #3 | 00050 | 00 00 00 00               | add
+016 | #3 | 00054 | c2 00 00 00               | ret
+017 | #3 | 00058 |                           | 
+018 | #3 | 00058 |                           | main:
+019 | #3 | 00058 |                           | 
+020 | #3 | 00058 | 06 01 00 00 1e 25 03 00 + | push 3.145
+                 | 00 00 00 00               | 
+021 | #3 | 00064 | 07 02 00 00 00 00 00 00 + | pop ax
+                 | 00 00 00 00               | 
+022 | #3 | 00070 | 06 01 00 00 33 73 1f 00 + | push 31.45
+                 | 00 00 00 00               | 
+023 | #3 | 0007c | 07 02 00 00 00 00 01 00 + | pop bx
+                 | 00 00 00 00               | 
+024 | #3 | 00088 | 27 00 00 00 01 00 00 00   | rdsys vsizey
+025 | #3 | 00090 | 06 01 00 00 00 00 02 00 + | push 2
+                 | 00 00 00 00               | 
+026 | #3 | 0009c | f7 00 00 00               | div
+027 | #3 | 000a0 | 07 02 00 00 00 00 03 00 + | pop dx
+                 | 00 00 00 00               | 
+028 | #3 | 000ac |                           | 
+029 | #3 | 000ac | 06 01 00 00 00 00 00 00 + | push 0
+                 | 00 00 00 00               | 
+030 | #3 | 000b8 | 07 02 00 00 00 00 02 00 + | pop cx
+                 | 00 00 00 00               | 
+031 | #3 | 000c4 |                           | 
+032 | #3 | 000c4 |                           | drawCircle:
+033 | #3 | 000c4 |                           | 
+034 | #3 | 000c4 | 06 02 00 00 00 00 02 00 + | push cx
+                 | 00 00 00 00               | 
+035 | #3 | 000d0 | e8 01 00 00 00 00 0c 00 + | call convertPixelsToRadians
+                 | 00 00 00 00               | 
+036 | #3 | 000dc | 18 00 00 00               | sin
+037 | #3 | 000e0 | 07 05 00 00 00 00 00 00 + | pop [0]
+                 | 00 00 00 00               | 
+038 | #3 | 000ec | 06 02 00 00 00 00 02 00 + | push cx
+                 | 00 00 00 00               | 
+039 | #3 | 000f8 | 06 05 00 00 00 00 00 00 + | push [0]
+                 | 00 00 00 00               | 
+040 | #3 | 00104 | e8 01 00 00 00 00 30 00 + | call convertSinToPixels
+                 | 00 00 00 00               | 
+041 | #3 | 00110 | 06 01 00 00 00 00 ff 00 + | push 255
+                 | 00 00 00 00               | 
+042 | #3 | 0011c | 06 01 00 00 00 00 ff 00 + | push 255
+                 | 00 00 00 00               | 
+043 | #3 | 00128 | 06 01 00 00 00 00 ff 00 + | push 255
+                 | 00 00 00 00               | 
+044 | #3 | 00134 | 25 00 00 00               | setpxl
+045 | #3 | 00138 |                           | 
+046 | #3 | 00138 | 06 03 00 00 00 00 01 00 + | push cx+1
+                 | 00 00 00 00 00 00 02 00 + | 
+                 | 00 00 00 00               | 
+047 | #3 | 0014c | 07 02 00 00 00 00 02 00 + | pop cx
+                 | 00 00 00 00               | 
+048 | #3 | 00158 | 06 02 00 00 00 00 02 00 + | push cx
+                 | 00 00 00 00               | 
+049 | #3 | 00164 | 06 01 00 00 00 00 64 00 + | push 100
+                 | 00 00 00 00               | 
+050 | #3 | 00170 | ee 01 00 00 00 00 c4 00 + | jb drawCircle 
+                 | 00 00 00 00               | 
+051 | #3 | 0017c |                           | 
+052 | #3 | 0017c | 02 00 00 00               | in
+053 | #3 | 00180 |                           | 
+054 | #3 | 00180 | f4 00 00 00               | hlt

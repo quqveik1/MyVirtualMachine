@@ -2,21 +2,24 @@
 
 #include "StackVector.h"
 
-std::vector<int>& StackVector::getData()
+template<typename T>
+std::vector<T>& StackVector<T>::getData()
 {
     return data;
 }
 
-int StackVector::peek()
+template<typename T>
+T StackVector<T>::peek()
 {
-    int ans = get();
+    CommandDataType ans = get();
 
     getData().pop_back();
 
     return ans;
 }
 
-void StackVector::pop()
+template<typename T>
+void StackVector<T>::pop()
 {
     if(getData().size() == 0)
     {
@@ -26,7 +29,8 @@ void StackVector::pop()
     getData().pop_back();
 }
 
-int StackVector::get()
+template<typename T>
+T StackVector<T>::get()
 {
     if (getData().empty())
     {
@@ -36,12 +40,14 @@ int StackVector::get()
     return getData().back();
 }
 
-void StackVector::push(int obj)
+template<typename T>
+void StackVector<T>::push(T obj)
 {
     return getData().push_back(obj);
 }
 
-int* StackVector::at(int pos)
+template<typename T>
+T* StackVector<T>::at(int pos)
 {
     if (0 <= pos && pos < getData().size())
     {

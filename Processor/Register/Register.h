@@ -2,14 +2,16 @@
 
 #include "RegisterCompile.h"
 
+#include "../../Constants/CommandConstants.h"
+
 struct Register
 { 
 private:
-    int arr[cRegister] = {};
+    CommandDataType arr[cRegister] = {};
 
 public:
-    int getReg(int num);
-    void setReg(int num, int value);
+    CommandDataType getReg(int num);
+    void setReg(int num, CommandDataType value);
 
     void print(bool needToConvertToUserRepresentation = true);
 };

@@ -184,6 +184,7 @@ ErrorCode irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
 
         bytePosAfter = compileData.getCurrPos();
         compileData.addNewLineFinish(bytePosAfter);
+        int size = compileData.getData().size();
 
         fileListing.add2CompileCommand(commandIR, compileData, bytePosBefore, bytePosAfter);
     }

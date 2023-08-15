@@ -26,7 +26,7 @@ pop [1]
 push 1
 pop [2]
 
-push 4
+push 5
 pop [3]
 
 pop [4]

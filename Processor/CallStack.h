@@ -3,7 +3,7 @@
 #include "../Common/StackVector.h"
 #include "Processor.h"
 
-struct CallStack : StackVector
+struct CallStack : StackVector<CommandDataType>
 {
     struct Processor* processor;
 

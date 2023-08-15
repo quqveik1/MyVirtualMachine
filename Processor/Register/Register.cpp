@@ -8,7 +8,7 @@
 #include "RegisterCompile.cpp"
 #include "../../Converter/FloatConvert.h"
 
-int Register::getReg(int num)
+CommandDataType Register::getReg(int num)
 {
     if (checkArrBound(cRegister, num))
     {
@@ -21,7 +21,7 @@ int Register::getReg(int num)
     }
 }
 
-void Register::setReg(int num, int value)
+void Register::setReg(int num, CommandDataType value)
 {
     if (checkArrBound(cRegister, num))
     {
@@ -41,7 +41,7 @@ void Register::print(bool needToConvertToUserRepresentation/* = true*/)
 
     for (int i = 0; i < cRegister; i++)
     {
-        int data = getReg(i);
+        CommandDataType data = getReg(i);
 
         getRegisterStrFromNum(i, regName);
 
@@ -49,7 +49,7 @@ void Register::print(bool needToConvertToUserRepresentation/* = true*/)
 
         if(needToConvertToUserRepresentation)
         {
-            float userForm = deConvNum<float>(data);
+            CommandDataFloatType userForm = deConvNum<CommandDataFloatType>(data);
             std::cout << userForm;
         }
         else

@@ -4,12 +4,13 @@
 #include <vector>
 
 #include "../Common/BufferObj.h"
+#include "../../Constants/CommandConstants.h"
 
 struct CommandIR : BufferObj
 {
     CommandIR();
 private:
-    int commandNum = 0;
+    CommandType commandNum = 0;
     bool isFinal = true;
     int labelLinePos = -1;
     std::wstring_view* line;
@@ -18,8 +19,8 @@ public:
     std::wstring_view* getLine() {return line;}
     void setLine              (std::wstring_view* newLine) {line = newLine;}
 
-    int getCommandNum         () const { return commandNum; }
-    void setCommandNum        (int newCommandNum) { commandNum = newCommandNum; }
+    CommandType getCommandNum         () const { return commandNum; }
+    void        setCommandNum        (CommandType newCommandNum) { commandNum = newCommandNum; }
 
     bool getIsFinal           () const { return isFinal; }
     void setIsFinal           (bool newIsFinal) { isFinal = newIsFinal; }

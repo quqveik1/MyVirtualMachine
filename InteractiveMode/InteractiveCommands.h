@@ -22,7 +22,7 @@ ErrorCode delete_command                (Processor& processor, InteractiveCode& 
 
 ErrorCode examine_command               (Processor& processor, InteractiveCode& code, std::wstring_view& data);
 ErrorCode set_command                   (Processor& processor, InteractiveCode& code, std::wstring_view& data);
-ErrorCode stack_universal_command       (Processor& processor, InteractiveCode& code, std::wstring_view& data, StackVector& stackVector, bool needToConvert = true);
+ErrorCode stack_universal_command       (Processor& processor, InteractiveCode& code, std::wstring_view& data, StackVector<CommandDataType>& stackVector, bool needToConvert = true);
 ErrorCode set_stack_command             (Processor& processor, InteractiveCode& code, std::wstring_view& data);
 ErrorCode set_backtrace_command         (Processor& processor, InteractiveCode& code, std::wstring_view& data);
 

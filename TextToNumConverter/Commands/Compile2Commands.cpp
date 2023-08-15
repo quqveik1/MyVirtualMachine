@@ -20,7 +20,7 @@ ErrorCode default_2compile(CommandIR& commandIR, IR& ir, BinCompileData& binComp
 
 ErrorCode saveWordExpressionToBin(CommandIR& commandIR, IR& ir, BinCompileData& binCompileData)
 {
-    binCompileData.put(&commandIR.getData()[0], sizeof(int));
+    binCompileData.put(&commandIR.getData()[0], sizeof(CommandType));
 
     //std::wstring_view word = (wchar_t*)commandIR.getCommandData();
     binCompileData.getLabelSearchBin().writeOrWaitLabel(commandIR.getLabelLinePos());
