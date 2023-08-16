@@ -101,6 +101,11 @@ ErrorCode getCommandNum(CommandType& commandNum, const std::wstring_view& comman
         commandNum = sin_num;
         return ErrorCode::WellCode;
     }
+    else if (commandName == fmod_str)
+    {
+        commandNum = fmod_num;
+        return ErrorCode::WellCode;
+    }
     else if (commandName == db_str)
     {
         commandNum = db_num;
@@ -209,6 +214,9 @@ ErrorCode getCommandName(CommandType commandNum, std::wstring& ans)
         break; 
     case sin_num:
         ans = sin_str;
+        break;    
+    case fmod_num:
+        ans = fmod_str;
         break;
     case db_num:
         ans = db_str;

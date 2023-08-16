@@ -2,7 +2,7 @@
 
 #include "../Constants/CommandConstants.h"
 
-const long long Convert10Power = (int)pow(2, 24);
+const long long Convert10Power = (int)pow(2, 16);
 
 template <typename T>
 CommandDataType convNum(const T& num);

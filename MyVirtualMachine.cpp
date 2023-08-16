@@ -10,5 +10,5 @@ int main(int argc, char** argv)
     std::cout << "PI/2: " << res << "\n";
     */
 
-    return (int)readByteCode("AsmCode/SinTest.bin");
+    return (int)readByteCode("AsmCode/Sinus.bin");
 }

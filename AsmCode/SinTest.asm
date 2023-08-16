@@ -1,6 +1,10 @@
 jmp main
 
 sinus:
+
+push 6.28
+fmod
+
 push 0
 pop [0]
 

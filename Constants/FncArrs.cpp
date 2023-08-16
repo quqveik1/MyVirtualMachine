@@ -27,6 +27,7 @@ void initCommandsArr()
 
     commandsArr[sqrt_num]   = sqrt_command;
     commandsArr[sin_num]    = sin_command;
+    commandsArr[fmod_num]   = fmod_command;
 
     commandsArr[call_num]   = call_command;
     commandsArr[ret_num]    = ret_command;

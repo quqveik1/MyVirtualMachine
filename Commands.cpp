@@ -32,7 +32,16 @@ ErrorCode out_command(Processor& processor, int codedCommandNum)
 
     if (!hasConst)
     {
-        CommandDataType num = processor.getRuntimeData().peek();
+        CommandDataType num = 0;
+        try
+        {
+            num = processor.getRuntimeData().peek();
+        }
+        catch (...)
+        {
+            return ErrorCode::EmptyStackGetError;
+        }
+
         std::cout << deConvNum<CommandDataFloatType>(num) << std::endl;
 
         return ErrorCode::WellCode;
@@ -62,9 +71,25 @@ ErrorCode callRam(Processor& processor, int codedNum)
 
     if(hasRamCall)
     {
-        CommandDataType ramPos = deConvNum<CommandDataType>(processor.getRuntimeData().peek());
+        CommandDataType ramPos = 0;
+        try
+        {
+            ramPos = deConvNum<CommandDataType>(processor.getRuntimeData().peek());
+        }
+        catch (...)
+        {
+            return ErrorCode::EmptyStackGetError;
+        }
 
-        CommandDataType ramData = processor.getAppRAM()[ramPos];
+        CommandDataType ramData = 0;
+        try
+        {
+            ramData = processor.getAppRAM()[ramPos];
+        }
+        catch (...)
+        {
+            return ErrorCode::RAMOutOfBounds;
+        }
 
         processor.getRuntimeData().push(ramData);
     }
@@ -95,14 +120,38 @@ ErrorCode evalExpression(Processor& processor, int codedCommandNum)
     decodeNumberRepresentation(codedCommandNum, &hasConst, &hasRegister);
     if (hasConst)
     {
-        CommandDataType constNum = *processor.getCommandData().peek<CommandDataType>();
+        CommandDataType constNum = 0;
+        try
+        {
+            constNum = *processor.getCommandData().peek<CommandDataType>();
+        }
+        catch (...)
+        {
+            return ErrorCode::CommandDataReadError;
+        }
         processor.getRuntimeData().push(constNum);
     }
 
     if (hasRegister)
     {
-        CommandDataType regNum = *processor.getCommandData().peek<CommandDataType>();
-        processor.getRuntimeData().push(processor.getAppRegister().getReg((int)deConvNum<CommandDataType>(regNum)));
+
+        CommandDataType regNum = 0;
+        try
+        {
+            regNum = *processor.getCommandData().peek<CommandDataType>();
+        }
+        catch (...)
+        {
+            return ErrorCode::CommandDataReadError;
+        }
+        try
+        {
+            processor.getRuntimeData().push(processor.getAppRegister().getReg((int)deConvNum<CommandDataType>(regNum)));
+        }
+        catch (...)
+        {
+            return ErrorCode::RegisterNotFound;
+        }
     }
 
     if (hasConst && hasRegister)
@@ -143,7 +192,14 @@ ErrorCode add_command(Processor& processor, int codedCommandNum)
 {
     CommandDataFloatType a = 0, b = 0;
 
-    get2Arg(a, b, processor);
+    try
+    {
+        get2Arg(b, a, processor);
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     a = a + b;
 
@@ -156,7 +212,14 @@ ErrorCode sub_command(Processor& processor, int codedCommandNum)
 {
     CommandDataFloatType a = 0, b = 0;
 
-    get2Arg(a, b, processor);
+    try
+    {
+        get2Arg(b, a, processor);
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     a = b - a;
 
@@ -169,7 +232,14 @@ ErrorCode mul_command(Processor& processor, int codedCommandNum)
 {
     CommandDataFloatType a = 0, b = 0;
 
-    get2Arg(a, b, processor);
+    try
+    {
+        get2Arg(b, a, processor);
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     a = a * b;
 
@@ -182,9 +252,16 @@ ErrorCode div_command(Processor& processor, int codedCommandNum)
 {
     CommandDataFloatType a = 0, b = 0;
 
-    get2Arg(a, b, processor);
+    try
+    {
+        get2Arg(b, a, processor);
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
-    a = b / a;
+    a = a / b;
 
     processor.getRuntimeData().push(convNum(a));
 
@@ -201,12 +278,29 @@ ErrorCode pop_command(Processor& processor, int codedCommandNum)
     if(hasRamCall)
     {
         evalExpression(processor, codedCommandNum);
-        CommandDataType ramPos = deConvNum<CommandDataType>(processor.getRuntimeData().peek());
-        CommandDataType& ramData = processor.getAppRAM()[ramPos];
+        CommandDataType ramPos = 0;
+        try
+        {
+            ramPos = deConvNum<CommandDataType>(processor.getRuntimeData().peek());
+        }
+        catch (...)
+        {
+            return ErrorCode::EmptyStackGetError;
+        }
+
+        CommandDataType* ramData = &ramPos;
+        try
+        {
+            ramData = &processor.getAppRAM()[ramPos];
+        }
+        catch (...)
+        {
+            return ErrorCode::RAMOutOfBounds;
+        }
 
         try
         {
-            ramData = processor.getRuntimeData().peek();
+            *ramData = processor.getRuntimeData().peek();
         }
         catch (...)
         {
@@ -217,11 +311,34 @@ ErrorCode pop_command(Processor& processor, int codedCommandNum)
         return ErrorCode::WellCode;
     }
 
-    CommandDataType regNum = deConvNum<CommandDataType>(*processor.getCommandData().peek<CommandDataType>());
+    CommandDataType regNum = 0;
+    try
+    {
+        regNum = deConvNum<CommandDataType>(*processor.getCommandData().peek<CommandDataType>());
+    }
+    catch (...)
+    {
+        return ErrorCode::CommandEndFileErrorCode;
+    }
 
-    CommandDataFloatType data = deConvNum<CommandDataFloatType>(processor.getRuntimeData().peek());
+    CommandDataFloatType data = 0;
+    try
+    {
+        data = deConvNum<CommandDataFloatType>(processor.getRuntimeData().peek());
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
-    processor.getAppRegister().setReg((int)regNum, convNum(data));
+    try
+    {
+        processor.getAppRegister().setReg((int)regNum, convNum(data));
+    }
+    catch (...)
+    {
+        return ErrorCode::RegisterNotFound;
+    }
 
     return ErrorCode::WellCode;
 }
@@ -261,7 +378,14 @@ ErrorCode ja_command(Processor& processor, int codedCommandNum)
 {
     CommandDataFloatType b = 0, a = 0;
 
-    get2Arg(b, a, processor);
+    try
+    {
+        get2Arg(b, a, processor);
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     bool expressionRes = a > b;
 
@@ -272,7 +396,14 @@ ErrorCode jae_command(Processor& processor, int codedCommandNum)
 {
     CommandDataFloatType b = 0, a = 0;
 
-    get2Arg(b, a, processor);
+    try
+    {
+        get2Arg(b, a, processor);
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     bool expressionRes = a >= b;
 
@@ -283,7 +414,14 @@ ErrorCode jb_command(Processor& processor, int codedCommandNum)
 {
     CommandDataFloatType b = 0, a = 0;
 
-    get2Arg(b, a, processor);
+    try
+    {
+        get2Arg(b, a, processor);
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     bool expressionRes = a < b;
 
@@ -299,7 +437,14 @@ ErrorCode jbe_command(Processor& processor, int codedCommandNum)
 {
     CommandDataFloatType b = 0, a = 0;
 
-    get2Arg(b, a, processor);
+    try
+    {
+        get2Arg(b, a, processor);
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     bool expressionRes = a <= b;
 
@@ -310,7 +455,14 @@ ErrorCode je_command(Processor& processor, int codedCommandNum)
 {
     CommandDataFloatType b = 0, a = 0;
 
-    get2Arg(b, a, processor);
+    try
+    {
+        get2Arg(b, a, processor);
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     bool expressionRes = a == b;
 
@@ -321,7 +473,14 @@ ErrorCode jne_command(Processor& processor, int codedCommandNum)
 {
     CommandDataFloatType b = 0, a = 0;
 
-    get2Arg(b, a, processor);
+    try
+    {
+        get2Arg(b, a, processor);
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     bool expressionRes = a != b;
 
@@ -330,7 +489,15 @@ ErrorCode jne_command(Processor& processor, int codedCommandNum)
 
 ErrorCode sqrt_command(Processor& processor, int codedCommandNum)
 {
-    CommandDataFloatType a = deConvNum<CommandDataFloatType>(processor.getRuntimeData().peek());
+    CommandDataFloatType a = 0;
+    try
+    {
+        a = deConvNum<CommandDataFloatType>(processor.getRuntimeData().peek());
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     double res = sqrt(a);
 
@@ -341,7 +508,16 @@ ErrorCode sqrt_command(Processor& processor, int codedCommandNum)
 
 ErrorCode sin_command(Processor& processor, int codedCommandNum)
 {
-    CommandDataFloatType a = deConvNum<CommandDataFloatType>(processor.getRuntimeData().peek());
+
+    CommandDataFloatType a = 0;
+    try
+    {
+        a = deConvNum<CommandDataFloatType>(processor.getRuntimeData().peek());
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     CommandDataFloatType res = (CommandDataFloatType)sinus((CommandDataFloatType)a);
 
@@ -410,6 +586,25 @@ double sinus(double number, int len/* = defaultSinLen*/)
     return res;
 }
 
+ErrorCode fmod_command(Processor& processor, int codedCommandNum)
+{
+    CommandDataFloatType divisible = 0, divider = 0;
+
+    try
+    {
+        get2Arg(divider, divisible, processor);
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
+
+    CommandDataFloatType ans = std::fmod(divisible, divider);
+    processor.getRuntimeData().push(convNum(ans));
+
+    return ErrorCode::WellCode;
+}
+
 ErrorCode call_command(Processor& processor, int codedCommandNum)
 {
     processor.getCallStack().push(processor.getCommandData().getCurrPos() + sizeof(CommandDataType));
@@ -420,7 +615,15 @@ ErrorCode call_command(Processor& processor, int codedCommandNum)
 
 ErrorCode ret_command(Processor& processor, int codedCommandNum)
 {
-    CommandDataType lastPos = processor.getCallStack().peek();
+    CommandDataType lastPos = 0;
+    try
+    {
+        lastPos = processor.getCallStack().peek();
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyCallStackReturnError;
+    }
 
     doJump(processor, lastPos);
 
@@ -429,8 +632,16 @@ ErrorCode ret_command(Processor& processor, int codedCommandNum)
 
 //!!!
 ErrorCode neg_command(Processor& processor, int codedCommandNum)
-{
-    CommandDataType num = processor.getRuntimeData().peek();
+{      
+    CommandDataType num = 0;
+    try
+    {
+        num = processor.getRuntimeData().peek();
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     num = deConvNum<CommandDataType>(num);
 
@@ -446,6 +657,7 @@ ErrorCode neg_command(Processor& processor, int codedCommandNum)
 //if has constant it is runtime breakpoint
 ErrorCode into_command(Processor& processor, int codedCommandNum)
 {
+    return ErrorCode::WellCode;
     bool hasConstant = false;
     codedCommandNum = decodeNumberRepresentation(codedCommandNum, &hasConstant);
 
@@ -461,13 +673,24 @@ ErrorCode into_command(Processor& processor, int codedCommandNum)
 }
 
 ErrorCode setpxl_command(Processor& processor, int codedCommandNum)
-{
-    unsigned char blue = deConvNum<unsigned char> (processor.getRuntimeData().peek());
-    unsigned char green = deConvNum<unsigned char>(processor.getRuntimeData().peek());
-    unsigned char red = deConvNum<unsigned char>  (processor.getRuntimeData().peek());
+{        
+    unsigned char blue = 0, green = 0, red = 0;
 
-    CommandDataType y = deConvNum<CommandDataType>(processor.getRuntimeData().peek());
-    CommandDataType x = deConvNum<CommandDataType>(processor.getRuntimeData().peek());
+    CommandDataType x = 0, y = 0;
+
+    try
+    {
+        blue = deConvNum<unsigned char>(processor.getRuntimeData().peek());
+        green = deConvNum<unsigned char>(processor.getRuntimeData().peek());
+        red = deConvNum<unsigned char>(processor.getRuntimeData().peek());
+
+        y = deConvNum<CommandDataType>(processor.getRuntimeData().peek());
+        x = deConvNum<CommandDataType>(processor.getRuntimeData().peek());
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
                      
     int color = convColor(red, green, blue);
 
@@ -479,7 +702,15 @@ ErrorCode setpxl_command(Processor& processor, int codedCommandNum)
 
 ErrorCode rdsys_command(Processor& processor, int codedCommandNum)
 {
-    int component = *processor.getCommandData().peek<int>();
+    int component = 0;
+    try
+    {
+        component = *processor.getCommandData().peek<int>();
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
 
     if(component == vsizex_num)
     {

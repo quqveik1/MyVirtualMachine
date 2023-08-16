@@ -33,4 +33,6 @@ enum class ErrorCode
     EmptyFileReadError            = -19,
 
     CommandsNoFileEndError        = -20,
+
+    EmptyCallStackReturnError      = -22
 };

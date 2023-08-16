@@ -10,6 +10,7 @@ const int cCommands = 256;
 
 using CommandDataType = long long;
 using CommandDataFloatType = double;
+using CommandDataIntType = long long;
 using CommandType = int;
 
 const std::wstring_view hlt_str    = L"hlt";
@@ -35,6 +36,7 @@ const std::wstring_view jne_str    = L"jne";
 
 const std::wstring_view sqrt_str   = L"sqrt";
 const std::wstring_view sin_str    = L"sin";
+const std::wstring_view fmod_str   = L"fmod";
 
 const std::wstring_view db_str     = L"db";
 
@@ -72,6 +74,7 @@ enum CommandNums
     jne_num    = 0xF1,
     sqrt_num   = 0x17,
     sin_num    = 0x18,
+    fmod_num   = 0x19,
     db_num     = 0x30,
     word_num   = 0x31,
     call_num   = 0xE8,
