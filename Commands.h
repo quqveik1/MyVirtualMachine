@@ -38,6 +38,7 @@ ErrorCode jne_command    (Processor& processor, int codedCommandNum);
 
 ErrorCode sqrt_command   (Processor& processor, int codedCommandNum);
 ErrorCode sin_command    (Processor& processor, int codedCommandNum);
+ErrorCode fmod_command   (Processor& processor, int codedCommandNum);
 const int defaultSinLen                            = 8;
 double sinus                (double number, int len = defaultSinLen);
 unsigned long long factorial(int n);

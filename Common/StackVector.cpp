@@ -23,7 +23,7 @@ void StackVector<T>::pop()
 {
     if(getData().size() == 0)
     {
-        throw std::runtime_error("Нельзя удаляться из пустого стека");
+        throw std::runtime_error("Нельзя удалять из пустого стека");
         return;
     }
     getData().pop_back();
@@ -34,7 +34,7 @@ T StackVector<T>::get()
 {
     if (getData().empty())
     {
-        throw std::runtime_error("Нельзя удаляться из пустого стека");
+        throw std::runtime_error("Нельзя удалять из пустого стека");
         return {};
     }
     return getData().back();

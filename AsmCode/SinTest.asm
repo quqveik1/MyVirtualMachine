@@ -1,21 +1,5 @@
 jmp main
 
-convertPixelsToRadians:
-push bx
-div
-push ax
-mul
-ret
-
-
-convertSinToPixels:
-push dx
-mul
-neg
-push dx
-add
-ret
-
 sinus:
 push 0
 pop [0]
@@ -26,7 +10,7 @@ pop [1]
 push 1
 pop [2]
 
-push 10
+push 7
 pop [3]
 
 pop [4]
@@ -59,12 +43,16 @@ pop [6]
 	push [7]
 	push 1
 	add
+	pop [7]
+	push [7]
 	push [2]
 	mul
 	pop [2]
 	push [7]
 	push 1
 	add
+	pop [7]
+	push [7]
 	push [2]
 	mul
 	pop [2]
@@ -87,43 +75,22 @@ pop [6]
 	jb sinFor
 
 push [0]
-ret	
-
+ret
 
 main:
 
-push 3.14159265
-pop ax
-push 31.4159265
-pop bx
-rdsys vsizey
-push 2
-div
-pop dx
-
 push 0
-pop cx
+call sinus
+out
+push 1.5
+call sinus
+out
+push 3
+call sinus
+out
 
-	drawCircle:
-
-	push cx
-	call convertPixelsToRadians
-	call sinus
-	pop [0]
-	push cx
-	push [0]
-	call convertSinToPixels
-	push 255
-	push 255
-	push 255
-	setpxl
-
-	push cx+1
-	pop cx
-	push cx
-	push 100
-	jb drawCircle 
-
-in
+push 6.28
+call sinus
+out
 
 hlt

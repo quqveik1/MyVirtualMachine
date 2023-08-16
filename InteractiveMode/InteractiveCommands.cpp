@@ -98,7 +98,15 @@ ErrorCode delete_command(Processor& processor, InteractiveCode& code, std::wstri
 
 ErrorCode examine_command(Processor& processor, InteractiveCode& code, std::wstring_view& data)
 {
-    int memPos = std::stoi((std::wstring)data, nullptr, 16);
+    int memPos = 0;
+    try
+    {
+        memPos = std::stoi((std::wstring)data, nullptr, 16);
+    }
+    catch(...)
+    {
+        return ErrorCode::InteractiveCommandDataError;
+    }
 
     processor.getAppRAM().print(memPos);
 

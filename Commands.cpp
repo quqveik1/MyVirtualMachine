@@ -204,7 +204,15 @@ ErrorCode pop_command(Processor& processor, int codedCommandNum)
         CommandDataType ramPos = deConvNum<CommandDataType>(processor.getRuntimeData().peek());
         CommandDataType& ramData = processor.getAppRAM()[ramPos];
 
-        ramData = processor.getRuntimeData().peek();
+        try
+        {
+            ramData = processor.getRuntimeData().peek();
+        }
+        catch (...)
+        {
+            return ErrorCode::EmptyStackGetError;
+        }
+            
 
         return ErrorCode::WellCode;
     }
@@ -278,6 +286,11 @@ ErrorCode jb_command(Processor& processor, int codedCommandNum)
     get2Arg(b, a, processor);
 
     bool expressionRes = a < b;
+
+    CommandDataType deconvDenom = deConvNum<CommandDataType>(processor.getAppRAM()[2]);
+    CommandDataType i = deConvNum<CommandDataType>(processor.getAppRAM()[6]);
+    CommandDataType currIndex = deConvNum<CommandDataType>(processor.getAppRAM()[7]);
+    CommandDataFloatType res = deConvNum<CommandDataFloatType>(processor.getAppRAM()[0]);
 
     return commonJmpFnc(processor, expressionRes, codedCommandNum);
 }

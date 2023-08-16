@@ -9,8 +9,8 @@ class RuntimeInfoCollector
 {
     std::deque<RuntimeCommandInfo> commands;
 
-    const int HistoryLen       = 16;
-    const int PrintByteDataLen = 8;
+    const int HistoryLen       = 32;
+    const int PrintByteDataLen = 12;
 
     Processor& processor;
 

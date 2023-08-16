@@ -55,11 +55,11 @@ ErrorCode RuntimeInfoCollector::print()
         ErrorCode res = disassemble(ans, info);
         if (res != ErrorCode::WellCode) return res;
 
-        std::cout << std::setw(2) << std::setfill('0') << std::right << std::dec << i << " | ";
+        std::cout << std::setw(3) << std::setfill('0') << std::right << std::dec << i << " | ";
 
         std::cout << std::setw(5) << std::setfill('0') << std::hex << std::right << info.commandStart;
 
-        static const int marginData = 10;
+        static const int marginData = 11;
 
         std::wstring output;
         char* arr = processor.getCommandData().getArr();

@@ -18,8 +18,6 @@
 
 ErrorCode readByteCode(std::string path)
 {
-    initCommandsArr();
-
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
     Processor processor;
@@ -27,17 +25,6 @@ ErrorCode readByteCode(std::string path)
     return processor.startExecutingProgramm(path);
 
 }
-
-long fileSize(FILE* File)
-{
-    struct stat buff = {};
-    buff.st_size = -1;
-
-    fstat(_fileno(File), &buff);
-
-    return buff.st_size;
-}
-
 /** File pos  |  Command pos  |  Command                 | Disassembly
  *  000172    |  0004         |  00 00 00 00 00 00 00 00 | push 5
  */

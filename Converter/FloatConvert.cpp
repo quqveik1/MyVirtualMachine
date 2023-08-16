@@ -5,7 +5,7 @@
 template <typename T>
 CommandDataType convNum(const T& num)
 {
-    return (CommandDataType)(num * (T)Convert10Power);
+    return (CommandDataType)(num * Convert10Power);
 }
 
 template <typename T>

@@ -25,8 +25,12 @@ enum class ErrorCode
     RegisterNotFound              = -13,
 
     InteractiveCommandNotFound    = -14,
+    InteractiveCommandDataError   = -21,
     DebugBreakCode                = -15,
     RAMOutOfBounds                = -16,
     BreakPointNotFounded          = -17,
-    SystemComponentNotFounded     = -18
+    SystemComponentNotFounded     = -18,
+    EmptyFileReadError            = -19,
+
+    CommandsNoFileEndError        = -20,
 };

@@ -70,6 +70,26 @@ ErrorCode LabelSearchIR::checkLabelLinking()
     if (!fixUpList.empty())
     {
         std::cout << "Label fix up list is not empty\n";
+        std::cout << "These words were not linked:\n";      
+        for(auto& el : fixUpList)
+        {
+            std::wcout << el.first << L" | ";
+
+            for(size_t i = 0; i < el.second.size(); i++)
+            {
+                std::cout << std::setw(5) << std::setfill('0') << el.second[i]->getLinePos();
+                if(el.second.size() - i > 1)
+                {
+                    std::cout << ", ";
+                }
+            }
+            std::cout << "\n";
+        }
+        std::cout << "These words were found in code:\n";
+        for (auto& el : words)
+        {
+            std::wcout << el.first << L"\n";
+        }
         return ErrorCode::NotEmptyFixUpLinkingLabelList;
     }
 

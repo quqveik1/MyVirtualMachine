@@ -21,6 +21,8 @@ Processor::Processor() :
 
 ErrorCode Processor::startExecutingProgramm(std::string& path)
 {
+    initCommandsArr();
+
     ErrorCode readRes = readFile(path);
 
     if (readRes == ErrorCode::WellCode)
@@ -43,7 +45,7 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
     }
     else
     {
-        std::cout << "Ïðîáëåìà çàïóñêà ñêîìïèëèðîâàííîãî áàéòêîäà: " << (int)readRes << std::endl;
+        std::cout << "ÐŸÑ€Ð¾Ð±Ð»ÐµÐ¼Ð° Ð·Ð°Ð¿ÑƒÑÐºÐ° ÑÐºÐ¾Ð¼Ð¿Ð¸Ð»Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾ Ð±Ð°Ð¹Ñ‚ÐºÐ¾Ð´Ð°: " << (int)readRes << std::endl;
     }
 
     return ErrorCode::WellCode;
@@ -145,9 +147,23 @@ void Processor::drawVram(sf::RenderWindow& window)
     }
 }
 
+long fileSize(FILE* File)
+{
+    struct stat buff = {};
+    buff.st_size = -1;
+
+    fstat(_fileno(File), &buff);
+
+    return buff.st_size;
+}
+
 ErrorCode Processor::readFile(std::string& path)
 {
     FILE* file = fopen(path.c_str(), "rb");
+    if(!file)
+    {
+        return ErrorCode::EmptyFileReadError;
+    }
 
     FileHeader fileHeader{};
 
@@ -157,11 +173,11 @@ ErrorCode Processor::readFile(std::string& path)
 
     if (!valRes)
     {
-        std::cout << "Îøèáêà ÷òåíèÿ çàãîëîâêà ôàéëà\n";
+        std::cout << "ÐžÑˆÐ¸Ð±ÐºÐ° Ñ‡Ñ‚ÐµÐ½Ð¸Ñ Ð·Ð°Ð³Ð¾Ð»Ð¾Ð²ÐºÐ° Ñ„Ð°Ð¹Ð»Ð°\n";
         return ErrorCode::FileHeaderReadErrorCode;
     }
 
-    long size = fileSize(file);
+    long size = fileSize(file) - sizeof(FileHeader);
 
     DataStack& dataStack = getCommandData();
 
@@ -197,7 +213,7 @@ void Processor::endProgramWithCode(ErrorCode code)
 
     if (code == ErrorCode::CommandBreakCode)
     {
-        std::cout << "\nÏðîãðàììà çàâåðøèëàñü óäà÷íî\n";
+        std::cout << "\nÐŸÑ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð° Ð·Ð°Ð²ÐµÑ€ÑˆÐ¸Ð»Ð°ÑÑŒ ÑƒÐ´Ð°Ñ‡Ð½Ð¾\n";
     }
     else
     {
@@ -214,7 +230,24 @@ ErrorCode Processor::executeCommand()
 {
     int filePos = getCommandData().getCurrPos();
 
-    int codedCommandNum = *getCommandData().peek<int>();
+    /*
+    if(filePos == 668)
+    {
+        DebugBreak();
+    }
+    */
+
+    int codedCommandNum = 0;
+
+    try
+    {
+        codedCommandNum = *getCommandData().peek<int>();
+    }
+    catch (...)
+    {
+        return ErrorCode::CommandsNoFileEndError;
+    }
+
     getBreakpoints().observeBreakpoints();
 
     int commandNum = decodeNumberRepresentation(codedCommandNum, NULL, NULL);

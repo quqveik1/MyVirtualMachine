@@ -4,7 +4,7 @@
 
 #include "ErrorCode.h"
 
-const int COMMANDSVERSION = 18;
+const int COMMANDSVERSION = 19;
 
 const int cCommands = 256;
 

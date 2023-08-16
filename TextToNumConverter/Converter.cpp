@@ -184,7 +184,7 @@ ErrorCode irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
 
         bytePosAfter = compileData.getCurrPos();
         compileData.addNewLineFinish(bytePosAfter);
-        int size = compileData.getData().size();
+        //int size = compileData.getData().size();
 
         fileListing.add2CompileCommand(commandIR, compileData, bytePosBefore, bytePosAfter);
     }
@@ -196,7 +196,6 @@ ErrorCode createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing&
 {
     for (int i = 0; i < cLines; i++)
     {
-
         int commandNum = 0;
 
         std::wstring_view commandName{};
@@ -233,6 +232,7 @@ ErrorCode createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing&
             }
 
             ir.getActiveCommand().setCommandNum(commandNum);
+            ir.getActiveCommand().setLinePos(i);
 
             ErrorCode res = ErrorCode::WellCode;
 
