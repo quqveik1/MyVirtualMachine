@@ -214,7 +214,7 @@ ErrorCode sub_command(Processor& processor, int codedCommandNum)
 
     try
     {
-        get2Arg(b, a, processor);
+        get2Arg(a, b, processor);
     }
     catch (...)
     {
@@ -557,6 +557,12 @@ unsigned long long factorial(int n)
 //5! | 120  | * 4 * 5
 //7! | 5040 | * 6 * 7
 
+//Debug:
+// c++ -  146ms
+// asm - 2851ms
+//Release:
+// c++ -    5ms
+// asm -   94ms
 double sinus(double number, int len/* = defaultSinLen*/)
 {
     double res = 0;

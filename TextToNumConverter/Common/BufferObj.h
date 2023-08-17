@@ -10,19 +10,19 @@ protected:
 public:
     std::vector<char>& getData() { return data; };
 
-    void put(const char* obj, int _size);
+    void put                  (const char* obj, int _size);
     template<typename T>
-    void put(T* obj);
+    void put                  (T* obj);
     template<typename T>
-    void put(T& obj);
+    void put                  (T& obj);
 
     template<typename T>
-    void putString(const T& str);
+    void putString            (const T& str);
 
-    void change(const char* obj, int _size, int pos);
+    void change               (const char* obj, int _size, int pos);
     template<typename T>
-    void change(T& obj, int pos);
+    void change               (T& obj, int pos);
 
-    int getCurrPos() { return currPos; }
+    int getCurrPos            () { return currPos; }
 
 };

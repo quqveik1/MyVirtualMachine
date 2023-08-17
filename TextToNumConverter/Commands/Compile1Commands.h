@@ -11,7 +11,7 @@ ErrorCode default_1compile               (CommandIR& commandIR, int commandNum, 
 
 ErrorCode out_1compile                   (CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir);
 
-ErrorCode convertArg(double& ans, std::wstring_view& arg, bool* isNumber, bool* reg, int base/* = 10*/);
+ErrorCode convertArg    (double& ans, std::wstring_view& arg, bool* isNumber, bool* reg, int base/* = 10*/);
 void findBrackets       (std::wstring_view& data, int& startPos, int& endPos);
 bool editDataForBrackets(std::wstring_view& data);
 
@@ -20,7 +20,7 @@ ErrorCode push_1compile                  (CommandIR& commandIR, int commandNum, 
 
 ErrorCode pop_1compile                   (CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir);
 
-bool isJmpWord           (std::wstring_view& arg);
+bool isJmpWord          (std::wstring_view& arg);
 ErrorCode saveWordExpression             (CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir);
 ErrorCode jmp_1compile                   (CommandIR& commandIR, int commandNum, std::wstring_view& data, IR& ir);
 

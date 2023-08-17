@@ -15,7 +15,6 @@ enum SystemComponents
 const std::wstring vsizex_str = L"vsizex";
 const std::wstring vsizey_str = L"vsizey";
 
-
 template <typename S>
 SystemComponents getComponentNumFromStr(S& str);
 
