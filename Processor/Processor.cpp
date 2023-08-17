@@ -8,9 +8,12 @@
 #include "CallStack.cpp"
 #include "ProcessorDebug/RuntimeInfoCollector.cpp"
 #include "BreakPoint/Breakpoints.cpp"
-#include "FileHeader.cpp"
+#include "../FileHeader/FileHeader.cpp"
 #include "../InteractiveMode/InteractiveCode.h"
 #include "../InteractiveMode/InteractiveMode.h"
+#include "../Constants/FncArrs.cpp"
+#include "../Constants/CommandConstants.cpp"
+#include "../InteractiveMode/InteractiveMode.cpp"
 
 Processor::Processor() :
     callStack(this),
@@ -18,6 +21,11 @@ Processor::Processor() :
     breakpoints(this)
 {
 };
+
+Processor::~Processor()
+{
+    delete[] getCommandData().getArr();
+}
 
 ErrorCode Processor::startExecutingProgramm(std::string& path)
 {
@@ -169,14 +177,6 @@ ErrorCode Processor::readFile(std::string& path)
 
     fread(&fileHeader, sizeof(FileHeader), 1, file);
 
-    bool valRes = fileHeader.validate();
-
-    if (!valRes)
-    {
-        std::cout << "Ошибка чтения заголовка файла\n";
-        return ErrorCode::FileHeaderReadErrorCode;
-    }
-
     long size = fileSize(file) - sizeof(FileHeader);
 
     DataStack& dataStack = getCommandData();
@@ -187,6 +187,14 @@ ErrorCode Processor::readFile(std::string& path)
     fread(dataStack.getArr(), sizeof(char), size, file);
 
     fclose(file);
+
+    bool valRes = fileHeader.validate(dataStack.getArr(), size);
+
+    if (!valRes)
+    {
+        std::cout << "Ошибка чтения заголовка файла\n";
+        return ErrorCode::FileHeaderReadErrorCode;
+    }
     return ErrorCode::WellCode;
 }
 
@@ -229,13 +237,6 @@ void Processor::endProgramWithCode(ErrorCode code)
 ErrorCode Processor::executeCommand()
 {
     int filePos = getCommandData().getCurrPos();
-
-    /*
-    if(filePos == 668)
-    {
-        DebugBreak();
-    }
-    */
 
     int codedCommandNum = 0;
 

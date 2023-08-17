@@ -17,6 +17,7 @@ namespace sf
 struct Processor
 {
     Processor();
+    ~Processor();
 
 private:
     RuntimeData runtimeData;

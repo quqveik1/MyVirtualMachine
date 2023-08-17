@@ -2,6 +2,8 @@
 
 #include "DisassemblerCommands.h"
 
+#include <sstream>
+
 #include "../../Constants/CommandConstants.h"
 #include "../../Processor/Register/RegisterCompile.cpp"
 #include "../../Common//StringViewExtension.cpp"

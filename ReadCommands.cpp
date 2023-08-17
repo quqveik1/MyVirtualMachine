@@ -4,17 +4,10 @@
 #include <iostream>
 #include <string>
 #include <queue>
+#include <queue>
 
-#include "..\StringSort\WStringFnc.cpp"
-
-#include "ReadCommands.h"
-#include "Constants/VMConstants.h"
-#include "Constants/CommandConstants.cpp"
-#include "Commands.cpp"
-#include "Constants/FncArrs.cpp"
-#include "FileHeader.cpp"
 #include "Processor/Processor.cpp"
-#include "InteractiveMode/InteractiveMode.cpp"
+
 
 ErrorCode readByteCode(std::string path)
 {

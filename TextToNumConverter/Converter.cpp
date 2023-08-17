@@ -5,7 +5,7 @@
 
 #include "Converter.h"
 #include "Commands/Compile1Commands.cpp"
-#include "../FileHeader.h"
+#include "../FileHeader/FileHeader.h"
 #include "Bin/BinCompileData.cpp"
 #include "../Converter/ByteConverter.cpp"
 #include "Commands/CompileArrs.cpp"
@@ -17,6 +17,7 @@
 #include "Commands/Compile2Commands.cpp"
 #include "../Common/StackFunc.cpp"
 #include "Parser/ParseCommand.cpp"
+#include "../FileHeader/FileHeader.cpp"
 
 void convertToNum(std::wstring path)
 {
@@ -122,6 +123,7 @@ void save2Files(std::wstring_view* oldLines, BinCompileData& dataArr, FileListin
     std::ofstream file(saveBinPath, std::ios::binary);
 
     FileHeader fileHeader;
+    fileHeader.setHashSum(&dataArr.getData()[0], dataArr.getData().size());
 
     file.write((char*)&fileHeader, sizeof(FileHeader));
 

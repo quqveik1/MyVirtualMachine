@@ -23,7 +23,7 @@ ret
 sinus:
 
 pop [8]
-push 100
+push 1
 pop [9]
 	testCircle:
 

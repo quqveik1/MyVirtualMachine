@@ -26,7 +26,7 @@ File listing Pass #1: Code -> Intermediate Representation
 0022 | #1commandNum: 0049; isFinal: 1; labelLinePos: 0022; |                                       | sinus:
 0023 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                       | 
 0024 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 05 00 00 00 00 08 00 00 00 00 00   | pop [8]
-0025 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 64 00 00 00 00 00   | push 100
+0025 | #1commandNum: 0006; isFinal: 1; labelLinePos: -001; | 06 01 00 00 00 00 01 00 00 00 00 00   | push 1
 0026 | #1commandNum: 0007; isFinal: 1; labelLinePos: -001; | 07 05 00 00 00 00 09 00 00 00 00 00   | pop [9]
 0027 | #1commandNum: 0049; isFinal: 1; labelLinePos: 0027; |                                       | 	testCircle:
 0028 | #1commandNum: 0000; isFinal: 1; labelLinePos: -001; |                                       | 
@@ -205,7 +205,7 @@ File listing Pass #2: Intermediate Representation -> Machine Code
 022 | #2 | 00070 |                                       | sinus:
 023 | #2 | 00070 |                                       | 
 024 | #2 | 00070 | 07 05 00 00 00 00 08 00 00 00 00 00   | pop [8]
-025 | #2 | 0007c | 06 01 00 00 00 00 64 00 00 00 00 00   | push 100
+025 | #2 | 0007c | 06 01 00 00 00 00 01 00 00 00 00 00   | push 1
 026 | #2 | 00088 | 07 05 00 00 00 00 09 00 00 00 00 00   | pop [9]
 027 | #2 | 00094 |                                       | 	testCircle:
 028 | #2 | 00094 |                                       | 
@@ -384,7 +384,7 @@ File listing Pass #3: Final Machine Code
 022 | #3 | 00070 |                                       | sinus:
 023 | #3 | 00070 |                                       | 
 024 | #3 | 00070 | 07 05 00 00 00 00 08 00 00 00 00 00   | pop [8]
-025 | #3 | 0007c | 06 01 00 00 00 00 64 00 00 00 00 00   | push 100
+025 | #3 | 0007c | 06 01 00 00 00 00 01 00 00 00 00 00   | push 1
 026 | #3 | 00088 | 07 05 00 00 00 00 09 00 00 00 00 00   | pop [9]
 027 | #3 | 00094 |                                       | 	testCircle:
 028 | #3 | 00094 |                                       | 
