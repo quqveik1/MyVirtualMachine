@@ -8,6 +8,17 @@
 #include "../Common/StringViewExtension.cpp"
 #include "../Converter/FloatConvert.h"
 
+RAM::RAM(int _xSize, int _ySize) :
+    xSize(_xSize),
+    ySize(_ySize),
+    VRAMSize(_xSize* _ySize)
+{
+    TotalSize = VRAMSize + arrSize;
+
+    data.resize(TotalSize);
+}
+
+
 CommandDataType& RAM::operator[](CommandDataType index)
 {
     if (!checkArrBound(arrSize, index))

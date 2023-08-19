@@ -1,9 +1,10 @@
 #pragma once
 
+#include "Converter.h"
+
 #include <locale>
 #include <cstdio>
 
-#include "Converter.h"
 #include "Commands/Compile1Commands.cpp"
 #include "../FileHeader/FileHeader.h"
 #include "Bin/BinCompileData.cpp"
@@ -19,7 +20,7 @@
 #include "Parser/ParseCommand.cpp"
 #include "../FileHeader/FileHeader.cpp"
 
-void compile(std::wstring path, bool needToCreateFileListing/* = true*/)
+void compile(std::string& path, bool needToCreateFileListing/* = true*/)
 {
     setlocale(LC_ALL, "russian");
 
@@ -39,7 +40,7 @@ void compile(std::wstring path, bool needToCreateFileListing/* = true*/)
     BinCompileData binCompileData;
     binCompileData.getData().reserve(cLines);
 
-    FileListing fileListing(binCompileData, lines, cLines, ir);
+    FileListing fileListing(binCompileData, lines, cLines, ir, needToCreateFileListing);
 
     ErrorCode irRes = createIR(lines, ir, cLines, fileListing);
     if(printAndFinish(irRes, L"Ошибка перевода в промежуточный вид, код: ", fullText, lines)) return;
@@ -52,11 +53,11 @@ void compile(std::wstring path, bool needToCreateFileListing/* = true*/)
 
     fileListing.end2Part();
 
-    ErrorCode finalListing = addToListingFinalCode(ir, binCompileData, fileListing);
+    ErrorCode finalListing = fileListing.createFinalCodeListing();
 
     if (printAndFinish(finalListing, L"Ошибка создания финального файла листинга код: ", fullText, lines)) return;
 
-    save2Files(lines, binCompileData, fileListing, cLines, path);
+    save2Files(binCompileData, fileListing, path);
 
     clearMem(fullText, lines);
 
@@ -113,12 +114,22 @@ db abc
 'c'
 */
 
-void save2Files(std::wstring_view* oldLines, BinCompileData& dataArr, FileListing& fileListing, int cLines, std::wstring path)
+void save2Files(BinCompileData& dataArr, FileListing& fileListing, std::string& path)
 {
     if (dataArr.getData().size() == 0) return;
 
-    std::wstring saveBinPath = path;
-    changeExtension(saveBinPath, L"bin");
+    saveBinCompileData(dataArr, path);
+
+    std::string listingPath = path;
+    changeExtension(listingPath, (std::string)"lst");
+
+    fileListing.saveInFile(listingPath);
+}
+
+void saveBinCompileData(BinCompileData& dataArr, std::string& path)
+{
+    std::string saveBinPath = path;
+    changeExtension(saveBinPath, (std::string)"bin");
 
     std::ofstream file(saveBinPath, std::ios::binary);
 
@@ -132,11 +143,6 @@ void save2Files(std::wstring_view* oldLines, BinCompileData& dataArr, FileListin
     file.write(&(dataArr.getData())[0], writeSize);
 
     file.close();
-
-    std::wstring listingPath = path;
-    changeExtension(listingPath, L"lst");
-
-    fileListing.saveInFile(listingPath);
 }
 
 void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines)
@@ -146,26 +152,13 @@ void clearMem(std::wstring_view& fullText, std::wstring_view* oldLines)
     if (fullText.data()) delete[] fullText.data();
 }
 
-ErrorCode addToListingFinalCode(IR& ir, BinCompileData& compileData, FileListing& fileListing)
-{
-    for (size_t i = 0; i < ir.getCommands().size(); i++)
-    {
-        fileListing.add3CompileCommand(ir.getCommand((int)i), compileData, compileData.getBufferLineStart()[i], compileData.getBufferLineFinish()[i]);
-    }
-
-    return ErrorCode::WellCode;
-}
-
 ErrorCode irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
 {
-
     for(size_t i = 0; i < ir.getCommands().size(); i++)
     {
         size_t bytePosBefore = compileData.getCurrPos();
         size_t bytePosAfter = bytePosBefore;
-        compileData.addNewLineStart(bytePosBefore);
-        compileData.setActiveLineNum(i);
-
+        fileListing.addNewBinLineStart(bytePosBefore);
 
         CommandIR& commandIR = ir.getCommand((int)i);
         if (isCommandNumValid(commandIR.getCommandNum()))
@@ -185,8 +178,7 @@ ErrorCode irToBin(IR& ir, BinCompileData& compileData, FileListing& fileListing)
         }
 
         bytePosAfter = compileData.getCurrPos();
-        compileData.addNewLineFinish(bytePosAfter);
-        //int size = compileData.getData().size();
+        fileListing.addNewBinLineFinish(bytePosAfter);
 
         fileListing.add2CompileCommand(commandIR, compileData, bytePosBefore, bytePosAfter);
     }

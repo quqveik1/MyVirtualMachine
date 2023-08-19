@@ -16,7 +16,7 @@ namespace sf
 
 struct Processor
 {
-    Processor();
+    Processor(int screenX, int screenY);
     ~Processor();
 
 private:
@@ -29,8 +29,8 @@ private:
     RuntimeInfoCollector   runtimeInfoCollector;
     Breakpoints            breakpoints;
 
-    const int xSize = 268;
-    const int ySize = 201;
+    const int xSize;
+    const int ySize;
     bool isProgrammActive = true;
     sf::RenderWindow* program_window = nullptr;
 

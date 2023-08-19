@@ -1,6 +1,8 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
 
+#include "ReadCommands.h"
+
 #include <iostream>
 #include <string>
 #include <queue>
@@ -9,11 +11,11 @@
 #include "Processor/Processor.cpp"
 
 
-ErrorCode readByteCode(std::string path)
+ErrorCode readByteCode(std::string& path, int screenX, int screenY)
 {
     setlocale(LC_ALL, "ru_RU.UTF-8");
 
-    Processor processor;
+    Processor processor(screenX, screenY);
 
     return processor.startExecutingProgramm(path);
 

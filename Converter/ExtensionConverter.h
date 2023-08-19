@@ -3,6 +3,8 @@
 #include <string>
 
 //extension without dot
-int deleteExtension(std::wstring& fileName);
+template<typename STR>
+int deleteExtension(STR& fileName);
 //extension without dot
-int changeExtension(std::wstring& fileName, std::wstring newExtension);
+template<typename STR>
+int changeExtension(STR& fileName, STR newExtension);

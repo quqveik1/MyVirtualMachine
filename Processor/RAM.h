@@ -1,24 +1,28 @@
 #pragma once
 
+#include <vector>
+
+#include "../Constants/CommandConstants.h"
+
 struct RAM
 {
-    static const CommandDataType arrSize   = 100;
+    const CommandDataType        arrSize   = 100;
 
-    static const CommandDataType xSize     = 268;
-    static const CommandDataType ySize     = 201;
-    static const CommandDataType VRAMSize  = xSize * ySize;
+    const CommandDataType        xSize;
+    const CommandDataType        ySize;
+    CommandDataType              VRAMSize;
 
-    static const CommandDataType TotalSize = VRAMSize + arrSize;
+    CommandDataType              TotalSize;
 private:
-    CommandDataType* data = new CommandDataType[TotalSize]{};
+    std::vector<CommandDataType> data;
 
 public:
-    ~RAM() { delete[] data; }
+                    RAM        (int _xSize, int _ySize);
 
     CommandDataType& operator[](CommandDataType index);
 
-    void print     (CommandDataType index);
+    void            print      (CommandDataType index);
 
     CommandDataType getPixel   (CommandDataType x, CommandDataType y);
-    void setPixel  (CommandDataType x, CommandDataType y, CommandDataType pix);
+    void            setPixel   (CommandDataType x, CommandDataType y, CommandDataType pix);
 };

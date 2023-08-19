@@ -4,10 +4,10 @@
 
 #include "../StrFormatting/PrintByteData.cpp"
 
-FileListing::FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir, bool _needToBeActive/* = true*/) :
+FileListing::FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir, bool _isActive/* = true*/) :
     bincompileData(_data),
     ir(_ir),
-    needToBeActive(_needToBeActive)
+    isActive(_isActive)
 {
     fileListing.reserve((int)(cLines*2 + 10));
     initListing();
@@ -55,7 +55,8 @@ void FileListing::addNewListingLine()
 
 ErrorCode FileListing::add1CompileCommand(CommandIR& commandIR)
 {
-    return ErrorCode::WellCode;
+    if(!isActive) return ErrorCode::WellCode;
+
     addNewListingLine();
 
     wchar_t buffer[20]{};
@@ -80,13 +81,13 @@ ErrorCode FileListing::add1CompileCommand(CommandIR& commandIR)
 
 ErrorCode FileListing::add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter)
 {
-    return ErrorCode::WellCode;
+    if (!isActive) return ErrorCode::WellCode;
     return add2PartCommand(commandIR, binCompileData, bytePosBefore, bytePosAfter, 2);
 }
 
 ErrorCode FileListing::add3CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter)
 {
-    return ErrorCode::WellCode;
+    if(!isActive) return ErrorCode::WellCode;
     return add2PartCommand(commandIR, binCompileData, bytePosBefore, bytePosAfter, 3);
 }
 
@@ -108,8 +109,23 @@ ErrorCode FileListing::add2PartCommand(CommandIR& commandIR, BinCompileData& bin
     return ErrorCode::WellCode;
 }
 
-void FileListing::saveInFile(std::wstring path)
+void FileListing::saveInFile(std::string& path)
 {
+    if (!isActive) return;
+
     std::ofstream listing(path);
     saveString(getFileListing(), listing);
+}
+
+
+ErrorCode FileListing::createFinalCodeListing()
+{
+    if (!isActive) return ErrorCode::WellCode;
+
+    for (size_t i = 0; i < ir.getCommands().size(); i++)
+    {
+        add3CompileCommand(ir.getCommand((int)i), bincompileData, getBinLinesStart()[i], getBinLinesFinish()[i]);
+    }
+
+    return ErrorCode::WellCode;
 }

@@ -1,10 +1,7 @@
-//
-// Created by Kurlic on 04.05.2023.
-//
 #pragma once
 
-#include <exception>
+#include <string>
 
-#include "Processor/Processor.h"
+#include "Constants/CommandConstants.h"
 
-ErrorCode readByteCode(std::string path);
+ErrorCode readByteCode(std::string& path, int screenX, int screenY);

@@ -14,13 +14,17 @@ private:
     BinCompileData& bincompileData;
     IR& ir;
 
+    std::vector<size_t> binLineStart;
+    std::vector<size_t> binLineFinish;
+    size_t              activeLineNum = 0;
+
     int outputLineNum = 0;
 
-    bool needToBeActive = true;
+    bool isActive = true;
 
 public:
 
-    FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir, bool _needToBeActive = true);
+    FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir, bool _isActive = true);
 
     void end1Part();
     void end2Part();
@@ -29,6 +33,11 @@ public:
     BinCompileData& getBinCompileData() { return bincompileData; };
     IR& getIR                        () { return ir; };
 
+    void addNewBinLineStart               (size_t pos) { if(isActive) binLineStart.push_back(pos); };
+    void addNewBinLineFinish              (size_t pos) { if (isActive) binLineFinish.push_back(pos); };
+    std::vector<size_t>& getBinLinesStart () { return binLineStart; };
+    std::vector<size_t>& getBinLinesFinish() { return binLineFinish; };
+
     int getOutputLineNum() { return outputLineNum; }
 
     int getListingFileActiveStringIndex     ();
@@ -36,12 +45,14 @@ public:
 
     void addNewListingLine();
 
-    void saveInFile(std::wstring path);
+    void saveInFile(std::string& path);
 
     ErrorCode add1CompileCommand(CommandIR& commandIR);
     ErrorCode add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter);
     ErrorCode add3CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter);
     ErrorCode add2PartCommand   (CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter, int passNum);
+
+    ErrorCode createFinalCodeListing();
 
 private:
     void initListing();

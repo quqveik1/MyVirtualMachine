@@ -1,12 +1,15 @@
 #pragma once
 #include "ExtensionConverter.h"
 
-//extension without dot
-int deleteExtension(std::wstring& fileName)
-{
-    size_t lastDotPos = fileName.rfind(L'.');
+#include <string>
 
-    if(lastDotPos != std::wstring::npos)
+//extension without dot
+template<typename STR>
+int deleteExtension(STR& fileName)
+{
+    size_t lastDotPos = fileName.rfind('.');
+
+    if(lastDotPos != STR::npos)
     {
         fileName.erase(lastDotPos);
         return 0;
@@ -16,11 +19,12 @@ int deleteExtension(std::wstring& fileName)
 }
 
 //extension without dot
-int changeExtension(std::wstring& fileName, std::wstring newExtension)
+template<typename STR>
+int changeExtension(STR& fileName, STR newExtension)
 {
     int res = deleteExtension(fileName);
 
-    fileName += L".";
+    fileName += '.';
     fileName += newExtension;
 
     return res;

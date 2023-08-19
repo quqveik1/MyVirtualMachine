@@ -15,10 +15,13 @@
 #include "../Constants/CommandConstants.cpp"
 #include "../InteractiveMode/InteractiveMode.cpp"
 
-Processor::Processor() :
+Processor::Processor(int screenX, int screenY) : 
     callStack(this),
     runtimeInfoCollector(*this),
-    breakpoints(this)
+    breakpoints(this),
+    xSize(screenX),
+    ySize(screenY),
+    appRAM(screenX, screenY)
 {
 };
 
