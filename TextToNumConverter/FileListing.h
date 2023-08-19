@@ -16,9 +16,11 @@ private:
 
     int outputLineNum = 0;
 
+    bool needToBeActive = true;
+
 public:
 
-    FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir);
+    FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir, bool _needToBeActive = true);
 
     void end1Part();
     void end2Part();

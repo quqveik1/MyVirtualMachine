@@ -146,6 +146,11 @@ ErrorCode getCommandNum(CommandType& commandNum, const std::wstring_view& comman
         commandNum = rdsys_num;
         return ErrorCode::WellCode;
     }
+    else if (commandName == wait_str)
+    {
+        commandNum = wait_num;
+        return ErrorCode::WellCode;
+    }
 
     return ErrorCode::CommandRecognizeError;
 }
@@ -242,6 +247,9 @@ ErrorCode getCommandName(CommandType commandNum, std::wstring& ans)
         break;
     case rdsys_num:
         ans = rdsys_str;
+        break;  
+    case wait_num:
+        ans = wait_str;
         break;
 
     default:

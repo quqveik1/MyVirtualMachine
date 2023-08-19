@@ -8,9 +8,9 @@ const int COMMANDSVERSION = 20;
 
 const int cCommands = 256;
 
-using CommandDataType = long long;
+using CommandDataType = int;
 using CommandDataFloatType = double;
-using CommandDataIntType = long long;
+using CommandDataIntType = int;
 using CommandType = int;
 
 const std::wstring_view hlt_str    = L"hlt";
@@ -52,6 +52,8 @@ const std::wstring_view into_str   = L"into";
 const std::wstring_view setpxl_str = L"setpxl";
 const std::wstring_view rdsys_str  = L"rdsys";
 
+const std::wstring_view wait_str   = L"wait";
+
 //------------------------------------------------------------------
 
 enum CommandNums
@@ -82,7 +84,8 @@ enum CommandNums
     neg_num    = 0xF8,
     into_num   = 0xCE,
     setpxl_num = 0x25,
-    rdsys_num  = 0x27
+    rdsys_num  = 0x27,
+    wait_num   = 0x29
 };
 
 //------------------------------------------------------------------

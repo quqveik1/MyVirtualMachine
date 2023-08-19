@@ -4,9 +4,10 @@
 
 #include "../StrFormatting/PrintByteData.cpp"
 
-FileListing::FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir) :
+FileListing::FileListing(BinCompileData& _data, std::wstring_view* _originalFileLines, int cLines, IR& _ir, bool _needToBeActive/* = true*/) :
     bincompileData(_data),
-    ir(_ir)
+    ir(_ir),
+    needToBeActive(_needToBeActive)
 {
     fileListing.reserve((int)(cLines*2 + 10));
     initListing();
@@ -54,6 +55,7 @@ void FileListing::addNewListingLine()
 
 ErrorCode FileListing::add1CompileCommand(CommandIR& commandIR)
 {
+    return ErrorCode::WellCode;
     addNewListingLine();
 
     wchar_t buffer[20]{};
@@ -78,11 +80,13 @@ ErrorCode FileListing::add1CompileCommand(CommandIR& commandIR)
 
 ErrorCode FileListing::add2CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter)
 {
+    return ErrorCode::WellCode;
     return add2PartCommand(commandIR, binCompileData, bytePosBefore, bytePosAfter, 2);
 }
 
 ErrorCode FileListing::add3CompileCommand(CommandIR& commandIR, BinCompileData& binCompileData, size_t bytePosBefore, size_t bytePosAfter)
 {
+    return ErrorCode::WellCode;
     return add2PartCommand(commandIR, binCompileData, bytePosBefore, bytePosAfter, 3);
 }
 

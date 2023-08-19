@@ -2,11 +2,10 @@ jmp main
 
 convertPixelsToRadians:
 push bx
-into
 div
-into
 push ax
 mul
+into
 ret
 
 
@@ -18,6 +17,7 @@ push dx
 push -1
 add
 add
+into
 ret
 
 sinus:
@@ -141,7 +141,9 @@ main:
 
 push 3.145
 pop ax
-push 31.45
+rdsys vsizex
+push 3
+div
 pop bx
 rdsys vsizey
 push 2
@@ -155,7 +157,7 @@ drawCircle:
 
 push cx
 call convertPixelsToRadians
-call sinus
+sin
 pop [57]
 push cx
 push [57]
@@ -168,7 +170,9 @@ setpxl
 push cx+1
 pop cx
 push cx
-push 100
+rdsys vsizex
 jb drawCircle 
+
+in
 
 hlt

@@ -15,6 +15,6 @@ ErrorCode createIR             (std::wstring_view* oldLines, IR& ir, int cLines,
 ErrorCode irToBin              (IR& ir, BinCompileData& compileData, FileListing& fileListing);
 ErrorCode addToListingFinalCode(IR& ir, BinCompileData& compileData, FileListing& fileListing);
 
-void convertToNum              (std::wstring path);
+void compile(std::wstring path, bool needToCreateFileListing = true);
 bool ifIsWordDoJob             (std::wstring_view& line, BinCompileData& data);
 bool isWord                    (std::wstring_view& line, std::wstring_view* word = nullptr);

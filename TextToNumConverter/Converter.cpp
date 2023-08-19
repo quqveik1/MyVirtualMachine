@@ -19,7 +19,7 @@
 #include "Parser/ParseCommand.cpp"
 #include "../FileHeader/FileHeader.cpp"
 
-void convertToNum(std::wstring path)
+void compile(std::wstring path, bool needToCreateFileListing/* = true*/)
 {
     setlocale(LC_ALL, "russian");
 
@@ -206,7 +206,6 @@ ErrorCode createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing&
 
         ir.addNewCommand();
         ir.getActiveCommand().setLine(&oldLines[i]);
-        
 
         if (commandName.size() > 0)
         {

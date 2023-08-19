@@ -51,4 +51,6 @@ ErrorCode neg_command    (Processor& processor, int codedCommandNum);
 ErrorCode into_command   (Processor& processor, int codedCommandNum);
 
 ErrorCode setpxl_command (Processor& processor, int codedCommandNum);
-ErrorCode rdsys_command     (Processor& processor, int codedCommandNum);
+ErrorCode rdsys_command  (Processor& processor, int codedCommandNum);
+
+ErrorCode wait_command   (Processor& processor, int codedCommandNum);

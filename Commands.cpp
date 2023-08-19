@@ -7,6 +7,9 @@
 #include <iostream>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <windows.h>
+#include <thread>
+#include <chrono>
 
 #include "Common/StackFunc.cpp"
 #include "Constants/CommandConstants.h"
@@ -732,4 +735,22 @@ ErrorCode rdsys_command(Processor& processor, int codedCommandNum)
     }
 
     return ErrorCode::SystemComponentNotFounded;
+}
+
+ErrorCode wait_command(Processor& processor, int codedCommandNum)
+{
+    CommandDataIntType length = 0;
+    try
+    {
+        length = deConvNum< CommandDataIntType>(processor.getRuntimeData().peek());
+    }
+    catch (...)
+    {
+        return ErrorCode::EmptyStackGetError;
+    }
+
+    //Sleep(length);
+    std::this_thread::sleep_for(std::chrono::milliseconds(30));
+
+    return ErrorCode::WellCode;
 }

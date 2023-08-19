@@ -29,8 +29,8 @@ private:
     RuntimeInfoCollector   runtimeInfoCollector;
     Breakpoints            breakpoints;
 
-    const int xSize = 800;
-    const int ySize = 800;
+    const int xSize = 268;
+    const int ySize = 201;
     bool isProgrammActive = true;
     sf::RenderWindow* program_window = nullptr;
 

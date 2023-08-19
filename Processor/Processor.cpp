@@ -97,7 +97,7 @@ void Processor::observeFrame(sf::RenderWindow& window)
 
 void Processor::drawFrame(sf::RenderWindow& window)
 {
-    drawLines(window);
+    //drawLines(window);
     drawVram(window);
 }
 
@@ -134,25 +134,28 @@ void Processor::drawLines(sf::RenderWindow& window)
 
 void Processor::drawVram(sf::RenderWindow& window)
 {
-    const int pixelSizeX = window.getSize().x / (int)appRAM.xSize;
-    const int pixelSizeY = window.getSize().y / (int)appRAM.ySize;
+    const int width  = (int)getAppRAM().xSize;
+    const int height = (int)getAppRAM().ySize;
 
-    for (int x = 0; x < getAppRAM().xSize; x ++)
+    sf::Image image;
+    image.create(width, height);
+
+    for (int x = 0; x < width; x++)
     {
-        for (int y = 0; y < getAppRAM().ySize; y ++)
+        for (int y = 0; y < height; y++)
         {
+            if (!isProgrammActive) return;
             int colorCode = (int)getAppRAM().getPixel(x, y);
-
-            sf::RectangleShape pixel(sf::Vector2f((float)pixelSizeX - 1, (float)pixelSizeY - 1));
-            pixel.setPosition((float)x * pixelSizeX, (float)y * pixelSizeY);
-
-            sf::Color color(colorCode);
-
-            pixel.setFillColor(color);
-
-            window.draw(pixel);
+            sf::Color color                          (colorCode);
+            image.setPixel                           (x, y, color);
         }
     }
+
+    sf::Texture texture;
+    texture.loadFromImage(image);
+
+    sf::Sprite sprite(texture);
+    window.draw(sprite);
 }
 
 long fileSize(FILE* File)

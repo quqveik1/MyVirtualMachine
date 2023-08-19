@@ -6,5 +6,6 @@
 
 int main()
 {
-    convertToNum(L"../AsmCode/Sinus.asm");
+    //compile(L"../../BadApple/asmCode.asm", true);
+    compile(L"../AsmCode/Sinus.asm", true);
 }

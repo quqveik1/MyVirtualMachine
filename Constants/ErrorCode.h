@@ -34,5 +34,5 @@ enum class ErrorCode
 
     CommandsNoFileEndError        = -20,
 
-    EmptyCallStackReturnError      = -22
+    EmptyCallStackReturnError     = -22
 };
