@@ -72,7 +72,7 @@ bool DataStack::moveCursor(int _delta)
 {
     if(_delta == 0)
     {
-        std::cout << "Нулевой сдвиг moveCursor\n";
+        std::cout << "Zero offset moveCursor\n";
     }
     return setCurrPos(getCurrPos() + _delta);
 }

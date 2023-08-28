@@ -56,7 +56,7 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
     }
     else
     {
-        std::cout << "Проблема запуска скомпилированного байткода: " << (int)readRes << std::endl;
+        std::cout << "Issue with running compiled bytecode: " << (int)readRes << std::endl;
     }
 
     return ErrorCode::WellCode;
@@ -198,7 +198,7 @@ ErrorCode Processor::readFile(std::string& path)
 
     if (!valRes)
     {
-        std::cout << "Ошибка чтения заголовка файла\n";
+        std::cout << "Error reading file header\n";
         return ErrorCode::FileHeaderReadErrorCode;
     }
     return ErrorCode::WellCode;
@@ -227,7 +227,7 @@ void Processor::endProgramWithCode(ErrorCode code)
 
     if (code == ErrorCode::CommandBreakCode)
     {
-        std::cout << "\nПрограмма завершилась удачно\n";
+        std::cout << "\nProgram has exited successfully\n";
     }
     else
     {

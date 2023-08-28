@@ -13,7 +13,7 @@
 
 ErrorCode readByteCode(std::string& path, int screenX, int screenY)
 {
-    setlocale(LC_ALL, "ru_RU.UTF-8");
+    setlocale(LC_ALL, "russian");
 
     Processor processor(screenX, screenY);
 

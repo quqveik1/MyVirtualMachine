@@ -19,12 +19,12 @@ ErrorCode RuntimeData::print(bool needToConvertToUserRepresentation/*= true*/)
 {
     if (getData().empty())
     {
-        std::cout << "Стек пуст" << std::endl;
+        std::cout << "Stack is empty" << std::endl;
                                                                                                                                                                                                  
         return ErrorCode::WellCode;
     }
 
-    std::cout << "Стек с начала до конца: \n";
+    std::cout << "Stack from start to end: \n";
 
     for(size_t i = 0; i < getData().size(); i++)
     {
@@ -42,7 +42,7 @@ ErrorCode RuntimeData::print(bool needToConvertToUserRepresentation/*= true*/)
         }
     }
 
-    std::cout << "Конец стека\n";
+    std::cout << "End of stack\n";
 
     return ErrorCode::WellCode;
 }

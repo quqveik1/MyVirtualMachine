@@ -10,15 +10,15 @@
 
 ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, InteractiveCode& code)
 {
-    std::cout << "-----Запущен интерактивный режим-----\n";
+    std::cout << "-----Interactive mode launched-----\n";
 
     processor.getBreakpoints().removeAllOnlyFromCode();
 
     defaultPrint(processor);
-    
+
     if (errorCode != ErrorCode::WellCode && errorCode != ErrorCode::DebugBreakCode)
     {
-        std::cout << "Он был вызван из-за ошибки " << std::dec << (int)errorCode << "\n";
+        std::cout << "It was triggered due to error " << std::dec << (int)errorCode << "\n";
     }
 
     code = ContinueInteractiveMode;
@@ -46,11 +46,11 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
         {
             if (res == ErrorCode::InteractiveCommandNotFound)
             {
-                std::cout << "Не найдено такой комманды\n";
+                std::cout << "Command not found\n";
             }
             else
             {
-                std::cout << "Ошибка выполнения комманды: " << std::dec << (int)res << std::endl;
+                std::cout << "Command execution error: " << std::dec << (int)res << std::endl;
             }
         }
 
@@ -60,7 +60,7 @@ ErrorCode startInteractiveMode(Processor& processor, ErrorCode errorCode, Intera
 
     processor.getBreakpoints().insertAllBack();
 
-    std::cout << "-----Конец интерактивного режима-----\n";
+    std::cout << "-----End of interactive mode-----\n";
 
     return ErrorCode::WellCode;
 }

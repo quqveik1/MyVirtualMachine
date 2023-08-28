@@ -19,7 +19,7 @@ int Stack::get()
 {
     if (getData().empty())
     {
-        std::cout << "Попытка взять из пустого стека элемент\n";
+        std::cout << "Attempt to take from an empty stack\n";
         return {};
     }
     return getData().top();

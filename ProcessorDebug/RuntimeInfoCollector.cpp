@@ -43,7 +43,7 @@ ErrorCode RuntimeInfoCollector::onError()
 
 ErrorCode RuntimeInfoCollector::print()
 {
-    std::cout << "Последние " << HistoryLen << " полностью исполненных комманд:  \n";
+    std::cout << "Last " << HistoryLen << " fully executed commands:  \n";
 
 
     for (size_t i = 0; i < getCommands().size(); i++)

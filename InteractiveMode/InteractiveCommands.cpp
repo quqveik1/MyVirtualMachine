@@ -66,7 +66,7 @@ void printRuntimeData(Processor& processor)
     ErrorCode res = processor.getRuntimeData().print();
     if (res != ErrorCode::WellCode)
     {
-        std::cout << "Ошибка при выполении распечатки стека: " << std::dec << (int)res << std::endl;
+        std::cout << "Error while printing the stack: " << std::dec << (int)res << std::endl;
     }
 }
 
@@ -75,7 +75,7 @@ void printRuntimeInfoDissassembler(Processor& processor)
     ErrorCode res = processor.getRuntimeInfoCollector().onError();
     if (res != ErrorCode::WellCode)
     {
-        std::cout << "Ошибка при выполении распечатки последних комманд: " << std::dec << (int)res << std::endl;
+        std::cout << "Error while executing print of the last commands: " << std::dec << (int)res << std::endl;
     }
 }
 

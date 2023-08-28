@@ -353,7 +353,7 @@ ErrorCode commonJmpFnc(Processor& processor, bool needToJump, int codedNum)
 
     if (needToJump)
     {
-        doJump(processor, jmpPos);
+        return doJump(processor, jmpPos);
     }
 
     return ErrorCode::WellCode;
@@ -365,7 +365,7 @@ ErrorCode doJump(Processor& processor, CommandDataType pos)
 
     if (!res)
     {
-        throw std::exception("Попытка перепрыгнуть на несуществующюю позицию");
+        //throw std::exception("Попытка перепрыгнуть на несуществующюю позицию");
         return ErrorCode::MachineCodeOutOfBound;
     }
 
@@ -742,7 +742,7 @@ ErrorCode wait_command(Processor& processor, int codedCommandNum)
     CommandDataIntType length = 0;
     try
     {
-        length = deConvNum< CommandDataIntType>(processor.getRuntimeData().peek());
+        length = deConvNum<CommandDataIntType>(processor.getRuntimeData().peek());
     }
     catch (...)
     {
@@ -750,7 +750,7 @@ ErrorCode wait_command(Processor& processor, int codedCommandNum)
     }
 
     //Sleep(length);
-    std::this_thread::sleep_for(std::chrono::milliseconds(30));
+    std::this_thread::sleep_for(std::chrono::milliseconds(length));
 
     return ErrorCode::WellCode;
 }

@@ -28,7 +28,16 @@ void compile(std::string& path, bool needToCreateFileListing/* = true*/)
     init2CompileArr();
 
     std::wstring_view fullText{};
-    readText(path, &fullText);
+    try
+    {
+        readText(path, &fullText);
+    }
+    catch (std::exception e)
+    {
+        std::cout << e.what() << std::endl;
+
+        return;
+    }
 
     std::wstring_view* lines = NULL;
 
@@ -43,26 +52,27 @@ void compile(std::string& path, bool needToCreateFileListing/* = true*/)
     FileListing fileListing(binCompileData, lines, cLines, ir, needToCreateFileListing);
 
     ErrorCode irRes = createIR(lines, ir, cLines, fileListing);
-    if(printAndFinish(irRes, L"Ошибка перевода в промежуточный вид, код: ", fullText, lines)) return;
+    if (printAndFinish(irRes, L"Error translating to intermediate representation, code: ", fullText, lines)) return;
 
     fileListing.end1Part();
-    std::wcout << L"Промежуточный слой успешно создан\n";
+    std::wcout << L"Intermediate layer successfully created\n";
 
     ErrorCode binRunRes = irToBin(ir, binCompileData, fileListing);
-    if (printAndFinish(binRunRes, L"Ошибка перевода в байтовый вид, код: ", fullText, lines)) return;
+    if (printAndFinish(binRunRes, L"Error translating to binary representation, code: ", fullText, lines)) return;
 
     fileListing.end2Part();
 
     ErrorCode finalListing = fileListing.createFinalCodeListing();
 
-    if (printAndFinish(finalListing, L"Ошибка создания финального файла листинга код: ", fullText, lines)) return;
+    if (printAndFinish(finalListing, L"Error creating final code listing file: ", fullText, lines)) return;
 
     save2Files(binCompileData, fileListing, path);
 
     clearMem(fullText, lines);
 
-    std::cout << "Компиляция завершилась успешно\n";
+    std::cout << "Compilation completed successfully\n";
 }
+
 
 bool printAndFinish(ErrorCode res, std::wstring str, std::wstring_view& fullText, std::wstring_view* lines)
 {
@@ -252,7 +262,7 @@ ErrorCode createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing&
 
 void printLineError(ErrorCode errorCode, int lineNum, std::wstring_view& line)
 {
-    std::wcout << L"Ошибка ["<< (int)errorCode <<L"] в распозновании команды в строке (" << lineNum << L")\n";
+    std::wcout << L"Error [" << (int)errorCode << L"] in command recognition in line (" << lineNum << L")\n";
     std::wcout << L"\"" << line << "\"\n";
 }
 

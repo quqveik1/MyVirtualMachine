@@ -25,12 +25,12 @@ void CallStack::print()
 {
     if (getData().empty())
     {
-        std::cout << "Стек вызовов пуст" << std::endl;
+        std::cout << "Call stack is empty" << std::endl;
 
         return;
     }
 
-    std::cout << "Стек вызовов с начала до конца: \n";
+    std::cout << "Call stack from start to end: \n";
 
     for (size_t i = 0; i < getData().size(); i++)
     {
@@ -39,5 +39,5 @@ void CallStack::print()
         std::cout << std::setw(5) << std::setfill('0') << std::right << std::dec << i << ": " << std::hex << data << std::endl;
     }
 
-    std::cout << std::dec << "Конец стека вызовов\n";
+    std::cout << std::dec << "End of call stack\n";
 }

@@ -8,9 +8,9 @@ const int COMMANDSVERSION = 20;
 
 const int cCommands = 256;
 
-using CommandDataType = int;
+using CommandDataType = long long;
 using CommandDataFloatType = double;
-using CommandDataIntType = int;
+using CommandDataIntType = long long;
 using CommandType = int;
 
 const std::wstring_view hlt_str    = L"hlt";

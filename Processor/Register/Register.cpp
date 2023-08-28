@@ -16,7 +16,7 @@ CommandDataType Register::getReg(int num)
     }
     else
     {
-        throw std::exception("Выход за пределы массива");
+        throw std::exception("Index out of bounds");
         return 0;
     }
 }
@@ -29,13 +29,13 @@ void Register::setReg(int num, CommandDataType value)
     }
     else
     {
-        throw std::exception("Выход за пределы массива");
+        throw std::exception("Index out of bounds");
     }
 }
 
 void Register::print(bool needToConvertToUserRepresentation/* = true*/)
 {
-    std::cout << "Распечатка регистров: \n";
+    std::cout << "Register printout: \n";
 
     std::wstring regName{};
 
@@ -61,5 +61,5 @@ void Register::print(bool needToConvertToUserRepresentation/* = true*/)
          
     }
 
-    std::cout << "Конец распечатки регистров\n";
+    std::cout << "End of register printout\n";
 }
