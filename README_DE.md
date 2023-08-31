@@ -149,3 +149,7 @@ Dies ist ein Prozessoremulationprojekt, um das **Gerät** von Prozessoren **zu v
   - Laden Sie das Repository herunter. Im Ordner `x64` -> `Release`. Kopieren Sie den Pfad zum Compiler (`TextToNumConverter.exe`) und zur Maschine (`MyVirtualMachine.exe`).
   - Rufen Sie den Compiler über die Befehlszeile auf und geben Sie den Pfad zur zu kompilierenden Datei an. Dann können Sie als Parameter angeben, ob Sie eine Listing-Datei benötigen (standardmäßig ja).
   - Rufen Sie dann die Maschine mit dem Parameterpfad zur kompilierten Datei auf und geben Sie die Größe (x, y) des zu erstellenden Bildschirms an (0 0, wenn Sie keine Grafik benötigen).
+
+----
+- [EN](https://github.com/quqveik1/MyVirtualMachine/blob/main/README_EN.md)
+- [RU](https://github.com/quqveik1/MyVirtualMachine/blob/main/README.md)
