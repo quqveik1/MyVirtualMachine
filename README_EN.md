@@ -92,3 +92,7 @@ This is a processor emulation project aimed at **understanding the inner working
   - Open the command line and call the compiler, specifying the path to the file you wish to compile. Optionally, you can indicate whether you need a listing file (enabled by default).
   - Then, call the machine with the compiled file's path as an argument, and specify the screen size(x, y) you want to create (use 0 0 if you don't need graphics).
 
+----
+- [RU](https://github.com/quqveik1/MyVirtualMachine/blob/main/README.md)
+- [DE](https://github.com/quqveik1/MyVirtualMachine/blob/main/README_DE.md)
+
