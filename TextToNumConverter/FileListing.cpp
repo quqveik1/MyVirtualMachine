@@ -60,7 +60,7 @@ ErrorCode FileListing::add1CompileCommand(CommandIR& commandIR)
     addNewListingLine();
 
     wchar_t buffer[20]{};
-    swprintf(buffer, 20, L"%04d | #1", getOutputLineNum());
+    swprintf(buffer, 20, L"%04d | #1 | ", getOutputLineNum());
 
     static const int startLen = (int)getActiveFileListingString().size();
 

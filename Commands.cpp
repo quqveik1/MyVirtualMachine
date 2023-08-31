@@ -666,7 +666,7 @@ ErrorCode neg_command(Processor& processor, int codedCommandNum)
 //if has constant it is runtime breakpoint
 ErrorCode into_command(Processor& processor, int codedCommandNum)
 {
-    return ErrorCode::WellCode;
+    //return ErrorCode::WellCode;
     bool hasConstant = false;
     codedCommandNum = decodeNumberRepresentation(codedCommandNum, &hasConstant);
 

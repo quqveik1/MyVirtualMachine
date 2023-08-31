@@ -4,8 +4,8 @@ int main(int argc, char** argv)
 {
 
     std::string path = "AsmCode/Sinus.bin";
-    int sizeX = 200;
-    int sizeY = 200;
+    int sizeX = 500;
+    int sizeY = 500;
 
     if (argc >= 2)
     {

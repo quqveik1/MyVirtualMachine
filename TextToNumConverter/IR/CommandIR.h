@@ -10,10 +10,10 @@ struct CommandIR : BufferObj
 {
     CommandIR();
 private:
-    CommandType commandNum = 0;
-    bool isFinal = true;
-    int labelLinePos = -1;
-    int linePos = -1;
+    CommandType        commandNum = 0;
+    bool               isFinal = true;
+    int                labelLinePos = -1;
+    int                linePos = -1;
     std::wstring_view* line;
 
 public:

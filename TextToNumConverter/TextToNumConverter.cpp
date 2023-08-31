@@ -6,7 +6,7 @@ int main(int argc, char** argv)
 {
 
     std::string path = "../AsmCode/Sinus.asm";
-    bool needToCreateFileListing = false;
+    bool needToCreateFileListing = true;
 
     if(argc > 1)
     {

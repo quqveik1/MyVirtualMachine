@@ -5,7 +5,6 @@ convertPixelsToRadians:
 	div
 	push ax
 	mul
-	into
 	ret
 
 
@@ -17,7 +16,6 @@ convertSinToPixels:
 	push -1
 	add
 	add
-	into
 	ret
 
 sinus:
@@ -103,12 +101,11 @@ sinus:
 		push [3]
 		jb sinFor
 
-		push [0]
-		ret
+	push [0]
+	ret
  
 
 main:
-
 	push 3.145
 	pop ax
 	rdsys vsizex
