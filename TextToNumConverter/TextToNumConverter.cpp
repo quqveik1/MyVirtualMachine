@@ -5,13 +5,12 @@
 int main(int argc, char** argv)
 {
 
-    std::string path = "../../BadApple/Code/asmCode1.asm";
+    std::string path = "../AsmCode/Sinus.asm";
     bool needToCreateFileListing = false;
 
     if(argc > 1)
     {
         path = std::string(argv[1], argv[1] + std::strlen(argv[1]));
-        std::cout << path << "\n";
     }
     if(argc > 2)
     {

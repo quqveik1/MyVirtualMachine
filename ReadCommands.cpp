@@ -15,7 +15,9 @@ ErrorCode readByteCode(std::string& path, int screenX, int screenY)
 {
     setlocale(LC_ALL, "russian");
 
-    Processor processor(screenX, screenY);
+    bool needWindow = (screenX != 0) && (screenY != 0);
+
+    Processor processor(screenX, screenY, needWindow);
 
     return processor.startExecutingProgramm(path);
 

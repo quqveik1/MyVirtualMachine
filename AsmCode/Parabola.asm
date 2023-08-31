@@ -1,10 +1,10 @@
 jmp main
 
 parabola:
-push 50
+push [0]
 sub
 pop bx
-push 10000
+push 1
 pop cx
 
 circleParabola:
@@ -28,6 +28,11 @@ ret
 
 main:
 
+rdsys vsizex
+push 2
+sub 
+pop [0]
+
 push 0
 pop ax
 
@@ -45,5 +50,6 @@ push ax
 push 100
 jb circle
 
+in
 
 hlt

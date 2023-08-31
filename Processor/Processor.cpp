@@ -15,13 +15,14 @@
 #include "../Constants/CommandConstants.cpp"
 #include "../InteractiveMode/InteractiveMode.cpp"
 
-Processor::Processor(int screenX, int screenY) : 
+Processor::Processor(int screenX, int screenY, bool _needGraphicsWindow) :
     callStack(this),
     runtimeInfoCollector(*this),
     breakpoints(this),
     xSize(screenX),
     ySize(screenY),
-    appRAM(screenX, screenY)
+    appRAM(screenX, screenY),
+    needGraphicsWindow(_needGraphicsWindow)
 {
 };
 
@@ -34,17 +35,14 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
 {
     initCommandsArr();
 
-    ErrorCode readRes = readFile(path);
+    ErrorCode code = readFile(path);
 
-    if (readRes == ErrorCode::WellCode)
+    if (code == ErrorCode::WellCode)
     {
         auto start = std::chrono::high_resolution_clock::now();
 
-        std::thread t(&Processor::startUiThread, this);
-        t.detach();
-        //sf::RenderWindow window(sf::VideoMode(xSize, ySize), "My Window", sf::Style::Titlebar);
-        //window.setFramerateLimit(60);
-        //program_window = &window;
+        code = startUiJob();
+        if (code != ErrorCode::WellCode) return code;
         
         readAndExecuteCommands();
 
@@ -53,10 +51,20 @@ ErrorCode Processor::startExecutingProgramm(std::string& path)
 
         std::cout << "Time elapsed: " << elapsed.count() << " ms" << std::endl;
         isProgrammActive = false;
+        return ErrorCode::WellCode;
     }
-    else
+
+    std::cout << "Issue with running compiled bytecode: " << (int)code << std::endl;
+
+    return code;
+}
+
+ErrorCode Processor::startUiJob()
+{
+    if (needGraphicsWindow)
     {
-        std::cout << "Issue with running compiled bytecode: " << (int)readRes << std::endl;
+        std::thread t(&Processor::startUiThread, this);
+        t.detach();
     }
 
     return ErrorCode::WellCode;
@@ -69,12 +77,7 @@ void Processor::startUiThread()
 
     while(isProgrammActive)
     {
-        //auto start = std::chrono::high_resolution_clock::now();
         observeFrame(window);
-        //auto end = std::chrono::high_resolution_clock::now();
-        //std::chrono::duration<double, std::milli> elapsed = end - start;
-
-        //std::cout << "Time frame: " << elapsed.count() << " ms" << std::endl;
     }
 }
 
@@ -215,8 +218,6 @@ void Processor::readAndExecuteCommands()
         {
             break;
         }
-
-        //observeFrame(*program_window);
     }
 
     endProgramWithCode(callCode);

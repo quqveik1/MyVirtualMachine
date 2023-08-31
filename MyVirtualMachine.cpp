@@ -3,9 +3,9 @@
 int main(int argc, char** argv)
 {
 
-    std::string path = "../BadApple/Code/asmCode1.bin";
-    int sizeX = 268;
-    int sizeY = 201;
+    std::string path = "AsmCode/Sinus.bin";
+    int sizeX = 200;
+    int sizeY = 200;
 
     if (argc >= 2)
     {

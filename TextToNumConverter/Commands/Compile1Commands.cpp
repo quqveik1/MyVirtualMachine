@@ -148,13 +148,21 @@ ErrorCode convertArg(double& ans, std::wstring_view& arg, bool* isNumber, bool* 
     if (!isRegister(arg))
     {
         *isNumber = true;
-        if(base != 10)
+        try
         {
-            ans = strToNum(arg, base);
+            if (base != 10)
+            {
+                ans = strToNum(arg, base);
+            }
+            else
+            {
+                ans = strToFloat<double>(arg);
+            }
         }
-        else
+        catch (std::exception e)
         {
-            ans = strToFloat<double>(arg);
+            std::cout << e.what() << "\n";
+            return ErrorCode::SymbolConvertationError;
         }
         return ErrorCode::WellCode;
     }

@@ -4,13 +4,13 @@
 
 #include <locale>
 #include <cstdio>
+#include <WStringFnc.cpp>
 
 #include "Commands/Compile1Commands.cpp"
 #include "../FileHeader/FileHeader.h"
 #include "Bin/BinCompileData.cpp"
 #include "../Converter/ByteConverter.cpp"
 #include "Commands/CompileArrs.cpp"
-#include "WStringFnc.cpp"
 #include "../Constants/CommandConstants.cpp"
 #include "../Converter/ExtensionConverter.cpp"
 #include "FileListing.cpp"
@@ -35,6 +35,7 @@ void compile(std::string& path, bool needToCreateFileListing/* = true*/)
     catch (std::exception e)
     {
         std::cout << e.what() << std::endl;
+        std::cout << "Error opening file for compiltation\n";
 
         return;
     }
@@ -55,7 +56,7 @@ void compile(std::string& path, bool needToCreateFileListing/* = true*/)
     if (printAndFinish(irRes, L"Error translating to intermediate representation, code: ", fullText, lines)) return;
 
     fileListing.end1Part();
-    std::wcout << L"Intermediate layer successfully created\n";
+    std::cout << "Intermediate layer successfully created\n";
 
     ErrorCode binRunRes = irToBin(ir, binCompileData, fileListing);
     if (printAndFinish(binRunRes, L"Error translating to binary representation, code: ", fullText, lines)) return;
@@ -251,6 +252,8 @@ ErrorCode createIR(std::wstring_view* oldLines, IR& ir, int cLines, FileListing&
             if (res != ErrorCode::WellCode)
             {
                 printLineError(res, i, oldLines[i]);
+
+                return res;
             }
         }
 
