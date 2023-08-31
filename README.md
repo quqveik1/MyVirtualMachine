@@ -145,6 +145,15 @@
    
   - Подробнее про команды отладчика [тут](https://github.com/quqveik1/MyVirtualMachine/blob/main/InteractiveMode/InteractiveModeConstants.h)
 
+
+# Запуск
+  - Скачайте репозиторий. Во папке `x64` -> `Release`. Скопируйте пусть к компилатору(`TextToNumConverter.exe`) и к машине(`MyVirtualMachine.exe`).
+  - Вызовите из командной строки компилятор и укажите путь к компилируемому файлу, далее в качестве параметра можно передать нужен ли вам файл листинга(по умолачнию да)
+  - Затем вызовите машину с параметром пути к скомпилированому файлу и укажите какого размера(x, y) экран следует создать(0 0 если вам графика не нужна)
+
+----
+- [EN](https://github.com/quqveik1/MyVirtualMachine/blob/main/README_EN.md)
+- [DE](https://github.com/quqveik1/MyVirtualMachine/blob/main/README_DE.md)
     
     
 
